@@ -1,0 +1,25 @@
+// Server side build.gradle
+// Builds the server-side of the project
+
+repositories {
+    mavenCentral()
+}
+
+apply plugin: 'java'
+apply plugin: 'application'
+
+mainClassName = 'umm3601.Server'
+
+dependencies {
+    compile 'com.sparkjava:spark-core:2.5.4'
+    compile 'org.slf4j:slf4j-simple:1.7.6'
+    compile 'com.google.code.gson:gson:2.8.0'
+
+    testCompile 'junit:junit:4.12'
+}
+
+task runWithTests {
+    group = "application"
+}
+
+runWithTests.dependsOn test

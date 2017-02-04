@@ -1,0 +1,6 @@
+// Client side build.gradle
+// Builds the client-side of the project
+
+plugins {
+
+}
