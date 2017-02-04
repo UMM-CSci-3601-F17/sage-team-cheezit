@@ -6,6 +6,7 @@ import { AppComponent }         from './app/app.component';
 import { NavbarComponent } from './app/navbar/navbar.component';
 import { HomeComponent} from './app/home/home.component';
 import { KittensComponent }   from './app/kittens/kittens.component';
+import { UserListComponent } from './app/users/user-list.component';
 import { routing } from './app/app.routes';
 
 @NgModule({
@@ -19,7 +20,8 @@ import { routing } from './app/app.routes';
         AppComponent,
         KittensComponent,
         HomeComponent,
-        NavbarComponent
+        NavbarComponent,
+        UserListComponent
     ],
     bootstrap: [ AppComponent ]
 })
