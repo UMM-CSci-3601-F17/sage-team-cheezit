@@ -73,4 +73,16 @@ and when to simply use Angular's awesome filtering tools to change how
 the data is displayed. You have to use Angular's filtering at least a little
 bit. Make note of why you choose to do things the way you did.
 
+### Remember to test!
+
+- Your project should have a tests, and should have working TravisCI integration.
+
+>Interestingly enough, though, there won't be much _more_ to test in this lab than there 
+>was in Lab #2 due the the fact that we're not _really_ adding more "business logic", 
+>we're just changing how we display the JSON we get back from the server.
+>
+>So: don't freak out over trying to add more tests, just make sure that what little code
+>you have is written in a testable way, and has some tests.
+
+
 
