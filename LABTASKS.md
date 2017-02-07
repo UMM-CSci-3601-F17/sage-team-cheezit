@@ -66,6 +66,8 @@ client-side interface which:
     - ???
     - Profit
     
+- Your new functionality should be contained in a 'todos' view, with a 'todo-list' component.
+    
 - You should make some decisions about when to request data from the API,
 and when to simply use Angular's awesome filtering tools to change how
 the data is displayed. You have to use Angular's filtering at least a little
