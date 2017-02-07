@@ -45,12 +45,11 @@ cool client side stuff, you'll need to have a working implementation of the
 API from Lab #2.
 
 - Work with your partner to (once again) implement the todo API from lab #2.
-You are encouraged to re-use code from Lab #2, and to make decisions
-regarding whose implementation(s) you'll want to pick for this lab.
+You are encouraged to re-use code from Lab #2, and to make decisions about how
+to mix-and-match code from your respective versions of Lab #2.
 
-- Your group should keep some record of the discussion of which API
-implementations to use. This can be comments on issues, comments in your code,
-a note in your writeup for this lab, etc.
+- Your group should keep some record of the discussion here. This can be comments 
+on issues, comments in your code, a note in your writeup for this lab, etc.
 
 
 ### Writing a beautiful client side application
