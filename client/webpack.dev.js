@@ -5,6 +5,7 @@ const path = require('path');
 const webpack = require('webpack');
 const ChunkWebpack = webpack.optimize.CommonsChunkPlugin;
 const ProvidePlugin = webpack.ProvidePlugin;
+const DefinePlugin = webpack.DefinePlugin;
 
 module.exports = {
     devServer: {
@@ -48,6 +49,10 @@ module.exports = {
             filename: 'index.html',
             inject: 'body',
             template: path.resolve('src', 'index.html')
+        }),
+        new DefinePlugin({
+            'ENV': JSON.stringify('development'),
+            'API_URL': JSON.stringify('http://localhost:4567/api/')
         })
     ],
     resolve: {

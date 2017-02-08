@@ -5,7 +5,7 @@ import {Observable} from "rxjs";
 
 @Injectable()
 export class UserListService {
-    private baseUrl: string = "http://localhost:4567/api/";
+    private baseUrl: string = API_URL;
     constructor(private http:Http) { }
 
     getUsers(): Observable<User[]> {

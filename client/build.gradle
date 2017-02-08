@@ -2,17 +2,19 @@
 // Builds the client-side of the project
 
 plugins {
-    id "com.moowork.node" version "1.1.1"
+    id 'com.moowork.node' version '1.1.1'
 }
 
 node {
     version = '6.4.0'
     download = true
     workDir = file("${project.projectDir}/node")
+    yarnWorkDir = file("${project.projectDir}/yarn")
     nodeModulesDir = file("${project.projectDir}/")
 }
 
-// run all task
-task buildClient{}
-buildClient.dependsOn(yarn_install)
-buildClient.dependsOn(yarn_run_start)
+task runClient (type: Exec) {
+    executable './run.sh'
+    args = ['run', 'start']
+}
+runClient.dependsOn(yarn_install)
