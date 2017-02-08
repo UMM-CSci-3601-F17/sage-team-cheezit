@@ -39,18 +39,8 @@ directory.
 ### Todo API: Redux
 
 In lab #2, you worked with your partner to implement an API for requesting
-'to-dos' from a server. In this lab, you'll be working on implementing a more
-useful front-end to make use of this API. Before you can begin work on your
-cool client side stuff, you'll need to have a working implementation of the
-API from Lab #2.
-
-- Work with your partner to (once again) implement the todo API from lab #2.
-You are encouraged to re-use code from Lab #2, and to make decisions about how
-to mix-and-match code from your respective versions of Lab #2.
-
-- Your group should keep some record of the discussion here. This can be comments 
-on issues, comments in your code, a note in your writeup for this lab, etc.
-
+'to-dos' from a server. In this lab, you'll be using a to-do API provided
+(as a jar file) with the lab.
 
 ### Writing a beautiful client side application
 
