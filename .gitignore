@@ -1,6 +1,2 @@
 .idea
 .gradle
-nohup.out
-yarn.error.log
-yarn.stdout.log
-

@@ -13,20 +13,10 @@ node {
     nodeModulesDir = file("${project.projectDir}/")
 }
 
-
-task stopClient (type: Exec) {
-     executable 'sh'
-     args "-c", "./stop.sh"
+task runClient(type: Exec) {
+    executable "node_modules/webpack-dev-server/bin/webpack-dev-server.js"
+    args = ["--config", "./webpack.dev.js", "--colors"]
 }
-
-task runClient << {
-     def processBuilder = new ProcessBuilder(['sh', '-c', './run.sh'])
-     processBuilder.redirectError(new File("./yarn.error.log"))
-     processBuilder.redirectOutput(new File("./yarn.stdout.log"))
-     processBuilder.directory(new File("./client/"))
-     processBuilder.start()
-}
-
 runClient.dependsOn(yarn_install)
 task runClientTests() {}
 runClientTests.dependsOn(yarn_run_test)
