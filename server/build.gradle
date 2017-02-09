@@ -24,3 +24,5 @@ task runWithTests {
 }
 
 runWithTests.dependsOn test
+
+test.dependsOn(":client:runClientTests")

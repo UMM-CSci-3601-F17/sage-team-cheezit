@@ -10,7 +10,6 @@ export class UserListService {
 
     getUsers(): Observable<User[]> {
         let body = this.http.request(this.baseUrl + 'users').map(res => res.json());
-        console.log(body);
         return body;
     }
 }

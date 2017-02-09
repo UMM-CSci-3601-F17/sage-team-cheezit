@@ -5,4 +5,10 @@ import { Component } from '@angular/core';
 })
 
 // Component class
-export class HomeComponent {}
+export class HomeComponent {
+    public text: string;
+
+    constructor() {
+        this.text = "Hello world!";
+    }
+}

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {UserListService} from "./user-list.service";
+import { UserListService } from "./user-list.service";
 
 @Component({
     selector: 'user-list-component',
@@ -8,7 +8,7 @@ import {UserListService} from "./user-list.service";
 })
 
 export class UserListComponent {
-    public users: any;
+    private users: any;
 
     constructor(private _userListService: UserListService) {
         this.users = _userListService.getUsers();
