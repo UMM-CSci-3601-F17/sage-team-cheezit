@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
 import { UserListService } from "./user-list.service";
+import { FormsModule } from '@angular/forms';
+import { FilterBy } from "./filter.pipe";
 
 @Component({
     selector: 'user-list-component',
     providers: [UserListService],
-    templateUrl: 'user-list.component.html'
+    templateUrl: 'user-list.component.html',
 })
 
 export class UserListComponent {
@@ -14,3 +16,5 @@ export class UserListComponent {
         this.users = _userListService.getUsers();
     }
 }
+
+
