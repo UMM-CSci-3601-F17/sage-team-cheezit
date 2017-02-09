@@ -11,6 +11,7 @@
     "@angular/platform-browser": "^2.4.6",
     "@angular/platform-browser-dynamic": "^2.4.6",
     "@angular/router": "^3.4.6",
+    "@angular/forms": "^2.4.7",
     "bootstrap": "^3.3.7",
     "css-loader": "^0.26.1",
     "es6-shim": "^0.35.3",
