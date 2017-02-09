@@ -42,6 +42,7 @@
     "webpack-dev-server": "^2.3.0"
   },
   "scripts": {
-    "start": "webpack-dev-server --config ./webpack.dev.js --colors"
+    "start": "webpack-dev-server --config ./webpack.dev.js --colors",
+    "test": "karma start"
   }
 }
