@@ -1,9 +1,12 @@
 <ul class="list-group">
+    <!--
     <li class="list-group-item list-group-item-info">
         <input #input type="text" placeholder="Filter" [(ngModel)]="search">
     </li>
+    -->
     <li class="list-group-item list-group-item-info">User Name</li>
-    <li *ngFor="let user of users | async | filterBy: {name: search}" class="list-group-item">
+    <!-- | filterBy: {name: search} -->
+    <li *ngFor="let user of users | async " class="list-group-item">
         {{ user.name }}
     </li>
 </ul>
