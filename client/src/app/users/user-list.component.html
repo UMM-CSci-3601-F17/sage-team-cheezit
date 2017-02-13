@@ -6,7 +6,7 @@
     -->
     <li class="list-group-item list-group-item-info">User Name</li>
     <!-- | filterBy: {name: search} -->
-    <li *ngFor="let user of users | async " class="list-group-item">
+    <li *ngFor="let user of users" class="list-group-item">
         {{ user.name }}
     </li>
 </ul>

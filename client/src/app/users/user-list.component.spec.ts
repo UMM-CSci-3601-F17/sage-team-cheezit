@@ -26,18 +26,19 @@ describe("User list", () => {
     });
 
     beforeEach(async(() => {
-        TestBed.compileComponents();
-        fixture = TestBed.createComponent(UserListComponent);
-        userList = fixture.componentInstance;
+        TestBed.compileComponents().then(() => {
+            fixture = TestBed.createComponent(UserListComponent);
+            userList = fixture.componentInstance;
+        });
     }));
 
     it("contains all the users", () => {
         fixture.detectChanges();
-        console.log(userList.users);
         expect(userList.users.length).toBe(2);
     });
 
     it("contains a user named 'Chris'", () => {
+        fixture.detectChanges();
         expect(userList.users.some(user => user.name === "Chris" )).toBe(true);
     });
 
