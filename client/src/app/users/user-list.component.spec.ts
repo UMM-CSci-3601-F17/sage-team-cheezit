@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from "@angular/core/testing";
+import { ComponentFixture, TestBed, async } from "@angular/core/testing";
 import { UserListComponent } from "./user-list.component";
 import { UserListService } from "./user-list.service";
 
@@ -22,13 +22,18 @@ describe("User list", () => {
             // providers:    [ UserListService ]  // NO! Don't provide the real service!
             // Provide a test-double instead
             providers:    [ { provide: UserListService, useValue: userListServiceStub } ]
-        });
-
-        fixture = TestBed.createComponent(UserListComponent);
-        userList = fixture.componentInstance;
+        })
     });
 
+    beforeEach(async(() => {
+        TestBed.compileComponents();
+        fixture = TestBed.createComponent(UserListComponent);
+        userList = fixture.componentInstance;
+    }));
+
     it("contains all the users", () => {
+        fixture.detectChanges();
+        console.log(userList.users);
         expect(userList.users.length).toBe(2);
     });
 
