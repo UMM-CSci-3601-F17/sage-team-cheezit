@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed, async } from "@angular/core/testing";
+import { User } from "./user";
 import { UserListComponent } from "./user-list.component";
 import { UserListService } from "./user-list.service";
+import { Observable } from "rxjs";
 
 describe("User list", () => {
 
@@ -8,13 +10,28 @@ describe("User list", () => {
     let fixture: ComponentFixture<UserListComponent>;
 
     let userListServiceStub: {
-        getUsers: () => [{ name: string }]
-    }
+        getUsers: () => Observable<User[]>
+    };
 
     beforeEach(() => {
         // stub UserService for test purposes
         userListServiceStub = {
-            getUsers: () => [ { name: "Chris" }, { name: "Pat" } ]
+            getUsers: () => Observable.of([
+                {
+                    id: "chris_id",
+                    name: "Chris",
+                    age: 25,
+                    company: "UMM",
+                    email: "chris@this.that"
+                },
+                {
+                    id: "pat_id",
+                    name: "Pat",
+                    age: 37,
+                    company: "IBM",
+                    email: "pat@something.com"
+                }
+                ])
         };
 
         TestBed.configureTestingModule({
@@ -39,7 +56,7 @@ describe("User list", () => {
 
     it("contains a user named 'Chris'", () => {
         fixture.detectChanges();
-        expect(userList.users.some(user => user.name === "Chris" )).toBe(true);
+        expect(userList.users.some((user: User) => user.name === "Chris" )).toBe(true);
     });
 
 });

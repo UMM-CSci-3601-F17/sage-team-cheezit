@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserListService } from "./user-list.service";
-import { FormsModule } from '@angular/forms';
-import { FilterBy } from "./filter.pipe";
+import { User } from "./user";
 
 @Component({
     selector: 'user-list-component',
@@ -9,13 +8,18 @@ import { FilterBy } from "./filter.pipe";
 })
 
 export class UserListComponent implements OnInit {
-    public users: any;
+    public users: User[];
 
     constructor(private userListService: UserListService) {
         // this.users = this.userListService.getUsers();
     }
 
     ngOnInit(): void {
-        this.users = this.userListService.getUsers();
+        this.userListService.getUsers().subscribe(
+            users => this.users = users,
+            err => {
+                console.log(err);
+            }
+        );
     }
 }
