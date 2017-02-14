@@ -3,6 +3,7 @@ import { User } from "./user";
 import { UserListComponent } from "./user-list.component";
 import { UserListService } from "./user-list.service";
 import { Observable } from "rxjs";
+import { PipeModule } from "../../pipe.module";
 
 describe("User list", () => {
 
@@ -35,6 +36,7 @@ describe("User list", () => {
         };
 
         TestBed.configureTestingModule({
+            imports: [PipeModule],
             declarations: [ UserListComponent ],
             // providers:    [ UserListService ]  // NO! Don't provide the real service!
             // Provide a test-double instead

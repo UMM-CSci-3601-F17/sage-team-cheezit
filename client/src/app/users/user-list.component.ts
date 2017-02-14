@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { UserListService } from "./user-list.service";
 import { User } from "./user";
+import { FilterBy } from "./filter.pipe";
 
 @Component({
     selector: 'user-list-component',
-    templateUrl: 'user-list.component.html'
+    templateUrl: 'user-list.component.html',
+    providers: [ FilterBy ]
 })
 
 export class UserListComponent implements OnInit {

@@ -9,8 +9,9 @@ import { KittensComponent }   from './app/kittens/kittens.component';
 import { UserListComponent } from './app/users/user-list.component';
 import { UserListService } from './app/users/user-list.service';
 import { routing } from './app/app.routes';
-import {FormsModule} from '@angular/forms';
-import {FilterBy} from './app/users/filter.pipe';
+import { FormsModule } from '@angular/forms';
+
+import { PipeModule } from './pipe.module';
 
 @NgModule({
     imports: [
@@ -18,15 +19,15 @@ import {FilterBy} from './app/users/filter.pipe';
         HttpModule,
         JsonpModule,
         routing,
-        FormsModule
+        FormsModule,
+        PipeModule
     ],
     declarations: [
         AppComponent,
         KittensComponent,
         HomeComponent,
         NavbarComponent,
-        UserListComponent,
-        FilterBy
+        UserListComponent
     ],
     providers: [ UserListService ],
     bootstrap: [ AppComponent ]
