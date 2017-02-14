@@ -1,20 +1,27 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { UserListService } from "./user-list.service";
-import { FormsModule } from '@angular/forms';
+import { User } from "./user";
 import { FilterBy } from "./filter.pipe";
 
 @Component({
     selector: 'user-list-component',
-    providers: [UserListService],
     templateUrl: 'user-list.component.html',
+    providers: [ FilterBy ]
 })
 
-export class UserListComponent {
-    private users: any;
+export class UserListComponent implements OnInit {
+    public users: User[];
 
-    constructor(private _userListService: UserListService) {
-        this.users = _userListService.getUsers();
+    constructor(private userListService: UserListService) {
+        // this.users = this.userListService.getUsers();
+    }
+
+    ngOnInit(): void {
+        this.userListService.getUsers().subscribe(
+            users => this.users = users,
+            err => {
+                console.log(err);
+            }
+        );
     }
 }
-
-

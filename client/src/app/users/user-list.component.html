@@ -1,9 +1,10 @@
 <ul class="list-group">
     <li class="list-group-item list-group-item-info">
-        <input #input type="text" placeholder="Filter" [(ngModel)]="search">
+        <input #input type="text" placeholder="Filter by name" (input)="searchTerm = $event.target.value">
+        <input #input type="number" placeholder="Filter by age" (input)="targetAge = $event.target.value">
     </li>
     <li class="list-group-item list-group-item-info">User Name</li>
-    <li *ngFor="let user of users | async | filterBy: {name: search}" class="list-group-item">
-        {{ user.name }}
+    <li *ngFor="let user of users | filterBy: {name: searchTerm} | filterBy: { age: targetAge }" class="list-group-item">
+        {{ user.name }} is {{ user.age }} years old
     </li>
 </ul>
