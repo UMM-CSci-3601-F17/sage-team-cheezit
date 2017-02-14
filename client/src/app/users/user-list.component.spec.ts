@@ -31,6 +31,13 @@ describe("User list", () => {
                     age: 37,
                     company: "IBM",
                     email: "pat@something.com"
+                },
+                {
+                    id: "jamie_id",
+                    name: "Jamie",
+                    age: 37,
+                    company: "Frogs, Inc.",
+                    email: "jamie@frogs.com"
                 }
                 ])
         };
@@ -53,12 +60,27 @@ describe("User list", () => {
 
     it("contains all the users", () => {
         fixture.detectChanges();
-        expect(userList.users.length).toBe(2);
+        expect(userList.users.length).toBe(3);
     });
 
     it("contains a user named 'Chris'", () => {
         fixture.detectChanges();
         expect(userList.users.some((user: User) => user.name === "Chris" )).toBe(true);
+    });
+
+    it("contain a user named 'Jamie'", () => {
+        fixture.detectChanges();
+        expect(userList.users.some((user: User) => user.name === "Jamie" )).toBe(true);
+    });
+
+    it("doesn't contain a user named 'Santa'", () => {
+        fixture.detectChanges();
+        expect(userList.users.some((user: User) => user.name === "Santa" )).toBe(false);
+    });
+
+    it("has two users that are 37 years old", () => {
+        fixture.detectChanges();
+        expect(userList.users.filter((user: User) => user.age === 37).length).toBe(2);
     });
 
 });
