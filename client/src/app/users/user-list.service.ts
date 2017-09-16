@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
-import { User } from './user';
+
 import { Observable } from "rxjs";
-import { environment } from "../../environments/environment";
 import "rxjs/add/operator/map";
+
+import { User } from './user';
+import { environment } from "../../environments/environment";
 
 @Injectable()
 export class UserListService {
