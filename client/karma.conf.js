@@ -42,7 +42,7 @@ module.exports = function (config) {
     singleRun: false
   };
   if (process.env.TRAVIS) {
-    configuration.autoWatch = false;
+    configuration.singleRun = true;
     configuration.browsers = ['ChromeHeadless'];
   }
 
