@@ -1,7 +1,7 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "project": {
-    "name": "untitled1"
+    "name": "angular-spark-lab"
   },
   "apps": [
     {
@@ -56,6 +56,9 @@
   "defaults": {
     "styleExt": "css",
     "component": {
+    },
+    "serve": {
+      "port":9000
     }
   }
 }
