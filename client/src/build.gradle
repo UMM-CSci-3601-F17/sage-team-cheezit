@@ -2,11 +2,11 @@
 // Builds the client-side of the project
 
 plugins {
-    id 'com.moowork.node' version '1.2.0'
+    id 'com.moowork.node' version '1.1.1'
 }
 
 node {
-    version = '6.11.2'
+    version = '6.4.0'
     download = true
     workDir = file("${project.projectDir}/node")
     yarnWorkDir = file("${project.projectDir}/yarn")
@@ -14,11 +14,9 @@ node {
 }
 
 task runClient(type: Exec) {
-    executable "ng"
-    args = ["serve"]
-    //args = ["--config", "./webpack.dev.js", "--colors"]
+    executable "node_modules/webpack-dev-server/bin/webpack-dev-server.js"
+    args = ["--config", "./webpack.dev.js", "--colors"]
 }
-
 runClient.dependsOn(yarn_install)
 task runClientTests() {}
 runClientTests.dependsOn(yarn_run_test)
