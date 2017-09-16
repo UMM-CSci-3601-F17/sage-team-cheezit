@@ -16,7 +16,6 @@ node {
 task runClient(type: Exec) {
     executable "ng"
     args = ["serve"]
-    //args = ["--config", "./webpack.dev.js", "--colors"]
 }
 
 runClient.dependsOn(yarn_install)
