@@ -10,6 +10,7 @@ import { UserListComponent } from './users/user-list.component';
 import { UserListService } from './users/user-list.service';
 import { Routing } from './app.routes';
 import { FormsModule } from '@angular/forms';
+import { APP_BASE_HREF } from "@angular/common";
 
 // import { PipeModule } from './pipe.module';
 
@@ -29,7 +30,10 @@ import { FormsModule } from '@angular/forms';
         NavbarComponent,
         UserListComponent
     ],
-    providers: [ UserListService ],
+    providers: [
+      UserListService,
+      { provide: APP_BASE_HREF, useValue : '/' }
+    ],
     bootstrap: [ AppComponent ]
 })
 

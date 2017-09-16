@@ -1,32 +1,40 @@
-import { TestBed, async } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { DebugElement } from '@angular/core';
 
+import { AppModule } from "./app.module";
 import { AppComponent } from './app.component';
 
 describe('AppComponent', () => {
-  beforeEach(async(() => {
+  let appInstance: AppComponent;
+  let appFixture: ComponentFixture<AppComponent>;
+  let debugElement: DebugElement;
+
+  beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [
-        AppComponent
-      ],
-    }).compileComponents();
-  }));
+      imports: [
+        AppModule
+      ]
+    });
 
-  it('should create the app', async(() => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app).toBeTruthy();
-  }));
+    appFixture = TestBed.createComponent(AppComponent);
 
-  it(`should have as title 'app'`, async(() => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('app');
-  }));
+    appInstance = appFixture.componentInstance;
 
-  it('should render title in a h1 tag', async(() => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain('Welcome to app!');
-  }));
+    debugElement = appFixture.debugElement;
+  });
+
+  it('should create the app', () => {
+    expect(appFixture).toBeTruthy();
+  });
+
+  it(`should have as title 'app'`, () => {
+    expect(appInstance.title).toEqual('Angular Spark lab');
+  });
+
+  it('should render title in a h1 tag', () => {
+    appFixture.detectChanges();
+    let h1: HTMLElement = debugElement.query(By.css('h1')).nativeElement;
+    expect(h1.textContent).toContain('Angular Spark lab');
+  });
 });
