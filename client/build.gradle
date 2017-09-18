@@ -18,6 +18,11 @@ task runClient(type: Exec) {
     args = ["serve"]
 }
 
+task runClientTestwithCoverage(type: Exec){
+    executable "ng"
+    args = ["test","--watch=false","-sr","--code-coverage"]
+}
+
 runClient.dependsOn(yarn_install)
 task runClientTests() {}
 runClientTests.dependsOn(yarn_run_test)
