@@ -24,12 +24,9 @@ task testWatch(type: NpmTask) {
     args = ['run','test-watch']
 }
 
-task runClientTests(dependsOn: yarn_run_test) {}
-task runClientTestwithCoverage(type: Exec){
-    executable "/usr/local/bin/ng"
-    args = ["test","--watch=false","-sr","--code-coverage"]
+task runClientTestWithCoverage(type: Exec, dependsOn: yarn_install){
+    executable "ng"
+    args = ["test","--watch=false","--code-coverage"]
 }
 
-runClient.dependsOn(yarn_install)
-task runClientTests() {}
-runClientTests.dependsOn(yarn_run_test)
+task runClientTests(dependsOn: yarn_run_test) {}
