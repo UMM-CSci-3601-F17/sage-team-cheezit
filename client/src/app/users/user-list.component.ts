@@ -4,24 +4,24 @@ import { User } from "./user";
 import { FilterBy } from "./filter.pipe";
 
 @Component({
-    selector: 'user-list-component',
-    templateUrl: 'user-list.component.html',
-    providers: [ FilterBy ]
+  selector: 'user-list-component',
+  templateUrl: 'user-list.component.html',
+  providers: [ FilterBy ]
 })
 
 export class UserListComponent implements OnInit {
-    public users: User[];
+  public users: User[];
 
-    constructor(private userListService: UserListService) {
-        // this.users = this.userListService.getUsers();
-    }
+  constructor(private userListService: UserListService) {
+    // this.users = this.userListService.getUsers();
+  }
 
-    ngOnInit(): void {
-        this.userListService.getUsers().subscribe(
-            users => this.users = users,
-            err => {
-                console.log(err);
-            }
-        );
-    }
+  ngOnInit(): void {
+    this.userListService.getUsers().subscribe(
+      users => this.users = users,
+      err => {
+        console.log(err);
+      }
+    );
+  }
 }

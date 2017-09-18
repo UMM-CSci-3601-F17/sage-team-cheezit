@@ -14,7 +14,7 @@ node {
 }
 
 task runClient(type: Exec, dependsOn: yarn_install) {
-    executable "/usr/local/bin/ng"
+    executable "ng"
     args = ["serve"]
 }
 
