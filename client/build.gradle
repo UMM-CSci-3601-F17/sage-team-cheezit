@@ -13,13 +13,20 @@ node {
     nodeModulesDir = file("${project.projectDir}/")
 }
 
-task runClient(type: Exec) {
-    executable "ng"
+task runClient(type: Exec, dependsOn: yarn_install) {
+    executable "/usr/local/bin/ng"
     args = ["serve"]
 }
 
+task testWatch(type: NpmTask) {
+    group = 'client'
+    description = "Start client side tests, watching and updating when there are changes"
+    args = ['run','test-watch']
+}
+
+task runClientTests(dependsOn: yarn_run_test) {}
 task runClientTestwithCoverage(type: Exec){
-    executable "ng"
+    executable "/usr/local/bin/ng"
     args = ["test","--watch=false","-sr","--code-coverage"]
 }
 
