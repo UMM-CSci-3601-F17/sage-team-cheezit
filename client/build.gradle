@@ -29,4 +29,9 @@ task runClientTestWithCoverage(type: Exec, dependsOn: yarn_install){
     args = ["test","--watch=false","--code-coverage"]
 }
 
+task runE2ETest(type:Exec){
+    executable "ng"
+    args = ["e2e"]
+}
+
 task runClientTests(dependsOn: yarn_run_test) {}
