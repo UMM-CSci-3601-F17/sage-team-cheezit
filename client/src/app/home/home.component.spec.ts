@@ -1,20 +1,31 @@
-import { TestBed, async } from "@angular/core/testing";
+import {TestBed, ComponentFixture} from "@angular/core/testing";
 import {HomeComponent} from "./home.component";
+import {DebugElement} from "@angular/core";
+import {By} from "@angular/platform-browser";
 
-describe("Home", () => {
+describe('Home', () => {
 
-    beforeEach(() => {
-        TestBed.configureTestingModule({
-            declarations: [HomeComponent]
-        });
+  let component:  HomeComponent;
+  let fixture:    ComponentFixture<HomeComponent>;
+  let de:         DebugElement;
+  let el:         HTMLElement;
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      declarations: [ HomeComponent ], // declare the test component
     });
 
-    beforeEach(async(() => {
-        TestBed.compileComponents();
-    }));
+    fixture = TestBed.createComponent(HomeComponent);
 
-    it("says a message", async(() => {
-        const comp = TestBed.createComponent(HomeComponent);
-        expect(comp.componentInstance.text).toBe("Hello world!");
-    }));
+    component = fixture.componentInstance; // BannerComponent test instance
+
+    // query for the title <h1> by CSS element selector
+    de = fixture.debugElement.query(By.css('#home-greeting'));
+    el = de.nativeElement;
+  });
+
+  it("displays a greeting", () => {
+    fixture.detectChanges();
+    expect(el.textContent).toContain(component.text);
+  });
 });
