@@ -6,7 +6,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "test": "ng test",
+    "test": "ng test -sr",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
@@ -24,7 +24,8 @@
     "core-js": "^2.4.1",
     "ngx-bootstrap": "^1.9.3",
     "rxjs": "^5.4.2",
-    "zone.js": "^0.8.14"
+    "zone.js": "^0.8.14",
+    "bootstrap": "^3.3.7"
   },
   "devDependencies": {
     "@angular/cli": "1.3.2",
