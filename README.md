@@ -26,6 +26,14 @@ group using GitHub classroom, you can clone your repository using IntelliJ:
 - If IDEA asks you if you want to compile JavaScript to TypeScript :fire: DO NOT :fire:
 it will break your project.
 
+:warning: IDEA will sometimes decide to "help" you by offering 
+"Compile TypeScript to JavaScript?" :bangbang: *Never* say "OK" to this
+offer -- if you do it will make a complete mess of your project. We're
+using other tools (`gradle`, `ng`, and a thing called `webpack` which you
+never explicitly see) to do that compilation. If you let IDEA do it, you'll
+have a ton of JavaScript files cluttering up your project and confusing other
+tools.
+
 ## Running your project
 
 Now that the structure of the project is different, the way we run the project
