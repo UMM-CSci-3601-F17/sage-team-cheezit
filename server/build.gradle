@@ -11,9 +11,10 @@ apply plugin: 'application'
 mainClassName = 'umm3601.Server'
 
 dependencies {
-    compile 'com.sparkjava:spark-core:2.5.4'
-    compile 'org.slf4j:slf4j-simple:1.7.6'
-    compile 'com.google.code.gson:gson:2.8.0'
+    compile 'com.sparkjava:spark-core:2.6.0'
+    compile 'com.sparkjava:spark-debug-tools:0.5'
+    compile 'org.slf4j:slf4j-simple:1.7.25'
+    compile 'com.google.code.gson:gson:2.8.1'
     compile files('./src/libs/3601-lab3-todos.jar')
 
     testCompile 'junit:junit:4.12'
