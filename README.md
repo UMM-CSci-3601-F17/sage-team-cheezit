@@ -2,9 +2,9 @@
 [![Build Status](https://travis-ci.org/UMM-CSci-3601/3601-lab3_angular-spark.svg?branch=master)](https://travis-ci.org/UMM-CSci-3601/3601-lab3_angular-spark)
 
 During this lab, you will expand on the ToDo API you created in the previous lab
-by building a basic client-side application using AngularJS
-(Angular 2, specifically) which will enable you to better handle user input,
-display data returned from the server, and all manner of other insane things.
+by building a basic client-side application using Angular 4 which will enable you
+to better handle user input, display data returned from the server, and all manner
+of other insane things.
 
 Some significant changes to the structure of the project come about in this lab,
 so be on the lookout for those. As always, you'll be expected to make good
@@ -23,18 +23,24 @@ group using GitHub classroom, you can clone your repository using IntelliJ:
 - Select **import project from existing model** and select **Gradle.**
   - Make sure **Use default Gradle wrapper** is selected.
 - Click **Finish.**
+- If IDEA asks you if you want to compile JavaScript to TypeScript :fire: DO NOT :fire:
+it will break your project.
 
 ## Running your project
 
 Now that the structure of the project is different, the way we run the project
 is different too.
 
+We have moved or aliased all of the important Gradle tasks to one spot. You can find them
+all in `angular-spark-lab / Tasks / application`.
+
 - The familiar **run** Gradle task will still run your SparkJava server.
 (which is available at ``localhost:4567``)
-- The **build** task will still _build_ the entire project (but not run it)
+- The **build** task (or its' alias **buildExecutable**) will still _build_ the entire project, but not run it.
 
 The major difference here is that the _client_ side of your project is,
-effectively, an entirely separate project from your SparkJava server. We've included a full API for the ToDo's, which you implemented in lab 2.
+effectively, an entirely separate project from your SparkJava server. We've included a full API
+for the ToDo's, which you implemented in lab 2, so no need to copy your old project over.
 
 In order to serve up the _client side_ of your project, you'll need to use the
 **runClient** Gradle task. This will trigger the various tools in the
@@ -43,7 +49,14 @@ application on their own little web-server, available by default at ``localhost:
 
 ## Testing and Continuous Integration
 
-This things are mostly the same as they were in Lab #2.
+There are now more testing options! You can test the client, or the server or both.
+
+Testing client:
+* runAllTests runs both the server tests and the clients tests once. 
+* runClientTests runs the client tests once.
+* runClientTestsAndWatch runs the client tests every time that the code changes after a save.
+* runClientTestsWithCoverage runs the client tests (once?) and deposits code coverage statistics into a new directory within `client` called `coverage`. In there you will find an `index.html`. Right click on `index.html` and select `Open in Browser` with your browser of choice. For Chrome users, you can drag and drop index.html onto chrome and it will open it.  
+* runServerTests runs the server tests.
 
 Turn on your repo in [Travis CI][travis], replace the build status image in this README, and push your changes. That will trigger a build with Travis.
 
