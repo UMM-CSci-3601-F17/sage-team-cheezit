@@ -1,8 +1,8 @@
-import { ComponentFixture, TestBed, async } from "@angular/core/testing";
-import { User } from "./user";
-import { UserComponent } from "./user.component";
-import { UserListService } from "./user-list.service";
-import { Observable } from "rxjs";
+import {ComponentFixture, TestBed, async} from "@angular/core/testing";
+import {User} from "./user";
+import {UserComponent} from "./user.component";
+import {UserListService} from "./user-list.service";
+import {Observable} from "rxjs";
 //import { PipeModule } from "../../pipe.module";
 
 describe("User component", () => {
@@ -44,8 +44,8 @@ describe("User component", () => {
 
         TestBed.configureTestingModule({
             //imports: [PipeModule],
-            declarations: [ UserComponent ],
-            providers:    [ { provide: UserListService, useValue: userListServiceStub } ]
+            declarations: [UserComponent],
+            providers: [{provide: UserListService, useValue: userListServiceStub}]
         })
     });
 

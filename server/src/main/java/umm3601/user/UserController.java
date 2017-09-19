@@ -1,43 +1,72 @@
 package umm3601.user;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import spark.Request;
+import spark.Response;
 
-import java.io.FileReader;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.Map;
 
+import static umm3601.Util.*;
+
+/**
+ * Controller that manages requests for info about users.
+ */
 public class UserController {
 
-    private User[] users;
+    private final Gson gson;
+    private Database database;
 
-    public UserController() throws IOException {
-        Gson gson = new Gson();
-        FileReader reader = new FileReader("src/main/data/users.json");
-        users = gson.fromJson(reader, User[].class);
+    /**
+     * Construct a controller for users.
+     *
+     * This loads the "database" of user info from a JSON file and
+     * stores that internally so that (subsets of) users can be returned
+     * in response to requests.
+     *
+     * @param database the database containing user data
+     */
+    public UserController(Database database) {
+        gson = new Gson();
+        this.database = database;
     }
 
-    // List users
-    public User[] listUsers(Map<String, String[]> queryParams) {
-        User[] filteredUsers = users;
+    /**
+     * Get the single user specified by the `id` parameter in the request.
+     *
+     * @param req the HTTP request
+     * @param res the HTTP response
+     * @return a success JSON object if the user with that ID is found, a fail
+     * JSON object if no user with that ID is found
+     */
+    public JsonElement getUser(Request req, Response res) {
+        res.type("application/json");
+        String id = req.params("id");
+        User user = database.getUser(id);
+        if (user != null) {
 
-        // Filter age if defined
-        if(queryParams.containsKey("age")) {
-            int age = Integer.parseInt(queryParams.get("age")[0]);
-            filteredUsers = filterUsersByAge(filteredUsers, age);
+            //return buildSuccessJsonResponse("user", gson.toJsonTree(user));
+            return gson.toJsonTree(user);
+        } else {
+            String message = "User with ID " + id + " wasn't found.";
+            return buildFailJsonResponse("id", message);
         }
-
-        return filteredUsers;
     }
 
-    // Filter users by age
-    public User[] filterUsersByAge(User[] filteredUsers, int age) {
-        return Arrays.stream(filteredUsers).filter(x -> x.age == age).toArray(User[]::new);
-    }
+    /**
+     * Get a JSON response with a list of all the users in the "database".
+     *
+     * @param req the HTTP request
+     * @param res the HTTP response
+     * @return a success JSON object containing all the users
+     */
+    public JsonElement getUsers(Request req, Response res) {
+        res.type("application/json");
+        User[] users = database.listUsers(req.queryMap().toMap());
 
-    // Get a single user
-    public User getUser(String id) {
-        return Arrays.stream(users).filter(x -> x._id.equals(id)).findFirst().orElse(null);
+        //return buildSuccessJsonResponse("users", gson.toJsonTree(users));
+        return gson.toJsonTree(users);
     }
 
 }
