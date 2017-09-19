@@ -1,5 +1,4 @@
 import {browser, element, by, Key} from 'protractor';
-import {userInfo} from "os";
 
 export class UserPage {
   navigateTo() {
@@ -26,20 +25,25 @@ export class UserPage {
     return title;
   }
 
-  typeAName(){
+  typeAName(name:string){
    let input = element(by.tagName('input'));
    input.click();
-   input.sendKeys("Lynn");
+   input.sendKeys(name);
   }
 
-  getUsers(){
-   let users = element.all(by.id('users')).getText();
-   return users;
-  }
+  selectUpKey() {
+      browser.actions().sendKeys(Key.ARROW_UP).perform();
+    }
+
+    getUserByAge(){
+      let input = element(by.tagName('input'));
+      input.click();
+      input.sendKeys(Key.TAB);
+    }
 
   getFirstUser(){
     let user = element(by.id('users')).getText();
-    this.highlightElement(by.id('users'))
+    this.highlightElement(by.id('users'));
 
     return user;
   }

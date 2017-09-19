@@ -15,8 +15,6 @@ browser.driver.controlFlow().execute = function() {
   return origFn.apply(browser.driver.controlFlow(), args);
 };
 
-let usersList: any[] =  [ 'Connie Stewart is 25 years old', 'Lynn Ferguson is 25 years old', 'Roseann Roberson is 23 years old', 'Stokes Clayton is 27 years old', 'Valerie Erickson is 38 years old', 'Kitty Page is 33 years old','Bolton Monroe is 27 years old', 'Marguerite Norton is 40 years old', 'Merrill Parker is 27 years old', 'Cervantes Morin is 35 years old' ];
-
 describe('angular-spark-lab', () => {
   let page: UserPage;
 
@@ -28,14 +26,24 @@ describe('angular-spark-lab', () => {
     expect(page.getUserTitle()).toEqual('User Name');
   });
 
-  it('should check that there is a list of users ', () => {
+  it('should type something in filer name box and check that it returned correct element', () => {
     page.navigateTo();
-    expect(page.getUsers()).toEqual(usersList);
+    page.typeAName("Lynn");
+    expect(page.getFirstUser()).toEqual("Lynn Ferguson is 25 years old");
   });
 
-  // it('should type something in filer name box and check that it returned correct element', () => {
-  //   page.navigateTo();
-  //   page.typeAName();
-  //   expect(page.getSingleUser()).toEqual("Lynn Ferguson is 25 years old");
-  // });
+  it('should click on the age 27 times and return 3 elements then ', () => {
+        page.navigateTo();
+        page.getUserByAge();
+        for(let i = 0; i < 27; i++){
+            page.selectUpKey();
+        }
+
+      expect(page.getFirstUser()).toEqual("Stokes Clayton is 27 years old");
+
+      page.typeAName("Merrill");
+
+      expect(page.getFirstUser()).toEqual("Merrill Parker is 27 years old");
+
+  });
 });
