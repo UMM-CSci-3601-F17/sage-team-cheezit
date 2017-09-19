@@ -11,7 +11,6 @@ import { Routing } from './app.routes';
 import { FormsModule } from '@angular/forms';
 import { APP_BASE_HREF } from "@angular/common";
 
-// import { PipeModule } from './pipe.module';
 
 @NgModule({
     imports: [
@@ -20,7 +19,6 @@ import { APP_BASE_HREF } from "@angular/common";
         JsonpModule,
         Routing,
         FormsModule,
-        // PipeModule
     ],
     declarations: [
         AppComponent,
