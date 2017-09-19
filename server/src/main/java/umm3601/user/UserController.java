@@ -22,7 +22,7 @@ public class UserController {
         User[] filteredUsers = users;
 
         // Filter age if defined
-        if(queryParams.containsKey("age")) {
+        if (queryParams.containsKey("age")) {
             int age = Integer.parseInt(queryParams.get("age")[0]);
             filteredUsers = filterUsersByAge(filteredUsers, age);
         }

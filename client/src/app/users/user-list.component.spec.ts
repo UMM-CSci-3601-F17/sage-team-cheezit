@@ -1,117 +1,117 @@
-import { ComponentFixture, TestBed, async } from "@angular/core/testing";
-import { User } from "./user";
-import { UserListComponent } from "./user-list.component";
-import { UserListService } from "./user-list.service";
-import { Observable } from "rxjs";
+import {ComponentFixture, TestBed, async} from "@angular/core/testing";
+import {User} from "./user";
+import {UserListComponent} from "./user-list.component";
+import {UserListService} from "./user-list.service";
+import {Observable} from "rxjs";
 
 describe("User list", () => {
 
-  let userList: UserListComponent;
-  let fixture: ComponentFixture<UserListComponent>;
+    let userList: UserListComponent;
+    let fixture: ComponentFixture<UserListComponent>;
 
-  let userListServiceStub: {
-    getUsers: () => Observable<User[]>
-  };
-
-  beforeEach(() => {
-    // stub UserService for test purposes
-    userListServiceStub = {
-      getUsers: () => Observable.of([
-        {
-          id: "chris_id",
-          name: "Chris",
-          age: 25,
-          company: "UMM",
-          email: "chris@this.that"
-        },
-        {
-          id: "pat_id",
-          name: "Pat",
-          age: 37,
-          company: "IBM",
-          email: "pat@something.com"
-        },
-        {
-          id: "jamie_id",
-          name: "Jamie",
-          age: 37,
-          company: "Frogs, Inc.",
-          email: "jamie@frogs.com"
-        }
-      ])
+    let userListServiceStub: {
+        getUsers: () => Observable<User[]>
     };
 
-    TestBed.configureTestingModule({
-      //imports: [PipeModule],
-      declarations: [ UserListComponent ],
-      // providers:    [ UserListService ]  // NO! Don't provide the real service!
-      // Provide a test-double instead
-      providers:    [ { provide: UserListService, useValue: userListServiceStub } ]
-    })
-  });
+    beforeEach(() => {
+        // stub UserService for test purposes
+        userListServiceStub = {
+            getUsers: () => Observable.of([
+                {
+                    id: "chris_id",
+                    name: "Chris",
+                    age: 25,
+                    company: "UMM",
+                    email: "chris@this.that"
+                },
+                {
+                    id: "pat_id",
+                    name: "Pat",
+                    age: 37,
+                    company: "IBM",
+                    email: "pat@something.com"
+                },
+                {
+                    id: "jamie_id",
+                    name: "Jamie",
+                    age: 37,
+                    company: "Frogs, Inc.",
+                    email: "jamie@frogs.com"
+                }
+            ])
+        };
 
-  beforeEach(async(() => {
-    TestBed.compileComponents().then(() => {
-      fixture = TestBed.createComponent(UserListComponent);
-      userList = fixture.componentInstance;
-      fixture.detectChanges();
+        TestBed.configureTestingModule({
+            //imports: [PipeModule],
+            declarations: [UserListComponent],
+            // providers:    [ UserListService ]  // NO! Don't provide the real service!
+            // Provide a test-double instead
+            providers: [{provide: UserListService, useValue: userListServiceStub}]
+        })
     });
-  }));
 
-  it("contains all the users", () => {
-    expect(userList.users.length).toBe(3);
-  });
+    beforeEach(async(() => {
+        TestBed.compileComponents().then(() => {
+            fixture = TestBed.createComponent(UserListComponent);
+            userList = fixture.componentInstance;
+            fixture.detectChanges();
+        });
+    }));
 
-  it("contains a user named 'Chris'", () => {
-    expect(userList.users.some((user: User) => user.name === "Chris" )).toBe(true);
-  });
+    it("contains all the users", () => {
+        expect(userList.users.length).toBe(3);
+    });
 
-  it("contain a user named 'Jamie'", () => {
-    expect(userList.users.some((user: User) => user.name === "Jamie" )).toBe(true);
-  });
+    it("contains a user named 'Chris'", () => {
+        expect(userList.users.some((user: User) => user.name === "Chris")).toBe(true);
+    });
 
-  it("doesn't contain a user named 'Santa'", () => {
-    expect(userList.users.some((user: User) => user.name === "Santa" )).toBe(false);
-  });
+    it("contain a user named 'Jamie'", () => {
+        expect(userList.users.some((user: User) => user.name === "Jamie")).toBe(true);
+    });
 
-  it("has two users that are 37 years old", () => {
-    expect(userList.users.filter((user: User) => user.age === 37).length).toBe(2);
-  });
+    it("doesn't contain a user named 'Santa'", () => {
+        expect(userList.users.some((user: User) => user.name === "Santa")).toBe(false);
+    });
+
+    it("has two users that are 37 years old", () => {
+        expect(userList.users.filter((user: User) => user.age === 37).length).toBe(2);
+    });
 
 });
 
 describe("Misbehaving User List", () => {
-  let userList: UserListComponent;
-  let fixture: ComponentFixture<UserListComponent>;
+    let userList: UserListComponent;
+    let fixture: ComponentFixture<UserListComponent>;
 
-  let userListServiceStub: {
-    getUsers: () => Observable<User[]>
-  };
-
-  beforeEach(() => {
-    // stub UserService for test purposes
-    userListServiceStub = {
-      getUsers: () => Observable.create(observer => {
-        observer.error("Error-prone observable");
-      })
+    let userListServiceStub: {
+        getUsers: () => Observable<User[]>
     };
 
-    TestBed.configureTestingModule({
-      declarations: [ UserListComponent ],
-      providers:    [ { provide: UserListService, useValue: userListServiceStub } ]
-    })
-  });
+    beforeEach(() => {
+        // stub UserService for test purposes
+        userListServiceStub = {
+            getUsers: () => Observable.create(observer => {
+                observer.error("Error-prone observable");
+            })
+        };
 
-  beforeEach(async(() => {
-    TestBed.compileComponents().then(() => {
-      fixture = TestBed.createComponent(UserListComponent);
-      userList = fixture.componentInstance;
-      fixture.detectChanges();
+        TestBed.configureTestingModule({
+            declarations: [UserListComponent],
+            providers: [{provide: UserListService, useValue: userListServiceStub}]
+        })
     });
-  }));
 
-  it ("generates an error if we don't set up a UserListService", () => {
-    // Since the observer throws an error, we don't expect users to be defined.
-    expect(userList.users).toBeUndefined();
-  });
+    beforeEach(async(() => {
+        TestBed.compileComponents().then(() => {
+            fixture = TestBed.createComponent(UserListComponent);
+            userList = fixture.componentInstance;
+            fixture.detectChanges();
+        });
+    }));
+
+    it("generates an error if we don't set up a UserListService", () => {
+        // Since the observer throws an error, we don't expect users to be defined.
+        expect(userList.users).toBeUndefined();
+    });
 });

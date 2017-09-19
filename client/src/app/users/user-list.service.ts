@@ -1,23 +1,25 @@
-import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import {Injectable} from '@angular/core';
+import {Http} from '@angular/http';
 
-import { Observable } from "rxjs";
+import {Observable} from "rxjs";
 import "rxjs/add/operator/map";
 
-import { User } from './user';
-import { environment } from "../../environments/environment";
+import {User} from './user';
+import {environment} from "../../environments/environment";
 
 @Injectable()
 export class UserListService {
-  private userUrl: string = environment.API_URL + "users";
-  constructor(private http:Http) { }
+    private userUrl: string = environment.API_URL + "users";
 
-  getUsers(): Observable<User[]> {
-    let observable : Observable<any> = this.http.request(this.userUrl);
-    return observable.map(res => res.json());
-  }
+    constructor(private http: Http) {
+    }
 
-  getUserById(id: string): Observable<User> {
-    return this.http.request(this.userUrl + "/" + id).map(res => res.json());
-  }
+    getUsers(): Observable<User[]> {
+        let observable: Observable<any> = this.http.request(this.userUrl);
+        return observable.map(res => res.json());
+    }
+
+    getUserById(id: string): Observable<User> {
+        return this.http.request(this.userUrl + "/" + id).map(res => res.json());
+    }
 }
