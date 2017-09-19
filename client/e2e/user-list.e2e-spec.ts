@@ -8,6 +8,8 @@ browser.driver.controlFlow().execute = function() {
   let args = arguments;
 
   // queue 100ms wait between test
+    //This delay is only put here so that you can watch the browser do its' thing.
+    //If you're tired of it taking long you can remove this call
   origFn.call(browser.driver.controlFlow(), function() {
     return protractor.promise.delayed(100);
   });
@@ -21,6 +23,7 @@ describe('angular-spark-lab', () => {
   beforeEach(() => {
     page = new UserPage();
   });
+
   it('should get and highlight User Name attribute ', () => {
     page.navigateTo();
     expect(page.getUserTitle()).toEqual('User Name');
