@@ -3,7 +3,6 @@ import { User } from "./user";
 import { UserListComponent } from "./user-list.component";
 import { UserListService } from "./user-list.service";
 import { Observable } from "rxjs";
-//import { PipeModule } from "../../pipe.module";
 
 describe("User list", () => {
 
