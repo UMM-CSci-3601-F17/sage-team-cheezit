@@ -62,12 +62,20 @@ Turn on your repo in [Travis CI][travis], replace the build status image in this
 
 ## Resources
 
-- [What _is_ Angular 2... why TypeScript?][angular-2]
-- [What _is_ webpack...?][whats-webpack]
+- [What _is_ Angular 4 and Typescript?][angular-2-4]
+- [What _is_ Angular CLI?][angular-cli]
+- [What are environments in Angular CLI?][environments]
 - [Testing Angular 2 with Karma/Jasmine][angular2-karma-jasmine]
+- [End to end testing (e2e) with protactor and Angular CLI][e2e-testing]
+- [Angular CLI commands](https://github.com/angular/angular-cli/wiki)
 
-[angular-2]: https://www.infoq.com/articles/Angular2-TypeScript-High-Level-Overview
-[angular2-karma-jasmine]: http://twofuckingdevelopers.com/2016/01/testing-angular-2-with-karma-and-jasmine/
+
+[angular-cli]: https://idyllic.co/blog/beginners-guide-angular-cli/
+[angular-2-4]: https://www.technicaldiary.com/angular-2-tutorial-for-beginners-angular-4-tutorial-for-beginners/
+[angular4-karma-jasmine]: https://codecraft.tv/courses/angular/unit-testing/jasmine-and-karma/
+[e2e-testing]: https://coryrylan.com/blog/introduction-to-e2e-testing-with-the-angular-cli-and-protractor
+[environments]: http://tattoocoder.com/angular-cli-using-the-environment-option/
 [labtasks]: LABTASKS.md
 [travis]: https://travis-ci.org/
-[whats-webpack]: https://webpack.github.io/docs/what-is-webpack.html
+
+
