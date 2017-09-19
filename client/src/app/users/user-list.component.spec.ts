@@ -81,7 +81,7 @@ describe("User list", () => {
 
 });
 
-describe("User list", () => {
+describe("Misbehaving User List", () => {
   let userList: UserListComponent;
   let fixture: ComponentFixture<UserListComponent>;
 
