@@ -14,19 +14,23 @@ node {
 }
 
 task runClient(type: Exec, dependsOn: yarn_install) {
+    group = 'application'
     executable "ng"
     args = ["serve"]
 }
 
-task testWatch(type: NpmTask) {
-    group = 'client'
+task runClientTestsAndWatch(type: NpmTask) {
+    group = 'application'
     description = "Start client side tests, watching and updating when there are changes"
     args = ['run','test-watch']
 }
 
 task runClientTestWithCoverage(type: Exec, dependsOn: yarn_install){
+    group = 'application'
     executable "ng"
     args = ["test","--watch=false","--code-coverage"]
 }
 
-task runClientTests(dependsOn: yarn_run_test) {}
+task runClientTests(dependsOn: yarn_run_test) {
+    group = 'application'
+}

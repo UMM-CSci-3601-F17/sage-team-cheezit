@@ -19,10 +19,23 @@ dependencies {
     testCompile 'junit:junit:4.12'
 }
 
-task runWithTests {
+//Only server tests
+//task runServerTests {
+//    group = "application"
+//    test.dependsOn.remove(":client:nodeSetup")
+//}
+//runServerTests.dependsOn test
+
+//Both karma and junit tests
+task runAllTests {
     group = "application"
 }
 
-runWithTests.dependsOn test
+task buildExecutable {
+    group = "application"
+}
+buildExecutable.dependsOn(build)
+
+runAllTests.dependsOn test
 
 test.dependsOn(":client:runClientTests")
