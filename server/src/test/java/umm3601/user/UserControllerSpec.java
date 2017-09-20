@@ -27,8 +27,7 @@ import static org.junit.Assert.assertEquals;
 public class UserControllerSpec
 {
     private UserController userController;
-    private String samsIdString;
-
+    private ObjectId samsId;
     @Before
     public void clearAndPopulateDB() throws IOException {
         MongoClient mongoClient = new MongoClient();
@@ -54,20 +53,23 @@ public class UserControllerSpec
                 "                    company: \"Frogs, Inc.\",\n" +
                 "                    email: \"jamie@frogs.com\"\n" +
                 "                }"));
-        ObjectId samsId = new ObjectId();
+
+        samsId = new ObjectId();
         BasicDBObject sam = new BasicDBObject("_id", samsId);
         sam = sam.append("name", "Sam")
                 .append("age", 45)
                 .append("company", "Frogs, Inc.")
                 .append("email", "sam@frogs.com");
-        samsIdString = samsId.toHexString();
+
+
+
         userDocuments.insertMany(testUsers);
         userDocuments.insertOne(Document.parse(sam.toJson()));
 
         // It might be important to construct this _after_ the DB is set up
         // in case there are bits in the constructor that care about the state
         // of the database.
-        userController = new UserController();
+        userController = new UserController(db);
     }
 
     // http://stackoverflow.com/questions/34436952/json-parse-equivalent-in-mongo-driver-3-x-for-java
@@ -92,7 +94,7 @@ public class UserControllerSpec
     @Test
     public void getAllUsers() {
         Map<String, String[]> emptyMap = new HashMap<>();
-        String jsonResult = userController.listUsers(emptyMap);
+        String jsonResult = userController.getUsers(emptyMap);
         BsonArray docs = parseJsonArray(jsonResult);
 
         assertEquals("Should be 4 users", 4, docs.size());
@@ -109,7 +111,7 @@ public class UserControllerSpec
     public void getUsersWhoAre37() {
         Map<String, String[]> argMap = new HashMap<>();
         argMap.put("age", new String[] { "37" });
-        String jsonResult = userController.listUsers(argMap);
+        String jsonResult = userController.getUsers(argMap);
         BsonArray docs = parseJsonArray(jsonResult);
 
         assertEquals("Should be 2 users", 2, docs.size());
@@ -124,7 +126,7 @@ public class UserControllerSpec
 
     @Test
     public void getSamById() {
-        String jsonResult = userController.getUser(samsIdString);
+        String jsonResult = userController.getUser(samsId.toHexString());
         Document sam = Document.parse(jsonResult);
         assertEquals("Name should match", "Sam", sam.get("name"));
     }
