@@ -2,6 +2,7 @@ package umm3601.user;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
+import com.google.gson.reflect.TypeToken;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
@@ -10,9 +11,9 @@ import org.bson.types.ObjectId;
 import spark.Request;
 import spark.Response;
 
-import java.util.Map;
-import java.util.Iterator;
+import java.util.*;
 
+import static com.mongodb.client.model.Filters.ne;
 import static umm3601.Util.*;
 import static com.mongodb.client.model.Filters.eq;
 
@@ -64,7 +65,7 @@ public class UserController {
             //return buildSuccessJsonResponse("user", gson.toJsonTree(user));
             return gson.toJsonTree(user);
         } else {
-            String message = "User with ID " + id + " wasn't found.";
+            String message = "User with Object ID { oid:" + id + " } wasn't found.";
             return buildFailJsonResponse("id", message);
         }
     }
@@ -87,17 +88,20 @@ public class UserController {
             filterDoc = filterDoc.append("age", targetAge);
         }
 
+        //FindIterable comes from mongo, Document comes from Gson
         FindIterable<Document> matchingUsers = userCollection.find(filterDoc);
-        return gson.toJsonTree(matchingUsers);
+        Iterator<Document> iterator = matchingUsers.iterator();
+        List<User> users = new ArrayList<User>();
+        while(iterator.hasNext())
+        {
+            Document next = iterator.next();
+            users.add(gson.fromJson(next.toJson(), User.class));
+        }
 
-        /*
-
-        // Process other query parameters here..
-
-        User[] users = database.listUsers();
-
-        //return buildSuccessJsonResponse("users", gson.toJsonTree(users));
-        return gson.toJsonTree(users);*/
+        //BE WARY toJsonTree accepts any Object but it really doesn't.
+        //There are multiple ways to call toJsonTree view them at:
+        //https://google.github.io/gson/apidocs/com/google/gson/Gson.html#toJsonTree-java.lang.Object-
+        return gson.toJsonTree(users, new TypeToken<Collection<User>>(){}.getType());
     }
 
 }
