@@ -3,12 +3,12 @@ package umm3601;
 import static spark.Spark.*;
 
 import com.mongodb.MongoClient;
+import com.mongodb.MongoException;
 import com.mongodb.client.MongoDatabase;
 import spark.Filter;
 import com.google.gson.Gson;
 import spark.Request;
 import spark.Response;
-import umm3601.todo.ToDoController;
 import umm3601.user.Database;
 import umm3601.user.UserController;
 
@@ -17,20 +17,21 @@ import static spark.debug.DebugScreen.*;
 
 
 public class Server {
-    public static final String userDatabaseName = "src/main/data/users.json";
+    public static final String userDatabaseName = "test";
+    public static final int serverPort = 4567;
     private static MongoClient mongoClient;
     private static MongoDatabase userDatabase;
 
+
     public static void main(String[] args) throws IOException {
-        final Gson gson = new Gson();
 
         mongoClient = new MongoClient(); //Default port
         userDatabase = mongoClient.getDatabase(userDatabaseName);
 
-        UserController userController = buildUserController();
+        UserController userController = new UserController(userDatabase);
 
         //Configure Spark
-        port(4567);
+        port(serverPort);
         enableDebugScreen();
 
         // Specify where assets like images will be "stored"
@@ -95,32 +96,7 @@ public class Server {
 
     }
 
-    /***
-     * Create a database using the json fie, use it as
-     * data source for a new UserController
-     *
-     * Constructing the controller might throw an IOException if
-     * there are problems reading from the JSON "database" file.
-     * If that happens we'll print out an error message and shut
-     * the server down.
-     * @throws IOException if we can't open or read the user data file
-     */
-    private static UserController buildUserController() {
-        UserController userController = null;
 
-        try {
-            userController = new UserController(userDatabase);
-        } catch (IOException e) {
-            System.err.println("The server failed to load the user data; shutting down.");
-            e.printStackTrace(System.err);
-
-            // Shut the server down
-            stop();
-            System.exit(1);
-        }
-
-        return userController;
-    }
 
     // Enable GZIP for all responses
     private static Filter addGzipHeader = (Request request, Response response) -> {
