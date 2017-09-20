@@ -2,13 +2,19 @@ package umm3601.user;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
+import com.mongodb.client.FindIterable;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+import org.bson.Document;
+import org.bson.types.ObjectId;
 import spark.Request;
 import spark.Response;
 
-import java.io.IOException;
+import java.util.Map;
+import java.util.Iterator;
 
 import static umm3601.Util.*;
+import static com.mongodb.client.model.Filters.eq;
 
 /**
  * Controller that manages requests for info about users.
@@ -16,7 +22,8 @@ import static umm3601.Util.*;
 public class UserController {
 
     private final Gson gson;
-    private Database database;
+    private MongoDatabase database;
+    private final MongoCollection<Document> userCollection;
 
     /**
      * Construct a controller for users.
@@ -27,9 +34,10 @@ public class UserController {
      *
      * @param database the database containing user data
      */
-    public UserController(Database database) {
+    public UserController(MongoDatabase database) {
         gson = new Gson();
         this.database = database;
+        userCollection = database.getCollection("users");
     }
 
     /**
@@ -43,7 +51,14 @@ public class UserController {
     public JsonElement getUser(Request req, Response res) {
         res.type("application/json");
         String id = req.params("id");
-        User user = database.getUser(id);
+
+        FindIterable<Document> jsonUsers
+            = userCollection
+            .find(eq("_id", new ObjectId(id)));
+
+        Iterator<Document> iterator = jsonUsers.iterator();
+        Document user = iterator.next();
+
         if (user != null) {
 
             //return buildSuccessJsonResponse("user", gson.toJsonTree(user));
@@ -63,10 +78,26 @@ public class UserController {
      */
     public JsonElement getUsers(Request req, Response res) {
         res.type("application/json");
-        User[] users = database.listUsers(req.queryMap().toMap());
+
+        Map<String, String[]> queryParams = req.queryMap().toMap();
+        Document filterDoc = new Document();
+
+        if (queryParams.containsKey("age")) {
+            int targetAge = Integer.parseInt(queryParams.get("age")[0]);
+            filterDoc = filterDoc.append("age", targetAge);
+        }
+
+        FindIterable<Document> matchingUsers = userCollection.find(filterDoc);
+        return gson.toJsonTree(matchingUsers);
+
+        /*
+
+        // Process other query parameters here..
+
+        User[] users = database.listUsers();
 
         //return buildSuccessJsonResponse("users", gson.toJsonTree(users));
-        return gson.toJsonTree(users);
+        return gson.toJsonTree(users);*/
     }
 
 }

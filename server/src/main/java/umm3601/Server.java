@@ -2,6 +2,8 @@ package umm3601;
 
 import static spark.Spark.*;
 
+import com.mongodb.MongoClient;
+import com.mongodb.client.MongoDatabase;
 import spark.Filter;
 import com.google.gson.Gson;
 import spark.Request;
@@ -15,14 +17,17 @@ import static spark.debug.DebugScreen.*;
 
 
 public class Server {
-    public static final String USER_DATA_FILE = "src/main/data/users.json";
-    private static Database userDatabase;
+    public static final String userDatabaseName = "src/main/data/users.json";
+    private static MongoClient mongoClient;
+    private static MongoDatabase userDatabase;
 
     public static void main(String[] args) throws IOException {
         final Gson gson = new Gson();
 
+        mongoClient = new MongoClient(); //Default port
+        userDatabase = mongoClient.getDatabase(userDatabaseName);
+
         UserController userController = buildUserController();
-        ToDoController toDoController = new ToDoController();
 
         //Configure Spark
         port(4567);
@@ -67,21 +72,6 @@ public class Server {
         // See specific user
         get("api/users/:id", userController::getUser);
 
-        /// Todos Endpoints //////////////////////////
-        /////////////////////////////////////////////
-
-        // List todos
-        get("api/todos", (req, res) -> {
-            res.type("application/json");
-            return gson.toJson(toDoController.listToDos(req.queryMap().toMap()));
-        });
-
-        // See specific todos
-        get("api/todos/:id", (req, res) -> {
-            res.type("application/json");
-            String id = req.params("id");
-            return gson.toJson(toDoController.getToDo(id));
-        });
 
         // An example of throwing an unhandled exception so you can see how the
         // Java Spark debugger displays errors like this.
@@ -119,7 +109,6 @@ public class Server {
         UserController userController = null;
 
         try {
-            userDatabase = new Database(USER_DATA_FILE);
             userController = new UserController(userDatabase);
         } catch (IOException e) {
             System.err.println("The server failed to load the user data; shutting down.");
