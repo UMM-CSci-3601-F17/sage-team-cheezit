@@ -1,3 +1,3 @@
-rootProject.name = 'angular-spark-lab'
+rootProject.name = 'mongo-lab'
 
 include 'client', 'server'

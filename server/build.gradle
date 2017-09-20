@@ -16,6 +16,7 @@ dependencies {
     compile 'org.slf4j:slf4j-simple:1.7.25'
     compile 'com.google.code.gson:gson:2.8.1'
     compile files('./src/libs/3601-lab3-todos.jar')
+    compile 'org.mongodb:mongodb-driver:3.4.2'
 
     testCompile 'junit:junit:4.12'
 }
