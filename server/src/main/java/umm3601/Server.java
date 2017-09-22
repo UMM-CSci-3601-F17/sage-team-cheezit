@@ -1,32 +1,24 @@
 package umm3601;
 
-import static spark.Spark.*;
-
 import com.mongodb.MongoClient;
-import com.mongodb.MongoException;
 import com.mongodb.client.MongoDatabase;
-import spark.Filter;
-import com.google.gson.Gson;
 import spark.Request;
 import spark.Response;
-import umm3601.user.Database;
 import umm3601.user.UserController;
 
 import java.io.IOException;
-import static spark.debug.DebugScreen.*;
 
+import static spark.Spark.*;
+import static spark.debug.DebugScreen.enableDebugScreen;
 
 public class Server {
-    public static final String userDatabaseName = "test";
-    public static final int serverPort = 4567;
-    private static MongoClient mongoClient;
-    private static MongoDatabase userDatabase;
-
+    private static final String userDatabaseName = "lab";
+    private static final int serverPort = 4567;
 
     public static void main(String[] args) throws IOException {
 
-        mongoClient = new MongoClient(); //Default port
-        userDatabase = mongoClient.getDatabase(userDatabaseName);
+        MongoClient mongoClient = new MongoClient();
+        MongoDatabase userDatabase = mongoClient.getDatabase(userDatabaseName);
 
         UserController userController = new UserController(userDatabase);
 
@@ -55,8 +47,6 @@ public class Server {
         before((request, response) -> response.header("Access-Control-Allow-Origin", "*"));
 
 
-
-
         // Simple example route
         get("/hello", (req, res) -> "Hello World");
 
@@ -68,11 +58,11 @@ public class Server {
         /////////////////////////////////////////////
 
         //List users, filtered using query parameters
+
         get("api/users", userController::getUsers);
 
-        // See specific user
-        get("api/users/:id", userController::getUser);
 
+        get("api/users/:id", userController::getUser);
 
         // An example of throwing an unhandled exception so you can see how the
         // Java Spark debugger displays errors like this.
@@ -85,7 +75,7 @@ public class Server {
         // in their request that they can accept compressed responses.
         // There's a similar "before" method that can be used to modify requests
         // before they they're processed by things like `get`.
-        after("*", addGzipHeader);
+        after("*", Server::addGzipHeader);
 
         // Handle "404" file not found requests:
         notFound((req, res) -> {
@@ -96,10 +86,8 @@ public class Server {
 
     }
 
-
-
     // Enable GZIP for all responses
-    private static Filter addGzipHeader = (Request request, Response response) -> {
+    private static void addGzipHeader(Request request, Response response) {
         response.header("Content-Encoding", "gzip");
-    };
+    }
 }
