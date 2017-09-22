@@ -3,21 +3,24 @@ evaluationDependsOn ":server"
 
 // Assumes our test database is named "test"
 task clearMongoDB(type: Exec) {
+    group = "application"
     executable "mongo"
-    args = ["test", "--eval", "printjson(db.dropDatabase())"]
+    args = ["dev", "--eval", "printjson(db.dropDatabase())"]
 }
 
 task seedToDoData(type: Exec) {
     executable = "mongoimport"
-    args = ["-d", "test", "-c", "todos", "--file", "todos.seed.json", "--jsonArray"]
+    args = ["-d", "dev", "-c", "todos", "--file", "todos.seed.json", "--jsonArray"]
 }
 
 task seedUserData(type: Exec) {
     executable = "mongoimport"
-    args = ["-d", "test", "-c", "users", "--file", "users.seed.json", "--jsonArray"]
+    args = ["-d", "dev", "-c", "users", "--file", "users.seed.json", "--jsonArray"]
 }
 
-task seedMongoDB { }
+task seedMongoDB {
+    group = "application"
+}
 seedMongoDB.dependsOn(clearMongoDB)
 seedMongoDB.dependsOn(seedToDoData)
 seedMongoDB.dependsOn(seedUserData)

@@ -12,7 +12,7 @@ import static spark.Spark.*;
 import static spark.debug.DebugScreen.enableDebugScreen;
 
 public class Server {
-    private static final String userDatabaseName = "lab";
+    private static final String userDatabaseName = "dev";
     private static final int serverPort = 4567;
 
     public static void main(String[] args) throws IOException {
