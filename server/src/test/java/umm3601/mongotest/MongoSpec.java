@@ -40,7 +40,7 @@ public class MongoSpec {
     @Before
     public void clearAndPopulateDB() {
         MongoClient mongoClient = new MongoClient();
-        MongoDatabase db = mongoClient.getDatabase("testingdb");
+        MongoDatabase db = mongoClient.getDatabase("test");
         userDocuments = db.getCollection("users");
         userDocuments.drop();
         List<Document> testUsers = new ArrayList<>();

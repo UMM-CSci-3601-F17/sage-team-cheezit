@@ -1,4 +1,5 @@
-import {browser, element, by, Key} from 'protractor';
+import {browser, element, by} from 'protractor';
+import {Key} from "selenium-webdriver";
 
 export class UserPage {
     navigateTo() {
