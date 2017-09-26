@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {UserListService} from "./user-list.service";
 import {User} from "./user";
+import {Observable} from "rxjs";
 
 @Component({
     selector: 'user-list-component',
@@ -82,13 +83,15 @@ export class UserListComponent implements OnInit {
      * Starts an asynchronous operation to update the users list
      *
      */
-    refreshUsers(): void {
+    refreshUsers(): Observable<User[]> {
         //Get Users returns an Observable, basically a "promise" that
         //we will get the data from the server.
         //
         //Subscribe waits until the data is fully downloaded, then
         //performs an action on it (the first lambda)
-        this.userListService.getUsers().subscribe(
+
+        let users : Observable<User[]> = this.userListService.getUsers();
+        users.subscribe(
             users => {
                 this.users = users;
                 this.filterUsers(this.userName, this.userAge);
@@ -96,6 +99,7 @@ export class UserListComponent implements OnInit {
             err => {
                 console.log(err);
             });
+        return users;
     }
 
     ngOnInit(): void {
