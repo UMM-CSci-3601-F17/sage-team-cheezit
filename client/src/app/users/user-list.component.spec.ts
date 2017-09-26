@@ -3,7 +3,7 @@ import {User} from "./user";
 import {UserListComponent} from "./user-list.component";
 import {UserListService} from "./user-list.service";
 import {Observable} from "rxjs";
-import {FormsModule} from "@angular/forms";
+import {FormsModule} from "@angular/forms"; //for [(ngModule)] to not break tests
 
 describe("User list", () => {
 

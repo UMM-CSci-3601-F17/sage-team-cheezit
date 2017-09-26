@@ -34,6 +34,14 @@ export class UserListComponent implements OnInit {
     }
 
     addNewUser(name: string, age: number, company : string, email : string) : void{
+
+        //Here we clear all the fields, probably a better way of doing
+        //this could be with clearing forms or something else
+        this.newUserName = null;
+        this.newUserAge = null;
+        this.newUserCompany = null;
+        this.newUserEmail = null;
+
         this.userListService.addNewUser(name, age, company, email).subscribe(
             succeeded => {
             this.userAddSuccess = succeeded;
@@ -45,13 +53,6 @@ export class UserListComponent implements OnInit {
                 users => {
                     this.users = users;
                     this.filterUsers(this.userName, this.userAge);
-
-                    // Right now we are clearing all the fields, probably a better way of doing
-                    //this could be with forms or something else
-                    this.newUserName = null;
-                    this.newUserAge = null;
-                    this.newUserCompany = null;
-                    this.newUserEmail = null;
                 },
                 err => {
                     console.log(err);
