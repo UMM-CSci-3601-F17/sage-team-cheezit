@@ -3,6 +3,7 @@ import {User} from "./user";
 import {UserListComponent} from "./user-list.component";
 import {UserListService} from "./user-list.service";
 import {Observable} from "rxjs";
+import {FormsModule} from "@angular/forms"; //for [(ngModule)] to not break tests
 
 describe("User list", () => {
 
@@ -18,21 +19,21 @@ describe("User list", () => {
         userListServiceStub = {
             getUsers: () => Observable.of([
                 {
-                    id: "chris_id",
+                    _id: "chris_id",
                     name: "Chris",
                     age: 25,
                     company: "UMM",
                     email: "chris@this.that"
                 },
                 {
-                    id: "pat_id",
+                    _id: "pat_id",
                     name: "Pat",
                     age: 37,
                     company: "IBM",
                     email: "pat@something.com"
                 },
                 {
-                    id: "jamie_id",
+                    _id: "jamie_id",
                     name: "Jamie",
                     age: 37,
                     company: "Frogs, Inc.",
@@ -42,7 +43,7 @@ describe("User list", () => {
         };
 
         TestBed.configureTestingModule({
-            //imports: [PipeModule],
+            imports: [FormsModule],
             declarations: [UserListComponent],
             // providers:    [ UserListService ]  // NO! Don't provide the real service!
             // Provide a test-double instead
@@ -97,6 +98,7 @@ describe("Misbehaving User List", () => {
         };
 
         TestBed.configureTestingModule({
+            imports: [FormsModule],
             declarations: [UserListComponent],
             providers: [{provide: UserListService, useValue: userListServiceStub}]
         })

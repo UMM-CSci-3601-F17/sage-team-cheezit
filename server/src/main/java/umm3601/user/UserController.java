@@ -1,6 +1,7 @@
 package umm3601.user;
 
 import com.google.gson.Gson;
+import com.mongodb.*;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
@@ -120,5 +121,83 @@ public class UserController {
 
         return JSON.serialize(matchingUsers);
     }
+
+    /**
+     *
+     * @param req
+     * @param res
+     * @return
+     */
+    public boolean addNewUser(Request req, Response res)
+    {
+
+        res.type("application/json");
+        Object o = JSON.parse(req.body());
+        try {
+            if(o.getClass().equals(BasicDBObject.class))
+            {
+                try {
+                    BasicDBObject dbO = (BasicDBObject) o;
+
+                    String name = dbO.getString("name");
+                    //For some reason age is a string right now, caused by angular.
+                    //This is a problem and should not be this way but here ya go
+                    int age = dbO.getInt("age");
+                    String company = dbO.getString("company");
+                    String email = dbO.getString("email");
+
+                    System.err.println("Adding new user [name=" + name + ", age=" + age + " company=" + company + " email=" + email + ']');
+                    return addNewUser(name, age, company, email);
+                }
+                catch(NullPointerException e)
+                {
+                    System.err.println("A value was malformed or omitted, new user request failed.");
+                    return false;
+                }
+
+            }
+            else
+            {
+                System.err.println("Expected BasicDBObject, received " + o.getClass());
+                return false;
+            }
+        }
+        catch(RuntimeException ree)
+        {
+            ree.printStackTrace();
+            return false;
+        }
+    }
+
+    /**
+     *
+     * @param name
+     * @param age
+     * @param company
+     * @param email
+     * @return
+     */
+    public boolean addNewUser(String name, int age, String company, String email) {
+
+        Document newUser = new Document();
+        newUser.append("name", name);
+        newUser.append("age", age);
+        newUser.append("company", company);
+        newUser.append("email", email);
+
+        try {
+            userCollection.insertOne(newUser);
+        }
+        catch(MongoException me)
+        {
+            me.printStackTrace();
+            return false;
+        }
+
+        return true;
+    }
+
+
+
 
 }
