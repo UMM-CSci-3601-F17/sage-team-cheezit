@@ -35,8 +35,8 @@ export class UserListComponent implements OnInit {
 
     addNewUser(name: string, age: number, company : string, email : string) : void{
 
-        //Here we clear all the fields, probably a better way of doing
-        //this could be with clearing forms or something else
+        //Here we clear all the fields, there's probably a better way
+        //of doing this could be with forms or something else
         this.newUserName = null;
         this.newUserAge = null;
         this.newUserCompany = null;

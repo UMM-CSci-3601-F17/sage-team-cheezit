@@ -79,6 +79,38 @@ describe("User list", () => {
         expect(userList.users.filter((user: User) => user.age === 37).length).toBe(2);
     });
 
+    it("user list refreshes", () => {
+        expect(userList.filteredUsers.length).toBe(3);
+        let newUsers : User[] = new Array(1);
+        let newUser : User = {_id: "5", name:"Melbourne", age:84, company:"Dogs LLC", email:"woof@puppers.edu"};
+        newUsers.push(newUser);
+        userList.users = newUsers;
+        userList.refreshUsers();
+        //expect(userList.filteredUsers).toBe(newUsers);
+    });
+
+    it("user list filters by name", () => {
+        expect(userList.filteredUsers.length).toBe(3);
+        userList.userName = "a";
+        userList.refreshUsers(); //The asynchronicity of refreshUsers doesn't seem to effect `expect`
+        expect(userList.filteredUsers.length).toBe(2);
+    });
+
+    it("user list filters by age", () => {
+        expect(userList.filteredUsers.length).toBe(3);
+        userList.userAge = 37;
+        userList.refreshUsers();
+        expect(userList.filteredUsers.length).toBe(2);
+    });
+
+    it("user list filters by name and age", () => {
+        expect(userList.filteredUsers.length).toBe(3);
+        userList.userAge = 37;
+        userList.userName = "i";
+        userList.refreshUsers();
+        expect(userList.filteredUsers.length).toBe(1);
+    });
+
 });
 
 describe("Misbehaving User List", () => {
