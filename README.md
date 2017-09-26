@@ -1,10 +1,11 @@
 # CSCI 3601 Lab #4 - Mongo, Spark and Angular
 [![Build Status](https://travis-ci.org/UMM-CSci-3601/3601-lab4_mongo.svg?branch=master)](https://travis-ci.org/UMM-CSci-3601/3601-lab4_mongo)
 
-In this lab, you'll be working to re-implement the ToDO API, this time pulling data from a Mongo Database rather than a flat JSON file. You will also be implementing a new summary API which returns results of processing ToDO data. You will also be implementing a simple client-side application to view this data.
+In this lab, you'll be working to re-implement the ToDo API, this time pulling data from a Mongo Database rather than a flat JSON file. You will also be implementing a new summary API which returns results of processing ToDo data. You will also be implementing a simple client-side application to view this data.
 
 Your specific tasks for this lab can be found in the [LABTASKS.md][labtasks]
 file in this repository.
+
 <!-- TOC depthFrom:1 depthTo:5 withLinks:1 updateOnSave:1 orderedList:0 -->
 ## Table of Contents
 - [Setup](#setup)
@@ -16,9 +17,10 @@ file in this repository.
 	- [MongoDB](#mongodb)
 
 <!-- /TOC -->
+
 ## Setup
 
-As in the previous lab, you'll be using IntelliJ. Once you've all joined your
+As in the previous labs, you'll be using IntelliJ. Once you've all joined your
 group using GitHub classroom, you can clone your repository using IntelliJ:
 
 - When prompted to create a new IntelliJ project, select **yes**.
@@ -48,20 +50,19 @@ The major difference between this lab and lab #3 is that, here, your data
 within the server source code.
 
 For the most part, you will be using a local installation of Mongo as a
-dev database. You don't *really* need to worry about how this is set up,
+`dev` (development) database. You don't *really* need to worry about how this is set up,
 but you *do* need to know a couple of tricks to help you use it:
 
 - To load new seed data into your local dev database, use the gradle task:
 **seedMongoDB**.
-- *Seed* data is stored in the aptly named JSON files.
-- Additionally there is a **seedUserData** and **seedToDOData** task which will seed the appropriate data. 
-
+- *Seed* data is stored in the correspondingly named JSON files at the top
+level (e.g., `users.seed.json`).
 
 :exclamation: Pro-tip: IntelliJ comes with a nice view to see the mongo databases setup.
 To access this click on File -> Settings -> Plugins, type Mongo and make sure the Mongo Plugin is installed.
 Now head to View -> Tool Windows -> Mongo Explorer. Then use the tool icon to add configuration.
 Once prompted type for Path to Mongo Shell: _"/usr/bin/mongo"_
-and hit the <span style="color:green">green :heavy_plus_sign:</span>, to add your label and huzzah Mongo Explorer is on your side bar.
+and hit the <span style="color:green">green :heavy_plus_sign:</span>, to add your label and, huzzah!, Mongo Explorer is on your side bar.
 
 ## Testing and Continuous Integration
 

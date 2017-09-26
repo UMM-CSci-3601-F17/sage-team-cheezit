@@ -23,24 +23,23 @@ If you're ever confused about what you need to do for a given task, ask.
 - [Questions](#questions)
 
 <!-- /TOC -->
+
 ## Exploring the project
 
 The structure of this project should be nearly identical to that of lab #3, and as such there really isn't much excitement in that department.
-
-Answer question 1 in [QUESTIONS](#questions).
 
 ### Exploring the server
 
 The server is, for the most part, the same as it has been in the past two labs. The difference to look for here is in how the server gets the data it sends out in reply to requests.
 
-Answer question 2 in [QUESTIONS](#questions).
+Answer questions 1-6 in [QUESTIONS](#questions).
 
 ## More Todos!
 - Re-implement the ToDo API, this time pulling data from MongoDB rather than from a flat JSON file.
 - When displaying the ToDos in your Angular front-end, make thoughtful decisions about whether work like filtering should be done in Angular or via database queries. It would be reasonable, for example, to have the database filter out all the ToDos belonging to a single user, but let Angular filter by category or status.
 
-### Wrting Todos to the Database
-- We have included an example of writing to the database with `addUser` functionality. Add to both the front-end and back-end to make it possible to add Todos so that they appear both in your list and in the database.
+### Writing Todos to the Database
+- We have included an example of writing to the database with `addUser` functionality. Add to both the front-end and back-end to make it possible to add ToDos so that they appear both in your list and in the database.
 
 ### Summary Information About ToDos
 
@@ -106,10 +105,16 @@ the server-side.
 
 ## Questions
 
-1. :question: Name one element inside a file that has changed? What is being done?
-1. :question:  So how does the server get all that data it's sending out?
-Why might we have more than one, and how do they interact?
-
-TODO: add more questions
+1. :question: What do we do in the `Server` and `UserController` constructors
+to set up our connection to the development database?
+1. :question: How do we retrieve a user by ID in the `UserController.getUser(String)` method?
+1. :question: How do we retrieve all the users with a given age 
+in `UserController.getUsers(Map...)`? What's the role of `filterDoc` in that
+method?
+1. :question: What are these `Document` objects that we use in the `UserController`? 
+Why and how are we using them?
+1. :question: What does `UserControllerSpec.clearAndPopulateDb` do?
+1. :question: What's being tested in `UserControllerSpec.getUsersWhoAre37()`?
+How is that being tested?
 
 [readme]:https://github.com/UMM-CSci-3601/3601-lab4_mongo_db/#testing-and-continuous-integration
