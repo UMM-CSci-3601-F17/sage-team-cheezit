@@ -12,15 +12,14 @@ If you're ever confused about what you need to do for a given task, ask.
 ## Table of Contents
 
 - [Exploring the Project](#exploring-the-project)
-- [Running your project](#running-your-project)
   - [Exploring the server](#exploring-the-server)
 - [More Todos!](#more-todos)
   - [Writing Todos to the Database](#writing-todos-to-the-database)
   - [Summary Information About ToDos](#summary-information-about-todos)
   - [Make it pretty](#make-it-pretty)
 - [Remember to test!](#remember-to-test)
-  - [Client-side testing](client-side-testing)
-  - [Server-side testing](server-side-testing)
+  - [Client-side testing](#client-side-testing)
+  - [Server-side testing](#server-side-testing)
 - [Questions](#questions)
 
 <!-- /TOC -->
