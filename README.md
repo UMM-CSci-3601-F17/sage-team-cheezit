@@ -72,7 +72,9 @@ Testing client:
 * runClientTests runs the client tests once.
 * runClientTestsAndWatch runs the client tests every time that the code changes after a save.
 * runClientTestsWithCoverage runs the client tests (once?) and deposits code coverage statistics into a new directory within `client` called `coverage`. In there you will find an `index.html`. Right click on `index.html` and select `Open in Browser` with your browser of choice. For Chrome users, you can drag and drop index.html onto chrome and it will open it.  
-* runE2ETest runs end to end test for the client side. What are e2e tests? They are tests that run the real application and simulate user behavior. They assert that the app is running as expected. NOTE: The server (`run`) needs to be on for this test to work!
+* runE2ETest runs end to end test for the client side. What are e2e tests? They are tests that run the real application and simulate user behavior. They assert that the app is running as expected. NOTE: Two Gradle tasks _must_ be run before you can run the e2e tests. 
+The server (`run`) needs to be on for this test to work, and you have to
+run the `seedMongoDB` task before running the e2e tests!
 * runServerTests runs the server tests.
 
 Turn on your repo in [Travis CI][travis], replace the build status image in this README, and push your changes. That will trigger a build with Travis.
