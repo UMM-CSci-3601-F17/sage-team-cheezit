@@ -48,14 +48,16 @@ The major difference between this lab and lab #3 is that, here, your data
 within the server source code.
 
 For the most part, you will be using a local installation of Mongo as a
-lab database. You don't *really* need to worry about how this is set up,
+dev database. You don't *really* need to worry about how this is set up,
 but you *do* need to know a couple of tricks to help you use it:
 
-- To load new seed data into your local lab database, use the gradle task:
+- To load new seed data into your local dev database, use the gradle task:
 **seedMongoDB**.
 - *Seed* data is stored in the aptly named JSON files.
+- Additionally there is a **seedUserData** and **seedToDOData** task which will seed the appropriate data. 
 
->:exclamation: Pro-tip: IntelliJ comes with a nice view to see the mongo databases setup.
+
+:exclamation: Pro-tip: IntelliJ comes with a nice view to see the mongo databases setup.
 To access this click on File -> Settings -> Plugins, type Mongo and make sure the Mongo Plugin is installed.
 Now head to View -> Tool Windows -> Mongo Explorer. Then use the tool icon to add configuration.
 Once prompted type for Path to Mongo Shell: _"/usr/bin/mongo"_
