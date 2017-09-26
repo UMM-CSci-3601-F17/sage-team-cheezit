@@ -45,19 +45,11 @@ export class UserListComponent implements OnInit {
         this.userListService.addNewUser(name, age, company, email).subscribe(
             succeeded => {
             this.userAddSuccess = succeeded;
-            // Once we added a new User, refresh our user list
+            // Once we added a new User, refresh our user list.
             // There is a more efficient method where we request for
-            // this user form the server and add it, but that is unnecessarily involved
-            // for this lab
-            this.userListService.getUsers().subscribe(
-                users => {
-                    this.users = users;
-                    this.filterUsers(this.userName, this.userAge);
-                },
-                err => {
-                    console.log(err);
-                }
-            );
+            // this new user from the server and add it to users, but
+            // for this lab it's not necessary
+            this.refreshUsers();
         });
     }
 
@@ -86,7 +78,11 @@ export class UserListComponent implements OnInit {
         return this.filteredUsers;
     }
 
-    ngOnInit(): void {
+    /**
+     * Starts an asynchronous operation to update the users list
+     *
+     */
+    refreshUsers(): void {
         //Get Users returns an Observable, basically a "promise" that
         //we will get the data from the server.
         //
@@ -95,11 +91,14 @@ export class UserListComponent implements OnInit {
         this.userListService.getUsers().subscribe(
             users => {
                 this.users = users;
-                this.filteredUsers = this.users;
+                this.filterUsers(this.userName, this.userAge);
             },
             err => {
                 console.log(err);
-            }
-        );
+            });
+    }
+
+    ngOnInit(): void {
+        this.refreshUsers();
     }
 }
