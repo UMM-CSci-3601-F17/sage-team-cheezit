@@ -1,23 +1,27 @@
 
-<div class="header">
-    <label> Add a New User: </label>
-    <input #input type="text" placeholder="Name" (input)="newUserName = $event.target.value">
-    <input #input type="number" placeholder="Age" (input)="newUserAge = $event.target.value">
-    <input #input type="text" placeholder="Company" (input)="newUserCompany = $event.target.value">
-    <input #input type="text" placeholder="Email" (input)="newUserEmail = $event.target.value">
-    <input #input type="button" value="Add User" (input)="newDog = 2">
-</div>
-<div class="header">
+
+Add a new User:
+<span class="row">
+    <span id="addUser" class="col-lg-5">
+        <span class="input-group">
+            <input class="form-control" #input type="text" placeholder="Name" [(ngModel)]="newUserName">
+            <input class="form-control" #input type="number" placeholder="Age" [(ngModel)]="newUserAge">
+            <input class="form-control" #input type="text" placeholder="Company" [(ngModel)]="newUserCompany">
+            <input class="form-control" #input type="text" placeholder="Email" [(ngModel)]="newUserEmail">
+
+            <button class="form-control" #input type="button" (click)="this.addNewUser(newUserName, newUserAge, newUserCompany, newUserEmail)">Add User</button>
+        </span>
+    </span>
+</span>
 
     <!-- The names userName and userAge, different from searchName and searchAge, are being
     used here only to illustrate that these inputs are not necessarily explicitly referencable from within
     the typescript. Unless made to do so by defining a userName variable within this component's typescript file-->
+<span id="title" class="list-group-item list-group-item-info">
+    <span id="list-title"> User Name </span>
     <input #input type="text" placeholder="Filter by name" (input)="userName = $event.target.value">
     <input #input type="number" placeholder="Filter by age" (input)="userAge = $event.target.value">
-
-</div>
-<a id="title" class="list-group-item list-group-item-info">User Name</a>
-
+</span>
 
 <ul class="list-group" *ngIf="users; else usersError">
     <li id="users" *ngFor="let user of this.filterUsers(userName, userAge)" class="list-group-item">
