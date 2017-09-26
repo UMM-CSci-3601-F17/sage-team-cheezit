@@ -1,15 +1,23 @@
-<ul class="list-group">
-    <li class="list-group-item list-group-item-info">
 
-        <!-- The names userName and userAge, different from searchName and searchAge, are being
-        used here only to illustrate that these inputs are not necessarily explicitly referencable from within
-        the typescript. Unless made to do so by defining a userName variable within this component's typescript file-->
-        <input #input type="text" placeholder="Filter by name" (input)="userName = $event.target.value">
-        <input #input type="number" placeholder="Filter by age" (input)="userAge = $event.target.value">
+<div class="header">
+    <label> Add a New User: </label>
+    <input #input type="text" placeholder="Name" (input)="newUserName = $event.target.value">
+    <input #input type="number" placeholder="Age" (input)="newUserAge = $event.target.value">
+    <input #input type="text" placeholder="Company" (input)="newUserCompany = $event.target.value">
+    <input #input type="text" placeholder="Email" (input)="newUserEmail = $event.target.value">
+    <input #input type="button" value="Add User" (input)="newDog = 2">
+</div>
+<div class="header">
 
-    </li>
-    <li id="title" class="list-group-item list-group-item-info">User Name</li>
-</ul>
+    <!-- The names userName and userAge, different from searchName and searchAge, are being
+    used here only to illustrate that these inputs are not necessarily explicitly referencable from within
+    the typescript. Unless made to do so by defining a userName variable within this component's typescript file-->
+    <input #input type="text" placeholder="Filter by name" (input)="userName = $event.target.value">
+    <input #input type="number" placeholder="Filter by age" (input)="userAge = $event.target.value">
+
+</div>
+<a id="title" class="list-group-item list-group-item-info">User Name</a>
+
 
 <ul class="list-group" *ngIf="users; else usersError">
     <li id="users" *ngFor="let user of this.filterUsers(userName, userAge)" class="list-group-item">

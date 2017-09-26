@@ -1,0 +1,5 @@
+.header {
+    resize: horizontal;
+    overflow: auto;
+    color: #cc0000;
+}
