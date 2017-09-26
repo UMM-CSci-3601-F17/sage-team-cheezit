@@ -28,7 +28,7 @@ export class UserPage {
     }
 
     typeAName(name: string) {
-        let input = element(by.tagName('input'));
+        let input = element(by.id('userName'));
         input.click();
         input.sendKeys(name);
     }
@@ -38,7 +38,7 @@ export class UserPage {
     }
 
     getUserByAge() {
-        let input = element(by.tagName('input'));
+        let input = element(by.id('userName'));
         input.click();
         input.sendKeys(Key.TAB);
     }
