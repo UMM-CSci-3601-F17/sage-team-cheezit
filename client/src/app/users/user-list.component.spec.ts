@@ -3,6 +3,7 @@ import {User} from "./user";
 import {UserListComponent} from "./user-list.component";
 import {UserListService} from "./user-list.service";
 import {Observable} from "rxjs";
+import {FormsModule} from "@angular/forms";
 
 describe("User list", () => {
 
@@ -42,7 +43,7 @@ describe("User list", () => {
         };
 
         TestBed.configureTestingModule({
-            //imports: [PipeModule],
+            imports: [FormsModule],
             declarations: [UserListComponent],
             // providers:    [ UserListService ]  // NO! Don't provide the real service!
             // Provide a test-double instead
@@ -97,6 +98,7 @@ describe("Misbehaving User List", () => {
         };
 
         TestBed.configureTestingModule({
+            imports: [FormsModule],
             declarations: [UserListComponent],
             providers: [{provide: UserListService, useValue: userListServiceStub}]
         })
