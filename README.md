@@ -1,5 +1,5 @@
 # CSCI 3601 Production Template Fall 2017
-[![Build Status](https://travis-ci.org/UMM-CSci-3601/3601-lab4_mongo.svg?branch=master)](https://travis-ci.org/UMM-CSci-3601/3601-lab4_mongo)
+[![Build Status](https://travis-ci.org/UMM-CSci-3601/production-template-F17.svg?branch=master)](https://github.com/UMM-CSci-3601/production-template-F17)
 
 
 <!-- TOC depthFrom:1 depthTo:5 withLinks:1 updateOnSave:1 orderedList:0 -->
