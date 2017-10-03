@@ -1,10 +1,6 @@
-# CSCI 3601 Lab #4 - Mongo, Spark and Angular
+# CSCI 3601 Production Template Fall 2017
 [![Build Status](https://travis-ci.org/UMM-CSci-3601/3601-lab4_mongo.svg?branch=master)](https://travis-ci.org/UMM-CSci-3601/3601-lab4_mongo)
 
-In this lab, you'll be working to re-implement the ToDo API, this time pulling data from a Mongo Database rather than a flat JSON file. You will also be implementing a new summary API which returns results of processing ToDo data. You will also be implementing a simple client-side application to view this data.
-
-Your specific tasks for this lab can be found in the [LABTASKS.md][labtasks]
-file in this repository.
 
 <!-- TOC depthFrom:1 depthTo:5 withLinks:1 updateOnSave:1 orderedList:0 -->
 ## Table of Contents
@@ -42,21 +38,12 @@ tools.
 
 - The familiar **run** Gradle task will still run your SparkJava server.
 (which is available at ``localhost:4567``)
-- The **build** (or its' alias **buildExecutable**) task will still _build_ the entire project (but not run it)
+- The **build** task will still _build_ the entire project (but not run it)
 - The **runClient** task will build and run the client side of your project (available at ``localhost:9000``)
-
-The major difference between this lab and lab #3 is that, here, your data
-(users and todos) will be stored in a database rather than as "flat" JSON files
-within the server source code.
 
 For the most part, you will be using a local installation of Mongo as a
 `dev` (development) database. You don't *really* need to worry about how this is set up,
 but you *do* need to know a couple of tricks to help you use it:
-
-- To load new seed data into your local dev database, use the gradle task:
-**seedMongoDB**.
-- *Seed* data is stored in the correspondingly named JSON files at the top
-level (e.g., `users.seed.json`).
 
 :exclamation: Pro-tip: IntelliJ comes with a nice view to see the mongo databases setup.
 To access this click on File -> Settings -> Plugins, type Mongo and make sure the Mongo Plugin is installed.
@@ -87,7 +74,6 @@ Turn on your repo in [Travis CI][travis], replace the build status image in this
 - [Testing Angular 4 with Karma/Jasmine][angular4-karma-jasmine]
 - [End to end testing (e2e) with protactor and Angular CLI][e2e-testing]
 - [Angular CLI commands](https://github.com/angular/angular-cli/wiki)
-- [Bootstrap Components][bootstrap]
 
 ### SparkJava
 - [Spark documentation][spark-documentation]
@@ -103,7 +89,6 @@ Turn on your repo in [Travis CI][travis], replace the build status image in this
 [angular4-karma-jasmine]: https://codecraft.tv/courses/angular/unit-testing/jasmine-and-karma/
 [e2e-testing]: https://coryrylan.com/blog/introduction-to-e2e-testing-with-the-angular-cli-and-protractor
 [environments]: http://tattoocoder.com/angular-cli-using-the-environment-option/
-[bootstrap]: https://getbootstrap.com/components/
 [spark-documentation]: http://sparkjava.com/documentation.html
 [status-codes]: https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
 [lab2]: https://github.com/UMM-CSci-3601/3601-lab2_client-server/blob/master/README.md#resources
