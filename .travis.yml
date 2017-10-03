@@ -9,4 +9,7 @@ cache:
 jdk:
   - oraclejdk8
 
+before_script:
+    - npm install -g @angular/cli
+
 services: mongodb
