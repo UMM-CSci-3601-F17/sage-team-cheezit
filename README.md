@@ -16,7 +16,7 @@
 
 ## Setup
 
-As in the previous labs, you'll be using IntelliJ. Once you've all joined your
+As in the labs, you'll be using IntelliJ. Once you've all joined your
 group using GitHub classroom, you can clone your repository using IntelliJ:
 
 - When prompted to create a new IntelliJ project, select **yes**.
@@ -57,11 +57,11 @@ and hit the <span style="color:green">green :heavy_plus_sign:</span>, to add you
 
 Testing options are still integrated in this lab so you can test the client, or the server or both.
 Testing client:
-* runAllTests runs both the server tests and the clients tests once.
-* runClientTests runs the client tests once.
-* runClientTestsAndWatch runs the client tests every time that the code changes after a save.
-* runClientTestsWithCoverage runs the client tests (once?) and deposits code coverage statistics into a new directory within `client` called `coverage`. In there you will find an `index.html`. Right click on `index.html` and select `Open in Browser` with your browser of choice. For Chrome users, you can drag and drop index.html onto chrome and it will open it.  
-* runE2ETest runs end to end test for the client side. What are e2e tests? They are tests that run the real application and simulate user behavior. They assert that the app is running as expected. NOTE: Two Gradle tasks _must_ be run before you can run the e2e tests. 
+* `runAllTests` runs both the server tests and the clients tests once.
+* `runClientTests` runs the client tests once.
+* `runClientTestsAndWatch` runs the client tests every time that the code changes after a save.
+* `runClientTestsWithCoverage` runs the client tests and deposits code coverage statistics into a new directory within `client` called `coverage`. In there you will find an `index.html`. Right click on `index.html` and select `Open in Browser` with your browser of choice. For Chrome users, you can drag and drop index.html onto chrome and it will open it.  
+* `runE2ETest` runs end to end test for the client side. NOTE: Two Gradle tasks _must_ be run before you can run the e2e tests. 
 The server (`run`) needs to be on for this test to work, and you have to
 need to have data in the `dev` database before running the e2e tests!
 * runServerTests runs the server tests.
