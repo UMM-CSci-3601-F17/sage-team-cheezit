@@ -43,7 +43,7 @@ distributions {
 task runServerTests {
     group = "application"
 }
-runServerTests.dependsOn testClasses
+runServerTests.dependsOn test
 
 //Both karma and junit tests
 task runAllTests {
@@ -51,9 +51,9 @@ task runAllTests {
     description = "Runs the server as a JVM application after testing both it and the client"
 }
 
-runAllTests.dependsOn test
+runAllTests.dependsOn check
 
-test.dependsOn(":client:runClientTests")
+check.dependsOn(":client:runClientTests")
 
 // Adds the `lib/client` directory to the classpath that is built
 // in the startup script that gradle builds for us. It appears that
