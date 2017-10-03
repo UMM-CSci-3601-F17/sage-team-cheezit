@@ -46,14 +46,14 @@ task runClientTests(dependsOn: yarn_run_test) {
     group = 'application'
 }
 
-task build(type:Exec) {
+task build(type:NodeTask) {
     group = 'application'
     description = 'Builds the client side of the application using ng build'
 
     def build = file("build")
     outputs.dir build
 
-    executable "ng"
+    script = file("node_modules/@angular/cli/bin/ng")
     args = ["build","--environment=prod", "--output-path=build", "--prod"]
 }
 
