@@ -4,9 +4,12 @@ import com.mongodb.MongoClient;
 import com.mongodb.client.MongoDatabase;
 import spark.Request;
 import spark.Response;
+import spark.Route;
+import spark.utils.IOUtils;
 import umm3601.user.UserController;
 
 import java.io.IOException;
+import java.io.InputStream;
 
 import static spark.Spark.*;
 import static spark.debug.DebugScreen.enableDebugScreen;
@@ -52,7 +55,14 @@ public class Server {
 
         // Redirects for the "home" page
         redirect.get("", "/");
-        redirect.get("/", "http://localhost:9000");
+
+        Route clientRoute = (req, res) -> {
+            //Return client files
+            InputStream stream = Server.class.getResourceAsStream("/public/index.html");
+            return IOUtils.toString(stream);
+        };
+
+        get("/", clientRoute);
 
         /// User Endpoints ///////////////////////////
         /////////////////////////////////////////////
@@ -76,12 +86,16 @@ public class Server {
         // before they they're processed by things like `get`.
         after("*", Server::addGzipHeader);
 
+        get("/*", clientRoute);
+
         // Handle "404" file not found requests:
         notFound((req, res) -> {
             res.type("text");
             res.status(404);
             return "Sorry, we couldn't find that!";
         });
+
+
 
     }
 
