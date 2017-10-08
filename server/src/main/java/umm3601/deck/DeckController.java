@@ -82,6 +82,10 @@ public class DeckController {
 
     public String getDecks(Map<String, String[]> queryParams){
         Document filterDoc = new Document();
+        if (queryParams.containsKey("name")){
+            String  targetName = queryParams.get("name")[0];
+            filterDoc = filterDoc.append("name", targetName);
+        }
         FindIterable<Document> matchingDecks = deckCollection.find(filterDoc);
         return JSON.serialize(matchingDecks);
     }
@@ -168,6 +172,29 @@ public class DeckController {
         }
 
         return true;
+    }
+
+    /**
+     *
+     * @param word
+     * @param synonym
+     * @param antonym
+     * @param general_sense
+     * @param example_usage
+     * @return
+     */
+    public Document addNewCard(String word, String synonym, String antonym, String general_sense, String example_usage) {
+
+        Document newCard = new Document();
+        newCard.append("word", word);
+        newCard.append("synonym", synonym);
+        newCard.append("antonym", antonym);
+        newCard.append("general_sense", general_sense);
+        newCard.append("example_usage", example_usage);
+
+
+
+        return newCard;
     }
 
 
