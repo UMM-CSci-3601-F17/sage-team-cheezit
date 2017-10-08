@@ -72,6 +72,7 @@ public class Server {
         get("api/users", userController::getUsers);
         get("api/users/:id", userController::getUser);
         post("api/users/new", userController::addNewUser);
+        get("api/userNames", userController::getUserNames);
 
         // An example of throwing an unhandled exception so you can see how the
         // Java Spark debugger displays errors like this.

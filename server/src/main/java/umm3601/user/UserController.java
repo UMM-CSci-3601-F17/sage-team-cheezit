@@ -5,12 +5,15 @@ import com.mongodb.*;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Aggregates;
+import com.mongodb.client.model.Projections;
 import com.mongodb.util.JSON;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 import spark.Request;
 import spark.Response;
 
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -121,6 +124,21 @@ public class UserController {
 
         return JSON.serialize(matchingUsers);
     }
+
+    public String getUserNames(Request req, Response res){
+        Iterable<Document> jsonUsers = userCollection.aggregate(
+            Arrays.asList(
+                Aggregates.project(
+                    Projections.fields(
+                        Projections.excludeId(),
+                        Projections.include("name")
+                    )
+                )
+            )
+        );
+        return JSON.serialize(jsonUsers);
+    }
+
 
     /**
      *

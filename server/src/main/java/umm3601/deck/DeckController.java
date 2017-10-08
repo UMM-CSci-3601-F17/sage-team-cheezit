@@ -5,12 +5,15 @@ import com.mongodb.*;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Aggregates;
+import com.mongodb.client.model.Projections;
 import com.mongodb.util.JSON;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 import spark.Request;
 import spark.Response;
 
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -81,6 +84,21 @@ public class DeckController {
         Document filterDoc = new Document();
         FindIterable<Document> matchingDecks = deckCollection.find(filterDoc);
         return JSON.serialize(matchingDecks);
+    }
+
+
+    public String getDeckNames(Request req, Response res){
+        Iterable<Document> jsonDecks = deckCollection.aggregate(
+            Arrays.asList(
+                Aggregates.project(
+                    Projections.fields(
+                       Projections.excludeId(),
+                       Projections.include("name")
+                    )
+                )
+            )
+        );
+        return JSON.serialize(jsonDecks);
     }
 
     public boolean addNewDeck(Request req, Response res)
