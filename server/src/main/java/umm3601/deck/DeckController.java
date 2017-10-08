@@ -72,7 +72,16 @@ public class DeckController {
         }
     }
 
+    public String getDecks(Request req, Response res){
+        res.type("application/json");
+        return getDecks(req.queryMap().toMap());
+    }
 
+    public String getDecks(Map<String, String[]> queryParams){
+        Document filterDoc = new Document();
+        FindIterable<Document> matchingDecks = deckCollection.find(filterDoc);
+        return JSON.serialize(matchingDecks);
+    }
 
     public boolean addNewDeck(Request req, Response res)
     {
