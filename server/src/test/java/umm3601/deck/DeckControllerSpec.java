@@ -82,5 +82,47 @@ public class DeckControllerSpec {
                             .append("cards", cards);
     }
 
+    private BsonArray parseJsonArray(String json) {
+        final CodecRegistry codecRegistry
+            = CodecRegistries.fromProviders(Arrays.asList(
+            new ValueCodecProvider(),
+            new BsonValueCodecProvider(),
+            new DocumentCodecProvider()));
+
+        JsonReader reader = new JsonReader(json);
+        BsonArrayCodec arrayReader = new BsonArrayCodec(codecRegistry);
+
+        return arrayReader.decode(reader, DecoderContext.builder().build());
+    }
+
+    private static String getName(BsonValue val) {
+        BsonDocument doc = val.asDocument();
+        return ((BsonString) doc.get("name")).getValue();
+    }
+
+    // These both kinda fail atm
+    @Test
+    public void getAllDecks() {
+        Map<String, String[]> emptyMap = new HashMap<>();
+        String jsonResult = deckController.getDecks(emptyMap);
+        BsonArray docs = parseJsonArray(jsonResult);
+
+        assertEquals("Should be 3 decks", 3, docs.size());
+        List<String> names = docs
+            .stream()
+            .map(DeckControllerSpec::getName)
+            .sorted()
+            .collect(Collectors.toList());
+        List<String> expectedNames = Arrays.asList("Deck1", "Deck2", "TesterDeck");
+        assertEquals("Names should match", expectedNames, names);
+    }
+
+    @Test
+    public void getTesterDeckById() {
+        String jsonResult = deckController.getDeck(testDeckId.toHexString());
+        Document testDeck = Document.parse(jsonResult);
+        assertEquals("Name should match", "TesterDeck", testDeck.get("name"));
+    }
+
 
 }
