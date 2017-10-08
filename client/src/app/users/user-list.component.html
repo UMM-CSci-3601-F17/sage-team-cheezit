@@ -1,39 +1,57 @@
+<div layout-gt-sm="row">
+    <div flex-gt-sm="80" flex-offset-gt-sm="10">
+        <mat-card>
+            <mat-card-title>New User</mat-card-title>
+            <mat-divider></mat-divider>
+            <mat-card-content>
+                    <mat-form-field>
+                        <input matInput #input type="text" placeholder="Name" [(ngModel)]="newUserName">
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input matInput #input type="number" placeholder="Age" [(ngModel)]="newUserAge">
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input matInput #input type="text" placeholder="Company" [(ngModel)]="newUserCompany">
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input matInput #input type="text" placeholder="Email" [(ngModel)]="newUserEmail">
+                    </mat-form-field>
 
+                    <button mat-raised-button color="primary" #input type="button"
+                            (click)="this.addNewUser(newUserName, newUserAge, newUserCompany, newUserEmail)">Add User</button>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>
+<div layout-gt-sm="row">
+    <div flex-gt-sm="80" flex-offset-gt-sm="10">
+        <mat-card>
+            <mat-card-title id="user-list-title">Users</mat-card-title>
+            <mat-divider></mat-divider>
+            <mat-card-content>
+                <mat-form-field>
+                    <input matInput id="userName" #input type="text" placeholder="Filter by name" (input)="userName = $event.target.value">
+                </mat-form-field>
+                <mat-form-field>
+                    <input matInput id="userAge" #input type="number" placeholder="Filter by age" (input)="userAge = $event.target.value">
+                </mat-form-field>
 
-Add a new User:
-<span class="row">
-    <span id="addUser" class="col-lg-5">
-        <span class="input-group">
-            <input class="form-control" #input type="text" placeholder="Name" [(ngModel)]="newUserName">
-            <input class="form-control" #input type="number" placeholder="Age" [(ngModel)]="newUserAge">
-            <input class="form-control" #input type="text" placeholder="Company" [(ngModel)]="newUserCompany">
-            <input class="form-control" #input type="text" placeholder="Email" [(ngModel)]="newUserEmail">
-
-            <button class="form-control" #input type="button" (click)="this.addNewUser(newUserName, newUserAge, newUserCompany, newUserEmail)">Add User</button>
-        </span>
-    </span>
-</span>
-
-    <!-- The names userName and userAge, different from searchName and searchAge, are being
-    used here only to illustrate that these inputs are not necessarily explicitly referencable from within
-    the typescript. Unless made to do so by defining a userName variable within this component's typescript file-->
-<span id="title" class="list-group-item list-group-item-info">
-    <span id="list-title"> User Name </span>
-    <input id="userName" #input type="text" placeholder="Filter by name" (input)="userName = $event.target.value">
-    <input id="userAge" #input type="number" placeholder="Filter by age" (input)="userAge = $event.target.value">
-</span>
-
-<ul class="list-group" *ngIf="users; else usersError">
-    <li id="users" *ngFor="let user of this.filterUsers(userName, userAge)" class="list-group-item">
-        {{ user.name }} is {{ user.age }} years old
-    </li>
-</ul>
-<!-- Maybe this should be a pop-up instead of just a text message? Not sure. -->
-<ng-template #usersError>
-    <p>
-        There was a problem loading the users. Possibly the server is down or perhaps there are network issues.
-    </p>
-    <p>
-        Please wait a bit and try again or start the server.
-    </p>
-</ng-template>
+                <mat-list *ngIf="users; else usersError">
+                    <mat-list-item id="users" *ngFor="let user of this.filterUsers(userName, userAge)" class="list-group-item">
+                        {{ user.name }} is {{ user.age }} years old
+                    </mat-list-item>
+                </mat-list>
+                <!-- Maybe this should be a pop-up instead of just a text message? Not sure. -->
+                <ng-template #usersError>
+                    <p>
+                        There was a problem loading the users. Possibly the server is down or perhaps there are network
+                        issues.
+                    </p>
+                    <p>
+                        Please wait a bit and try again or start the server.
+                    </p>
+                </ng-template>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>

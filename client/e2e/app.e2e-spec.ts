@@ -7,8 +7,7 @@ describe('angular-spark-lab', () => {
         page = new AppPage();
     });
 
-    it('should have a "title"', () => {
+    it('should load', () => {
         page.navigateTo();
-        expect(page.getParagraphText()).toEqual('Angular Spark lab');
     });
 });

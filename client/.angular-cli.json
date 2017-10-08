@@ -19,10 +19,12 @@
             "testTsconfig": "tsconfig.spec.json",
             "prefix": "app",
             "styles": [
-                "styles.css",
-                "../node_modules/bootstrap/dist/css/bootstrap.min.css"
+                "../node_modules/@covalent/core/common/platform.scss",
+                "styles.scss"
             ],
-            "scripts": [],
+            "scripts": [
+                "../node_modules/hammerjs/hammer.min.js"
+            ],
             "environmentSource": "environments/environment.ts",
             "environments": {
                 "dev": "environments/environment.ts",

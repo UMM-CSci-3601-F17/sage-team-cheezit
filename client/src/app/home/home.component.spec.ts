@@ -2,6 +2,8 @@ import {TestBed, ComponentFixture} from "@angular/core/testing";
 import {HomeComponent} from "./home.component";
 import {DebugElement} from "@angular/core";
 import {By} from "@angular/platform-browser";
+import {SharedModule} from "../shared.module";
+import {MATERIAL_COMPATIBILITY_MODE} from "@angular/material";
 
 describe('Home', () => {
 
@@ -12,7 +14,9 @@ describe('Home', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
+            imports: [SharedModule],
             declarations: [HomeComponent], // declare the test component
+            providers: [{provide: MATERIAL_COMPATIBILITY_MODE, useValue: true}],
         });
 
         fixture = TestBed.createComponent(HomeComponent);
@@ -20,7 +24,7 @@ describe('Home', () => {
         component = fixture.componentInstance; // BannerComponent test instance
 
         // query for the title <h1> by CSS element selector
-        de = fixture.debugElement.query(By.css('#home-greeting'));
+        de = fixture.debugElement.query(By.css('#hello-world'));
         el = de.nativeElement;
     });
 
