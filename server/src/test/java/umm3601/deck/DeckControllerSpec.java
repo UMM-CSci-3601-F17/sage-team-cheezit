@@ -22,64 +22,97 @@ import static org.junit.Assert.assertEquals;
 public class DeckControllerSpec {
     private DeckController deckController;
     private ObjectId testDeckId;
+
     @Before
     public void clearAndPopulateDB() throws IOException {
         MongoClient mongoClient = new MongoClient();
         MongoDatabase db = mongoClient.getDatabase("test");
         MongoCollection<Document> deckDocuments = db.getCollection("decks");
+        MongoCollection<Document> cardDocuments = db.getCollection("cards");
         deckDocuments.drop();
+        cardDocuments.drop();
         List<Document> testDecks = new ArrayList<>();
         testDecks.add(Document.parse("{\n" +
-            "   name: \"Deck1\", \n" +
-            "   cards: \"[" +
-            "{\n" +
-            "   word: \"Cool\", \n" +
-            "   synonym: \"rad\", \n" +
-            "   antonym: \"bogus\", \n" +
-            "   general_sense: \"to be radical or something\", \n" +
-            "   example: \"Todd is as cool as ice\", \n" +
-            "   }, \n" +
-            "{\n" +
-            "   word: \"Warm\", \n" +
-            "   synonym: \"hot\", \n" +
-            "   antonym: \"cold\", \n" +
-            "   general_sense: \"to feel heat or something\", \n" +
-            "   example: \"Todd is warm as hell\", \n" +
-            "   } \n" +
-            "              ]\n" +
-            "                           }"
+            "        \"name\": \"test deck 1\",\n" +
+            "        \"cards\": [\n" +
+            "            {\n" +
+            "                \"$oid\": \"59dac7b147c9429bff9ba9b3\"\n" +
+            "            },\n" +
+            "            {\n" +
+            "                \"$oid\": \"59dac7b147c9429bff9ba9b4\"\n" +
+            "            },\n" +
+            "            {\n" +
+            "                \"$oid\": \"59dac7b147c9429bff9ba9b5\"\n" +
+            "            },\n" +
+            "            {\n" +
+            "                \"$oid\": \"59dac7b147c9429bff9ba9b6\"\n" +
+            "            },\n" +
+            "            {\n" +
+            "                \"$oid\": \"59dac7b147c9429bff9ba9b7\"\n" +
+            "            },\n" +
+            "            {\n" +
+            "                \"$oid\": \"59dac7b147c9429bff9ba9b8\"\n" +
+            "            },\n" +
+            "            {\n" +
+            "                \"$oid\": \"59dac7b147c9429bff9ba9b9\"\n" +
+            "            },\n" +
+            "            {\n" +
+            "                \"$oid\": \"59dac7b147c9429bff9ba9ba\"\n" +
+            "            },\n" +
+            "            {\n" +
+            "                \"$oid\": \"59dac7b147c9429bff9ba9bb\"\n" +
+            "            },\n" +
+            "            {\n" +
+            "                \"$oid\": \"59dac7b147c9429bff9ba9bc\"\n" +
+            "            },\n" +
+            "            {\n" +
+            "                \"$oid\": \"59dac7b147c9429bff9ba9bd\"\n" +
+            "            },\n" +
+            "            {\n" +
+            "                \"$oid\": \"59dac7b147c9429bff9ba9be\"\n" +
+            "            },\n" +
+            "            {\n" +
+            "                \"$oid\": \"59dac7b147c9429bff9ba9bf\"\n" +
+            "            },\n" +
+            "            {\n" +
+            "                \"$oid\": \"59dac25d47c9429bff9ba909\"\n" +
+            "            },\n" +
+            "            {\n" +
+            "                \"$oid\": \"59dac7b147c9429bff9ba9c0\"\n" +
+            "            }\n" +
+            "        ]\n" +
+            "    }"
         ));
 
         testDecks.add(Document.parse("{\n" +
-            "   name: \"Deck2\", \n" +
-            "   cards: \"[" +
-            "{\n" +
-            "   word: \"Rad\", \n" +
-            "   synonym: \"cool\", \n" +
-            "   antonym: \"bogus\", \n" +
-            "   general_sense: \"to be cool or something\", \n" +
-            "   example: \"Todd is totally rad\", \n" +
-            "   }, \n" +
-            "{\n" +
-            "   word: \"Hot\", \n" +
-            "   synonym: \"warm\", \n" +
-            "   antonym: \"cold\", \n" +
-            "   general_sense: \"to feel warm or something\", \n" +
-            "   example: \"Todd is hot as hell\", \n" +
-            "   } \n" +
-            "              ]\n" +
-            "                           }"
+            "        \"name\": \"test deck 2\",\n" +
+            "        \"cards\": [\n" +
+            "            {\n" +
+            "                \"$oid\": \"59dac7b147c9429bff9ba9b3\"\n" +
+            "            },\n" +
+            "            {\n" +
+            "                \"$oid\": \"59dac7b147c9429bff9ba9b4\"\n" +
+            "            },\n" +
+            "            {\n" +
+            "                \"$oid\": \"59dac7b147c9429bff9ba9b5\"\n" +
+            "            }\n" +
+            "        ]\n" +
+            "    }"
         ));
 
-        testDeckId = new ObjectId();
-        Object[] cards = new Object[2];
-        BasicDBObject testDeck = new BasicDBObject("_id", testDeckId);
-        Object card1 = deckController.addNewCard("swell", "pretty alright", "uncool","this is pretty cool, my dude", "Angular 4 is pretty swell");
-        Object card2 = deckController.addNewCard("swell", "pretty alright", "uncool","this is pretty cool, my dude", "Angular 4 is pretty swell");
-        cards[0] = card1;
-        cards[1] = card2;
-        testDeck = testDeck.append("name", "TesterDeck")
-                            .append("cards", cards);
+       testDeckId = new ObjectId();
+       ObjectId[] cards = {new ObjectId("59dac7b147c9429bff9ba9b8"),
+           new ObjectId("59dac7b147c9429bff9ba9ba"),
+           new ObjectId("59dac7b147c9429bff9ba9be"),
+           new ObjectId("59dac7b147c9429bff9ba9c0")};
+        BasicDBObject testDeck = new BasicDBObject("_id", testDeckId)
+          .append("name", "test deck 3")
+          .append("cards", cards);
+
+      deckDocuments.insertMany(testDecks);
+      deckDocuments.insertOne(Document.parse(testDeck.toJson()));
+
+      deckController = new DeckController(db);
     }
 
     private BsonArray parseJsonArray(String json) {
@@ -113,15 +146,26 @@ public class DeckControllerSpec {
             .map(DeckControllerSpec::getName)
             .sorted()
             .collect(Collectors.toList());
-        List<String> expectedNames = Arrays.asList("Deck1", "Deck2", "TesterDeck");
+        List<String> expectedNames = Arrays.asList("test deck 1", "test deck 2", "test deck 3");
         assertEquals("Names should match", expectedNames, names);
+    }
+
+    @Test
+    public void getDecksbyName() {
+        Map<String, String[]> argMap = new HashMap<>();
+        argMap.put("name", new String[] { "test deck 1" });
+        String jsonResult = deckController.getDecks(argMap);
+        BsonArray docs = parseJsonArray(jsonResult);
+
+        assertEquals("Should be 1 deck", 1, docs.size());
+        assertEquals("Name should match", "test deck 1", getName(docs.get(0)));
     }
 
     @Test
     public void getTesterDeckById() {
         String jsonResult = deckController.getDeck(testDeckId.toHexString());
         Document testDeck = Document.parse(jsonResult);
-        assertEquals("Name should match", "TesterDeck", testDeck.get("name"));
+        assertEquals("Name should match", "test deck 3", testDeck.get("name"));
     }
 
 

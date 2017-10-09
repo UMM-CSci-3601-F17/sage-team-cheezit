@@ -2,12 +2,14 @@ package umm3601.deck;
 
 import com.google.gson.Gson;
 import com.mongodb.*;
+import com.mongodb.client.AggregateIterable;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Aggregates;
 import com.mongodb.client.model.Projections;
 import com.mongodb.util.JSON;
+import org.apache.commons.lang3.ArrayUtils;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 import spark.Request;
@@ -58,21 +60,13 @@ public class DeckController {
     }
 
 
-
-
-
     public String getDeck(String id){
-        Iterable<Document> jsonDecks
-            = deckCollection
-            .find(eq("_id", new ObjectId(id)));
-        Iterator<Document> iterator = jsonDecks.iterator();
-        if (iterator.hasNext()) {
-            Document deck = iterator.next();
-            return deck.toJson();
-        } else {
-            // We didn't find the desired deck
-            return null;
-        }
+        AggregateIterable<Document> deck = deckCollection.aggregate(Arrays.asList(
+            Aggregates.match(new Document("_id", new ObjectId(id))),
+            Aggregates.lookup("cards", "cards", "_id", "cards")
+        ));
+
+        return deck.first().toJson();
     }
 
     public String getDecks(Request req, Response res){
@@ -86,116 +80,16 @@ public class DeckController {
             String  targetName = queryParams.get("name")[0];
             filterDoc = filterDoc.append("name", targetName);
         }
-        FindIterable<Document> matchingDecks = deckCollection.find(filterDoc);
-        return JSON.serialize(matchingDecks);
+
+        AggregateIterable<Document> decks = deckCollection.aggregate(Arrays.asList(
+            Aggregates.match(filterDoc),
+            Aggregates.project(Projections.fields(
+                Projections.include("name"),
+                Projections.computed("count", new Document("$size", "$cards"))
+            ))
+        ));
+
+        return JSON.serialize(decks);
     }
-
-
-    public String getDeckNames(Request req, Response res){
-        Iterable<Document> jsonDecks = deckCollection.aggregate(
-            Arrays.asList(
-                Aggregates.project(
-                    Projections.fields(
-                       Projections.excludeId(),
-                       Projections.include("name")
-                    )
-                )
-            )
-        );
-        return JSON.serialize(jsonDecks);
-    }
-
-    public boolean addNewDeck(Request req, Response res)
-    {
-
-        res.type("application/json");
-        Object o = JSON.parse(req.body());
-        try {
-            if(o.getClass().equals(BasicDBObject.class))
-            {
-                try {
-                    BasicDBObject dbO = (BasicDBObject) o;
-
-                    String name = dbO.getString("name");
-
-
-                    Object[] cards = new Object[20];
-
-
-
-                    return addNewDeck(name, cards);
-                }
-                catch(NullPointerException e)
-                {
-                    System.err.println("A value was malformed or omitted, new deck request failed.");
-                    return false;
-                }
-
-            }
-            else
-            {
-                System.err.println("Expected BasicDBObject, received " + o.getClass());
-                return false;
-            }
-        }
-        catch(RuntimeException ree)
-        {
-            ree.printStackTrace();
-            return false;
-        }
-    }
-
-
-
-    /**
-     *
-     * @param name
-     * @param cards
-
-     * @return
-     */
-    public boolean addNewDeck(String name, Object[] cards) {
-
-        Document newDeck = new Document();
-        newDeck.append("name", name);
-        newDeck.append("cards", cards);
-
-
-
-        try {
-            deckCollection.insertOne(newDeck);
-        }
-        catch(MongoException me)
-        {
-            me.printStackTrace();
-            return false;
-        }
-
-        return true;
-    }
-
-    /**
-     *
-     * @param word
-     * @param synonym
-     * @param antonym
-     * @param general_sense
-     * @param example_usage
-     * @return
-     */
-    public Document addNewCard(String word, String synonym, String antonym, String general_sense, String example_usage) {
-
-        Document newCard = new Document();
-        newCard.append("word", word);
-        newCard.append("synonym", synonym);
-        newCard.append("antonym", antonym);
-        newCard.append("general_sense", general_sense);
-        newCard.append("example_usage", example_usage);
-
-
-
-        return newCard;
-    }
-
 
 }
