@@ -1,14 +1,20 @@
 package umm3601.card;
 
 import com.google.gson.Gson;
+import com.mongodb.BasicDBObject;
+import com.mongodb.MongoException;
+import com.mongodb.client.AggregateIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Aggregates;
 import com.mongodb.util.JSON;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 import spark.Request;
 import spark.Response;
+import umm3601.deck.DeckController;
 
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -19,11 +25,13 @@ public class CardController {
     private final Gson gson;
     private MongoDatabase database;
     private final MongoCollection<Document> cardCollection;
+    private final MongoCollection<Document> deckCollection;
 
     public CardController(MongoDatabase database) {
         gson = new Gson();
         this.database = database;
         cardCollection = database.getCollection("cards");
+        deckCollection = database.getCollection("decks");
     }
 
     public String getCard(Request req, Response res){
@@ -62,6 +70,78 @@ public class CardController {
             // We didn't find the desired deck
             return null;
         }
+    }
+
+    public boolean addNewCard(Request req, Response res)
+    {
+
+        res.type("application/json");
+        Object o = JSON.parse(req.body());
+        try {
+            if(o.getClass().equals(BasicDBObject.class))
+            {
+                try {
+                    BasicDBObject dbO = (BasicDBObject) o;
+                    String deckID = dbO.getString("deckID");
+                    String word = dbO.getString("word");
+                    //For some reason age is a string right now, caused by angular.
+                    //This is a problem and should not be this way but here ya go
+                    String synonym = dbO.getString("synonym");
+                    String antonym = dbO.getString("antonym");
+                    String general_sense = dbO.getString("general_sense");
+                    String example_usage = dbO.getString("example_usage");
+
+
+                    Document newCard = addNewCard(deckID, word, synonym, antonym, general_sense, example_usage);
+                    if (newCard.equals(null)){
+                        return false;
+                    }
+                    else{
+                        return true;
+                    }
+
+                }
+                catch(NullPointerException e)
+                {
+                    System.err.println("A value was malformed or omitted, new card request failed.");
+                    return false;
+                }
+
+            }
+            else
+            {
+                System.err.println("Expected BasicDBObject, received " + o.getClass());
+                return false;
+            }
+        }
+        catch(RuntimeException ree)
+        {
+            ree.printStackTrace();
+            return false;
+        }
+
+    }
+
+    public Document addNewCard(String deckID, String word, String synonym, String antonym, String general_sense, String example_usage){
+        Document newCard = new Document();
+        ObjectId newID = new ObjectId();
+        System.out.println(newID.toString());
+        newCard.append("_id", newID);
+        newCard.append("word", word);
+        newCard.append("synonym", synonym);
+        newCard.append("antonym", antonym);
+        newCard.append("general_sense", general_sense);
+        newCard.append("example_usage", example_usage);
+        try{
+            cardCollection.insertOne(newCard);
+            deckCollection.updateOne(new Document("_id", deckID), new Document                  ("$push", new Document("cards", newID)));
+        }
+        catch(MongoException me){
+            me.printStackTrace();
+            return null;
+        }
+
+        return newCard;
     }
 
 }
