@@ -1,0 +1,7 @@
+<div layout-gt-sm="row">
+    <div flex-gt-sm="40" flex-offset-gt-sm="30" *ngIf="this.deck && this.deck.cards">
+        <h2>{{ this.deck.name }}</h2>
+        <app-card *ngFor="let card of this.deck.cards" [card]="card"></app-card>
+    </div>
+</div>
+
