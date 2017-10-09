@@ -24,9 +24,9 @@ describe('angular-spark-lab', () => {
         page = new UserPage();
     });
 
-    it('should get and highlight User Name attribute ', () => {
+    it('should get and highlight Users title attribute ', () => {
         page.navigateTo();
-        expect(page.getUserTitle()).toEqual('User Name');
+        expect(page.getUserTitle()).toEqual('Users');
     });
 
     it('should type something in filer name box and check that it returned correct element', () => {

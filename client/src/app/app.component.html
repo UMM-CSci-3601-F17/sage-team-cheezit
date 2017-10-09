@@ -1,7 +1,14 @@
-<navbar-component></navbar-component>
-
-<div class="container">
-    <h1>Angular Spark lab</h1>
-
-    <router-outlet></router-outlet>
-</div>
+<td-layout #layout>
+    <td-navigation-drawer flex sidenavTitle="Covalent" >
+        <mat-nav-list>
+            <a mat-list-item [routerLink]="['/']" (click)="layout.close()" routerLinkActive="nav-active" [routerLinkActiveOptions]="{exact: true}"><mat-icon>home</mat-icon>Home</a>
+            <a mat-list-item [routerLink]="['/users']" (click)="layout.close()" routerLinkActive="nav-active"><mat-icon>account_box</mat-icon>Users</a>
+        </mat-nav-list>
+    </td-navigation-drawer>
+    <td-layout-nav  toolbarTitle="Covalent" navigationRoute="/">
+        <button mat-icon-button td-menu-button tdLayoutToggle>
+            <mat-icon>menu</mat-icon>
+        </button>
+        <router-outlet></router-outlet>
+    </td-layout-nav>
+</td-layout>

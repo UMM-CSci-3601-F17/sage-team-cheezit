@@ -21,8 +21,8 @@ export class UserPage {
     }
 
     getUserTitle() {
-        let title = element(by.id('title')).getText();
-        this.highlightElement(by.id('title'));
+        let title = element(by.id('user-list-title')).getText();
+        this.highlightElement(by.id('user-list-title'));
 
         return title;
     }
