@@ -9,7 +9,12 @@ cache:
 jdk:
   - oraclejdk8
 
-before_script:
-    - npm install -g @angular/cli
+install:
+  - wget http://fastdl.mongodb.org/linux/mongodb-linux-x86_64-3.4.7.tgz
+  - tar xzf mongodb-linux-x86_64-3.4.7.tgz
+  - ${PWD}/mongodb-linux-x86_64-3.4.7/bin/mongod --version
 
-services: mongodb
+before_script:
+  - mkdir ${PWD}/mongodb-linux-x86_64-3.4.7/data
+  - ${PWD}/mongodb-linux-x86_64-3.4.7/bin/mongod --dbpath ${PWD}/mongodb-linux-x86_64-3.4.7/data --logpath ${PWD}/mongodb-linux-x86_64-3.4.7/mongodb.log --fork
+  - npm install -g @angular/cli
