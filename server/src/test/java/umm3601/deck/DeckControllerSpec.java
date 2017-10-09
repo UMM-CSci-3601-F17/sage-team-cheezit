@@ -12,6 +12,7 @@ import org.bson.json.JsonReader;
 import org.bson.types.ObjectId;
 import org.junit.Before;
 import org.junit.Test;
+import umm3601.card.CardController;
 
 import java.io.IOException;
 import java.util.*;
@@ -22,6 +23,8 @@ import static org.junit.Assert.assertEquals;
 public class DeckControllerSpec {
     private DeckController deckController;
     private ObjectId testDeckId;
+
+    private List<Document> testCards;
 
     @Before
     public void clearAndPopulateDB() throws IOException {
@@ -100,19 +103,54 @@ public class DeckControllerSpec {
             "    }"
         ));
 
-       testDeckId = new ObjectId();
-       ObjectId[] cards = {new ObjectId("59dac7b147c9429bff9ba9b8"),
-           new ObjectId("59dac7b147c9429bff9ba9ba"),
-           new ObjectId("59dac7b147c9429bff9ba9be"),
-           new ObjectId("59dac7b147c9429bff9ba9c0")};
+        testDeckId = new ObjectId();
+        ObjectId[] cards = {new ObjectId("59dac7b147c9429bff9ba9b3"),
+            new ObjectId("59dac7b147c9429bff9ba9b4"),
+            new ObjectId("59dac7b147c9429bff9ba9b5")};
         BasicDBObject testDeck = new BasicDBObject("_id", testDeckId)
-          .append("name", "test deck 3")
-          .append("cards", cards);
+            .append("name", "test deck 3")
+            .append("cards", cards);
 
-      deckDocuments.insertMany(testDecks);
-      deckDocuments.insertOne(Document.parse(testDeck.toJson()));
+        deckDocuments.insertMany(testDecks);
+        deckDocuments.insertOne(Document.parse(testDeck.toJson()));
 
-      deckController = new DeckController(db);
+        testCards = new ArrayList<>();
+        testCards.add(Document.parse("{\n" +
+            "        \"_id\": {\n" +
+            "            \"$oid\": \"59dac7b147c9429bff9ba9b3\"\n" +
+            "        },\n" +
+            "        \"word\": \"Aesthetic reading\",\n" +
+            "        \"synonym\": \"artistic\",\n" +
+            "        \"antonym\": \"Efferant Reading\",\n" +
+            "        \"general_sense\": \"a term to describe reading for pleasure\",\n" +
+            "        \"example_usage\": \"A readers response that is driven by personal feelings from the transactionbetween the reader with text Louise Rosenblatt 1978 term\"\n" +
+            "    }"));
+
+        testCards.add(Document.parse("{\n" +
+            "        \"_id\": {\n" +
+            "            \"$oid\": \"59dac7b147c9429bff9ba9b4\"\n" +
+            "        },\n" +
+            "        \"word\": \"Alliteration\",\n" +
+            "        \"synonym\": \"allegory\",\n" +
+            "        \"antonym\": \"free verse poetry\",\n" +
+            "        \"general_sense\": \"repetition of the initial sound (s) or letters in a group of words.\",\n" +
+            "        \"example_usage\": \"Often found in prose or poetry: Craig loved his fuzzy furry ferret.\"\n" +
+            "    }"));
+
+        testCards.add(Document.parse("{\n" +
+            "        \"_id\": {\n" +
+            "            \"$oid\": \"59dac7b147c9429bff9ba9b5\"\n" +
+            "        },\n" +
+            "        \"word\": \"Plethora\",\n" +
+            "        \"synonym\": \"Excess, plenty\",\n" +
+            "        \"antonym\": \"Lack, scarcity, few\",\n" +
+            "        \"general_sense\": \"overabundance\",\n" +
+            "        \"example_usage\": \"There was a plethora of rubber duckies in the pool.\"\n" +
+            "    }"));
+
+        cardDocuments.insertMany(testCards);
+
+        deckController = new DeckController(db);
     }
 
     private BsonArray parseJsonArray(String json) {
@@ -128,12 +166,13 @@ public class DeckControllerSpec {
         return arrayReader.decode(reader, DecoderContext.builder().build());
     }
 
-    private static String getName(BsonValue val) {
-        BsonDocument doc = val.asDocument();
-        return ((BsonString) doc.get("name")).getValue();
+    public List<String> getStringsFromBsonArray(BsonArray docs, String field) {
+            return docs.stream()
+                .map(x -> x.asDocument().getString(field).getValue())
+                .sorted()
+                .collect(Collectors.toList());
     }
 
-    // These both kinda fail atm
     @Test
     public void getAllDecks() {
         Map<String, String[]> emptyMap = new HashMap<>();
@@ -141,11 +180,7 @@ public class DeckControllerSpec {
         BsonArray docs = parseJsonArray(jsonResult);
 
         assertEquals("Should be 3 decks", 3, docs.size());
-        List<String> names = docs
-            .stream()
-            .map(DeckControllerSpec::getName)
-            .sorted()
-            .collect(Collectors.toList());
+        List<String> names = getStringsFromBsonArray(docs, "name");
         List<String> expectedNames = Arrays.asList("test deck 1", "test deck 2", "test deck 3");
         assertEquals("Names should match", expectedNames, names);
     }
@@ -158,14 +193,24 @@ public class DeckControllerSpec {
         BsonArray docs = parseJsonArray(jsonResult);
 
         assertEquals("Should be 1 deck", 1, docs.size());
-        assertEquals("Name should match", "test deck 1", getName(docs.get(0)));
+        assertEquals("Name should match", "test deck 1", docs.get(0).asDocument().getString("name").getValue());
     }
 
     @Test
-    public void getTesterDeckById() {
+    public void getTestDeckById() {
         String jsonResult = deckController.getDeck(testDeckId.toHexString());
         Document testDeck = Document.parse(jsonResult);
         assertEquals("Name should match", "test deck 3", testDeck.get("name"));
+    }
+
+    @Test
+    public void getTestDeckCards() {
+        String jsonResult = deckController.getDeck(testDeckId.toHexString());
+        Document testDeck = Document.parse(jsonResult);
+        ArrayList<Document> cards = testDeck.get("cards", ArrayList.class);
+        assertEquals("Should be 3 cards", 3, cards.size());
+        assertEquals("words should match", Arrays.asList("Aesthetic reading", "Alliteration", "Plethora"),cards.stream().map(x -> x.getString("word")).collect(Collectors.toList()));
+        assertEquals("Cards should match", testCards, cards);
     }
 
 
