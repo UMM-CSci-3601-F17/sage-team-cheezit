@@ -6,6 +6,7 @@ import spark.Request;
 import spark.Response;
 import spark.Route;
 import spark.utils.IOUtils;
+import umm3601.card.CardController;
 import umm3601.user.UserController;
 
 import java.io.IOException;
@@ -24,6 +25,8 @@ public class Server {
         MongoDatabase database = mongoClient.getDatabase(databaseName);
 
         UserController userController = new UserController(database);
+
+        CardController cardController = new CardController(database);
 
         //Configure Spark
         port(serverPort);
@@ -74,6 +77,8 @@ public class Server {
         post("api/users/new", userController::addNewUser);
         get("api/userNames", userController::getUserNames);
 
+        
+        get("api/cards/:id", cardController::getCard);
         // An example of throwing an unhandled exception so you can see how the
         // Java Spark debugger displays errors like this.
         get("api/error", (req, res) -> {
