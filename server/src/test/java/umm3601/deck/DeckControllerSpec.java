@@ -22,6 +22,7 @@ import static org.junit.Assert.assertEquals;
 
 public class DeckControllerSpec {
     private DeckController deckController;
+    private CardController cardController;
     private ObjectId testDeckId;
 
     private List<Document> testCards;
@@ -149,7 +150,7 @@ public class DeckControllerSpec {
             "    }"));
 
         cardDocuments.insertMany(testCards);
-
+        cardController = new CardController(db);
         deckController = new DeckController(db);
     }
 
@@ -211,6 +212,15 @@ public class DeckControllerSpec {
         assertEquals("Should be 3 cards", 3, cards.size());
         assertEquals("words should match", Arrays.asList("Aesthetic reading", "Alliteration", "Plethora"),cards.stream().map(x -> x.getString("word")).collect(Collectors.toList()));
         assertEquals("Cards should match", testCards, cards);
+    }
+
+    @Test
+    public void addCardToDeck() {
+        String jsonResult = deckController.getDeck(testDeckId.toHexString());
+        Document testDeck = Document.parse(jsonResult);
+        cardController.addNewCard(testDeckId.toHexString(), "cool", "rad", "bogus","wicked chill", "todd is cool is heck");
+        ArrayList<Document> cards = testDeck.get("cards", ArrayList.class);
+        assertEquals("Should be 4 cards", 4, cards.size());
     }
 
 
