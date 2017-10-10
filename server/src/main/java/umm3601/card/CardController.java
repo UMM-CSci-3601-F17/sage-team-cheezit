@@ -7,6 +7,7 @@ import com.mongodb.client.AggregateIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Aggregates;
+import com.mongodb.client.model.Projections;
 import com.mongodb.util.JSON;
 import org.bson.Document;
 import org.bson.types.ObjectId;
@@ -72,6 +73,33 @@ public class CardController {
         }
     }
 
+    public String getCards(Request req, Response res){
+        res.type("application/json");
+        return getCards(req.queryMap().toMap());
+    }
+
+    public String getCards(Map<String, String[]> queryParams){
+        Document filterDoc = new Document();
+        if (queryParams.containsKey("word")){
+            String  targetWord = queryParams.get("word")[0];
+            filterDoc = filterDoc.append("word", targetWord);
+        }
+
+        AggregateIterable<Document> cards = cardCollection.aggregate(Arrays.asList(
+            Aggregates.match(filterDoc),
+            Aggregates.project(Projections.fields(
+                Projections.include("word"),
+                Projections.include("synonym"),
+                Projections.include("antonym"),
+                Projections.include("general_sense"),
+                Projections.include("example_usage")
+
+            ))
+        ));
+
+        return JSON.serialize(cards);
+    }
+
     public boolean addNewCard(Request req, Response res)
     {
 
@@ -92,13 +120,8 @@ public class CardController {
                     String example_usage = dbO.getString("example_usage");
 
 
-                    Document newCard = addNewCard(deckID, word, synonym, antonym, general_sense, example_usage);
-                    if (newCard.equals(null)){
-                        return false;
-                    }
-                    else{
-                        return true;
-                    }
+                    return addNewCard(deckID, word, synonym, antonym, general_sense, example_usage);
+
 
                 }
                 catch(NullPointerException e)
@@ -122,7 +145,7 @@ public class CardController {
 
     }
 
-    public Document addNewCard(String deckID, String word, String synonym, String antonym, String general_sense, String example_usage){
+    public boolean addNewCard(String deckID, String word, String synonym, String antonym, String general_sense, String example_usage){
         Document newCard = new Document();
         ObjectId newID = new ObjectId();
         System.out.println(newID.toString());
@@ -134,14 +157,14 @@ public class CardController {
         newCard.append("example_usage", example_usage);
         try{
             cardCollection.insertOne(newCard);
-            deckCollection.updateOne(new Document("_id", deckID), new Document                  ("$push", new Document("cards", newID)));
+            deckCollection.updateOne(new Document("_id", deckID), new Document("$push", new Document("cards", newID)));
         }
         catch(MongoException me){
             me.printStackTrace();
-            return null;
+            return false;
         }
 
-        return newCard;
+        return true;
     }
 
 }
