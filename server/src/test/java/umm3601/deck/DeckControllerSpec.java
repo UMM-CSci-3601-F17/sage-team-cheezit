@@ -214,14 +214,5 @@ public class DeckControllerSpec {
         assertEquals("Cards should match", testCards, cards);
     }
 
-    @Test
-    public void addCardToDeck() {
-        String jsonResult = deckController.getDeck(testDeckId.toHexString());
-        Document testDeck = Document.parse(jsonResult);
-        cardController.addNewCard(testDeckId.toHexString(), "cool", "rad", "bogus","wicked chill", "todd is cool is heck");
-        ArrayList<Document> cards = testDeck.get("cards", ArrayList.class);
-        assertEquals("Should be 4 cards", 4, cards.size());
-    }
-
 
 }

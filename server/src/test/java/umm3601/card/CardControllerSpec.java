@@ -210,4 +210,15 @@ public class CardControllerSpec {
         assertEquals("Words should match", expectedWords, words);
         // assertEquals("words should match", Arrays.asList("Aesthetic reading", "Alliteration", "Pletora", "Cool"),cards.stream().map(x -> x.getString("word")).collect(Collectors.toList()));
     }
+
+    @Test
+    public void addToDeck() {
+        cardController.addNewCard(testDeckId.toHexString(), "Sweet", "cool", "lame",
+            "something that is neat and stuff", "Angular is sweet");
+        Map<String, String[]> emptyMap = new HashMap<>();
+        String jsonResult = deckController.getDeck(testDeckId.toHexString());
+        Document deck = Document.parse(jsonResult);
+        ArrayList<Document> cards = deck.get("cards", ArrayList.class);
+        assertEquals("Should be 4 cards in the deck", 4, cards.size());
+    }
 }

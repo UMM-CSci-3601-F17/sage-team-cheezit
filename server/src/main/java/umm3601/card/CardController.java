@@ -155,7 +155,7 @@ public class CardController {
         newCard.append("example_usage", example_usage);
         try{
             cardCollection.insertOne(newCard);
-            deckCollection.updateOne(new Document("_id", deckID), new Document("$push", new Document("cards", newID)));
+            deckCollection.updateOne(new Document("_id", new ObjectId(deckID)), new Document("$push", new Document("cards", newID)));
         }
         catch(MongoException me){
             me.printStackTrace();
