@@ -1,4 +1,4 @@
-package umm3601.deck;
+package umm3601.card;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.MongoClient;
@@ -13,6 +13,7 @@ import org.bson.types.ObjectId;
 import org.junit.Before;
 import org.junit.Test;
 import umm3601.card.CardController;
+import umm3601.deck.DeckController;
 
 import java.io.IOException;
 import java.util.*;
@@ -20,7 +21,8 @@ import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertEquals;
 
-public class DeckControllerSpec {
+
+public class CardControllerSpec {
     private DeckController deckController;
     private CardController cardController;
     private ObjectId testDeckId;
@@ -142,7 +144,7 @@ public class DeckControllerSpec {
             "        \"_id\": {\n" +
             "            \"$oid\": \"59dac7b147c9429bff9ba9b5\"\n" +
             "        },\n" +
-            "        \"word\": \"Plethora\",\n" +
+            "        \"word\": \"Pletora\",\n" +
             "        \"synonym\": \"Excess, plenty\",\n" +
             "        \"antonym\": \"Lack, scarcity, few\",\n" +
             "        \"general_sense\": \"overabundance\",\n" +
@@ -168,51 +170,115 @@ public class DeckControllerSpec {
     }
 
     public List<String> getStringsFromBsonArray(BsonArray docs, String field) {
-            return docs.stream()
-                .map(x -> x.asDocument().getString(field).getValue())
-                .sorted()
-                .collect(Collectors.toList());
+        return docs.stream()
+            .map(x -> x.asDocument().getString(field).getValue())
+            .sorted()
+            .collect(Collectors.toList());
     }
 
     @Test
-    public void getAllDecks() {
+    public void getAllCards() {
         Map<String, String[]> emptyMap = new HashMap<>();
-        String jsonResult = deckController.getDecks(emptyMap);
+        String jsonResult = cardController.getCards(emptyMap);
         BsonArray docs = parseJsonArray(jsonResult);
 
-        assertEquals("Should be 3 decks", 3, docs.size());
-        List<String> names = getStringsFromBsonArray(docs, "name");
-        List<String> expectedNames = Arrays.asList("test deck 1", "test deck 2", "test deck 3");
-        assertEquals("Names should match", expectedNames, names);
+        assertEquals("Should be 3 cards", 3, docs.size());
+        List<String> words = getStringsFromBsonArray(docs, "word");
+        List<String> expectedWords = Arrays.asList("Aesthetic reading", "Alliteration", "Pletora");
+        assertEquals("Words should match", expectedWords, words);
     }
 
     @Test
-    public void getDecksbyName() {
-        Map<String, String[]> argMap = new HashMap<>();
-        argMap.put("name", new String[] { "test deck 1" });
-        String jsonResult = deckController.getDecks(argMap);
+    public void getCardById() {
+        String jsonResult = cardController.getCard("59dac7b147c9429bff9ba9b3");
+        Document testCard = Document.parse(jsonResult);
+        assertEquals("Word should match", "Aesthetic reading", testCard.get("word"));
+    }
+
+    @Test
+    public void addNewCard() {
+        cardController.addNewCard(testDeckId.toHexString(), "Cool", "rad", "bogus",
+            "something that is radical and stuff", "Todd is cool as heck");
+
+        Map<String, String[]> emptyMap = new HashMap<>();
+        String jsonResult = cardController.getCards(emptyMap);
         BsonArray docs = parseJsonArray(jsonResult);
 
-        assertEquals("Should be 1 deck", 1, docs.size());
-        assertEquals("Name should match", "test deck 1", docs.get(0).asDocument().getString("name").getValue());
+        assertEquals("Should be 4 cards", 4, docs.size());
+        List<String> words = getStringsFromBsonArray(docs, "word");
+        List<String> expectedWords = Arrays.asList("Aesthetic reading", "Alliteration", "Cool", "Pletora");
+        assertEquals("Words should match", expectedWords, words);
+        // assertEquals("words should match", Arrays.asList("Aesthetic reading", "Alliteration", "Pletora", "Cool"),cards.stream().map(x -> x.getString("word")).collect(Collectors.toList()));
     }
 
     @Test
-    public void getTestDeckById() {
+    public void addToDeck() {
+        cardController.addNewCard(testDeckId.toHexString(), "Sweet", "cool", "lame",
+            "something that is neat and stuff", "Angular is sweet");
+        Map<String, String[]> emptyMap = new HashMap<>();
         String jsonResult = deckController.getDeck(testDeckId.toHexString());
-        Document testDeck = Document.parse(jsonResult);
-        assertEquals("Name should match", "test deck 3", testDeck.get("name"));
+        Document deck = Document.parse(jsonResult);
+        ArrayList<Document> cards = deck.get("cards", ArrayList.class);
+        assertEquals("Should be 4 cards in the deck", 4, cards.size());
     }
 
     @Test
-    public void getTestDeckCards() {
-        String jsonResult = deckController.getDeck(testDeckId.toHexString());
-        Document testDeck = Document.parse(jsonResult);
-        ArrayList<Document> cards = testDeck.get("cards", ArrayList.class);
-        assertEquals("Should be 3 cards", 3, cards.size());
-        assertEquals("words should match", Arrays.asList("Aesthetic reading", "Alliteration", "Plethora"),cards.stream().map(x -> x.getString("word")).collect(Collectors.toList()));
-        assertEquals("Cards should match", testCards, cards);
+    public void tryAddWithNullParameters() {
+        cardController.addNewCard(null, null, null, null, null, null);
+
+        Map<String, String[]> emptyMap = new HashMap<>();
+        String jsonResult = cardController.getCards(emptyMap);
+        BsonArray docs = parseJsonArray(jsonResult);
+
+        assertEquals("Should be 3 cards", 3, docs.size());
+        List<String> words = getStringsFromBsonArray(docs, "word");
+        List<String> expectedWords = Arrays.asList("Aesthetic reading", "Alliteration", "Pletora");
+        assertEquals("Words should match", expectedWords, words);
+
+        // Map<String, String[]> emptyMap = new HashMap<>();
+        String jsonResult2 = deckController.getDeck(testDeckId.toHexString());
+        Document deck = Document.parse(jsonResult2);
+        ArrayList<Document> cards = deck.get("cards", ArrayList.class);
+        assertEquals("Should be 3 cards in the deck", 3, cards.size());
     }
 
+    @Test
+    public void tryAddWithEmptyStrings() {
+        cardController.addNewCard("", "", "", "", "", "");
 
+        Map<String, String[]> emptyMap = new HashMap<>();
+        String jsonResult = cardController.getCards(emptyMap);
+        BsonArray docs = parseJsonArray(jsonResult);
+
+        assertEquals("Should be 3 cards", 3, docs.size());
+        List<String> words = getStringsFromBsonArray(docs, "word");
+        List<String> expectedWords = Arrays.asList("Aesthetic reading", "Alliteration", "Pletora");
+        assertEquals("Words should match", expectedWords, words);
+
+        // Map<String, String[]> emptyMap = new HashMap<>();
+        String jsonResult2 = deckController.getDeck(testDeckId.toHexString());
+        Document deck = Document.parse(jsonResult2);
+        ArrayList<Document> cards = deck.get("cards", ArrayList.class);
+        assertEquals("Should be 3 cards in the deck", 3, cards.size());
+    }
+
+    @Test
+    public void tryAddWithOneEmptyStrings() {
+        cardController.addNewCard("deckID", "", "synonym", "antonym", "general", "example");
+
+        Map<String, String[]> emptyMap = new HashMap<>();
+        String jsonResult = cardController.getCards(emptyMap);
+        BsonArray docs = parseJsonArray(jsonResult);
+
+        assertEquals("Should be 3 cards", 3, docs.size());
+        List<String> words = getStringsFromBsonArray(docs, "word");
+        List<String> expectedWords = Arrays.asList("Aesthetic reading", "Alliteration", "Pletora");
+        assertEquals("Words should match", expectedWords, words);
+
+        // Map<String, String[]> emptyMap = new HashMap<>();
+        String jsonResult2 = deckController.getDeck(testDeckId.toHexString());
+        Document deck = Document.parse(jsonResult2);
+        ArrayList<Document> cards = deck.get("cards", ArrayList.class);
+        assertEquals("Should be 3 cards in the deck", 3, cards.size());
+    }
 }

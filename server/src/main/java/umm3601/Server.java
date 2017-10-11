@@ -82,9 +82,10 @@ public class Server {
 
 
         get("api/cards/:id", cardController::getCard);
+        get("api/cards", cardController::getCards);
         get("api/decks", deckController::getDecks);
         get("api/decks/:id", deckController::getDeck);
-
+        post("api/cards/add", cardController::addNewCard);
         // An example of throwing an unhandled exception so you can see how the
         // Java Spark debugger displays errors like this.
         get("api/error", (req, res) -> {
