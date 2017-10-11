@@ -112,8 +112,6 @@ public class CardController {
                     BasicDBObject dbO = (BasicDBObject) o;
                     String deckID = dbO.getString("deckID");
                     String word = dbO.getString("word");
-                    //For some reason age is a string right now, caused by angular.
-                    //This is a problem and should not be this way but here ya go
                     String synonym = dbO.getString("synonym");
                     String antonym = dbO.getString("antonym");
                     String general_sense = dbO.getString("general_sense");
