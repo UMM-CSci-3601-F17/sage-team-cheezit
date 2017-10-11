@@ -18,6 +18,7 @@ import {CardComponent} from "./card-component/card.component";
 import {DeckListComponent} from "./deck-list-component/deck-list.component";
 import {DeckComponent} from "./deck-component/deck.component";
 import {DeckService} from "./deck/deck.service";
+import {PlayComponent} from "./play-component/play.component";
 import { CovalentDialogsModule } from '@covalent/core';
 import { CovalentCommonModule } from '@covalent/core';
 
@@ -38,7 +39,8 @@ import { CovalentCommonModule } from '@covalent/core';
         UserComponent,
         CardComponent,
         DeckComponent,
-        DeckListComponent
+        DeckListComponent,
+        PlayComponent
     ],
     providers: [
         UserListService,
