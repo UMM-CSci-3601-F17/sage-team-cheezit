@@ -1,5 +1,5 @@
 import {DeckListPage} from "./deck-list.po";
-import {browser, protractor} from 'protractor';
+import {browser, by, protractor} from 'protractor';
 
 describe('deck-list-page', () => {
    let page: DeckListPage;
@@ -13,7 +13,12 @@ describe('deck-list-page', () => {
        expect(page.getPageTitle()).toEqual('Decks');
    });
 
-
+    it("should have a play button for every deck", () => {
+       page.navigateTo();
+        page.getAllDecks().each(e => {
+           expect(e.element(by.id('play')).getText()).toEqual("Play");
+        });
+    });
 
 
 

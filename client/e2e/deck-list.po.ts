@@ -26,6 +26,15 @@ export class DeckListPage {
     }
 
 
+    getElementsByClass(htmlClass: string){
+        return element.all(by.className(htmlClass));
+    }
+    getAllDecks(){
+        return this.getElementsByClass('deck');
+    }
+
+
+
 
 
 }
