@@ -20,15 +20,16 @@ export class DeckComponent implements OnInit {
     deck : Deck;
     cardAddSuccess: boolean = false;
 
-    newCardWord: string;
-    newCardSynonym: string;
-    newCardAntonym: string;
-    newCardGeneral: string;
-    newCardExample: string;
+    newCardWord: string = "";
+    newCardSynonym: string = "";
+    newCardAntonym: string = "";
+    newCardGeneral: string = "";
+    newCardExample: string = "";
 
 
   constructor(public deckService : DeckService, private route: ActivatedRoute, private _dialogService: TdDialogService,
               private _viewContainerRef: ViewContainerRef) {
+
 
   }
 
@@ -55,18 +56,22 @@ export class DeckComponent implements OnInit {
     }
 
     public addNewCard(deckId: string, word: string, synonym: string, antonym: string, general: string, example: string): void {
+        if (this.newCardWord === "" || this.newCardSynonym === "" || this.newCardAntonym === "" || this.newCardExample==="" || this.newCardGeneral===""){
+            alert("Please complete all fields.");
+        }
+        else {
+            this.newCardWord = "";
+            this.newCardSynonym = "";
+            this.newCardAntonym = "";
+            this.newCardGeneral = "";
+            this.newCardExample = "";
 
-        this.newCardWord = null;
-        this.newCardSynonym = null;
-        this.newCardAntonym = null;
-        this.newCardGeneral = null;
-        this.newCardExample = null;
-
-        this.deckService.addNewCard(deckId, word, synonym, antonym, general, example).subscribe(
-            succeeded => {
-                this.cardAddSuccess = true;
-                this.refreshDeck();
-            });
+            this.deckService.addNewCard(deckId, word, synonym, antonym, general, example).subscribe(
+                succeeded => {
+                    this.cardAddSuccess = true;
+                    this.refreshDeck();
+                });
+        }
     }
 
     refreshDeck(): Observable<Deck> {

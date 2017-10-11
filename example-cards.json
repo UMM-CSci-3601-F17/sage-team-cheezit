@@ -1,5 +1,8 @@
 [
     {
+        "_id": {
+            "$oid":"59dac7b147c9429bff9ba9b3"
+        },
         "word": "Aesthetic reading",
         "synonym": "artistic",
         "antonym": "Efferant Reading",
