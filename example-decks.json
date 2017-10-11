@@ -53,7 +53,9 @@
         ]
     },
     {
-        "_id"
+        "_id": {
+            "$oid": "59de8a1f012e92ce86a57177"
+        },
         "name": "test deck 2",
         "cards": [
             {
