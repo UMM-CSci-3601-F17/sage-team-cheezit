@@ -40,6 +40,9 @@ const COVALENT_MODULES: any[] = [
     CovalentCommonModule,
 ];
 
+const OTHER_MODULES: any[] = [
+]
+
 
 @NgModule({
     imports: [
@@ -48,6 +51,7 @@ const COVALENT_MODULES: any[] = [
         MATERIAL_MODULES,
         COVALENT_MODULES,
         FLEX_LAYOUT_MODULES,
+        OTHER_MODULES,
     ],
     declarations: [
 
@@ -57,6 +61,7 @@ const COVALENT_MODULES: any[] = [
         MATERIAL_MODULES,
         COVALENT_MODULES,
         FLEX_LAYOUT_MODULES,
+        OTHER_MODULES,
     ]
 })
 

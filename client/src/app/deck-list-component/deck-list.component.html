@@ -1,0 +1,27 @@
+<div layout-gt-sm="row">
+    <div flex-gt-sm="80" flex-offset-gt-sm="10">
+        <mat-card>
+            <mat-card-title>Decks</mat-card-title>
+            <mat-divider></mat-divider>
+            <mat-card-content>
+
+
+                <mat-list *ngIf="this.deckService.decks; else decksError">
+                    <mat-list-item id="decks" *ngFor="let deck of this.deckService.decks" class="list-group-item">
+                        {{ deck._id.$oid }} - <a mat-raised-button color = "primary" [routerLink]="['/decks', deck._id.$oid]">{{ deck.name }}</a>
+                    </mat-list-item>
+                </mat-list>
+                <!-- Maybe this should be a pop-up instead of just a text message? Not sure. -->
+                <ng-template #decksError>
+                    <p>
+                        There was a problem loading the decks. Possibly the server is down or perhaps there are network
+                        issues.
+                    </p>
+                    <p>
+                        Please wait a bit and try again or start the server.
+                    </p>
+                </ng-template>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>
