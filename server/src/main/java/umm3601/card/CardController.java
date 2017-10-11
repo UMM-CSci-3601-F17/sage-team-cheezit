@@ -144,6 +144,12 @@ public class CardController {
     }
 
     public boolean addNewCard(String deckID, String word, String synonym, String antonym, String general_sense, String example_usage){
+        if (deckID == null || word == null || synonym == null || antonym == null || general_sense == null || example_usage == null) {
+            return false;
+        }
+        if (deckID.equals("") || word.equals("") || synonym.equals("") || antonym.equals("") || general_sense.equals("") || example_usage.equals("")) {
+            return false;
+        }
         Document newCard = new Document();
         ObjectId newID = new ObjectId();
         System.out.println(newID.toString());
