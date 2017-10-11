@@ -8,7 +8,7 @@
 
                 <mat-list *ngIf="this.deckService.decks; else decksError">
                     <mat-list-item id="decks" *ngFor="let deck of this.deckService.decks" class="list-group-item">
-                        {{ deck._id.$oid }} - <a [routerLink]="['/decks', deck._id.$oid]" >{{ deck.name }}</a>
+                        {{ deck._id.$oid }} - <a mat-raised-button color = "primary" [routerLink]="['/decks', deck._id.$oid]">{{ deck.name }}</a>
                     </mat-list-item>
                 </mat-list>
                 <!-- Maybe this should be a pop-up instead of just a text message? Not sure. -->
