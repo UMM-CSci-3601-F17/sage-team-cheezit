@@ -38,6 +38,13 @@ export class DeckService {
       return newDeck;
   }
 
+  public addNewCard(deckID: string, word: string, synonym: string, antonym: string, general: string, example: string) {
+      const body = {deckID:deckID, word:word, synonym:synonym, antonym:antonym, general_sense:general, example_usage:example}
+      console.log(body);
+
+      return this.http.post(this.cardUrl + "/add", body).map(res => res.json());
+  }
+
 
 
 }

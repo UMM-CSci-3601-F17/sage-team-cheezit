@@ -18,6 +18,8 @@ import {CardComponent} from "./card-component/card.component";
 import {DeckListComponent} from "./deck-list-component/deck-list.component";
 import {DeckComponent} from "./deck-component/deck.component";
 import {DeckService} from "./deck/deck.service";
+import { CovalentDialogsModule } from '@covalent/core';
+import { CovalentCommonModule } from '@covalent/core';
 
 @NgModule({
     imports: [
@@ -26,6 +28,8 @@ import {DeckService} from "./deck/deck.service";
         JsonpModule,
         Routing,
         SharedModule,
+        CovalentDialogsModule,
+        CovalentCommonModule
     ],
     declarations: [
         AppComponent,
