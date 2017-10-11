@@ -1,0 +1,17 @@
+<kb-page-slider *ngIf="this.deck && this.deck.cards" [(page)]="this.pageNumber" (pageCountChange)="pageCount = $event"
+                [showIndicator]="false" dotColor="black">
+    <mat-toolbar color="primary"></mat-toolbar>
+    <div *kbPages="let card of this.deck.cards">
+    <div class="margin" layout-gt-xs="row" layout-align-gt-xs="center start" layout-fill>
+        <div flex-gt-xs="70">
+            <app-card [card]="card"></app-card>
+        </div>
+    </div>
+    </div>
+    <kb-nav-button backward [showBackground]="true" hide-xs
+                   [(page)]="this.pageNumber" [pageCount]="pageCount">
+    </kb-nav-button>
+    <kb-nav-button forward [showBackground]="true" hide-xs
+                   [(page)]="this.pageNumber" [pageCount]="pageCount">
+    </kb-nav-button>
+</kb-page-slider>

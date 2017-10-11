@@ -18,6 +18,7 @@ import {CardComponent} from "./card-component/card.component";
 import {DeckListComponent} from "./deck-list-component/deck-list.component";
 import {DeckComponent} from "./deck-component/deck.component";
 import {DeckService} from "./deck/deck.service";
+import {PlayComponent} from "./play-component/play.component";
 
 @NgModule({
     imports: [
@@ -34,7 +35,8 @@ import {DeckService} from "./deck/deck.service";
         UserComponent,
         CardComponent,
         DeckComponent,
-        DeckListComponent
+        DeckListComponent,
+        PlayComponent
     ],
     providers: [
         UserListService,
