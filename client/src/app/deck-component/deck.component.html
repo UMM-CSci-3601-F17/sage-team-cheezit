@@ -1,5 +1,5 @@
 <div layout-gt-sm="row">
-    <div flex-gt-sm="40" flex-offset-gt-sm="30" *ngIf="this.deck && this.deck.cards">
+    <div flex-gt-sm="60" flex-offset-gt-sm="20" *ngIf="this.deck && this.deck.cards">
         <h2>{{ this.deck.name }}</h2>
         <app-card *ngFor="let card of this.deck.cards" [card]="card"></app-card>
     </div>
@@ -26,6 +26,9 @@
             <mat-form-field>
                 <input matInput #input type="text" placeholder="Example Usage" [(ngModel)]="newCardExample">
             </mat-form-field>
+<button mat-fab class="deck-fab" matTooltip="Add Card" matTooltipPosition="left">
+    <mat-icon class="md-24" aria-label="Add Card">add</mat-icon>
+</button>
 
             <button mat-raised-button color="primary" #input type="button"
                     (click)="this.addNewCard(this.deck._id, newCardWord, newCardSynonym, newCardAntonym, newCardGeneral, newCardExample)">Add Card</button>
