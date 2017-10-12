@@ -1,6 +1,7 @@
 import {DeckListPage} from "./deck-list.po";
 import {browser, by, protractor} from 'protractor';
 
+
 describe('deck-list-page', () => {
    let page: DeckListPage;
 
@@ -19,7 +20,6 @@ describe('deck-list-page', () => {
            expect(e.element(by.id('play')).getText()).toEqual("Play");
         });
     });
-
 
 
 });
