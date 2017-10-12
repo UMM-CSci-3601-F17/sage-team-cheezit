@@ -30,13 +30,13 @@ export class PlayComponent implements OnInit {
     }
 
 
-    public addPoints(): void {
+    public addPoints(pageNumber : number): void {
 
-        if(this.cardStates[this.pageNumber].isComplete == false && this.pageNumber < this.deck.cards.length){
-            this.points += this.cardStates[this.pageNumber].cardPoints;
-            this.cardStates[this.pageNumber].selected = 0;
-            this.cardStates[this.pageNumber].isDone();
-            this.pageNumber = this.pageNumber + 1;
+        if(this.cardStates[pageNumber].isComplete == false && pageNumber < this.deck.cards.length){
+            this.points += this.cardStates[pageNumber].cardPoints;
+            this.cardStates[pageNumber].selected = 0;
+            this.cardStates[pageNumber].isDone();
+            this.pageNumber = pageNumber + 1;
 
         }
 
