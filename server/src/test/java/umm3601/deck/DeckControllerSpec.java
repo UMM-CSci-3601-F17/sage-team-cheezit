@@ -19,6 +19,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 public class DeckControllerSpec {
     private DeckController deckController;
@@ -212,6 +213,54 @@ public class DeckControllerSpec {
         assertEquals("Should be 3 cards", 3, cards.size());
         assertEquals("words should match", Arrays.asList("Aesthetic reading", "Alliteration", "Plethora"),cards.stream().map(x -> x.getString("word")).collect(Collectors.toList()));
         assertEquals("Cards should match", testCards, cards);
+    }
+
+    @Test
+    public void addOneDeck() {
+        Document addResult = deckController.addNewDeck("test deck 4");
+        Map<String, String[]> emptyMap = new HashMap<>();
+        String jsonResult = deckController.getDecks(emptyMap);
+        BsonArray docs = parseJsonArray(jsonResult);
+
+        assertEquals("Should be 4 decks", 4, docs.size());
+        List<String> names = getStringsFromBsonArray(docs, "name");
+        List<String> expectedNames = Arrays.asList("test deck 1", "test deck 2", "test deck 3", "test deck 4");
+        assertEquals("Names should match", expectedNames, names);
+    }
+
+    @Test
+    public void addDeckNoName() {
+        Document addResult = deckController.addNewDeck("");
+        assertNull("result should be null", addResult);
+
+        Map<String, String[]> emptyMap = new HashMap<>();
+        String jsonResult = deckController.getDecks(emptyMap);
+        BsonArray docs = parseJsonArray(jsonResult);
+
+        assertEquals("Should be 3 decks", 3, docs.size());
+        List<String> names = getStringsFromBsonArray(docs, "name");
+        List<String> expectedNames = Arrays.asList("test deck 1", "test deck 2", "test deck 3");
+        assertEquals("Names should match", expectedNames, names);
+    }
+
+    @Test
+    public void addThreeDecks() {
+        deckController.addNewDeck("test deck 4");
+        deckController.addNewDeck("test deck 5");
+        deckController.addNewDeck("test deck 6");
+        Map<String, String[]> emptyMap = new HashMap<>();
+        String jsonResult = deckController.getDecks(emptyMap);
+        BsonArray docs = parseJsonArray(jsonResult);
+
+        assertEquals("Should be 4 decks", 6, docs.size());
+    }
+
+    @Test
+    public void checkNewDReturnedDeck() {
+        Document addResult = deckController.addNewDeck("test deck 4");
+        String jsonResult = deckController.getDeck(addResult.getObjectId("_id").toHexString());
+        Document testDeck = Document.parse(jsonResult);
+        assertEquals("Decks should match", addResult, testDeck);
     }
 
 

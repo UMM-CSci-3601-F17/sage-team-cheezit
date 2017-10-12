@@ -3,23 +3,21 @@ package umm3601.deck;
 import com.google.gson.Gson;
 import com.mongodb.*;
 import com.mongodb.client.AggregateIterable;
-import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Aggregates;
 import com.mongodb.client.model.Projections;
 import com.mongodb.util.JSON;
-import org.apache.commons.lang3.ArrayUtils;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 import spark.Request;
 import spark.Response;
 
 import java.util.Arrays;
-import java.util.Iterator;
+
+import java.util.Collections;
 import java.util.Map;
 
-import static com.mongodb.client.model.Filters.eq;
 
 
 
@@ -90,6 +88,73 @@ public class DeckController {
         ));
 
         return JSON.serialize(decks);
+    }
+
+    public Object addNewDeck(Request req, Response res)
+    {
+
+        res.type("application/json");
+        Object o = JSON.parse(req.body());
+        try {
+            if(o.getClass().equals(BasicDBObject.class))
+            {
+                try {
+                    BasicDBObject dbO = (BasicDBObject) o;
+                    String name = dbO.getString("name");
+
+
+                    Document newDeck = addNewDeck(name);
+                    if (newDeck != null) {
+                        return newDeck.toJson();
+                    } else {
+                        res.status(400);
+                        res.body("The requested new deck is missing one or more objects");
+                        return false;
+                    }
+
+
+                }
+                catch(NullPointerException e)
+                {
+                    System.err.println("A value was malformed or omitted, new deck request failed.");
+                    return false;
+                }
+
+            }
+            else
+            {
+                System.err.println("Expected BasicDBObject, received " + o.getClass());
+                return false;
+            }
+        }
+
+        catch(RuntimeException ree)
+        {
+            ree.printStackTrace();
+            return false;
+        }
+
+    }
+
+    public Document addNewDeck(String name){
+        if (name == null || name.equals("")) {
+            return null;
+        }
+        Document newDeck = new Document();
+        ObjectId newID = new ObjectId();
+        System.out.println(newID.toString());
+        newDeck.append("_id", newID);
+        newDeck.append("name", name);
+        newDeck.append("cards", Collections.emptyList());
+        try{
+            deckCollection.insertOne(newDeck);
+        }
+        catch(MongoException me){
+            me.printStackTrace();
+            return null;
+        }
+
+        return newDeck;
     }
 
 }
