@@ -8,7 +8,6 @@ import spark.Route;
 import spark.utils.IOUtils;
 import umm3601.card.CardController;
 import umm3601.deck.DeckController;
-import umm3601.user.UserController;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -24,8 +23,6 @@ public class Server {
 
         MongoClient mongoClient = new MongoClient();
         MongoDatabase database = mongoClient.getDatabase(databaseName);
-
-        UserController userController = new UserController(database);
 
         CardController cardController = new CardController(database);
 
@@ -56,9 +53,6 @@ public class Server {
         before((request, response) -> response.header("Access-Control-Allow-Origin", "*"));
 
 
-        // Simple example route
-        get("/hello", (req, res) -> "Hello World");
-
         // Redirects for the "home" page
         redirect.get("", "/");
 
@@ -70,28 +64,15 @@ public class Server {
 
         get("/", clientRoute);
 
-        /// User Endpoints ///////////////////////////
+        /// Deck and Card Endpoints ///////////////////////////
         /////////////////////////////////////////////
-
-        //List users, filtered using query parameters
-
-        get("api/users", userController::getUsers);
-        get("api/users/:id", userController::getUser);
-        post("api/users/new", userController::addNewUser);
-        get("api/userNames", userController::getUserNames);
-
-
         get("api/cards/:id", cardController::getCard);
         get("api/cards", cardController::getCards);
         get("api/decks", deckController::getDecks);
         post("api/decks/add", deckController::addNewDeck);
         get("api/decks/:id", deckController::getDeck);
         post("api/cards/add", cardController::addNewCard);
-        // An example of throwing an unhandled exception so you can see how the
-        // Java Spark debugger displays errors like this.
-        get("api/error", (req, res) -> {
-            throw new RuntimeException("A demonstration error");
-        });
+
 
         // Called after each request to insert the GZIP header into the response.
         // This causes the response to be compressed _if_ the client specified

@@ -1,0 +1,9 @@
+.hint-selected {
+    background-color: yellow;
+}
+.card-line {
+    margin-top: 5px;
+
+}
+.card-desc { float: left; width: 120px; }
+.card-cont { margin-left: 120px; }
