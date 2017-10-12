@@ -221,7 +221,6 @@ public class CardControllerSpec {
         ArrayList<Document> cards = deck.get("cards", ArrayList.class);
         assertEquals("Should be 4 cards in the deck", 4, cards.size());
     }
-
     @Test
     public void tryAddWithNullParameters() {
         cardController.addNewCard(null, null, null, null, null, null);

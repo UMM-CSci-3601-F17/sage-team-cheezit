@@ -1,11 +1,7 @@
-import {Component, EventEmitter, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {DeckService} from "../deck/deck.service";
 import {ActivatedRoute} from "@angular/router";
 import {Deck} from "../deck/deck";
-import { ViewContainerRef } from '@angular/core';
-import { TdDialogService } from '@covalent/core';
-import {Observable} from "rxjs/Observable";
-import {Card} from "../card/card";
 import {NewCardDialogComponent} from "../new-card-dialog/new-card-dialog.component";
 import {MdDialog} from "@angular/material";
 
@@ -18,11 +14,11 @@ import {MdDialog} from "@angular/material";
 export class DeckComponent implements OnInit {
 
     id : string;
-
     deck : Deck;
 
 
   constructor(public deckService : DeckService, private route: ActivatedRoute, public dialog : MdDialog) {
+
 
   }
 
@@ -37,21 +33,6 @@ export class DeckComponent implements OnInit {
       });
   }
 
-
-
-
-    refreshDeck(): Observable<Deck> {
-
-        let deck : Observable<Deck> = this.deckService.getDeck(this.deck._id.toString());
-        deck.subscribe(
-            deck => {
-                this.deck = deck;
-            },
-            err => {
-                console.log(err);
-            });
-        return deck;
-    }
 
   ngOnInit() {
       this.route.params.subscribe(params => {

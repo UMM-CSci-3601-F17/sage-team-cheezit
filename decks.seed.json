@@ -1,0 +1,72 @@
+[
+    {
+        "_id":{
+            "$oid": "59de8a1f012e92ce86a57176"
+        },
+        "name": "test deck 1",
+        "cards": [
+            {
+                "$oid": "59dac7b147c9429bff9ba9b3"
+            },
+            {
+                "$oid": "59dac7b147c9429bff9ba9b4"
+            },
+            {
+                "$oid": "59dac7b147c9429bff9ba9b5"
+            },
+            {
+                "$oid": "59dac7b147c9429bff9ba9b6"
+            },
+            {
+                "$oid": "59dac7b147c9429bff9ba9b7"
+            },
+            {
+                "$oid": "59dac7b147c9429bff9ba9b8"
+            },
+            {
+                "$oid": "59dac7b147c9429bff9ba9b9"
+            },
+            {
+                "$oid": "59dac7b147c9429bff9ba9ba"
+            },
+            {
+                "$oid": "59dac7b147c9429bff9ba9bb"
+            },
+            {
+                "$oid": "59dac7b147c9429bff9ba9bc"
+            },
+            {
+                "$oid": "59dac7b147c9429bff9ba9bd"
+            },
+            {
+                "$oid": "59dac7b147c9429bff9ba9be"
+            },
+            {
+                "$oid": "59dac7b147c9429bff9ba9bf"
+            },
+            {
+                "$oid": "59dac25d47c9429bff9ba909"
+            },
+            {
+                "$oid": "59dac7b147c9429bff9ba9c0"
+            }
+        ]
+    },
+    {
+        "_id": {
+            "$oid": "59de8a1f012e92ce86a57177"
+        },
+        "name": "test deck 2",
+        "cards": [
+            {
+                "$oid": "59dac7b147c9429bff9ba9b3"
+            },
+            {
+                "$oid": "59dac7b147c9429bff9ba9b4"
+            },
+            {
+                "$oid": "59dac7b147c9429bff9ba9b5"
+            }
+        ]
+    }
+]

@@ -26,6 +26,7 @@ import {MdDialog} from "@angular/material";
 import {NewCardDialogComponent} from "./new-card-dialog/new-card-dialog.component";
 
 @NgModule({
+
     imports: [
         BrowserModule,
         HttpModule,

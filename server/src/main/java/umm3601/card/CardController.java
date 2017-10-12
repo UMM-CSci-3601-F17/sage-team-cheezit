@@ -100,6 +100,7 @@ public class CardController {
         return JSON.serialize(cards);
     }
 
+
     public Object addNewCard(Request req, Response res)
     {
 
@@ -116,6 +117,7 @@ public class CardController {
                     String antonym = dbO.getString("antonym");
                     String general_sense = dbO.getString("general_sense");
                     String example_usage = dbO.getString("example_usage");
+
 
 
                     Document newCard = addNewCard(deckID, word, synonym, antonym, general_sense, example_usage);
@@ -142,7 +144,7 @@ public class CardController {
                 return false;
             }
         }
-
+      
         catch(RuntimeException ree)
         {
             ree.printStackTrace();
@@ -150,6 +152,7 @@ public class CardController {
         }
 
     }
+
 
     public Document addNewCard(String deckID, String word, String synonym, String antonym, String general_sense, String example_usage){
         if (deckID == null || word == null || synonym == null || antonym == null || general_sense == null || example_usage == null) {
