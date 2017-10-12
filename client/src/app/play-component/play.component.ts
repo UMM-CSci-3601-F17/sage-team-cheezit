@@ -49,7 +49,7 @@ export class PlayComponent implements OnInit {
     }
 
     public getCardState(i:number): CardState{
-        if(this.cardStates[i] == null && i <= this.deck.cards.length) {
+        if(this.cardStates[i] == null ) {
             this.cardStates[i] = new CardState;
         }
         return this.cardStates[i];

@@ -24,8 +24,8 @@
             </mat-card>
 
 
-            <button id="hint" mat-raised-button color="primary" (click)="this.getCardState(this.pageNumber).randomizeSages()">Hint?</button>
-            <button id="got-it" mat-raised-button color="primary" (click)="this.addPoints()">Got It!</button> Score: {{this.points}}
+            <button id="hint" mat-raised-button color="primary" [disabled]="this.getCardState(this.pageNumber).isComplete || !this.getCardState(this.pageNumber).cardHints.length" (click)="this.getCardState(this.pageNumber).randomizeSages()">Hint?</button>
+            <button id="got-it" mat-raised-button color="primary" [disabled]="this.getCardState(this.pageNumber).isComplete" (click)="this.addPoints()">Got It!</button> Score: {{this.points}}
 
         </div>
     </div>

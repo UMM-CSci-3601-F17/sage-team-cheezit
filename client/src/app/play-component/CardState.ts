@@ -1,7 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
-import {Deck} from "../deck/deck";
-import {Card} from "../card/card";
+
+
 
 
 export class CardState {
@@ -27,7 +25,9 @@ export class CardState {
             this.cardPoints = this.cardPoints - 1;
         }
 
+
     }
+
 
     public isDone(): void {
         this.isComplete = true;
