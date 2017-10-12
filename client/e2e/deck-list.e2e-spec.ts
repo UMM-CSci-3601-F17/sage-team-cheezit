@@ -1,5 +1,5 @@
 import {DeckListPage} from "./deck-list.po";
-import {browser, by, protractor} from 'protractor';
+import {by} from 'protractor';
 
 
 describe('deck-list-page', () => {
@@ -7,19 +7,28 @@ describe('deck-list-page', () => {
 
    beforeEach(() => {
        page = new DeckListPage();
+       page.navigateTo();
    });
 
    it('should highlight title header', () => {
-       page.navigateTo();
        expect(page.getPageTitle()).toEqual('Decks');
    });
 
     it("should have a play button for every deck", () => {
-       page.navigateTo();
         page.getAllDecks().each(e => {
            expect(e.element(by.id('play')).getText()).toEqual("Play");
         });
     });
+
+    it('should have a working add deck button', () => {
+       page.getAllDecks().count().then( beforecount => {
+           page.clickButton('deckDialog');
+           page.typeInput('deckName', 'newDeck', true);
+           expect(page.getAllDecks().count()).toEqual(beforecount + 1);
+
+       });
+    });
+
 
 
 });

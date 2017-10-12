@@ -33,6 +33,20 @@ export class DeckListPage {
         return this.getElementsByClass('deck');
     }
 
+    clickButton(id: string) {
+        let e = element(by.id(id));
+        e.click();
+    }
+
+    typeInput(input: string, text: string, enter?: boolean) {
+        let inputElement = element(by.id(input));
+        inputElement.click();
+        inputElement.sendKeys(text);
+        if(enter) {
+            inputElement.sendKeys(Key.ENTER);
+        }
+    }
+
 
 
 

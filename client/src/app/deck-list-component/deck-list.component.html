@@ -9,7 +9,7 @@
 
                 <mat-nav-list *ngIf="this.deckService.decks; else decksError">
                     <mat-list-item class="deck" *ngFor="let deck of this.deckService.decks">
-                        <a matLine [routerLink]="['/decks', deck._id.$oid]">{{ deck.name }}</a>
+                        <a id="deck-name" matLine [routerLink]="['/decks', deck._id.$oid]">{{ deck.name }}</a>
                         <button mat-raised-button color="primary" id="play" [routerLink]="['/play', deck._id.$oid]">
                             Play
                         </button>
@@ -30,6 +30,6 @@
     </div>
 </div>
 
-<button mat-fab class="deck-list-fab" matTooltip="Add Deck" matTooltipPosition="left" (click)="this.openAddDialog()">
+<button mat-fab id="deckDialog" class="deck-list-fab" matTooltip="Add Deck" matTooltipPosition="left" (click)="this.openAddDialog()">
     <mat-icon class="md-24" aria-label="Add Deck">add</mat-icon>
 </button>

@@ -12,11 +12,24 @@ export class DeckPage {
         return header;
     }
 
-    getElementsByClass(htmlClass: string){
-        return element.all(by.className(htmlClass));
+    getElementsByID(htmlClass: string){
+        return element.all(by.id(htmlClass));
     }
     getAllCards(){
-        return this.getElementsByClass('card');
+        return this.getElementsByID('card');
+    }
+    clickButton(id: string) {
+        let e = element(by.id(id));
+        e.click();
+    }
+
+    typeInput(input: string, text: string, enter?: boolean) {
+        let inputElement = element(by.id(input));
+        inputElement.click();
+        inputElement.sendKeys(text);
+        if(enter) {
+            inputElement.sendKeys(Key.ENTER);
+        }
     }
 
 

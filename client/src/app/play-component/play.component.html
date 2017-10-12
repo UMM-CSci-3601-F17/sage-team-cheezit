@@ -9,7 +9,7 @@
             <!--<app-card [card]="card"></app-card>!-->
             <mat-card>
                 <mat-card-header>
-                    <mat-card-title>{{ card.word }}</mat-card-title>
+                    <mat-card-title id="word">{{ card.word }}</mat-card-title>
                 </mat-card-header>
                 <mat-card-content>
                     <p id="synonym" [ngClass]="{'sage-selected': this.getCardState(this.pageNumber).selected == 1}">Synonym: {{ card.synonym
@@ -30,10 +30,10 @@
         </div>
     </div>
     </div>
-    <kb-nav-button backward [showBackground]="true" hide-xs
+    <kb-nav-button id="backward" backward [showBackground]="true" hide-xs
                    [(page)]="this.pageNumber" [pageCount]="pageCount">
     </kb-nav-button>
-    <kb-nav-button forward [showBackground]="true" hide-xs
+    <kb-nav-button id="forward" forward [showBackground]="true" hide-xs
                    [(page)]="this.pageNumber" [pageCount]="pageCount">
     </kb-nav-button>
 </kb-page-slider>
