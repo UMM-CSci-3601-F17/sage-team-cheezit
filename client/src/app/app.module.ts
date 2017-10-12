@@ -27,6 +27,7 @@ import {NewCardDialogComponent} from "./new-card-dialog/new-card-dialog.componen
 import {NewDeckDialogComponent} from "./new-deck-dialog/new-deck-dialog.component";
 
 @NgModule({
+
     imports: [
         BrowserModule,
         HttpModule,

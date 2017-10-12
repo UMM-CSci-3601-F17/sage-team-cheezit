@@ -1,7 +1,6 @@
 package umm3601.deck;
 
 import com.google.gson.Gson;
-import com.mongodb.*;
 import com.mongodb.client.AggregateIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
@@ -12,9 +11,7 @@ import org.bson.Document;
 import org.bson.types.ObjectId;
 import spark.Request;
 import spark.Response;
-
 import java.util.Arrays;
-
 import java.util.Collections;
 import java.util.Map;
 

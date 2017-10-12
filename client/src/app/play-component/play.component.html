@@ -1,10 +1,32 @@
-<kb-page-slider *ngIf="this.deck && this.deck.cards" [(page)]="this.pageNumber" (pageCountChange)="pageCount = $event"
+<kb-page-slider *ngIf="this.deck && this.deck.cards" [(page)]="this.pageNumber" (pageCountChange)="pageCount = $event;"
                 [showIndicator]="false" dotColor="black">
     <mat-toolbar color="primary"></mat-toolbar>
     <div *kbPages="let card of this.deck.cards">
     <div class="margin" layout="row" layout-align="center start" layout-fill>
         <div flex-gt-xs="70" flex-xs="90">
-            <app-card [card]="card"></app-card>
+
+
+            <!--<app-card [card]="card"></app-card>!-->
+            <mat-card>
+                <mat-card-header>
+                    <mat-card-title>{{ card.word }}</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                    <p id="synonym" [ngClass]="{'sage-selected': this.getCardState(this.pageNumber).selected == 1}">Synonym: {{ card.synonym
+                        }}</p>
+                    <p id="antonym" [ngClass]="{'sage-selected': this.getCardState(this.pageNumber).selected == 2}">Antonym: {{ card.antonym
+                        }}</p>
+                    <p id="general-usage" [ngClass]="{'sage-selected': this.getCardState(this.pageNumber).selected == 3}">General usage: {{
+                        card.general_sense }}</p>
+                    <p id="example-usage" [ngClass]="{'sage-selected': this.getCardState(this.pageNumber).selected == 4}">Example usage: {{
+                        card.example_usage }}</p>
+                </mat-card-content>
+            </mat-card>
+
+
+            <button id="hint" mat-raised-button color="primary" [disabled]="this.getCardState(this.pageNumber).isComplete || !this.getCardState(this.pageNumber).cardHints.length" (click)="this.getCardState(this.pageNumber).randomizeSages()">Hint?</button>
+            <button id="got-it" mat-raised-button color="primary" [disabled]="this.getCardState(this.pageNumber).isComplete" (click)="this.addPoints()">Got It!</button> Score: {{this.points}}
+
         </div>
     </div>
     </div>
