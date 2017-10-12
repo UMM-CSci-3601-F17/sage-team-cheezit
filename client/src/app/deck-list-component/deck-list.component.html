@@ -1,5 +1,5 @@
 <div layout-gt-sm="row">
-    <div flex-gt-sm="80" flex-offset-gt-sm="10">
+    <div flex-gt-xs="80" flex-offset-gt-xs="10" flex-xs="96" flex-offset-xs="2">
 
         <mat-card>
             <mat-card-title id="title">Decks</mat-card-title>
@@ -29,3 +29,7 @@
         </mat-card>
     </div>
 </div>
+
+<button mat-fab class="deck-list-fab" matTooltip="Add Deck" matTooltipPosition="left" (click)="this.openAddDialog()">
+    <mat-icon class="md-24" aria-label="Add Deck">add</mat-icon>
+</button>
