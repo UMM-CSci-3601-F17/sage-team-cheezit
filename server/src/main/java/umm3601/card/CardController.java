@@ -100,7 +100,8 @@ public class CardController {
         return JSON.serialize(cards);
     }
 
-    public boolean addNewCard(Request req, Response res)
+
+    public Object addNewCard(Request req, Response res)
     {
 
         res.type("application/json");
@@ -118,7 +119,15 @@ public class CardController {
                     String example_usage = dbO.getString("example_usage");
 
 
-                    return addNewCard(deckID, word, synonym, antonym, general_sense, example_usage);
+
+                    Document newCard = addNewCard(deckID, word, synonym, antonym, general_sense, example_usage);
+                    if (newCard != null) {
+                        return newCard.toJson();
+                    } else {
+                        res.status(400);
+                        res.body("The requested new card is missing one or more objects");
+                        return false;
+                    }
 
 
                 }
@@ -135,6 +144,7 @@ public class CardController {
                 return false;
             }
         }
+      
         catch(RuntimeException ree)
         {
             ree.printStackTrace();
@@ -143,7 +153,14 @@ public class CardController {
 
     }
 
-    public boolean addNewCard(String deckID, String word, String synonym, String antonym, String general_sense, String example_usage){
+
+    public Document addNewCard(String deckID, String word, String synonym, String antonym, String general_sense, String example_usage){
+        if (deckID == null || word == null || synonym == null || antonym == null || general_sense == null || example_usage == null) {
+            return null;
+        }
+        if (deckID.equals("") || word.equals("") || synonym.equals("") || antonym.equals("") || general_sense.equals("") || example_usage.equals("")) {
+            return null;
+        }
         Document newCard = new Document();
         ObjectId newID = new ObjectId();
         System.out.println(newID.toString());
@@ -159,10 +176,10 @@ public class CardController {
         }
         catch(MongoException me){
             me.printStackTrace();
-            return false;
+            return null;
         }
 
-        return true;
+        return newCard;
     }
 
 }

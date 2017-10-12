@@ -2,6 +2,12 @@ import {Component, EventEmitter, OnInit, QueryList, ViewChild, ViewChildren} fro
 import {DeckService} from "../deck/deck.service";
 import {ActivatedRoute} from "@angular/router";
 import {Deck} from "../deck/deck";
+import { ViewContainerRef } from '@angular/core';
+import { TdDialogService } from '@covalent/core';
+import {Observable} from "rxjs/Observable";
+import {Card} from "../card/card";
+import {NewCardDialogComponent} from "../new-card-dialog/new-card-dialog.component";
+import {MdDialog} from "@angular/material";
 
 import {Observable} from "rxjs/Observable";
 import {Card} from "../card/card";
@@ -26,11 +32,37 @@ export class DeckComponent implements OnInit {
     newCardExample: string = "";
 
 
-  constructor(public deckService : DeckService, private route: ActivatedRoute) {
+  constructor(public deckService : DeckService, private route: ActivatedRoute, public dialog : MdDialog) {
 
 
   }
 
+  openAddDialog() {
+      let dialogRef = this.dialog.open(NewCardDialogComponent, {
+          data: { deckId: this.id },
+      });
+      dialogRef.afterClosed().subscribe(result => {
+          if(result) {
+              this.deck.cards.push(result);
+          }
+      });
+  }
+
+
+
+
+    refreshDeck(): Observable<Deck> {
+
+        let deck : Observable<Deck> = this.deckService.getDeck(this.deck._id.toString());
+        deck.subscribe(
+            deck => {
+                this.deck = deck;
+            },
+            err => {
+                console.log(err);
+            });
+        return deck;
+    }
 
     fade(): void {
       this.fadeDiv = !this.fadeDiv;
