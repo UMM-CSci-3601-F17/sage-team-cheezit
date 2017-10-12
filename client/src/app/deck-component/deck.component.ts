@@ -31,7 +31,9 @@ export class DeckComponent implements OnInit {
           data: { deckId: this.id },
       });
       dialogRef.afterClosed().subscribe(result => {
-          this.deck.cards.push(result);
+          if(result) {
+              this.deck.cards.push(result);
+          }
       });
   }
 
