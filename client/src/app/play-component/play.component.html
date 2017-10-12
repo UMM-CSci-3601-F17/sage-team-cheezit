@@ -5,13 +5,16 @@
     <div class="margin" layout-gt-xs="row" layout-align-gt-xs="center start" layout-fill>
         <div flex-gt-xs="70">
             <app-card [card]="card"></app-card>
+
+            <div [@tdBounce]="bounceState">{{this.points}}</div>
+
         </div>
     </div>
     </div>
     <kb-nav-button backward [showBackground]="true" hide-xs
-                   [(page)]="this.pageNumber" [pageCount]="pageCount">
+                   [(page)]="this.pageNumber" [pageCount]="pageCount" (click)="this.subtractPoints()">
     </kb-nav-button>
     <kb-nav-button forward [showBackground]="true" hide-xs
-                   [(page)]="this.pageNumber" [pageCount]="pageCount">
+                   [(page)]="this.pageNumber" [pageCount]="pageCount" (click)="this.addPoints()">
     </kb-nav-button>
 </kb-page-slider>

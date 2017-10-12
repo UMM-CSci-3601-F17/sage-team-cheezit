@@ -22,7 +22,9 @@ import {PlayComponent} from "./play-component/play.component";
 import { CovalentDialogsModule } from '@covalent/core';
 import { CovalentCommonModule } from '@covalent/core';
 
+
 @NgModule({
+
     imports: [
         BrowserModule,
         HttpModule,
@@ -30,7 +32,8 @@ import { CovalentCommonModule } from '@covalent/core';
         Routing,
         SharedModule,
         CovalentDialogsModule,
-        CovalentCommonModule
+        CovalentCommonModule,
+
     ],
     declarations: [
         AppComponent,
