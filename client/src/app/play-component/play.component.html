@@ -2,8 +2,8 @@
                 [showIndicator]="false" dotColor="black">
     <mat-toolbar color="primary"></mat-toolbar>
     <div *kbPages="let card of this.deck.cards">
-    <div class="margin" layout-gt-xs="row" layout-align-gt-xs="center start" layout-fill>
-        <div flex-gt-xs="70">
+    <div class="margin" layout="row" layout-align="center start" layout-fill>
+        <div flex-gt-xs="70" flex-xs="90">
             <app-card [card]="card"></app-card>
         </div>
     </div>

@@ -27,14 +27,6 @@ export class DeckService {
 
   public getDeck(id:string) : Observable<Deck> {
       let newDeck : Observable<Deck> = this.http.request(this.deckUrl + "/" + id).map(res => res.json());
-      newDeck.subscribe(
-          deckres => {
-            //  var index = this.decks.findIndex(x => x._id.$oid == id);
-            //  this.decks[index] = deckres;
-          }, err => {
-              console.log(err);
-          }
-      );
       return newDeck;
   }
 
@@ -43,6 +35,11 @@ export class DeckService {
       console.log(body);
 
       return this.http.post(this.cardUrl + "/add", body).map(res => res.json());
+  }
+
+  public addNewDeck(name: string) {
+      let response = this.http.post(this.deckUrl + "/add", {name: name}).map(res => res.json());
+      return response;
   }
 
 

@@ -1,6 +1,8 @@
 <div layout-gt-sm="row">
-    <div flex-gt-sm="60" flex-offset-gt-sm="20" *ngIf="this.deck && this.deck.cards">
+    <div flex-gt-xs="60" flex-offset-gt-xs="20" flex-xs="90" flex-offset-xs="5" *ngIf="this.deck && this.deck.cards">
         <h2>{{ this.deck.name }}</h2>
+            <td-message *ngIf="this.deck.cards.length == 0" label="No Cards" sublabel="This deck is empty, tap + to add cards.">
+            </td-message>
         <app-card *ngFor="let card of this.deck.cards" [card]="card"></app-card>
     </div>
 </div>

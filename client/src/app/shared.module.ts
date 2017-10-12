@@ -1,7 +1,10 @@
 import { NgModule, } from '@angular/core';
 import { CommonModule, } from '@angular/common';
 
-import { CovalentLayoutModule, CovalentStepsModule, CovalentCommonModule /*, any other modules */ } from '@covalent/core';
+import {
+    CovalentLayoutModule, CovalentStepsModule, CovalentCommonModule,
+    CovalentMessageModule /*, any other modules */
+} from '@covalent/core';
 
 import {
     MatListModule,
@@ -52,6 +55,7 @@ const COVALENT_MODULES: any[] = [
     CovalentLayoutModule,
     CovalentStepsModule,
     CovalentCommonModule,
+    CovalentMessageModule,
 ];
 
 const OTHER_MODULES: any[] = [
