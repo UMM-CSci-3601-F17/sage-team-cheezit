@@ -1,13 +1,24 @@
 import { NgModule, } from '@angular/core';
 import { CommonModule, } from '@angular/common';
 
-import { CovalentLayoutModule, CovalentStepsModule, CovalentCommonModule /*, any other modules */ } from '@covalent/core';
+import {
+    CovalentLayoutModule, CovalentStepsModule, CovalentCommonModule,
+    CovalentMessageModule /*, any other modules */
+} from '@covalent/core';
 
 import {
-    MatListModule, MdButtonModule, MdCardModule, MdIconModule, MdInputModule, MdMenuModule,
+    MatListModule,
+    MdButtonModule,
+    MdCardModule,
+    MdIconModule,
+    MdInputModule,
+    MdMenuModule,
     MdSidenavModule,
     MdToolbarModule,
     MatTooltipModule,
+    MdFormFieldModule,
+    MatDialogModule,
+    MdSnackBarModule,
 } from '@angular/material';
 
 import { FlexLayoutModule, } from '@angular/flex-layout';
@@ -35,12 +46,16 @@ const MATERIAL_MODULES: any[] = [
     MdSidenavModule,
     MdInputModule,
     MatTooltipModule,
+    MdFormFieldModule,
+    MatDialogModule,
+    MdSnackBarModule,
 ];
 
 const COVALENT_MODULES: any[] = [
     CovalentLayoutModule,
     CovalentStepsModule,
     CovalentCommonModule,
+    CovalentMessageModule,
 ];
 
 const OTHER_MODULES: any[] = [
