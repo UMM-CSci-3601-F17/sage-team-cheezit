@@ -6,13 +6,15 @@ import { CovalentLayoutModule, CovalentStepsModule, CovalentCommonModule /*, any
 import {
     MatListModule, MdButtonModule, MdCardModule, MdIconModule, MdInputModule, MdMenuModule,
     MdSidenavModule,
-    MdToolbarModule
+    MdToolbarModule,
+    MatTooltipModule,
 } from '@angular/material';
 
 import { FlexLayoutModule, } from '@angular/flex-layout';
 
 import { FormsModule } from '@angular/forms';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {PageSliderModule} from "ng2-page-slider";
 
 const FLEX_LAYOUT_MODULES: any[] = [
     FlexLayoutModule,
@@ -32,6 +34,7 @@ const MATERIAL_MODULES: any[] = [
     MdMenuModule,
     MdSidenavModule,
     MdInputModule,
+    MatTooltipModule,
 ];
 
 const COVALENT_MODULES: any[] = [
@@ -39,6 +42,10 @@ const COVALENT_MODULES: any[] = [
     CovalentStepsModule,
     CovalentCommonModule,
 ];
+
+const OTHER_MODULES: any[] = [
+    PageSliderModule
+]
 
 
 @NgModule({
@@ -48,6 +55,7 @@ const COVALENT_MODULES: any[] = [
         MATERIAL_MODULES,
         COVALENT_MODULES,
         FLEX_LAYOUT_MODULES,
+        OTHER_MODULES,
     ],
     declarations: [
 
@@ -57,6 +65,7 @@ const COVALENT_MODULES: any[] = [
         MATERIAL_MODULES,
         COVALENT_MODULES,
         FLEX_LAYOUT_MODULES,
+        OTHER_MODULES,
     ]
 })
 

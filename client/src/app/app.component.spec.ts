@@ -33,12 +33,12 @@ describe('AppComponent', () => {
     });
 
     it(`should have as title 'app'`, () => {
-        expect(appInstance.title).toEqual('Angular Spark lab');
+        expect(appInstance.title).toEqual('SAGE');
     });
 
     it('should render title in the navbar', () => {
         appFixture.detectChanges();
         let navbar: HTMLElement = debugElement.query(By.css('td-layout-nav')).nativeElement;
-        expect(navbar.textContent).toContain('Covalent');
+        expect(navbar.textContent).toContain('SAGE');
     });
 });
