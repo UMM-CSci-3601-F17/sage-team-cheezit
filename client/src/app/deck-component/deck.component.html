@@ -5,33 +5,7 @@
     </div>
 </div>
 
-<button mat-raised-button color="primary" (click)="fade()" class="text-upper">Add New Card</button>
-<div [tdFade]="fadeDiv">
-    <mat-card>
-        <mat-card-title>New Card</mat-card-title>
-        <mat-divider></mat-divider>
-        <mat-card-content>
-            <mat-form-field>
-                <input matInput #input type="text" placeholder="Word" [(ngModel)]="newCardWord">
-            </mat-form-field>
-            <mat-form-field>
-                <input matInput #input type="text" placeholder="Synonym" [(ngModel)]="newCardSynonym">
-            </mat-form-field>
-            <mat-form-field>
-                <input matInput #input type="text" placeholder="Antonym" [(ngModel)]="newCardAntonym">
-            </mat-form-field>
-            <mat-form-field>
-                <input matInput #input type="text" placeholder="General Sense" [(ngModel)]="newCardGeneral">
-            </mat-form-field>
-            <mat-form-field>
-                <input matInput #input type="text" placeholder="Example Usage" [(ngModel)]="newCardExample">
-            </mat-form-field>
-<button mat-fab class="deck-fab" matTooltip="Add Card" matTooltipPosition="left">
+
+<button mat-fab class="deck-fab" matTooltip="Add Card" matTooltipPosition="left" (click)="this.openAddDialog()">
     <mat-icon class="md-24" aria-label="Add Card">add</mat-icon>
 </button>
-
-            <button mat-raised-button color="primary" #input type="button"
-                    (click)="this.addNewCard(this.deck._id, newCardWord, newCardSynonym, newCardAntonym, newCardGeneral, newCardExample)">Add Card</button>
-        </mat-card-content>
-    </mat-card>
-</div>

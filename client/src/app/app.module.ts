@@ -1,7 +1,10 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule }  from '@angular/platform-browser';
 
-import { MATERIAL_COMPATIBILITY_MODE } from '@angular/material';
+import {
+    MATERIAL_COMPATIBILITY_MODE, MD_DIALOG_SCROLL_STRATEGY_PROVIDER, MdDialogContainer,
+    MdSnackBar
+} from '@angular/material';
 
 
 import {HttpModule, JsonpModule} from '@angular/http';
@@ -19,8 +22,8 @@ import {DeckListComponent} from "./deck-list-component/deck-list.component";
 import {DeckComponent} from "./deck-component/deck.component";
 import {DeckService} from "./deck/deck.service";
 import {PlayComponent} from "./play-component/play.component";
-import { CovalentDialogsModule } from '@covalent/core';
-import { CovalentCommonModule } from '@covalent/core';
+import {MdDialog} from "@angular/material";
+import {NewCardDialogComponent} from "./new-card-dialog/new-card-dialog.component";
 
 @NgModule({
     imports: [
@@ -29,8 +32,6 @@ import { CovalentCommonModule } from '@covalent/core';
         JsonpModule,
         Routing,
         SharedModule,
-        CovalentDialogsModule,
-        CovalentCommonModule
     ],
     declarations: [
         AppComponent,
@@ -40,11 +41,17 @@ import { CovalentCommonModule } from '@covalent/core';
         CardComponent,
         DeckComponent,
         DeckListComponent,
+        NewCardDialogComponent,
         PlayComponent
+    ],
+    entryComponents: [
+        NewCardDialogComponent
     ],
     providers: [
         UserListService,
         DeckService,
+        MdDialog,
+        MdSnackBar,
         {provide: APP_BASE_HREF, useValue: '/'},
         {provide: MATERIAL_COMPATIBILITY_MODE, useValue: true}
     ],

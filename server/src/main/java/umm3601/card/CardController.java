@@ -100,7 +100,7 @@ public class CardController {
         return JSON.serialize(cards);
     }
 
-    public boolean addNewCard(Request req, Response res)
+    public Object addNewCard(Request req, Response res)
     {
 
         res.type("application/json");
@@ -120,7 +120,7 @@ public class CardController {
 
                     Document newCard = addNewCard(deckID, word, synonym, antonym, general_sense, example_usage);
                     if (newCard != null) {
-                        return true;
+                        return newCard.toJson();
                     } else {
                         res.status(400);
                         res.body("The requested new card is missing one or more objects");
