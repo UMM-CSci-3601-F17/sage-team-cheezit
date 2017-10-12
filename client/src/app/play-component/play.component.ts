@@ -37,18 +37,18 @@ export class PlayComponent implements OnInit {
 
     public addPoints(): void {
 
-        if(this.cardStates[this.pageNumber].isComplete == false){
+        if(this.cardStates[this.pageNumber].isComplete == false && this.pageNumber < this.deck.cards.length){
             this.points += this.cardStates[this.pageNumber].cardPoints;
             this.bounceState = !this.bounceState;
             this.cardStates[this.pageNumber].isDone();
             this.pageNumber = this.pageNumber + 1;
+
         }
 
     }
 
     public getCardState(i:number): CardState{
         if(this.cardStates[i] == null && i <= this.deck.cards.length) {
-            console.log("ahhhhhhhh reeeeeeeeeeeeeeeeeeeeeeee");
             this.cardStates[i] = new CardState;
         }
         return this.cardStates[i];
