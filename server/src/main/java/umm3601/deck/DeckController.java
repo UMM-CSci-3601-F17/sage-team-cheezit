@@ -1,25 +1,19 @@
 package umm3601.deck;
 
 import com.google.gson.Gson;
-import com.mongodb.*;
 import com.mongodb.client.AggregateIterable;
-import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Aggregates;
 import com.mongodb.client.model.Projections;
 import com.mongodb.util.JSON;
-import org.apache.commons.lang3.ArrayUtils;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 import spark.Request;
 import spark.Response;
-
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.Map;
 
-import static com.mongodb.client.model.Filters.eq;
 
 
 
