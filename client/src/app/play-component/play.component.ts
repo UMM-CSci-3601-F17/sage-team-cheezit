@@ -40,6 +40,7 @@ export class PlayComponent implements OnInit {
         if(this.cardStates[this.pageNumber].isComplete == false && this.pageNumber < this.deck.cards.length){
             this.points += this.cardStates[this.pageNumber].cardPoints;
             this.bounceState = !this.bounceState;
+            this.cardStates[this.pageNumber].selected = 0;
             this.cardStates[this.pageNumber].isDone();
             this.pageNumber = this.pageNumber + 1;
 

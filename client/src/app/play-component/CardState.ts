@@ -19,7 +19,7 @@ export class CardState {
     }
 
     public randomizeSages(): void{
-        if(this.cardHints.length > 0) {
+        if(this.cardHints.length > 0 && !this.isComplete) {
             let randnum = Math.floor(Math.random() * this.cardHints.length);
             this.selected = this.cardHints[randnum];
 
