@@ -2,8 +2,7 @@ import {Component, EventEmitter, OnInit, QueryList, ViewChild, ViewChildren} fro
 import {DeckService} from "../deck/deck.service";
 import {ActivatedRoute} from "@angular/router";
 import {Deck} from "../deck/deck";
-import { ViewContainerRef } from '@angular/core';
-import { TdDialogService } from '@covalent/core';
+
 import {Observable} from "rxjs/Observable";
 import {Card} from "../card/card";
 
@@ -27,29 +26,12 @@ export class DeckComponent implements OnInit {
     newCardExample: string = "";
 
 
-  constructor(public deckService : DeckService, private route: ActivatedRoute, private _dialogService: TdDialogService,
-              private _viewContainerRef: ViewContainerRef) {
+  constructor(public deckService : DeckService, private route: ActivatedRoute) {
 
 
   }
 
-    openPrompt(): void {
-        this._dialogService.openPrompt({
-            message: 'Enter in the word, synonym, antonym, general sense, and example usage for a new card here.',
-            disableClose: true || false, // defaults to false
-            // viewContainerRef: this._viewContainerRef, //OPTIONAL
-            title: 'Add New Card', //OPTIONAL, hides if not provided
-            value: 'Enter word', //OPTIONAL
-            cancelButton: 'Cancel', //OPTIONAL, defaults to 'CANCEL'
-            acceptButton: 'Add', //OPTIONAL, defaults to 'ACCEPT'
-        }).afterClosed().subscribe((newValue: string) => {
-            if (newValue) {
-                // DO SOMETHING
-            } else {
-                // DO SOMETHING ELSE
-            }
-        });
-    }
+
 
     fade(): void {
       this.fadeDiv = !this.fadeDiv;

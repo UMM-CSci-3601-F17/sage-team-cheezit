@@ -146,7 +146,7 @@ public class CardController {
     public boolean addNewCard(String deckID, String word, String synonym, String antonym, String general_sense, String example_usage){
         Document newCard = new Document();
         ObjectId newID = new ObjectId();
-        System.out.println(newID.toString());
+
         newCard.append("_id", newID);
         newCard.append("word", word);
         newCard.append("synonym", synonym);
