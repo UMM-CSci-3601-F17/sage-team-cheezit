@@ -5,7 +5,7 @@ import {SharedModule} from "../shared.module";
 import {MATERIAL_COMPATIBILITY_MODE} from "@angular/material";
 import {CardComponent} from "../card-component/card.component";
 import {DeckService} from "../deck/deck.service";
-import {Observable} from "rxjs/Observable";
+import {Observable} from "rxjs";
 import {Deck} from "../deck/deck";
 import {ActivatedRoute} from "@angular/router";
 
