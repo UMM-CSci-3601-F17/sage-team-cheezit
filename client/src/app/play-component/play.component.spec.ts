@@ -60,4 +60,20 @@ describe('PlayComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should not exceed 5 total points', () => {
+      component.addPoints();
+      component.addPoints();
+      component.addPoints();
+      component.addPoints();
+      expect(component.points).toEqual(5);
+  });
+
+  it('should not go under 0 total points', () => {
+      component.subtractPoints()
+      component.subtractPoints()
+      component.subtractPoints();
+      component.subtractPoints();
+      expect(component.points).toEqual(0);
+  })
 });

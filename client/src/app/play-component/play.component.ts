@@ -37,7 +37,6 @@ export class PlayComponent implements OnInit {
             this.points = this.points + 5;
             this.bounceState = !this.bounceState;
         }
-
     }
     public subtractPoints(): void {
         if(this.points >= 5){
