@@ -70,8 +70,8 @@ describe('PlayComponent', () => {
   });
 
   it('should not go under 0 total points', () => {
-      component.subtractPoints()
-      component.subtractPoints()
+      component.subtractPoints();
+      component.subtractPoints();
       component.subtractPoints();
       component.subtractPoints();
       expect(component.points).toEqual(0);
