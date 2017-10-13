@@ -2,9 +2,8 @@ import {browser, element, by} from 'protractor';
 import {Key} from "selenium-webdriver";
 
 export class DeckPage {
-    navigateTo() {
-        return browser.get('/decks/59de8a1f012e92ce86a57176');
-
+    navigateTo(deckId: string) {
+        return browser.get('/decks/' + deckId);
     }
 
     getDeckHeader(){
@@ -12,12 +11,13 @@ export class DeckPage {
         return header;
     }
 
-    getElementsByID(htmlClass: string){
-        return element.all(by.id(htmlClass));
+    getElementsByClass(htmlClass: string){
+        return element.all(by.className(htmlClass));
     }
     getAllCards(){
-        return this.getElementsByID('card');
+        return this.getElementsByClass('deck-card');
     }
+
     clickButton(id: string) {
         let e = element(by.id(id));
         e.click();
@@ -30,6 +30,28 @@ export class DeckPage {
         if(enter) {
             inputElement.sendKeys(Key.ENTER);
         }
+    }
+
+    addCard(word: string, synonym: string, antonym: string, general: string, example: string) {
+        this.clickButton('cardDialog');
+        browser.sleep(100);
+        this.typeInput('wordInput', word);
+        this.typeInput('synInput', synonym);
+        this.typeInput('antInput', antonym);
+        this.typeInput('genInput', general);
+        this.typeInput('exInput', example);
+        this.clickButton('new-card-submit');
+    }
+
+    // from https://stackoverflow.com/questions/1349404/generate-random-string-characters-in-javascript
+    randomText(length: number): string {
+        var text: string = "";
+        var possible: string = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+        for (var i = 0; i < length; i++)
+            text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+        return text;
     }
 
 

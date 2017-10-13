@@ -1,10 +1,10 @@
 <mat-card>
-    <mat-card-title>{{ card.word }}</mat-card-title>
+    <mat-card-title class="card-word">{{ card.word }}</mat-card-title>
     <mat-divider></mat-divider>
     <mat-card-content>
-        <div class="synonym card-line" [ngClass]="{'hint-selected': this.selected == 1}"><div class="card-desc">Synonym:</div> <div class="card-cont">{{ card.synonym }}</div></div>
-        <div class="antonym card-line" [ngClass]="{'hint-selected': this.selected == 2}"><div class="card-desc">Antonym:</div> <div class="card-cont">{{ card.antonym }}</div></div>
-        <div class="general-usage card-line" [ngClass]="{'hint-selected': this.selected == 3}"><div class="card-desc">General usage:</div> <div class="card-cont">{{ card.general_sense }}</div></div>
-        <div class="example-usage card-line" [ngClass]="{'hint-selected': this.selected == 4}"><div class="card-desc">Example usage:</div> <div class="card-cont">{{ card.example_usage }}</div></div>
+        <div class="card-synonym card-line" [ngClass]="{'hint-selected': this.selected == 1}"><div class="card-desc">Synonym:</div> <div class="card-cont">{{ card.synonym }}</div></div>
+        <div class="card-antonym card-line" [ngClass]="{'hint-selected': this.selected == 2}"><div class="card-desc">Antonym:</div> <div class="card-cont">{{ card.antonym }}</div></div>
+        <div class="card-general-usage card-line" [ngClass]="{'hint-selected': this.selected == 3}"><div class="card-desc">General usage:</div> <div class="card-cont">{{ card.general_sense }}</div></div>
+        <div class="card-example-usage card-line" [ngClass]="{'hint-selected': this.selected == 4}"><div class="card-desc">Example usage:</div> <div class="card-cont">{{ card.example_usage }}</div></div>
     </mat-card-content>
 </mat-card>

@@ -17,4 +17,12 @@ export class PlayPage {
         return e;
     }
 
+    getActivePage() {
+        return element(by.className("active-kb-page"));
+    }
+
+    getElementsByClass(htmlClass: string){
+        return element.all(by.className(htmlClass));
+    }
+
 }

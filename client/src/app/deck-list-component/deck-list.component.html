@@ -2,15 +2,15 @@
     <div flex-gt-xs="80" flex-offset-gt-xs="10" flex-xs="96" flex-offset-xs="2">
 
         <mat-card>
-            <mat-card-title id="title">Decks</mat-card-title>
+            <mat-card-title id="decks-title">Decks</mat-card-title>
             <mat-divider></mat-divider>
             <mat-card-content>
 
 
                 <mat-nav-list *ngIf="this.deckService.decks; else decksError">
                     <mat-list-item class="deck" *ngFor="let deck of this.deckService.decks">
-                        <a id="deck-name" matLine [routerLink]="['/decks', deck._id.$oid]">{{ deck.name }}</a>
-                        <button mat-raised-button color="primary" id="play" [routerLink]="['/play', deck._id.$oid]">
+                        <a class="deck-name" matLine [routerLink]="['/decks', deck._id.$oid]">{{ deck.name }}</a>
+                        <button mat-raised-button color="primary" class="play-button" [routerLink]="['/play', deck._id.$oid]">
                             Play
                         </button>
                     </mat-list-item>

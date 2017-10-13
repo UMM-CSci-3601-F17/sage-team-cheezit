@@ -5,13 +5,19 @@ evaluationDependsOn ":server"
 task clearMongoDB(type: Exec) {
     group = "application"
     executable "mongo"
-    args = ["dev", "--eval", "printjson(db.dropDatabase())"]
+    args = ["i1-droptable-dev", "--eval", "printjson(db.dropDatabase())"]
 }
 
-task seedUserData(type: Exec) {
+task seedCardData(type: Exec) {
     executable = "mongoimport"
 
-    args = ["-d", "dev", "-c", "users", "--file", "users.seed.json", "--jsonArray"]
+    args = ["-d", "i1-droptable-dev", "-c", "cards", "--file", "cards.seed.json", "--jsonArray"]
+}
+
+task seedDeckData(type: Exec) {
+    executable = "mongoimport"
+
+    args = ["-d", "i1-droptable-dev", "-c", "decks", "--file", "decks.seed.json", "--jsonArray"]
 }
 
 task seedMongoDB {
@@ -19,4 +25,7 @@ task seedMongoDB {
 }
 
 seedMongoDB.dependsOn(clearMongoDB)
-seedMongoDB.dependsOn(seedUserData)
+seedMongoDB.dependsOn(seedCardData)
+seedMongoDB.dependsOn(seedDeckData)
+
+runE2ETest.dependsOn(seedMongoDB)
