@@ -27,5 +27,3 @@ task seedMongoDB {
 seedMongoDB.dependsOn(clearMongoDB)
 seedMongoDB.dependsOn(seedCardData)
 seedMongoDB.dependsOn(seedDeckData)
-
-runE2ETest.dependsOn(seedMongoDB)
