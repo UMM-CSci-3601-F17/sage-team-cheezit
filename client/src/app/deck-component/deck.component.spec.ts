@@ -62,28 +62,21 @@ describe('DeckComponent', () => {
   });
 
   it('should load a deck', () => {
-      let testDeck: {
-          getDeck: (id) => Observable<Deck>
-      };
 
-      testDeck = {
-          getDeck: (id) => Observable.of({
-              _id : {
-                  $oid: "test id"
-              },
-              name: "test deck",
-              cards: [
-                  {   _id : "test id",
-                      word : "test word",
-                      synonym : "test synonym",
-                      antonym: "test antonym",
-                      general_sense: "test general_sense",
-                      example_usage: "test example_usage",
-                  }
-              ]
-          })
-      };
-
-      expect(testDeck[0]).toEqual(deckServiceStub[0]);
+      expect(component.deck).toEqual({
+          _id : {
+              $oid: "test id"
+          },
+          name: "test deck",
+          cards: [
+              {   _id : "test id",
+                  word : "test word",
+                  synonym : "test synonym",
+                  antonym: "test antonym",
+                  general_sense: "test general_sense",
+                  example_usage: "test example_usage",
+              }
+          ]
+      });
   })
 });

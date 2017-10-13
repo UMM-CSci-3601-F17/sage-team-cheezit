@@ -7,9 +7,7 @@ import {SharedModule} from "../shared.module";
 import {MATERIAL_COMPATIBILITY_MODE} from "@angular/material";
 import {Component} from "@angular/core";
 import {Card} from "../card/card";
-import {by} from "protractor";
-import {debug} from "util";
-
+import {browser} from "protractor";
 
 describe('CardComponent', () => {
   let component: CardComponent;
@@ -45,17 +43,16 @@ describe('CardComponent', () => {
 
 
     });
-    // NOT WORKING
-    // it('should highlight upon selection', () => {
-    //    component.selected = 1;
-    //    let synonym: HTMLElement = debugElement.query(By.css('div')).nativeElement;
-    //    expect(synonym.style.backgroundColor).toEqual('yellow')
-    // });
+
+     it('synonym should be highlighted', () => {
+         let synonym: HTMLElement = debugElement.query(By.css('.card-synonym')).nativeElement;
+         expect(synonym.classList).toContain("hint-selected");
+     });
 });
 
 @Component({
     selector: 'test-component-wrapper',
-    template: '<app-card [card]="card"></app-card>'
+    template: '<app-card [card]="card" [selected]="1"></app-card>'
 })
 class TestComponentWrapper {
     card : Card = {
