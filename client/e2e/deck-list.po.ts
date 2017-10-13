@@ -6,22 +6,8 @@ export class DeckListPage {
         return browser.get('/decks');
     }
 
-    //http://www.assertselenium.com/protractor/highlight-elements-during-your-protractor-test-run/
-    highlightElement(byObject) {
-        function setStyle(element, style) {
-            const previous = element.getAttribute('style');
-            element.setAttribute('style', style);
-            setTimeout(() => {
-                element.setAttribute('style', previous);
-            }, 200);
-            return "highlighted";
-        }
-
-        return browser.executeScript(setStyle, element(byObject).getWebElement(), 'color: red; background-color: yellow;');
-    }
     getPageTitle(){
-        let title = element(by.id('title')).getText();
-        this.highlightElement(by.id('title'));
+        let title = element(by.id('decks-title')).getText();
         return title;
     }
 
@@ -33,8 +19,41 @@ export class DeckListPage {
         return this.getElementsByClass('deck');
     }
 
+    getAllDeckNames() {
+        return element.all(by.className("deck-name")).map(x => x.getText());
+    }
+
+    clickButton(id: string) {
+        let e = element(by.id(id));
+        e.click();
+    }
+
+    typeInput(input: string, text: string, enter?: boolean) {
+        let inputElement = element(by.id(input));
+        inputElement.click();
+        inputElement.sendKeys(text);
+        if(enter) {
+            inputElement.sendKeys(Key.ENTER);
+        }
+    }
+
+    addDeck(name: string) {
+        this.clickButton('deckDialog');
+        this.typeInput('deckName', name);
+        this.clickButton('new-deck-submit');
+    }
 
 
+    // from https://stackoverflow.com/questions/1349404/generate-random-string-characters-in-javascript
+    randomText(length: number): string {
+        var text: string = "";
+        var possible: string = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+        for (var i = 0; i < length; i++)
+            text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+        return text;
+    }
 
 
 

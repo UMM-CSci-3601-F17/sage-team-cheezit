@@ -105,13 +105,13 @@ describe('PlayComponent', () => {
       card_state3.randomizeSages();
       card_state3.randomizeSages();
 
-      component.addPoints();
+      component.addPoints(0);
       expect(component.points).toEqual(card_state1.cardPoints);
 
-      component.addPoints();
+      component.addPoints(1);
       expect(component.points).toEqual(card_state1.cardPoints + card_state2.cardPoints);
 
-      component.addPoints();
+      component.addPoints(2);
       expect(component.points).toEqual(card_state1.cardPoints + card_state2.cardPoints + card_state3.cardPoints);
 
   });
@@ -120,7 +120,7 @@ describe('PlayComponent', () => {
       let card_state1: CardState;
       card_state1 = component.getCardState(0);
 
-      component.addPoints();
+      component.addPoints(0);
       expect(component.pageNumber).toEqual(1);
   });
 

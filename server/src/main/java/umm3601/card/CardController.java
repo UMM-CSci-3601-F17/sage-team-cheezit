@@ -163,7 +163,7 @@ public class CardController {
         }
         Document newCard = new Document();
         ObjectId newID = new ObjectId();
-        System.out.println(newID.toString());
+
         newCard.append("_id", newID);
         newCard.append("word", word);
         newCard.append("synonym", synonym);

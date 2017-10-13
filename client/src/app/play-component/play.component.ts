@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import {DeckService} from "../deck/deck.service";
 import {ActivatedRoute} from "@angular/router";
 import {Deck} from "../deck/deck";
-import { TdBounceAnimation } from "@covalent/core";
 import {CardState} from "./CardState";
 
 
@@ -11,9 +10,6 @@ import {CardState} from "./CardState";
   selector: 'app-play',
   templateUrl: './play.component.html',
   styleUrls: ['./play.component.scss'],
-    animations: [
-        TdBounceAnimation()
-    ]
 })
 export class PlayComponent implements OnInit {
 
@@ -26,7 +22,6 @@ export class PlayComponent implements OnInit {
 
     public points: number = 0;
 
-    bounceState: boolean = false;
     public cardStates: CardState[];
 
 
@@ -35,14 +30,13 @@ export class PlayComponent implements OnInit {
     }
 
 
-    public addPoints(): void {
+    public addPoints(pageNumber : number): void {
 
-        if(this.cardStates[this.pageNumber].isComplete == false && this.pageNumber < this.deck.cards.length){
-            this.points += this.cardStates[this.pageNumber].cardPoints;
-            this.bounceState = !this.bounceState;
-            this.cardStates[this.pageNumber].selected = 0;
-            this.cardStates[this.pageNumber].isDone();
-            this.pageNumber = this.pageNumber + 1;
+        if(this.cardStates[pageNumber].isComplete == false && pageNumber < this.deck.cards.length){
+            this.points += this.cardStates[pageNumber].cardPoints;
+            this.cardStates[pageNumber].selected = 0;
+            this.cardStates[pageNumber].isDone();
+            this.pageNumber = pageNumber + 1;
 
         }
 
