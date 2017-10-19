@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule }  from '@angular/platform-browser';
 
+import {environment} from '../environments/environment';
+
 import {
     MATERIAL_COMPATIBILITY_MODE, MD_DIALOG_SCROLL_STRATEGY_PROVIDER, MdDialogContainer,
     MdSnackBar
@@ -22,6 +24,8 @@ import {PlayComponent} from "./play-component/play.component";
 import {MdDialog} from "@angular/material";
 import {NewCardDialogComponent} from "./new-card-dialog/new-card-dialog.component";
 import {NewDeckDialogComponent} from "./new-deck-dialog/new-deck-dialog.component";
+import {AngularFirestore} from "angularfire2/firestore";
+import {AngularFireModule} from "angularfire2";
 
 @NgModule({
 
@@ -30,6 +34,7 @@ import {NewDeckDialogComponent} from "./new-deck-dialog/new-deck-dialog.componen
         HttpModule,
         JsonpModule,
         Routing,
+        AngularFireModule.initializeApp(environment.firebase),
         SharedModule,
     ],
     declarations: [
@@ -37,10 +42,10 @@ import {NewDeckDialogComponent} from "./new-deck-dialog/new-deck-dialog.componen
         HomeComponent,
         CardComponent,
         DeckComponent,
+        PlayComponent,
         DeckListComponent,
         NewCardDialogComponent,
         NewDeckDialogComponent,
-        PlayComponent
     ],
     entryComponents: [
         NewCardDialogComponent,

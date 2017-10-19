@@ -4,6 +4,7 @@ import {ActivatedRoute} from "@angular/router";
 import {Deck} from "../deck/deck";
 import {NewCardDialogComponent} from "../new-card-dialog/new-card-dialog.component";
 import {MdDialog} from "@angular/material";
+import {Card} from "../card/card";
 
 
 @Component({
@@ -15,6 +16,7 @@ export class DeckComponent implements OnInit {
 
     id : string;
     deck : Deck;
+    cards: Card[];
 
 
   constructor(public deckService : DeckService, private route: ActivatedRoute, public dialog : MdDialog) {
@@ -28,7 +30,7 @@ export class DeckComponent implements OnInit {
       });
       dialogRef.afterClosed().subscribe(result => {
           if(result) {
-              this.deck.cards.push(result);
+              //this.deck.cards.push(result);
           }
       });
   }
@@ -43,6 +45,10 @@ export class DeckComponent implements OnInit {
                   this.deck = deck;
               }
           );
+
+          this.deckService.getDeckCards(this.id).subscribe(cards => {
+              this.cards = cards;
+          });
       });
   }
 

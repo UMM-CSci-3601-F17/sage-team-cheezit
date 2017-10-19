@@ -19,9 +19,9 @@ export class NewDeckDialogComponent implements OnInit {
   newDeckName: string;
 
     public addNewDeck(): void {
-        this.deckService.addNewDeck(this.newDeckName).subscribe(
+        this.deckService.addNewDeck(this.newDeckName).then(
             succeeded => {
-                this.deckService.decks.push(succeeded);
+                //this.deckService.decks.push(succeeded);
                 this.matDialogRef.close();
                 this.snackBar.open("Added deck", null, {
                     duration: 2000,

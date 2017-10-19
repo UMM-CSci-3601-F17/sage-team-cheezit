@@ -3,19 +3,21 @@ import {DeckService} from "../deck/deck.service";
 import {ActivatedRoute} from "@angular/router";
 import {Deck} from "../deck/deck";
 import {CardState} from "./CardState";
+import {Card} from "../card/card";
 
 
 
 @Component({
-  selector: 'app-play',
-  templateUrl: './play.component.html',
-  styleUrls: ['./play.component.scss'],
+    selector: 'app-play',
+    templateUrl: './play.component.html',
+    styleUrls: ['./play.component.scss'],
 })
 export class PlayComponent implements OnInit {
 
     deckid : string;
 
     deck : Deck;
+    cards: Card[];
 
     public pageNumber: number = 0;
     public pageCount: number = 0;
@@ -32,7 +34,7 @@ export class PlayComponent implements OnInit {
 
     public addPoints(pageNumber : number): void {
 
-        if(this.cardStates[pageNumber].isComplete == false && pageNumber < this.deck.cards.length){
+        if(this.cardStates[pageNumber].isComplete == false && pageNumber < this.cards.length){
             this.points += this.cardStates[pageNumber].cardPoints;
             this.cardStates[pageNumber].selected = 0;
             this.cardStates[pageNumber].isDone();
@@ -59,6 +61,10 @@ export class PlayComponent implements OnInit {
                     this.deck = deck;
                 }
             );
+
+            this.deckService.getDeckCards(this.deckid).subscribe(cards => {
+                this.cards = cards;
+            });
         });
     }
 

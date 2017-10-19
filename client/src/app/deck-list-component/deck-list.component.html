@@ -8,9 +8,9 @@
 
 
                 <mat-nav-list *ngIf="this.deckService.decks; else decksError">
-                    <mat-list-item class="deck" *ngFor="let deck of this.deckService.decks">
-                        <a class="deck-name" matLine [routerLink]="['/decks', deck._id.$oid]">{{ deck.name }}</a>
-                        <button mat-raised-button color="primary" class="play-button" [routerLink]="['/play', deck._id.$oid]">
+                    <mat-list-item class="deck" *ngFor="let deck of this.deckService.decks | async">
+                        <a class="deck-name" matLine [routerLink]="['/decks', deck.id]">{{ deck.name }}</a>
+                        <button mat-raised-button color="primary" class="play-button" [routerLink]="['/play', deck.id]">
                             Play
                         </button>
                     </mat-list-item>

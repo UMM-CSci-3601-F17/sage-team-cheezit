@@ -13,7 +13,7 @@ export class DeckListComponent implements OnInit {
   constructor(public deckService: DeckService, public dialog : MdDialog) { }
 
   ngOnInit() {
-      this.deckService.getDecks();
+      //this.deckService.getDecks();
   }
 
     openAddDialog() {
