@@ -24,7 +24,7 @@ import {PlayComponent} from "./play-component/play.component";
 import {MdDialog} from "@angular/material";
 import {NewCardDialogComponent} from "./new-card-dialog/new-card-dialog.component";
 import {NewDeckDialogComponent} from "./new-deck-dialog/new-deck-dialog.component";
-import {AngularFirestore} from "angularfire2/firestore";
+import {AngularFirestoreModule} from "angularfire2/firestore";
 import {AngularFireModule} from "angularfire2";
 
 @NgModule({
@@ -35,6 +35,7 @@ import {AngularFireModule} from "angularfire2";
         JsonpModule,
         Routing,
         AngularFireModule.initializeApp(environment.firebase),
+        AngularFirestoreModule.enablePersistence(),
         SharedModule,
     ],
     declarations: [
