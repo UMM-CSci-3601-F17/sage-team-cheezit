@@ -1,0 +1,16 @@
+{
+    "routing": {
+        "index": "/index.html",
+        "routes": {
+            "/": {
+                "prefix": false
+            },
+            "/decks": {
+                "prefix": true
+            },
+            "/play": {
+                "prefix": true
+            }
+        }
+    }
+}
