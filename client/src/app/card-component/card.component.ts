@@ -13,7 +13,7 @@ export class CardComponent implements OnInit {
 
   @Input() card: Card;
 
-  @Input() selected?: number = 0;
+  @Input() selected?: number[] = [];
 
   ngOnInit() {
   }

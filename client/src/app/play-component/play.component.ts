@@ -34,7 +34,7 @@ export class PlayComponent implements OnInit {
 
         if(this.cardStates[pageNumber].isComplete == false && pageNumber < this.deck.cards.length){
             this.points += this.cardStates[pageNumber].cardPoints;
-            this.cardStates[pageNumber].selected = 0;
+            this.cardStates[pageNumber].selectedCardHints = [];
             this.cardStates[pageNumber].isDone();
             this.pageNumber = pageNumber + 1;
 
