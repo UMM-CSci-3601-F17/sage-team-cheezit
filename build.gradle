@@ -1,29 +1,63 @@
-evaluationDependsOn ":client"
-evaluationDependsOn ":server"
+// Client side build.gradle
+// Builds the client-side of the project
 
-// Assumes our dev database is named "dev"
-task clearMongoDB(type: Exec) {
-    group = "application"
-    executable "mongo"
-    args = ["i1-droptable-dev", "--eval", "printjson(db.dropDatabase())"]
+plugins {
+    id 'com.moowork.node' version '1.2.0'
 }
 
-task seedCardData(type: Exec) {
-    executable = "mongoimport"
-
-    args = ["-d", "i1-droptable-dev", "-c", "cards", "--file", "cards.seed.json", "--jsonArray"]
+node {
+    version = '6.11.2'
+    download = true
+    workDir = file("${project.projectDir}/node")
+    yarnWorkDir = file("${project.projectDir}/yarn")
+    nodeModulesDir = file("${project.projectDir}/")
 }
 
-task seedDeckData(type: Exec) {
-    executable = "mongoimport"
-
-    args = ["-d", "i1-droptable-dev", "-c", "decks", "--file", "decks.seed.json", "--jsonArray"]
+task clean(type: Delete) {
+    delete 'build'
 }
 
-task seedMongoDB {
-    group = "application"
+task runClient(type: Exec, dependsOn: yarn_install) {
+    group = 'application'
+    executable "ng"
+    args = ["serve"]
 }
 
-seedMongoDB.dependsOn(clearMongoDB)
-seedMongoDB.dependsOn(seedCardData)
-seedMongoDB.dependsOn(seedDeckData)
+task runClientTestsAndWatch(type: NpmTask) {
+    group = 'application'
+    description = "Start client side tests, watching and updating when there are changes"
+    args = ['run', 'test-watch']
+}
+
+task runClientTestWithCoverage(type: Exec, dependsOn: yarn_install) {
+    group = 'application'
+    executable "ng"
+    args = ["test", "--watch=false", "--code-coverage"]
+}
+
+
+task runE2ETest(type:Exec){
+    group = 'application'
+    executable "ng"
+    args = ["e2e"]
+}
+
+task runClientTests(dependsOn: yarn_run_test) {
+    group = 'application'
+}
+
+task build(type:NodeTask) {
+    group = 'application'
+    description = 'Builds the client side of the application using ng build'
+
+    def build = file("build")
+    outputs.dir build
+
+    script = file("node_modules/@angular/cli/bin/ng")
+    args = ["build","--environment=prod", "--output-path=build", "--prod"]
+}
+
+//Client build files won't build after changes, so delete them after build
+build.dependsOn(clean)
+build.dependsOn(yarn_install)
+build.dependsOn(runClientTests)
