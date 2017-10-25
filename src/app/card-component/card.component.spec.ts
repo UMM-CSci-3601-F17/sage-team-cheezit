@@ -56,7 +56,6 @@ describe('CardComponent', () => {
 })
 class TestComponentWrapper {
     card : Card = {
-        _id : "test id",
         word : "test word",
         synonym : "test synonym",
         antonym: "test antonym",

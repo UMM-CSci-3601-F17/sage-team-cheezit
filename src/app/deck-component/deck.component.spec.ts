@@ -8,33 +8,32 @@ import {DeckService} from "../deck/deck.service";
 import {Observable} from "rxjs";
 import {Deck} from "../deck/deck";
 import {ActivatedRoute} from "@angular/router";
+import {Card} from "../card/card";
 
 describe('DeckComponent', () => {
   let component: DeckComponent;
   let fixture: ComponentFixture<DeckComponent>;
 
     let deckServiceStub: {
-        getDeck: (id) => Observable<Deck>
+        getDeck: (id) => Observable<Deck>,
+        getDeckCards: (id) => Observable<Card[]>
     };
 
   beforeEach(async(() => {
 
       deckServiceStub = {
           getDeck: (id) => Observable.of({
-              _id : {
-                  $oid: "test id"
-              },
-              name: "test deck",
-              cards: [
-                  {   _id : "test id",
-                      word : "test word",
-                      synonym : "test synonym",
-                      antonym: "test antonym",
-                      general_sense: "test general_sense",
-                      example_usage: "test example_usage",
-                  }
-              ]
-          })
+              name: "test deck"
+          }),
+          getDeckCards: (id) => Observable.of([
+              {
+                  word : "test word",
+                  synonym : "test synonym",
+                  antonym: "test antonym",
+                  general_sense: "test general_sense",
+                  example_usage: "test example_usage",
+              }
+          ])
       };
 
     TestBed.configureTestingModule({
@@ -64,19 +63,7 @@ describe('DeckComponent', () => {
   it('should load a deck', () => {
 
       expect(component.deck).toEqual({
-          _id : {
-              $oid: "test id"
-          },
-          name: "test deck",
-          cards: [
-              {   _id : "test id",
-                  word : "test word",
-                  synonym : "test synonym",
-                  antonym: "test antonym",
-                  general_sense: "test general_sense",
-                  example_usage: "test example_usage",
-              }
-          ]
+          name: "test deck"
       });
   })
 });

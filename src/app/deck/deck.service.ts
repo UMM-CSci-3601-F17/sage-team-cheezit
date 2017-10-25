@@ -1,5 +1,4 @@
 import {Injectable} from '@angular/core';
-import {Http} from "@angular/http";
 import {Deck, DeckId} from "./deck";
 import {Observable} from "rxjs/Observable";
 import "rxjs/add/operator/map";
@@ -13,7 +12,7 @@ export class DeckService {
     private deckCollection: AngularFirestoreCollection<Deck>;
     decks: Observable<DeckId[]>;
 
-    constructor(private http: Http, public db: AngularFirestore) {
+    constructor(public db: AngularFirestore) {
         this.deckCollection = db.collection<Deck>('decks');
         this.decks = this.deckCollection.snapshotChanges().map(actions => {
             return actions.map(a => {
