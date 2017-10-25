@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Http} from "@angular/http";
 import {Deck, DeckId} from "./deck";
-import {environment} from "../../environments/environment";
 import {Observable} from "rxjs/Observable";
 import "rxjs/add/operator/map";
 import {AngularFirestore, AngularFirestoreCollection} from "angularfire2/firestore";
@@ -25,26 +24,8 @@ export class DeckService {
         });
     }
 
-    //public decks: Deck[] ;
-    //public decks;
-
-    private deckUrl: string = environment.API_URL + "decks";
-
-    private cardUrl: string = environment.API_URL + "cards";
-
-    public getDecks(): void {
-        /* this.http.request(this.deckUrl).map(res => res.json()).subscribe(
-             decksres => {
-                 this.decks = decksres;
-             }, err => {
-                 console.log(err);
-             }
-         );*/
-    }
-
     public getDeck(id: string): Observable<Deck> {
         let newDeck: Observable<Deck> = this.db.doc<Deck>('decks/' + id).valueChanges();
-            //this.http.request(this.deckUrl + "/" + id).map(res => res.json());
         return newDeck;
     }
 
@@ -55,7 +36,6 @@ export class DeckService {
 
     public addNewCard(deckID: string, word: string, synonym: string, antonym: string, general: string, example: string) {
         const body : Card = {
-            //deckID: deckID,
             word: word,
             synonym: synonym,
             antonym: antonym,
@@ -64,12 +44,10 @@ export class DeckService {
         }
         console.log(body);
 
-        //return this.http.post(this.cardUrl + "/add", body).map(res => res.json());
         return this.db.doc('decks/' + deckID).collection('cards').add(body);
     }
 
     public addNewDeck(name: string) {
-        //let response = this.http.post(this.deckUrl + "/add", {name: name}).map(res => res.json());
         return this.deckCollection.add({name: name});
     }
 
