@@ -6,8 +6,10 @@
         "ng": "ng",
         "start": "ng serve",
         "build": "ng build",
+        "build-prod": "ng build --prod",
         "test": "ng test --single-run",
         "test-watch": "ng test",
+        "test-with-coverage": "ng test --watch=false --code-coverage",
         "lint": "ng lint",
         "e2e": "ng e2e"
     },
