@@ -1,5 +1,6 @@
 {
     "name": "SAGE",
+    "short_name": "SAGE",
     "icons": [
         {
             "src": "/android-chrome-192x192.png",
