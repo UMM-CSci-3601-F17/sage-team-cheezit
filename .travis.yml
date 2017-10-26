@@ -1,24 +1,12 @@
-language: java
-before_cache:
-- rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
-- rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+language: node_js
+node_js:
+  - "6"
+
 cache:
+  yarn: true
   directories:
-  - "$HOME/.gradle/caches/"
-  - "$HOME/.gradle/wrapper/"
-jdk:
-- oraclejdk8
-env:
-- MONGODB=3.4.7
-install:
-- wget http://fastdl.mongodb.org/linux/mongodb-linux-x86_64-${MONGODB}.tgz
-- tar xzf mongodb-linux-x86_64-${MONGODB}.tgz
-- "${PWD}/mongodb-linux-x86_64-${MONGODB}/bin/mongod --version"
-before_script:
-- mkdir ${PWD}/mongodb-linux-x86_64-${MONGODB}/data
-- "${PWD}/mongodb-linux-x86_64-${MONGODB}/bin/mongod --dbpath ${PWD}/mongodb-linux-x86_64-${MONGODB}/data
-  --logpath ${PWD}/mongodb-linux-x86_64-${MONGODB}/mongodb.log --fork"
-- npm install -g @angular/cli
+    - "node_modules"
+
 notifications:
   slack:
     secure: t+vzhENFiuL7p/w/zoprl/hq15Eip/OKoRumWJmBQPXITlCM8JElAqabRX24D6KR3sqPcF+g5t0oOZB1rLF8VGAshSV1MYJN4KuKjygNXNlsmEXKTY7qJbEBO2TK81SV90WDZ/BbaU0lwiEp4cBXHIZbxtnn7d57K+s5udlt7yLOMMXHKee569jkCygamygeFPoDm4sH8a5ZS49AQx3Tq+/YWJm3rUbgFplKbY1i0reSBQF0sypYtqYTJE+3/fE1nQCPzeb61isvIaPhrC5PRFWad/OWJO3M6eJzP+5K0vGd/w5PP1vkloJdCzAZl7eqernfNOK2zRKoSrP8+oJjmnSzZcQpSZiJJqqpZpDj0aHzzXx/ERSgwTkoSY+z13BqDfX+JcSwPN8cWQwDD/aM9aqkSe1/s6oPKA2RvYkG2JfS7ofVk9oWBMsgDjdPNDeDFeSQWyORLojwIxg/JhIJYqyRJx63e5ncGtwhkjOY1+LJJP04zvkm2OtenRQoQgXRtzuWEBj7S/d27ZBPmU3Ahb3ZfAw9vCElYNbm4ouRMnblDnfpDuLOOKmuaL2ZL5msAKd+ygq3rqaapEL0rkadAaeQaSYlmvgP585IQGFRJp26NOgcsD0eGWiP+pmueEUv9jUvQJVcOEsVdRg25XEFyS2Xv0aufGocEKYl6qStjsc=
