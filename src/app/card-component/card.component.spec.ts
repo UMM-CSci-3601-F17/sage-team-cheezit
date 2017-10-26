@@ -48,11 +48,26 @@ describe('CardComponent', () => {
          let synonym: HTMLElement = debugElement.query(By.css('.card-synonym')).nativeElement;
          expect(synonym.classList).toContain("hint-selected");
      });
+
+    it('general sense should be highlighted', () => {
+        let synonym: HTMLElement = debugElement.query(By.css('.card-general-usage')).nativeElement;
+        expect(synonym.classList).toContain("hint-selected");
+    });
+
+    it('antonym should not be highlighted', () => {
+        let synonym: HTMLElement = debugElement.query(By.css('.card-antonym')).nativeElement;
+        expect(synonym.classList).not.toContain("hint-selected");
+    });
+
+    it('example usage should not be highlighted', () => {
+        let synonym: HTMLElement = debugElement.query(By.css('.card-example-usage')).nativeElement;
+        expect(synonym.classList).not.toContain("hint-selected");
+    });
 });
 
 @Component({
     selector: 'test-component-wrapper',
-    template: '<app-card [card]="card" [selected]="1"></app-card>'
+    template: '<app-card [card]="card" [selected]="[1,3]"></app-card>'
 })
 class TestComponentWrapper {
     card : Card = {
