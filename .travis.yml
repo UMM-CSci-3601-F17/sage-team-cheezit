@@ -7,9 +7,6 @@ cache:
   directories:
     - "node_modules"
 
-before_script:
-  - npm install -g @angular/cli
-
 notifications:
   slack:
     secure: t+vzhENFiuL7p/w/zoprl/hq15Eip/OKoRumWJmBQPXITlCM8JElAqabRX24D6KR3sqPcF+g5t0oOZB1rLF8VGAshSV1MYJN4KuKjygNXNlsmEXKTY7qJbEBO2TK81SV90WDZ/BbaU0lwiEp4cBXHIZbxtnn7d57K+s5udlt7yLOMMXHKee569jkCygamygeFPoDm4sH8a5ZS49AQx3Tq+/YWJm3rUbgFplKbY1i0reSBQF0sypYtqYTJE+3/fE1nQCPzeb61isvIaPhrC5PRFWad/OWJO3M6eJzP+5K0vGd/w5PP1vkloJdCzAZl7eqernfNOK2zRKoSrP8+oJjmnSzZcQpSZiJJqqpZpDj0aHzzXx/ERSgwTkoSY+z13BqDfX+JcSwPN8cWQwDD/aM9aqkSe1/s6oPKA2RvYkG2JfS7ofVk9oWBMsgDjdPNDeDFeSQWyORLojwIxg/JhIJYqyRJx63e5ncGtwhkjOY1+LJJP04zvkm2OtenRQoQgXRtzuWEBj7S/d27ZBPmU3Ahb3ZfAw9vCElYNbm4ouRMnblDnfpDuLOOKmuaL2ZL5msAKd+ygq3rqaapEL0rkadAaeQaSYlmvgP585IQGFRJp26NOgcsD0eGWiP+pmueEUv9jUvQJVcOEsVdRg25XEFyS2Xv0aufGocEKYl6qStjsc=
