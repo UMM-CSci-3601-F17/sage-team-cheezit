@@ -1,8 +1,14 @@
 <td-layout #layout>
-    <td-navigation-drawer flex sidenavTitle="SAGE" >
+    <td-navigation-drawer flex>
+        <div td-navigation-drawer-toolbar>
+            <span layout="row"
+                  layout-align="start center">
+                <span class="md-subhead">SAGE</span>
+            </span>
+        </div>
         <mat-nav-list>
-            <a mat-list-item [routerLink]="['/']" (click)="layout.close()" routerLinkActive="nav-active" [routerLinkActiveOptions]="{exact: true}"><mat-icon>home</mat-icon>Home</a>
-            <a mat-list-item [routerLink]="['/decks']" (click)="layout.close()" routerLinkActive="nav-active"><mat-icon>view_list</mat-icon>Decks</a>
+            <a mat-list-item [routerLink]="['/']" [tdLayoutClose]="true" routerLinkActive="nav-active" [routerLinkActiveOptions]="{exact: true}"><mat-icon>home</mat-icon>Home</a>
+            <a mat-list-item [routerLink]="['/decks']" [tdLayoutClose]="true" routerLinkActive="nav-active"><mat-icon>view_list</mat-icon>Decks</a>
         </mat-nav-list>
     </td-navigation-drawer>
     <td-layout-nav  toolbarTitle="SAGE" navigationRoute="/">
