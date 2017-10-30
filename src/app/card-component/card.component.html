@@ -1,10 +1,35 @@
 <mat-card>
-    <mat-card-title class="card-word">{{ card.word }}</mat-card-title>
-    <mat-divider></mat-divider>
-    <mat-card-content>
-        <div class="card-synonym card-line" [ngClass]="{'hint-selected': this.selected.indexOf(1) != -1}"><div class="card-desc">Synonym:</div> <div class="card-cont">{{ card.synonym }}</div></div>
-        <div class="card-antonym card-line" [ngClass]="{'hint-selected': this.selected.indexOf(2) != -1}"><div class="card-desc">Antonym:</div> <div class="card-cont">{{ card.antonym }}</div></div>
-        <div class="card-general-usage card-line" [ngClass]="{'hint-selected': this.selected.indexOf(3) != -1}"><div class="card-desc">General usage:</div> <div class="card-cont">{{ card.general_sense }}</div></div>
-        <div class="card-example-usage card-line" [ngClass]="{'hint-selected': this.selected.indexOf(4) != -1}"><div class="card-desc">Example usage:</div> <div class="card-cont">{{ card.example_usage }}</div></div>
-    </mat-card-content>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+            <mat-panel-title>{{ card.word }}</mat-panel-title>
+            <mat-panel-description>
+                <span fxFlex></span>
+                <button mat-icon-button [matMenuTriggerFor]="menu">
+
+                    <mat-icon>more_vert</mat-icon>
+                </button>
+                <mat-menu #menu="matMenu" align="end">
+                    <button mat-menu-item>
+                        <mat-icon>mode_edit</mat-icon>
+                        <span>Edit Card</span>
+                    </button>
+                    <button mat-menu-item>
+                        <mat-icon>delete</mat-icon>
+                        <span>Delete Card</span>
+                    </button>
+                </mat-menu>
+
+
+
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <mat-card-content>
+            <div class="card-synonym card-line" [ngClass]="{'hint-selected': this.selected.indexOf(1) != -1}"><div class="card-desc">Synonym:</div> <div class="card-cont">{{ card.synonym }}</div></div>
+            <div class="card-antonym card-line" [ngClass]="{'hint-selected': this.selected.indexOf(2) != -1}"><div class="card-desc">Antonym:</div> <div class="card-cont">{{ card.antonym }}</div></div>
+            <div class="card-general-usage card-line" [ngClass]="{'hint-selected': this.selected.indexOf(3) != -1}"><div class="card-desc">General usage:</div> <div class="card-cont">{{ card.general_sense }}</div></div>
+            <div class="card-example-usage card-line" [ngClass]="{'hint-selected': this.selected.indexOf(4) != -1}"><div class="card-desc">Example usage:</div> <div class="card-cont">{{ card.example_usage }}</div></div>
+        </mat-card-content>
+    </mat-expansion-panel>
 </mat-card>
+

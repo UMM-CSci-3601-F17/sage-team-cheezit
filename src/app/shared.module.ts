@@ -19,6 +19,7 @@ import {
     MdFormFieldModule,
     MatDialogModule,
     MdSnackBarModule,
+    MatExpansionModule
 } from '@angular/material';
 
 import { FlexLayoutModule, } from '@angular/flex-layout';
@@ -51,6 +52,7 @@ const MATERIAL_MODULES: any[] = [
     MdFormFieldModule,
     MatDialogModule,
     MdSnackBarModule,
+    MatExpansionModule
 ];
 
 const COVALENT_MODULES: any[] = [
