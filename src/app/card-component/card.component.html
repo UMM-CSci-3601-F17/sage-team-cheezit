@@ -5,11 +5,10 @@
             <mat-panel-description>
                 <span fxFlex></span>
                 <button mat-icon-button [matMenuTriggerFor]="menu">
-
                     <mat-icon>more_vert</mat-icon>
                 </button>
                 <mat-menu #menu="matMenu" align="end">
-                    <button mat-menu-item>
+                    <button mat-menu-item (click)="editCard()">
                         <mat-icon>mode_edit</mat-icon>
                         <span>Edit Card</span>
                     </button>
@@ -18,9 +17,6 @@
                         <span>Delete Card</span>
                     </button>
                 </mat-menu>
-
-
-
             </mat-panel-description>
         </mat-expansion-panel-header>
 
