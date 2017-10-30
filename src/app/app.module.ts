@@ -26,6 +26,7 @@ import {NewCardDialogComponent} from "./new-card-dialog/new-card-dialog.componen
 import {NewDeckDialogComponent} from "./new-deck-dialog/new-deck-dialog.component";
 import {AngularFirestoreModule} from "angularfire2/firestore";
 import {AngularFireModule} from "angularfire2";
+import {AngularFireAuthModule} from "angularfire2/auth";
 
 @NgModule({
 
@@ -36,6 +37,7 @@ import {AngularFireModule} from "angularfire2";
         Routing,
         AngularFireModule.initializeApp(environment.firebase),
         AngularFirestoreModule.enablePersistence(),
+        AngularFireAuthModule,
         SharedModule,
     ],
     declarations: [

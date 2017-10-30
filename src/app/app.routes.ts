@@ -11,7 +11,7 @@ export const routes: Routes = [
     {path: 'play/:deck', component: PlayComponent},
     {path: 'decks/:id', component: DeckComponent},
     {path: 'decks', component: DeckListComponent},
-    {path: '', redirectTo: '/decks', pathMatch: 'full'}
+    {path: '', component: HomeComponent, pathMatch: 'full'}
 ];
 
 export const Routing: ModuleWithProviders = RouterModule.forRoot(routes);
