@@ -4,6 +4,7 @@ import {Observable} from "rxjs/Observable";
 import "rxjs/add/operator/map";
 import {AngularFirestore, AngularFirestoreCollection} from "angularfire2/firestore";
 import {Card} from "../card/card";
+import {AngularFireAuth} from "angularfire2/auth";
 
 
 @Injectable()
@@ -12,14 +13,16 @@ export class DeckService {
     private deckCollection: AngularFirestoreCollection<Deck>;
     decks: Observable<DeckId[]>;
 
-    constructor(public db: AngularFirestore) {
-        this.deckCollection = db.collection<Deck>('decks');
-        this.decks = this.deckCollection.snapshotChanges().map(actions => {
-            return actions.map(a => {
-                const data = a.payload.doc.data() as Deck;
-                const id = a.payload.doc.id;
-                return {id, ...data };
-            })
+    constructor(public db: AngularFirestore, public afAuth: AngularFireAuth) {
+        this.afAuth.authState.subscribe( state => {
+            this.deckCollection = db.collection<Deck>('decks', ref => state != null ? ref.where("users." + state.uid + ".owner", ">=", false) : ref.where("public", "==", true));
+            this.decks = this.deckCollection.snapshotChanges().map(actions => {
+                return actions.map(a => {
+                    const data = a.payload.doc.data() as Deck;
+                    const id = a.payload.doc.id;
+                    return {id, ...data };
+                })
+            });
         });
     }
 
