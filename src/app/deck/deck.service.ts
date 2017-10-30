@@ -49,6 +49,4 @@ export class DeckService {
     public addNewDeck(name: string) {
         return this.deckCollection.add({name: name});
     }
-
-
 }

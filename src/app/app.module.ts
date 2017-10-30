@@ -24,6 +24,7 @@ import {PlayComponent} from "./play-component/play.component";
 import {MdDialog} from "@angular/material";
 import {NewCardDialogComponent} from "./new-card-dialog/new-card-dialog.component";
 import {NewDeckDialogComponent} from "./new-deck-dialog/new-deck-dialog.component";
+import {SaveCardDialogComponent} from './save-card-dialog/save-card-dialog.component';
 import {AngularFirestoreModule} from "angularfire2/firestore";
 import {AngularFireModule} from "angularfire2";
 
@@ -47,10 +48,12 @@ import {AngularFireModule} from "angularfire2";
         DeckListComponent,
         NewCardDialogComponent,
         NewDeckDialogComponent,
+        SaveCardDialogComponent,
     ],
     entryComponents: [
         NewCardDialogComponent,
-        NewDeckDialogComponent
+        NewDeckDialogComponent,
+        SaveCardDialogComponent
     ],
     providers: [
         DeckService,

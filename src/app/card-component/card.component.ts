@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Card} from "../card/card";
-import { NewCardDialogComponent } from "../new-card-dialog/new-card-dialog.component";
+import {SaveCardDialogComponent} from "../save-card-dialog/save-card-dialog.component";
 
 import {MatDialogConfig} from "@angular/material";
 import {MatDialog} from "@angular/material";
@@ -22,15 +22,10 @@ export class CardComponent implements OnInit {
   ngOnInit() {
   }
     public editCard() {
-        let cardData = new MatDialogConfig();
-        cardData.data = {
-            Word: this.card.word,
-            Synonym: this.card.synonym,
-            Antonym: this.card.antonym,
-            General_sense: this.card.general_sense,
-            Example_usage: this.card.example_usage
-        };
-        let editCardReference = this.edit.open(NewCardDialogComponent, cardData);
+         let cardData = new MatDialogConfig();
+        cardData.data = this.card;
+        console.log(cardData);
+         let editCardReference = this.edit.open(SaveCardDialogComponent, cardData);
     };
 
 }
