@@ -6,7 +6,6 @@
 export const environment = {
     envName: 'dev',
     production: false,
-
     firebase: {
         apiKey: "AIzaSyCii_NTRaKjlbofrh0xI_SbBpOAE9vj7wg",
         authDomain: "sage-2cfe4.firebaseapp.com",
