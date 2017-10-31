@@ -6,11 +6,13 @@ import {DeckListComponent} from "./deck-list-component/deck-list.component";
 import {DeckComponent} from "./deck-component/deck.component";
 import {PlayComponent} from "./play-component/play.component";
 import {MyDecksComponent} from "./my-decks/my-decks.component";
+import {ClassComponent} from "./class-component/class.component";
 
 // Route Configuration
 export const routes: Routes = [
     {path: 'play/:deck', component: PlayComponent},
     {path: 'deck/:id', component: DeckComponent},
+    {path: 'class/:id', component: ClassComponent},
     {path: 'mydecks', component: MyDecksComponent},
     {path: '', component: HomeComponent, pathMatch: 'full'}
 ];

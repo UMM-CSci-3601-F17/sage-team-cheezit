@@ -28,6 +28,8 @@ import {AngularFirestoreModule} from "angularfire2/firestore";
 import {AngularFireModule} from "angularfire2";
 import {AngularFireAuthModule} from "angularfire2/auth";
 import {MyDecksComponent} from "./my-decks/my-decks.component";
+import {ClassComponent} from "./class-component/class.component";
+import {ClassService} from "./class/class.service";
 
 @NgModule({
 
@@ -50,6 +52,7 @@ import {MyDecksComponent} from "./my-decks/my-decks.component";
         DeckListComponent,
         NewCardDialogComponent,
         NewDeckDialogComponent,
+        ClassComponent,
         MyDecksComponent
     ],
     entryComponents: [
@@ -58,6 +61,7 @@ import {MyDecksComponent} from "./my-decks/my-decks.component";
     ],
     providers: [
         DeckService,
+        ClassService,
         MdDialog,
         MdSnackBar,
         {provide: APP_BASE_HREF, useValue: '/'},

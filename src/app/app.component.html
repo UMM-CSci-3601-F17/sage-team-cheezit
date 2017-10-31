@@ -8,7 +8,13 @@
         </div>
         <mat-nav-list>
             <a mat-list-item [routerLink]="['/']" [tdLayoutClose]="true" routerLinkActive="nav-active" [routerLinkActiveOptions]="{exact: true}"><mat-icon>home</mat-icon>Home</a>
-            <a mat-list-item [routerLink]="['/decks']" [tdLayoutClose]="true" routerLinkActive="nav-active"><mat-icon>view_list</mat-icon>Decks</a>
+            <a mat-list-item [routerLink]="['/mydecks']" [tdLayoutClose]="true" routerLinkActive="nav-active"><mat-icon>view_list</mat-icon>My Decks</a>
+        </mat-nav-list>
+
+        <mat-nav-list dense>
+            <mat-divider></mat-divider>
+            <h3 matSubheader>Classes</h3>
+            <a mat-list-item *ngFor="let c of this.classService.classes | async" [routerLink]="['/class', c.id]" routerLinkActive="nav-active" [tdLayoutClose]="true">{{ c.name }}</a>
         </mat-nav-list>
     </td-navigation-drawer>
     <td-layout-nav  toolbarTitle="SAGE" navigationRoute="/">
