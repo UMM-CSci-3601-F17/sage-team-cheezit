@@ -54,7 +54,6 @@ export class NewCardDialogComponent implements OnInit {
             this.newCardExample).then(
             succeeded => {
                 //this.cardAddSuccess = true;
-                this.matDialogRef.close(succeeded);
                 this.snackBar.open("Added card", null, {
                     duration: 2000,
                 });
@@ -66,6 +65,7 @@ export class NewCardDialogComponent implements OnInit {
                     duration: 2000,
                 });
             });
+        this.matDialogRef.close();
     }
 
 }
