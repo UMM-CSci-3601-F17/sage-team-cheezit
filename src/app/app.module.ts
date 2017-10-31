@@ -27,6 +27,7 @@ import {NewDeckDialogComponent} from "./new-deck-dialog/new-deck-dialog.componen
 import {AngularFirestoreModule} from "angularfire2/firestore";
 import {AngularFireModule} from "angularfire2";
 import {AngularFireAuthModule} from "angularfire2/auth";
+import {MyDecksComponent} from "./my-decks/my-decks.component";
 
 @NgModule({
 
@@ -49,6 +50,7 @@ import {AngularFireAuthModule} from "angularfire2/auth";
         DeckListComponent,
         NewCardDialogComponent,
         NewDeckDialogComponent,
+        MyDecksComponent
     ],
     entryComponents: [
         NewCardDialogComponent,

@@ -1,0 +1,4 @@
+<app-deck-list title="My Decks" [decks]="this.decks"></app-deck-list>
+<button mat-fab id="deckDialog" class="deck-list-fab" matTooltip="Add Deck" matTooltipPosition="left" (click)="this.openAddDialog()" *ngIf="afAuth.auth.currentUser">
+    <mat-icon class="md-24" aria-label="Add Deck">add</mat-icon>
+</button>

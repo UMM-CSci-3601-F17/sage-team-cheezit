@@ -10,13 +10,13 @@ import {AngularFireAuth} from "angularfire2/auth";
 @Injectable()
 export class DeckService {
 
-    private deckCollection: AngularFirestoreCollection<Deck>;
-    decks: Observable<DeckId[]>;
-
     constructor(public db: AngularFirestore, public afAuth: AngularFireAuth) {
-        this.afAuth.authState.subscribe( state => {
-            this.deckCollection = db.collection<Deck>('decks', ref => state != null ? ref.where("users." + state.uid + ".owner", ">=", false) : ref.where("public", "==", true));
-            this.decks = this.deckCollection.snapshotChanges().map(actions => {
+    }
+
+    public getUserDecks(): Observable<DeckId[]> {
+        let userdecks: Observable<DeckId[]> = this.afAuth.authState.switchMap( state => {
+            let deckCollection = this.db.collection<Deck>('decks', ref => state != null ? ref.where("users." + state.uid + ".owner", ">=", false) : ref.where("isPublic", "==", true));
+            return deckCollection.snapshotChanges().map(actions => {
                 return actions.map(a => {
                     const data = a.payload.doc.data() as Deck;
                     const id = a.payload.doc.id;
@@ -24,6 +24,22 @@ export class DeckService {
                 })
             });
         });
+        return userdecks;
+    }
+
+    public getClassDecks(id: string): Observable<DeckId[]> {
+        let classdecks: Observable<DeckId[]> = this.afAuth.authState.switchMap( state => {
+            if(state == null) return [];
+            let deckCollection = this.db.collection<Deck>('decks', ref => ref.where("class", "==", id));
+            return deckCollection.snapshotChanges().map(actions => {
+                return actions.map(a => {
+                    const data = a.payload.doc.data() as Deck;
+                    const id = a.payload.doc.id;
+                    return {id, ...data };
+                })
+            });
+        });
+        return classdecks;
     }
 
     public getDeck(id: string): Observable<Deck> {
@@ -43,14 +59,18 @@ export class DeckService {
             antonym: antonym,
             general_sense: general,
             example_usage: example
-        }
+        };
         console.log(body);
 
         return this.db.doc('decks/' + deckID).collection('cards').add(body);
     }
 
-    public addNewDeck(name: string) {
-        return this.deckCollection.add({name: name});
+    public addNewDeck(name: string, classId? : string) {
+        let deckCollection = this.db.collection<Deck>('decks');
+        if(classId)
+            return deckCollection.add({name: name, classId: classId});
+        else
+            return deckCollection.add({name: name});
     }
 
 

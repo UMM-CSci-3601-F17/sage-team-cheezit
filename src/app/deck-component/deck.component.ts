@@ -21,7 +21,6 @@ export class DeckComponent implements OnInit {
 
   constructor(public deckService : DeckService, private route: ActivatedRoute, public dialog : MdDialog) {
 
-
   }
 
   openAddDialog() {
@@ -29,9 +28,7 @@ export class DeckComponent implements OnInit {
           data: { deckId: this.id },
       });
       dialogRef.afterClosed().subscribe(result => {
-          if(result) {
-              //this.deck.cards.push(result);
-          }
+
       });
   }
 
