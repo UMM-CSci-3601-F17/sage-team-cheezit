@@ -3469,6 +3469,10 @@ ng2-page-slider@^0.10.1:
   version "0.10.1"
   resolved "https://registry.yarnpkg.com/ng2-page-slider/-/ng2-page-slider-0.10.1.tgz#c1244e22dac3c8782b1a2f12402a434ab481f58a"
 
+ngx-pipes@^1.6.6:
+  version "1.6.6"
+  resolved "https://registry.yarnpkg.com/ngx-pipes/-/ngx-pipes-1.6.6.tgz#32bb80906c220f1e84d5cce7d6dae002cffead4b"
+
 no-case@^2.2.0:
   version "2.3.2"
   resolved "https://registry.yarnpkg.com/no-case/-/no-case-2.3.2.tgz#60b813396be39b3f1288a4c1ed5d1e7d28b464ac"
