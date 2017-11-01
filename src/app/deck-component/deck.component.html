@@ -8,6 +8,6 @@
 </div>
 
 
-<button mat-fab id="cardDialog" class="deck-fab" matTooltip="Add Card" matTooltipPosition="left" (click)="this.openAddDialog()">
+<button mat-fab id="cardDialog" class="deck-fab" matTooltip="Add Card" matTooltipPosition="left" (click)="this.openAddDialog()" *ngIf="this.canEdit()">
     <mat-icon class="md-24" aria-label="Add Card">add</mat-icon>
 </button>

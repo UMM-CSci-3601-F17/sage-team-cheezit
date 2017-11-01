@@ -27,6 +27,12 @@ export class ClassService {
         });
     }
 
+    public canEdit(id: string): boolean {
+        let thisClass = this.classes.find(c => c.id == id);
+        return thisClass && thisClass.users[this.afAuth.auth.currentUser.uid] &&
+            thisClass.users[this.afAuth.auth.currentUser.uid].teacher;
+    }
+
     public getClass(id: string): Observable<Class> {
         let newClass: Observable<Class> = this.db.doc<Class>('classes/' + id).valueChanges();
         return newClass;

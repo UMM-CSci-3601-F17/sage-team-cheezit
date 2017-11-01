@@ -5,6 +5,8 @@ import {Deck} from "../deck/deck";
 import {NewCardDialogComponent} from "../new-card-dialog/new-card-dialog.component";
 import {MdDialog} from "@angular/material";
 import {Card} from "../card/card";
+import {ClassService} from "../class/class.service";
+import {AngularFireAuth} from "angularfire2/auth";
 
 
 @Component({
@@ -19,7 +21,7 @@ export class DeckComponent implements OnInit {
     cards: Card[];
 
 
-  constructor(public deckService : DeckService, private route: ActivatedRoute, public dialog : MdDialog) {
+  constructor(public afAuth: AngularFireAuth, public deckService : DeckService, public classService: ClassService, private route: ActivatedRoute, public dialog : MdDialog) {
 
   }
 
@@ -30,6 +32,16 @@ export class DeckComponent implements OnInit {
       dialogRef.afterClosed().subscribe(result => {
 
       });
+  }
+
+  public canEdit(): boolean {
+      if(!this.deck) return false;
+      if(this.deck.classId) {
+          return this.classService.canEdit(this.deck.classId);
+      } else if(this.deck.users) {
+          return this.deck.users[this.afAuth.auth.currentUser.uid] &&
+              this.deck.users[this.afAuth.auth.currentUser.uid].owner;
+      }
   }
 
 
