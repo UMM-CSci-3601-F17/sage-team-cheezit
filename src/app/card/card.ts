@@ -6,3 +6,4 @@ export interface Card {
     general_sense: string,
     example_usage: string
 }
+export interface CardId extends Card { id: string }

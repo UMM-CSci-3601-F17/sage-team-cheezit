@@ -6,12 +6,20 @@
 export const environment = {
     envName: 'dev',
     production: false,
+    // firebase: {
+    //     apiKey: "AIzaSyCii_NTRaKjlbofrh0xI_SbBpOAE9vj7wg",
+    //     authDomain: "sage-2cfe4.firebaseapp.com",
+    //     databaseURL: "https://sage-2cfe4.firebaseio.com",
+    //     projectId: "sage-2cfe4",
+    //     storageBucket: "sage-2cfe4.appspot.com",
+    //     messagingSenderId: "999732247851"
+    // }
     firebase: {
-        apiKey: "AIzaSyCii_NTRaKjlbofrh0xI_SbBpOAE9vj7wg",
-        authDomain: "sage-2cfe4.firebaseapp.com",
-        databaseURL: "https://sage-2cfe4.firebaseio.com",
-        projectId: "sage-2cfe4",
-        storageBucket: "sage-2cfe4.appspot.com",
-        messagingSenderId: "999732247851"
+        apiKey: "AIzaSyCXnDgY8NA3167LzIXE72kymVY8ftF5K3Y",
+        authDomain: "test-vipul-sage.firebaseapp.com",
+        databaseURL: "https://test-vipul-sage.firebaseio.com",
+        projectId: "test-vipul-sage",
+        storageBucket: "test-vipul-sage.appspot.com",
+        messagingSenderId: "82160205434"
     }
 };
