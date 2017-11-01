@@ -1,0 +1,21 @@
+.google-button {
+    margin-top: 10px;
+}
+
+// Some of the Google sign in button from
+// https://codepen.io/timlayton/pen/gppWqz
+// (including the svg in the html)
+
+.google-button-icon {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 0 10px 0;
+    width: 18px;
+    height: 18px;
+    box-sizing: border-box;
+}
+
+.google-button-text {
+    color: #737373;
+    padding: 0 8px;
+}

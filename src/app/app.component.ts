@@ -17,9 +17,6 @@ export class AppComponent {
 
     }
 
-    login() {
-        this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
-    }
     logout() {
         this.afAuth.auth.signOut();
     }
