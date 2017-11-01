@@ -21,8 +21,6 @@ export class SaveCardDialogComponent implements OnInit {
                 public matDialogRef : MatDialogRef<SaveCardDialogComponent>,
                 @Inject(MAT_DIALOG_DATA) public data: {card: Card, cardId: string, deckId: string},
                 public snackBar: MatSnackBar) {
-        console.log("construcing SaveCardDialogComponent");
-        console.log(data);
         this.newCardWord = data.card.word;
         this.newCardSynonym = data.card.synonym;
         this.newCardAntonym = data.card.antonym;
@@ -36,8 +34,6 @@ export class SaveCardDialogComponent implements OnInit {
 
     public editAddedCard(): void {
         this.deckService.editCard(
-            //this.data.cardId,
-            //this.data.deckId,
             this.data.deckId,
             this.data.cardId,
             this.newCardWord,

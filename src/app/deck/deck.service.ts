@@ -18,7 +18,7 @@ export class DeckService {
             return actions.map(a => {
                 const data = a.payload.doc.data() as Deck;
                 const id = a.payload.doc.id;
-                return {id, ...data };
+                return {id, ...data};
             })
         });
     }
@@ -33,8 +33,13 @@ export class DeckService {
         return cards;
     }
 
+    public addNewDeck(name: string, cards: Card[]) {
+        return this.deckCollection.add({name: name, cards: cards});
+    }
+
+
     public addNewCard(deckID: string, word: string, synonym: string, antonym: string, general: string, example: string) {
-        const body : Card = {
+        const body: Card = {
             word: word,
             synonym: synonym,
             antonym: antonym,
@@ -46,21 +51,15 @@ export class DeckService {
         return this.db.doc('decks/' + deckID).collection('cards').add(body);
     }
 
-    public addNewDeck(name: string) {
-        return this.deckCollection.add({name: name});
-    }
 
     public editCard(deckId: string, cardId: string, word: string, synonym: string, antonym: string, general: string, example: string) {
-        const body : Card = {
+        const body: Card = {
             word: word,
             synonym: synonym,
             antonym: antonym,
             general_sense: general,
             example_usage: example
         };
-        console.log(body);
-        console.log(deckId);
-        console.log(cardId);
-        return this.db.doc('decks/' + deckId + '/cards/' + cardId).update(body);
+        return this.db.doc('decks/' + deckId + '/cards/' + cardId).set(body);
     }
 }
