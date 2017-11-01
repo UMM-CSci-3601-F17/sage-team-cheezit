@@ -1,4 +1,21 @@
 <app-deck-list *ngIf="this.currentClass && this.decks" [title]="this.currentClass.name" [decks]="this.decks" [canEdit]="this.canEdit"></app-deck-list>
+<div layout-gt-sm="row"  *ngIf="this.currentClass && this.decks">
+    <div flex-gt-xs="80" flex-offset-gt-xs="10" flex-xs="96" flex-offset-xs="2">
+        <mat-card>
+            <mat-card-title>Class Members</mat-card-title>
+            <mat-divider></mat-divider>
+            <mat-card-content>
+                <mat-list>
+                    <mat-list-item *ngFor="let user of this.currentClass.users | values | orderBy: '-teacher'">
+                        <mat-icon mat-list-icon>account_circle</mat-icon>
+                        <h4 mat-line>{{ user.nickname }}</h4>
+                        <p mat-line>{{ user.teacher ? "Teacher" : "Student"}}</p>
+                    </mat-list-item>
+                </mat-list>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>
 <button mat-fab id="deckDialog" class="deck-list-fab" matTooltip="Add Deck" matTooltipPosition="left" (click)="this.openAddDialog()" *ngIf="this.canEdit">
     <mat-icon class="md-24" aria-label="Add Deck">add</mat-icon>
 </button>
