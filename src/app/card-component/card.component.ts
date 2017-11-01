@@ -40,6 +40,16 @@ export class CardComponent implements OnInit {
         });
     }
 
+    public deleteCard(): void {
+            console.log(this.deckId);
+            console.log(this.cardId);
+
+        this.route.params.subscribe(params => {
+            //this.cardId = params[data.cardId];
+            //this.deckId = params['id'];
+                this.deckService.deleteCard(this.deckId, this.cardId);
+        });
+    }
 
     ngOnInit() {
         this.route.params.subscribe(params => {
@@ -51,6 +61,7 @@ export class CardComponent implements OnInit {
                     this.deck = deck;
                 }
             );
+
             /* TODO : Implement subscribe might wanna force using Observable.fromPromise
                           this.deckService.addNewCard(
                               this.deckId,

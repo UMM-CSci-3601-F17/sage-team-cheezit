@@ -62,4 +62,10 @@ export class DeckService {
         };
         return this.db.doc('decks/' + deckId + '/cards/' + cardId).set(body);
     }
+
+    public deleteCard(deckId: string, cardId: string){
+        console.log(deckId);
+        console.log(cardId);
+        return this.db.doc('decks/' + deckId).collection('cards').doc(cardId).delete();
+    }
 }
