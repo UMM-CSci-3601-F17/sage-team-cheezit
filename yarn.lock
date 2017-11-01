@@ -253,12 +253,6 @@
   version "0.0.41"
   resolved "https://registry.yarnpkg.com/@schematics/angular/-/angular-0.0.41.tgz#9deccd92791877f87365ed8991062132f3b645e0"
 
-"@techiediaries/ngx-qrcode@^0.0.5":
-  version "0.0.5"
-  resolved "https://registry.yarnpkg.com/@techiediaries/ngx-qrcode/-/ngx-qrcode-0.0.5.tgz#c378c1bc6d3cbe0f858f9adb9ee5af98673a6c74"
-  dependencies:
-    qrcode "^0.8.2"
-
 "@types/jasmine@*", "@types/jasmine@~2.6.0":
   version "2.6.0"
   resolved "https://registry.yarnpkg.com/@types/jasmine/-/jasmine-2.6.0.tgz#997b41a27752b4850af2683bc4a8d8222c25bd02"
@@ -3492,6 +3486,12 @@ ng2-rx-componentdestroyed@^1.1.2:
 ngx-pipes@^1.6.6:
   version "1.6.6"
   resolved "https://registry.yarnpkg.com/ngx-pipes/-/ngx-pipes-1.6.6.tgz#32bb80906c220f1e84d5cce7d6dae002cffead4b"
+
+ngx-qrcode2@^0.0.5:
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/ngx-qrcode2/-/ngx-qrcode2-0.0.5.tgz#ea3e6956ee918fe1085b8c83ba339039a54a0866"
+  dependencies:
+    qrcode "^0.8.2"
 
 no-case@^2.2.0:
   version "2.3.2"

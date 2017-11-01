@@ -29,7 +29,7 @@ import {PageSliderModule} from "ng2-page-slider";
 import {AngularFireAuthModule} from "angularfire2/auth";
 import {AngularFirestoreModule} from "angularfire2/firestore";
 import {NgPipesModule} from "ngx-pipes";
-import {NgxQRCodeModule} from "@techiediaries/ngx-qrcode";
+import {NgxQRCodeModule} from "ngx-qrcode2";
 
 const FLEX_LAYOUT_MODULES: any[] = [
     FlexLayoutModule,
