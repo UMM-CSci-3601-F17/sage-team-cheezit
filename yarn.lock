@@ -253,6 +253,12 @@
   version "0.0.41"
   resolved "https://registry.yarnpkg.com/@schematics/angular/-/angular-0.0.41.tgz#9deccd92791877f87365ed8991062132f3b645e0"
 
+"@techiediaries/ngx-qrcode@^0.0.5":
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/@techiediaries/ngx-qrcode/-/ngx-qrcode-0.0.5.tgz#c378c1bc6d3cbe0f858f9adb9ee5af98673a6c74"
+  dependencies:
+    qrcode "^0.8.2"
+
 "@types/jasmine@*", "@types/jasmine@~2.6.0":
   version "2.6.0"
   resolved "https://registry.yarnpkg.com/@types/jasmine/-/jasmine-2.6.0.tgz#997b41a27752b4850af2683bc4a8d8222c25bd02"
@@ -1068,7 +1074,7 @@ colormin@^1.0.5:
     css-color-names "0.0.4"
     has "^1.0.1"
 
-colors@1.1.2, colors@^1.1.0, colors@^1.1.2, colors@~1.1.2:
+colors@*, colors@1.1.2, colors@^1.1.0, colors@^1.1.2, colors@~1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/colors/-/colors-1.1.2.tgz#168a4701756b6a7f51a12ce0c97bfa28c084ed63"
 
@@ -1540,6 +1546,10 @@ diffie-hellman@^5.0.0:
     bn.js "^4.1.0"
     miller-rabin "^4.0.0"
     randombytes "^2.0.0"
+
+dijkstrajs@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/dijkstrajs/-/dijkstrajs-1.0.1.tgz#d3cd81221e3ea40742cfcde556d4e99e98ddc71b"
 
 directory-encoder@^0.7.2:
   version "0.7.2"
@@ -2803,6 +2813,10 @@ isarray@1.0.0, isarray@^1.0.0, isarray@~1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/isarray/-/isarray-1.0.0.tgz#bb935d48582cba168c06834957a54a3e07124f11"
 
+isarray@^2.0.1:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/isarray/-/isarray-2.0.2.tgz#5aa99638daf2248b10b9598b763a045688ece3ee"
+
 isbinaryfile@^3.0.0:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/isbinaryfile/-/isbinaryfile-3.0.2.tgz#4a3e974ec0cba9004d3fc6cde7209ea69368a621"
@@ -3469,6 +3483,12 @@ ng2-page-slider@^0.10.1:
   version "0.10.1"
   resolved "https://registry.yarnpkg.com/ng2-page-slider/-/ng2-page-slider-0.10.1.tgz#c1244e22dac3c8782b1a2f12402a434ab481f58a"
 
+ng2-rx-componentdestroyed@^1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/ng2-rx-componentdestroyed/-/ng2-rx-componentdestroyed-1.1.2.tgz#f3d80e946d2801738ce79014b6f5c270afb1142f"
+  dependencies:
+    rxjs "5.x"
+
 ngx-pipes@^1.6.6:
   version "1.6.6"
   resolved "https://registry.yarnpkg.com/ngx-pipes/-/ngx-pipes-1.6.6.tgz#32bb80906c220f1e84d5cce7d6dae002cffead4b"
@@ -3926,6 +3946,10 @@ pinkie@^2.0.0:
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/pinkie/-/pinkie-2.0.4.tgz#72556b80cfa0d48a974e80e77248e80ed4f7f870"
 
+pngjs@^2.3.1:
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/pngjs/-/pngjs-2.3.1.tgz#11d1e12b9cb64d63e30c143a330f4c1f567da85f"
+
 portfinder@^1.0.9, portfinder@~1.0.12:
   version "1.0.13"
   resolved "https://registry.yarnpkg.com/portfinder/-/portfinder-1.0.13.tgz#bb32ecd87c27104ae6ee44b5a3ccbf0ebb1aede9"
@@ -4322,6 +4346,15 @@ qjobs@^1.1.4:
   version "1.1.5"
   resolved "https://registry.yarnpkg.com/qjobs/-/qjobs-1.1.5.tgz#659de9f2cf8dcc27a1481276f205377272382e73"
 
+qrcode@^0.8.2:
+  version "0.8.2"
+  resolved "https://registry.yarnpkg.com/qrcode/-/qrcode-0.8.2.tgz#4a4b4dd74ae43b7b05d4cc598badc1c03837189c"
+  dependencies:
+    colors "*"
+    dijkstrajs "^1.0.1"
+    isarray "^2.0.1"
+    pngjs "^2.3.1"
+
 qs@6.5.1, qs@~6.5.1:
   version "6.5.1"
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.5.1.tgz#349cdf6eef89ec45c12d7d5eb3fc0c870343a6d8"
@@ -4639,6 +4672,12 @@ ripemd160@^2.0.0, ripemd160@^2.0.1:
   dependencies:
     hash-base "^2.0.0"
     inherits "^2.0.1"
+
+rxjs@5.x:
+  version "5.5.2"
+  resolved "https://registry.yarnpkg.com/rxjs/-/rxjs-5.5.2.tgz#28d403f0071121967f18ad665563255d54236ac3"
+  dependencies:
+    symbol-observable "^1.0.1"
 
 rxjs@^5.4.2:
   version "5.4.3"
