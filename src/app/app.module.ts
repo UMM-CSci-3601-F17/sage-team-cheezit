@@ -30,6 +30,7 @@ import {AngularFireAuthModule} from "angularfire2/auth";
 import {MyDecksComponent} from "./my-decks/my-decks.component";
 import {ClassComponent} from "./class-component/class.component";
 import {ClassService} from "./class/class.service";
+import {NewClassDialogComponent} from "./new-class-dialog/new-class-dialog.component";
 
 @NgModule({
 
@@ -52,12 +53,14 @@ import {ClassService} from "./class/class.service";
         DeckListComponent,
         NewCardDialogComponent,
         NewDeckDialogComponent,
+        NewClassDialogComponent,
         ClassComponent,
         MyDecksComponent
     ],
     entryComponents: [
         NewCardDialogComponent,
-        NewDeckDialogComponent
+        NewDeckDialogComponent,
+        NewClassDialogComponent
     ],
     providers: [
         DeckService,

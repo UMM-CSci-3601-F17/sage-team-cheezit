@@ -8,23 +8,27 @@ import {AngularFireAuth} from "angularfire2/auth";
 export class ClassService {
 
 
-    private classCollection: AngularFirestoreCollection<Class>;
-    public classes: Observable<ClassId[]> = Observable.of([]);
+    public classesObservable: Observable<ClassId[]> = Observable.of([]);
+    public classes: ClassId[] = [];
 
     constructor(public db: AngularFirestore, public afAuth: AngularFireAuth) {
-        this.afAuth.authState.subscribe(state => {
+        this.classesObservable = this.afAuth.authState.switchMap(state => {
             if (state != null) {
-                this.classCollection = this.db.collection<Class>('classes', ref => ref.where('users.' + state.uid + ".teacher", ">=", false));
-                this.classes = this.classCollection.snapshotChanges().map(actions => {
+                let classCollection = this.db.collection<Class>('classes', ref => ref.where('users.' + state.uid + ".teacher", ">=", false));
+                return classCollection.snapshotChanges().map(actions => {
                     return actions.map(a => {
                         const data = a.payload.doc.data() as Class;
                         const id = a.payload.doc.id;
                         return {id, ...data};
-                    })
+                    });
                 });
             } else
-                this.classes = Observable.of([]);
+                return Observable.of([]);
         });
+        this.classesObservable.subscribe(classes => {
+            console.log("classes observable fired");
+            this.classes = classes;
+        })
     }
 
     public canEdit(id: string): boolean {
@@ -36,6 +40,16 @@ export class ClassService {
     public getClass(id: string): Observable<Class> {
         let newClass: Observable<Class> = this.db.doc<Class>('classes/' + id).valueChanges();
         return newClass;
+    }
+
+    public addNewClass(name: string) {
+        if(this.afAuth.auth.currentUser == null) return;
+        let classCollection = this.db.collection<Class>('classes');
+        return classCollection.add({name: name, users: {
+            [this.afAuth.auth.currentUser.uid] : {
+                nickname: this.afAuth.auth.currentUser.displayName,
+                teacher: true
+            }}});
     }
 
 }
