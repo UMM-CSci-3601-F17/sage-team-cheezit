@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {DeckService} from "../deck/deck.service";
 import {ActivatedRoute} from "@angular/router";
 import {Deck} from "../deck/deck";
@@ -7,6 +7,7 @@ import {MdDialog} from "@angular/material";
 import {Card} from "../card/card";
 import {ClassService} from "../class/class.service";
 import {AngularFireAuth} from "angularfire2/auth";
+import {componentDestroyed} from "ng2-rx-componentdestroyed";
 
 
 @Component({
@@ -14,7 +15,7 @@ import {AngularFireAuth} from "angularfire2/auth";
   templateUrl: './deck.component.html',
   styleUrls: ['./deck.component.css']
 })
-export class DeckComponent implements OnInit {
+export class DeckComponent implements OnInit, OnDestroy {
 
     id : string;
     deck : Deck;
@@ -49,17 +50,20 @@ export class DeckComponent implements OnInit {
       this.route.params.subscribe(params => {
           this.id = params['id'];
 
-          this.deckService.getDeck(this.id).subscribe(
+          this.deckService.getDeck(this.id).takeUntil(componentDestroyed(this)).subscribe(
               deck => {
                   this.deck = deck;
               }
           );
 
-          this.deckService.getDeckCards(this.id).subscribe(cards => {
+          this.deckService.getDeckCards(this.id).takeUntil(componentDestroyed(this)).subscribe(cards => {
               this.cards = cards;
           });
       });
   }
+
+    ngOnDestroy() {
+    }
 
 
 }

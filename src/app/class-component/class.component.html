@@ -1,5 +1,5 @@
 <app-deck-list *ngIf="this.currentClass && this.decks" [title]="this.currentClass.name" [decks]="this.decks" [canEdit]="this.canEdit"></app-deck-list>
-<div layout-gt-sm="row"  *ngIf="this.currentClass && this.decks">
+<div layout-gt-sm="row"  *ngIf="this.currentClass">
     <div flex-gt-xs="80" flex-offset-gt-xs="10" flex-xs="96" flex-offset-xs="2">
         <mat-card>
             <mat-card-title>Class Members</mat-card-title>
@@ -12,6 +12,24 @@
                         <p mat-line>{{ user.teacher ? "Teacher" : "Student"}}</p>
                     </mat-list-item>
                 </mat-list>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>
+<div layout-gt-sm="row"  *ngIf="this.currentClass && this.canEdit">
+    <div flex-gt-xs="80" flex-offset-gt-xs="10" flex-xs="96" flex-offset-xs="2">
+        <mat-card>
+            <mat-card-title>Class Options</mat-card-title>
+            <mat-divider></mat-divider>
+            <mat-card-content>
+                <div>
+                    Join code:
+                    <pre *ngIf="this.currentClass.joincode">{{ this.getJoinUrl() }}</pre>
+                    <button mat-button (click)="this.classService.updateJoinCode(this.id)">Update join code</button>
+                    <button mat-button (click)="this.classService.removeJoinCode(this.id)">Remove join code</button>
+                </div>
+                <ngx-qrcode *ngIf="this.currentClass.joincode" qrc-element-type="url" [qrc-value] = "this.getJoinUrl()">
+                </ngx-qrcode>
             </mat-card-content>
         </mat-card>
     </div>
