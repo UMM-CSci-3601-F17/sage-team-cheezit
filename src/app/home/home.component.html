@@ -1,19 +1,9 @@
 <div layout-gt-sm="row">
     <div flex-gt-sm="80" flex-offset-gt-sm="10">
         <mat-card>
-            <mat-card-title id="hello-world">{{ this.text }}</mat-card-title>
-            <mat-card-subtitle>this is a card</mat-card-subtitle>
+            <mat-card-title>Welcome{{ this.afAuth.auth.currentUser ? " back" : ""}} to SAGE</mat-card-title>
+            <mat-card-subtitle></mat-card-subtitle>
             <mat-divider></mat-divider>
-            <mat-card-content>
-                <div *ngIf="afAuth.authState | async; let user; else showLogin">
-                    <h1>Hello {{ user.displayName }}!</h1>
-                    <button (click)="logout()">Logout</button>
-                </div>
-                <ng-template #showLogin>
-                    <p>Please login.</p>
-                    <button (click)="login()">Login with Google</button>
-                </ng-template>
-            </mat-card-content>
         </mat-card>
     </div>
 </div>

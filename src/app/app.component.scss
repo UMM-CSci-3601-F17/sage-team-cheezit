@@ -1,0 +1,56 @@
+@import "../theme";
+
+.nav-active {
+    background-color: mat-color($mat-grey, 100) !important;
+    color: mat-color($accent) !important;
+}
+
+.nav-active mat-icon {
+    color: mat-color($accent) !important;
+}
+
+.add-class-button {
+    position: absolute;
+    right: 0;
+    color: mat-color(map-get($theme, foreground), secondary-text);
+}
+
+.avatar-container {
+    width:75px;
+    height:75px;
+    //margin: 25px auto;
+    margin-bottom: 10px;
+    overflow: hidden;
+    border-radius:50%;
+    position: relative;
+}
+
+.avatar-img {
+    position: absolute;
+    top:50%;
+    left:50%;
+    height: 75px;
+    transform: translate(-50%,-50%)
+}
+
+.google-button {
+    margin-top: 10px;
+}
+
+// Some of the Google sign in button from
+// https://codepen.io/timlayton/pen/gppWqz
+// (including the svg in the html)
+
+.google-button-icon {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 0 10px 0;
+    width: 18px;
+    height: 18px;
+    box-sizing: border-box;
+}
+
+.google-button-text {
+    color: #737373;
+    padding: 0 8px;
+}
