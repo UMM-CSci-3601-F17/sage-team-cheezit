@@ -9,33 +9,37 @@ import {Card} from "../card/card";
 })
 export class SaveCardDialogComponent implements OnInit {
 
-    constructor(public deckService : DeckService,
-                public matDialogRef : MatDialogRef<SaveCardDialogComponent>,
-                @Inject(MAT_DIALOG_DATA) public data: {Card, cardId: string, deckId: string},
-                public snackBar: MatSnackBar)
-    {
-        console.log("construcing SaveCardDialogComponent");
-        console.log(data);
-        this.newCardWord = data.Card.word;
-        this.newCardSynonym = data.Card.synonym;
-        this.newCardAntonym = data.Card.antonym;
-        this.newCardGeneral = data.Card.general_sense;
-        this.newCardExample = data.Card.example_usage;
-    }
-
     newCardWord: string;
     newCardSynonym: string;
     newCardAntonym: string;
     newCardGeneral: string;
     newCardExample: string;
 
+
+
+    constructor(public deckService : DeckService,
+                public matDialogRef : MatDialogRef<SaveCardDialogComponent>,
+                @Inject(MAT_DIALOG_DATA) public data: {card: Card, cardId: string, deckId: string},
+                public snackBar: MatSnackBar) {
+        console.log("construcing SaveCardDialogComponent");
+        console.log(data);
+        this.newCardWord = data.card.word;
+        this.newCardSynonym = data.card.synonym;
+        this.newCardAntonym = data.card.antonym;
+        this.newCardGeneral = data.card.general_sense;
+        this.newCardExample = data.card.example_usage;
+    }
+
+
     ngOnInit() {
     }
 
     public editAddedCard(): void {
         this.deckService.editCard(
-            this.data.cardId,
+            //this.data.cardId,
+            //this.data.deckId,
             this.data.deckId,
+            this.data.cardId,
             this.newCardWord,
             this.newCardSynonym,
             this.newCardAntonym,

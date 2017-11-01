@@ -22,10 +22,9 @@ export class CardComponent implements OnInit {
   ngOnInit() {
   }
     public editCard() {
-         let cardData = new MatDialogConfig();
-        cardData.data = this.card;
-        console.log(cardData);
-         let editCardReference = this.edit.open(SaveCardDialogComponent, cardData);
+        this.edit.open(SaveCardDialogComponent, {
+            data: {card: this.card}
+        });
     };
 
 }

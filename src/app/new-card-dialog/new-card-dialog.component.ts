@@ -3,16 +3,17 @@ import {DeckService} from "../deck/deck.service";
 import {MatDialogRef, MAT_DIALOG_DATA, MatSnackBar} from "@angular/material";
 
 @Component({
-  selector: 'app-new-card-dialog',
-  templateUrl: './new-card-dialog.component.html',
-  styleUrls: ['./new-card-dialog.component.css']
+    selector: 'app-new-card-dialog',
+    templateUrl: './new-card-dialog.component.html',
+    styleUrls: ['./new-card-dialog.component.css']
 })
 export class NewCardDialogComponent implements OnInit {
 
-  constructor(public deckService : DeckService,
-              public matDialogRef : MatDialogRef<NewCardDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: { deckId : string },
-              public snackBar: MatSnackBar) { }
+    constructor(public deckService: DeckService,
+                public matDialogRef: MatDialogRef<NewCardDialogComponent>,
+                @Inject(MAT_DIALOG_DATA) public data: { deckId: string },
+                public snackBar: MatSnackBar) {
+    }
 
     newCardWord: string;
     newCardSynonym: string;
@@ -20,8 +21,8 @@ export class NewCardDialogComponent implements OnInit {
     newCardGeneral: string;
     newCardExample: string;
 
-  ngOnInit() {
-  }
+    ngOnInit() {
+    }
 
     public addNewCard(): void {
         this.deckService.addNewCard(this.data.deckId,

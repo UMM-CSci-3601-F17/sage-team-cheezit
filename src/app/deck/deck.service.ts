@@ -50,14 +50,17 @@ export class DeckService {
         return this.deckCollection.add({name: name});
     }
 
-    public editCard(deckID: string, cardID: string, word: string, synonym: string, antonym: string, general: string, example: string) {
+    public editCard(deckId: string, cardId: string, word: string, synonym: string, antonym: string, general: string, example: string) {
         const body : Card = {
             word: word,
             synonym: synonym,
             antonym: antonym,
             general_sense: general,
             example_usage: example
-        }
-        return this.db.collection("cards/"+cardID).doc("decks"+deckID).set(body);
+        };
+        console.log(body);
+        console.log(deckId);
+        console.log(cardId);
+        return this.db.doc('decks/' + deckId + '/cards/' + cardId).update(body);
     }
 }
