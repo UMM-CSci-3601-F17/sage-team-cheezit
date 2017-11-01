@@ -49,4 +49,15 @@ export class DeckService {
     public addNewDeck(name: string) {
         return this.deckCollection.add({name: name});
     }
+
+    public editCard(word: string, synonym: string, antonym: string, general: string, example: string) {
+        const body : Card = {
+            word: word,
+            synonym: synonym,
+            antonym: antonym,
+            general_sense: general,
+            example_usage: example
+        }
+        return this.db.collection("cards").doc("decks").set(body);
+    }
 }

@@ -33,29 +33,25 @@ export class SaveCardDialogComponent implements OnInit {
     }
 
     public editAddedCard(): void {
-        // this.deckService.addNewCard(this.data.deckId,
-        //     // this.newCardWord,
-        //     "foobar",
-        //     this.newCardSynonym,
-        //     this.newCardAntonym,
-        //     this.newCardGeneral,
-        //     this.newCardExample).then(
-        //     succeeded => {
-        //         //this.cardAddSuccess = true;
-        //         this.matDialogRef.close(succeeded);
-        //         this.snackBar.open("Added card", null, {
-        //             duration: 2000,
-        //         });
-        //         //this.refreshDeck();
-        //     },
-        //     err => {
-        //         console.log(err);
-        //         this.snackBar.open("Error adding card", null, {
-        //             duration: 2000,
-        //         });
-        //     });
-        console.log(this.newCardWord,this.newCardAntonym,this.newCardSynonym,this.newCardGeneral,this.newCardExample)
+        this.deckService.editCard(
+            this.newCardWord,
+            this.newCardSynonym,
+            this.newCardAntonym,
+            this.newCardGeneral,
+            this.newCardExample).then(
+            succeeded => {
+                //this.cardAddSuccess = true;
+                this.matDialogRef.close(succeeded);
+                this.snackBar.open("Added card", null, {
+                    duration: 2000,
+                });
+                //this.refreshDeck();
+            },
+            err => {
+                console.log(err);
+                this.snackBar.open("Error adding card", null, {
+                    duration: 2000,
+                });
+            });
     }
-
-
 }

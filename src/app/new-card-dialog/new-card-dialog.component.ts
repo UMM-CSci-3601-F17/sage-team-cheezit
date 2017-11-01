@@ -24,28 +24,6 @@ export class NewCardDialogComponent implements OnInit {
   }
 
     public addNewCard(): void {
-
-        /*this.deckService.addNewCard(this.data.deckId,
-            this.newCardWord,
-            this.newCardSynonym,
-            this.newCardAntonym,
-            this.newCardGeneral,
-            this.newCardExample).subscribe(
-            succeeded => {
-                //this.cardAddSuccess = true;
-                this.matDialogRef.close(succeeded);
-                this.snackBar.open("Added card", null, {
-                    duration: 2000,
-                });
-                //this.refreshDeck();
-            },
-            err => {
-                console.log(err);
-                this.snackBar.open("Error adding card", null, {
-                    duration: 2000,
-                });
-            });*/
-
         this.deckService.addNewCard(this.data.deckId,
             this.newCardWord,
             this.newCardSynonym,
