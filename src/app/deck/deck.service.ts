@@ -30,7 +30,7 @@ export class DeckService {
     public getClassDecks(id: string): Observable<DeckId[]> {
         let classdecks: Observable<DeckId[]> = this.afAuth.authState.switchMap( state => {
             if(state == null) return [];
-            let deckCollection = this.db.collection<Deck>('decks', ref => ref.where("class", "==", id));
+            let deckCollection = this.db.collection<Deck>('decks', ref => ref.where("classId", "==", id));
             return deckCollection.snapshotChanges().map(actions => {
                 return actions.map(a => {
                     const data = a.payload.doc.data() as Deck;
@@ -65,12 +65,19 @@ export class DeckService {
         return this.db.doc('decks/' + deckID).collection('cards').add(body);
     }
 
-    public addNewDeck(name: string, classId? : string) {
+    public addNewDeckClass(name: string, classId : string) {
         let deckCollection = this.db.collection<Deck>('decks');
-        if(classId)
-            return deckCollection.add({name: name, classId: classId});
-        else
-            return deckCollection.add({name: name});
+        return deckCollection.add({name: name, classId: classId});
+    }
+
+    public addNewDeckUser(name: string) {
+        if(this.afAuth.auth.currentUser == null) return;
+        let deckCollection = this.db.collection<Deck>('decks');
+        return deckCollection.add({name: name, users: {
+            [this.afAuth.auth.currentUser.uid] : {
+                nickname: this.afAuth.auth.currentUser.displayName,
+                owner: true
+            }}});
     }
 
 
