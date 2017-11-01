@@ -3,7 +3,7 @@ import {Deck, DeckId} from "./deck";
 import {Observable} from "rxjs/Observable";
 import "rxjs/add/operator/map";
 import {AngularFirestore, AngularFirestoreCollection} from "angularfire2/firestore";
-import {Card} from "../card/card";
+import {Card, CardId} from "../card/card";
 
 
 @Injectable()
@@ -28,8 +28,14 @@ export class DeckService {
         return newDeck;
     }
 
-    public getDeckCards(id: string): Observable<Card[]> {
-        let cards: Observable<Card[]> = this.db.doc('decks/' + id).collection<Card>('cards').valueChanges();
+    public getDeckCards(id: string): Observable<CardId[]> {
+        let cards: Observable<CardId[]> = this.db.doc('decks/' + id).collection<Card>('cards').snapshotChanges().map(actions => {
+            return actions.map(a => {
+                const data = a.payload.doc.data() as Card;
+                const id = a.payload.doc.id;
+                return {id, ...data};
+            })
+        });
         return cards;
     }
 
@@ -40,7 +46,7 @@ export class DeckService {
             antonym: antonym,
             general_sense: general,
             example_usage: example
-        }
+        };
         console.log(body);
 
         return this.db.doc('decks/' + deckID).collection('cards').add(body);

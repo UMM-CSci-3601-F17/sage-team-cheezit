@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import {DeckService} from "../deck/deck.service";
 import {MatDialogRef, MAT_DIALOG_DATA, MatSnackBar} from "@angular/material";
-import {Card} from "../card/card";
+import {Card, CardId} from "../card/card";
 @Component({
   selector: 'app-save-card-dialog',
   templateUrl: './save-card-dialog.component.html',
@@ -19,7 +19,7 @@ export class SaveCardDialogComponent implements OnInit {
 
     constructor(public deckService : DeckService,
                 public matDialogRef : MatDialogRef<SaveCardDialogComponent>,
-                @Inject(MAT_DIALOG_DATA) public data: {card: Card, cardId: string, deckId: string},
+                @Inject(MAT_DIALOG_DATA) public data: {card: CardId, deckId: string},
                 public snackBar: MatSnackBar) {
         console.log("construcing SaveCardDialogComponent");
         console.log(data);
@@ -36,18 +36,15 @@ export class SaveCardDialogComponent implements OnInit {
 
     public editAddedCard(): void {
         this.deckService.editCard(
-            //this.data.cardId,
-            //this.data.deckId,
             this.data.deckId,
-            this.data.cardId,
+            this.data.card.id,
             this.newCardWord,
             this.newCardSynonym,
             this.newCardAntonym,
             this.newCardGeneral,
             this.newCardExample).then(
             succeeded => {
-                //this.cardAddSuccess = true;
-                this.matDialogRef.close(succeeded);
+                //this.cardAddSuccess = true
                 this.snackBar.open("Added card", null, {
                     duration: 2000,
                 });
@@ -59,5 +56,6 @@ export class SaveCardDialogComponent implements OnInit {
                     duration: 2000,
                 });
             });
+        this.matDialogRef.close();
     }
 }

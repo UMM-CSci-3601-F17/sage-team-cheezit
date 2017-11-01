@@ -4,7 +4,7 @@ import {ActivatedRoute} from "@angular/router";
 import {Deck} from "../deck/deck";
 import {NewCardDialogComponent} from "../new-card-dialog/new-card-dialog.component";
 import {MdDialog} from "@angular/material";
-import {Card} from "../card/card";
+import {Card, CardId} from "../card/card";
 
 
 @Component({
@@ -16,7 +16,7 @@ export class DeckComponent implements OnInit {
 
     id : string;
     deck : Deck;
-    cards: Card[];
+    cards: CardId[];
 
 
   constructor(public deckService : DeckService, private route: ActivatedRoute, public dialog : MdDialog) {
