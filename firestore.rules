@@ -43,7 +43,7 @@ service cloud.firestore {
       }
     }
     match /classes/{class} {
-    	allow read, write; //temporary for testing
+    	allow read, write: if request.auth != null; //temporary for testing
     }
     match /users/{user} {
     	allow read, write: if request.auth.uid == user;
