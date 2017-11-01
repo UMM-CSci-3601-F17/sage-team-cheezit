@@ -18,14 +18,17 @@ service cloud.firestore {
       || get(/databases/$(database)/documents/classes/$(resource.data.classId)).data.users[request.auth.uid].teacher == true;
       // allow write if teacher in deck's class
 
-      allow create: if (request.resource.data.name is string) &&
-      ((request.resource.data.users.size() == 1
-      	&& request.auth.uid  in request.resource.data.users
-        && request.resource.data.users[request.auth.uid].owner
-        && !request.data.class)
-      || (!request.data.users
-      	&& request.data.class is string
-        && get(/databases/$(database)/documents/classes/$(request.resource.data.classId)).data.users[request.auth.uid].teacher == true));
+      //allow create: if (request.resource.data.name is string) &&
+     // ((request.resource.data.users.size() == 1
+     // 	&& request.auth.uid  in request.resource.data.users
+     //   && request.resource.data.users[request.auth.uid].owner
+     //   && !request.data.class)
+    //  || (!request.data.users
+    //  	&& request.data.classId is string
+    //    && get(/databases/$(database)/documents/classes/$(request.resource.data.classId)).data.users[request.auth.uid].teacher == true));
+
+			allow create: if true;
+
 
       match /cards/{card} {
       	function getDeck() {
