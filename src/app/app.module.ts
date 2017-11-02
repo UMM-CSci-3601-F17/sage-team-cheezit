@@ -61,15 +61,15 @@ import {PublicDecksComponent} from "./public-decks/public-decks.component";
         MyDecksComponent,
         JoinClassComponent,
         GoogleSignInButtonComponent,
-        PublicDecksComponent
+        PublicDecksComponent,
         SaveCardDialogComponent,
     ],
     entryComponents: [
         NewCardDialogComponent,
         NewDeckDialogComponent,
-        NewClassDialogComponent
+        NewClassDialogComponent,
         NewDeckDialogComponent,
-        SaveCardDialogComponent
+        SaveCardDialogComponent,
     ],
     providers: [
         DeckService,

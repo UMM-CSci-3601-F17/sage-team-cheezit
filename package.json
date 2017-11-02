@@ -34,7 +34,6 @@
         "core-js": "^2.4.1",
         "firebase": "^4.5.2",
         "hammerjs": "^2.0.8",
-        "ng2-dragula": "^1.5.0",
         "ng2-page-slider": "^0.10.1",
         "ng2-rx-componentdestroyed": "^1.1.2",
         "ngx-clipboard": "^8.1.1",

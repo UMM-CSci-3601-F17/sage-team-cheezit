@@ -32,7 +32,6 @@ import {AngularFirestoreModule} from "angularfire2/firestore";
 import {NgPipesModule} from "ngx-pipes";
 import {NgxQRCodeModule} from "ngx-qrcode2";
 import {ClipboardModule} from "ngx-clipboard/dist";
-import {DragulaModule} from "ng2-dragula";
 
 const FLEX_LAYOUT_MODULES: any[] = [
     FlexLayoutModule,
@@ -73,7 +72,6 @@ const OTHER_MODULES: any[] = [
     NgPipesModule,
     NgxQRCodeModule,
     ClipboardModule,
-    DragulaModule
 ];
 
 
