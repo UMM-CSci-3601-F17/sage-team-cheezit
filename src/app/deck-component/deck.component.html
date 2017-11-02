@@ -1,13 +1,47 @@
 <div layout-gt-sm="row">
     <div flex-gt-xs="60" flex-offset-gt-xs="20" flex-xs="90" flex-offset-xs="5" *ngIf="this.deck && this.cards">
         <h2 id="deck-header">{{ this.deck.name }}</h2>
-            <td-message id="no-cards-message" *ngIf="this.cards.length == 0" label="No Cards" sublabel="This deck is empty, tap + to add cards.">
-            </td-message>
-        <app-card class="deck-card" *ngFor="let card of this.cards" [card]="card"></app-card>
+        <td-message id="no-cards-message" *ngIf="this.cards.length == 0" label="No Cards"
+                    sublabel="This deck is empty, tap + to add cards.">
+        </td-message>
+        <mat-accordion>
+            <mat-expansion-panel *ngFor="let card of this.cards">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        {{ card.word }}
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="card-synonym card-line">
+                    <div class="card-desc">Synonym:</div>
+                    <div class="card-cont">{{ card.synonym }}</div>
+                </div>
+                <div class="card-antonym card-line">
+                    <div class="card-desc">Antonym:</div>
+                    <div class="card-cont">{{ card.antonym }}</div>
+                </div>
+                <div class="card-general-usage card-line">
+                    <div class="card-desc">General usage:</div>
+                    <div class="card-cont">{{ card.general_sense }}</div>
+                </div>
+                <div class="card-example-usage card-line">
+                    <div class="card-desc">Example usage:</div>
+                    <div class="card-cont">{{ card.example_usage }}</div>
+                </div>
+                <mat-action-row *ngIf="this.canEdit()">
+                    <button mat-icon-button matTooltip="Edit card" (click)="editCard(card)" aria-label="Edit card">
+                        <mat-icon>mode_edit</mat-icon>
+                    </button>
+                    <button mat-icon-button matTooltip="Delete card" (click)="deleteCard(card.id)" aria-label="Delete card">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </mat-action-row>
+            </mat-expansion-panel>
+        </mat-accordion>
     </div>
 </div>
 
 
-<button mat-fab id="cardDialog" class="deck-fab" matTooltip="Add Card" matTooltipPosition="left" (click)="this.openAddDialog()" *ngIf="this.canEdit()">
+<button mat-fab id="cardDialog" class="deck-fab" matTooltip="Add Card" matTooltipPosition="left"
+        (click)="this.openAddDialog()" *ngIf="this.canEdit()">
     <mat-icon class="md-24" aria-label="Add Card">add</mat-icon>
 </button>

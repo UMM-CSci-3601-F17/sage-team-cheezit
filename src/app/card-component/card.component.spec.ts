@@ -7,7 +7,6 @@ import {SharedModule} from "../shared.module";
 import {MATERIAL_COMPATIBILITY_MODE} from "@angular/material";
 import {Component} from "@angular/core";
 import {Card} from "../card/card";
-import {browser} from "protractor";
 
 describe('CardComponent', () => {
   let component: CardComponent;

@@ -2,20 +2,20 @@ import {Component, Input, OnInit} from '@angular/core';
 import {Card} from "../card/card";
 
 @Component({
-  selector: 'app-card',
-  templateUrl: './card.component.html',
-  styleUrls: ['./card.component.scss']
+    selector: 'app-card',
+    templateUrl: './card.component.html',
+    styleUrls: ['./card.component.scss']
 })
 export class CardComponent implements OnInit {
 
-  constructor() {
-  }
+    constructor() {
+    }
 
-  @Input() card: Card;
+    @Input() card: Card;
 
-  @Input() selected?: number[] = [];
+    @Input() selected?: number[] = [];
 
-  ngOnInit() {
-  }
+    ngOnInit() {
+    }
 
 }

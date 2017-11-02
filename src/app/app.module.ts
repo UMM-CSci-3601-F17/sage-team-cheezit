@@ -24,6 +24,7 @@ import {PlayComponent} from "./play-component/play.component";
 import {MdDialog} from "@angular/material";
 import {NewCardDialogComponent} from "./new-card-dialog/new-card-dialog.component";
 import {NewDeckDialogComponent} from "./new-deck-dialog/new-deck-dialog.component";
+import {SaveCardDialogComponent} from './save-card-dialog/save-card-dialog.component';
 import {AngularFirestoreModule} from "angularfire2/firestore";
 import {AngularFireModule} from "angularfire2";
 import {AngularFireAuthModule} from "angularfire2/auth";
@@ -60,12 +61,15 @@ import {PublicDecksComponent} from "./public-decks/public-decks.component";
         MyDecksComponent,
         JoinClassComponent,
         GoogleSignInButtonComponent,
-        PublicDecksComponent
+        PublicDecksComponent,
+        SaveCardDialogComponent,
     ],
     entryComponents: [
         NewCardDialogComponent,
         NewDeckDialogComponent,
-        NewClassDialogComponent
+        NewClassDialogComponent,
+        NewDeckDialogComponent,
+        SaveCardDialogComponent,
     ],
     providers: [
         DeckService,

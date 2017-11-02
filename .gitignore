@@ -226,3 +226,7 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.gitignore.io/api/node,linux,macos,windows,angular,intellij,firebase
+
+#We are using yarn, so ignore npm lock file
+
+package-lock.json
