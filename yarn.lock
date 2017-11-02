@@ -3483,6 +3483,12 @@ ng2-rx-componentdestroyed@^1.1.2:
   dependencies:
     rxjs "5.x"
 
+ngx-clipboard@^8.1.1:
+  version "8.1.1"
+  resolved "https://registry.yarnpkg.com/ngx-clipboard/-/ngx-clipboard-8.1.1.tgz#574390a6dd48aa1a58350a14b1a0d764204495f5"
+  dependencies:
+    ngx-window-token "0.0.4"
+
 ngx-pipes@^1.6.6:
   version "1.6.6"
   resolved "https://registry.yarnpkg.com/ngx-pipes/-/ngx-pipes-1.6.6.tgz#32bb80906c220f1e84d5cce7d6dae002cffead4b"
@@ -3492,6 +3498,10 @@ ngx-qrcode2@^0.0.5:
   resolved "https://registry.yarnpkg.com/ngx-qrcode2/-/ngx-qrcode2-0.0.5.tgz#ea3e6956ee918fe1085b8c83ba339039a54a0866"
   dependencies:
     qrcode "^0.8.2"
+
+ngx-window-token@0.0.4:
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/ngx-window-token/-/ngx-window-token-0.0.4.tgz#47e7aaa465411c4ab5f7ba17601bc593c956c736"
 
 no-case@^2.2.0:
   version "2.3.2"

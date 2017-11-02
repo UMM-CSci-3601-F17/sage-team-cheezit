@@ -10,6 +10,12 @@ import {componentDestroyed} from "ng2-rx-componentdestroyed";
 import {ClassService} from "../class/class.service";
 import {ISubscription} from "rxjs/Subscription";
 
+declare global {
+    interface Navigator {
+        share(a: any): Promise<any>
+    }
+}
+
 @Component({
   selector: 'app-class',
   templateUrl: './class.component.html',
@@ -31,9 +37,12 @@ export class ClassComponent implements OnInit, OnDestroy {
 
     public canEdit: boolean = false;
 
-    getJoinUrl() {
-        if(!this.currentClass) return "";
-        return document.location.origin + this.router.createUrlTree(['/class', this.id, 'join' ], { queryParams: { joincode: this.currentClass.joincode } }).toString();
+    public joinUrl: string = null;
+
+    updateJoinUrl() {
+        console.log("get join url called");
+        if(!this.currentClass || !this.currentClass.joincode) this.joinUrl = null;
+        else this.joinUrl = document.location.origin + this.router.createUrlTree(['/class', this.id, 'join' ], { queryParams: { joincode: this.currentClass.joincode } }).toString();
     }
 
     public classSub : ISubscription;
@@ -51,6 +60,7 @@ export class ClassComponent implements OnInit, OnDestroy {
                 this.currentClass = c;
                 if(c == null) this.canEdit = false;
                 else this.canEdit =  this.currentClass.users[this.afAuth.auth.currentUser.uid].teacher;
+                this.updateJoinUrl();
             });
 
             this.deckSub = this.deckService.getClassDecks(this.id).takeUntil(componentDestroyed(this)).subscribe(
@@ -62,6 +72,17 @@ export class ClassComponent implements OnInit, OnDestroy {
 
         });
     }
+
+    browserShareInvite() {
+        if (navigator.share) {
+            navigator.share({
+                title: 'Invite to SAGE class: ' + this.currentClass.name,
+                url: this.joinUrl,
+            });
+        }
+    }
+
+    canShare = navigator.share;
 
     openAddDialog() {
         this.dialog.open(NewDeckDialogComponent, {

@@ -19,18 +19,25 @@
 <div layout-gt-sm="row"  *ngIf="this.currentClass && this.canEdit">
     <div flex-gt-xs="80" flex-offset-gt-xs="10" flex-xs="96" flex-offset-xs="2">
         <mat-card>
-            <mat-card-title>Class Options</mat-card-title>
+            <mat-card-title>Sharing</mat-card-title>
             <mat-divider></mat-divider>
             <mat-card-content>
-                <div>
-                    Join code:
-                    <pre *ngIf="this.currentClass.joincode">{{ this.getJoinUrl() }}</pre>
-                    <button mat-button (click)="this.classService.updateJoinCode(this.id)">Update join code</button>
-                    <button mat-button (click)="this.classService.removeJoinCode(this.id)">Remove join code</button>
-                </div>
-                <ngx-qrcode *ngIf="this.currentClass.joincode" qrc-element-type="url" [qrc-value] = "this.getJoinUrl()">
+                <div *ngIf="this.currentClass.joincode">
+                    <div layout="row">
+                        <mat-form-field *ngIf="this.currentClass.joincode" flex>
+                            <input readonly matInput placeholder="Join Code" [ngModel]="this.joinUrl">
+                        </mat-form-field>
+                        <button mat-icon-button *ngIf="!this.canShare" ngxClipboard [cbContent]="this.joinUrl" matTooltip="Copy URL"><mat-icon>content_copy</mat-icon></button>
+                        <button mat-icon-button *ngIf="this.canShare" (click)="this.browserShareInvite()"><mat-icon>share</mat-icon></button>
+                    </div>
+                <ngx-qrcode qrc-element-type="url" [qrc-value]="this.joinUrl">
                 </ngx-qrcode>
+                </div>
             </mat-card-content>
+            <mat-card-actions>
+                <button mat-button (click)="this.classService.updateJoinCode(this.id)">{{this.currentClass.joincode ? "Update" : "Create"}} join code</button>
+                <button mat-button (click)="this.classService.removeJoinCode(this.id)">Remove join code</button>
+            </mat-card-actions>
         </mat-card>
     </div>
 </div>
