@@ -1,0 +1,15 @@
+.deck-fab {
+    position: fixed;
+    bottom: 15px;
+    right: 30px;
+}
+.card-line {
+    margin-top: 5px;
+
+}
+.card-desc { float: left; width: 120px; }
+.card-cont { margin-left: 120px; }
+
+.card-word, .card-cont {
+    word-wrap: break-word;
+}

@@ -3,7 +3,7 @@ import {Deck, DeckId} from "./deck";
 import {Observable} from "rxjs/Observable";
 import "rxjs/add/operator/map";
 import {AngularFirestore, AngularFirestoreCollection} from "angularfire2/firestore";
-import {Card} from "../card/card";
+import {Card, CardId} from "../card/card";
 import {AngularFireAuth} from "angularfire2/auth";
 import {QueryFn} from "angularfire2/firestore/interfaces";
 
@@ -46,8 +46,14 @@ export class DeckService {
         return newDeck;
     }
 
-    public getDeckCards(id: string): Observable<Card[]> {
-        let cards: Observable<Card[]> = this.db.doc('decks/' + id).collection<Card>('cards').valueChanges();
+    public getDeckCards(id: string): Observable<CardId[]> {
+        let cards: Observable<CardId[]> = this.db.doc('decks/' + id).collection<Card>('cards').snapshotChanges().map(actions => {
+            return actions.map(a => {
+                const data = a.payload.doc.data() as Card;
+                const id = a.payload.doc.id;
+                return {id, ...data};
+            })
+        });
         return cards;
     }
 
@@ -78,6 +84,23 @@ export class DeckService {
                 owner: true
             }}});
     }
+    public editCard(deckId: string, cardId: string, word: string, synonym: string, antonym: string, general: string, example: string) {
+        const body : Card = {
+            word: word,
+            synonym: synonym,
+            antonym: antonym,
+            general_sense: general,
+            example_usage: example
+        };
+        console.log(body);
+        console.log(deckId);
+        console.log(cardId);
+        return this.db.doc('decks/' + deckId + '/cards/' + cardId).update(body);
+    }
 
-
+    public deleteCard(deckId: string, cardId: string){
+        console.log(deckId);
+        console.log(cardId);
+        return this.db.doc('decks/' + deckId).collection('cards').doc(cardId).delete();
+    }
 }
