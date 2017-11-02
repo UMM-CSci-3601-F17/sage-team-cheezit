@@ -15,6 +15,8 @@ export class CardComponent implements OnInit {
 
     @Input() selected?: number[] = [];
 
+    @Input() hideSelected?: boolean = false;
+
     ngOnInit() {
     }
 

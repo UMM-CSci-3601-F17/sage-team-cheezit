@@ -35,6 +35,8 @@ import {NewClassDialogComponent} from "./new-class-dialog/new-class-dialog.compo
 import {JoinClassComponent} from "./join-class-component/join-class.component";
 import {GoogleSignInButtonComponent} from "./google-sign-in-button/google-sign-in-button.component";
 import {PublicDecksComponent} from "./public-decks/public-decks.component";
+import {AngularFireDatabaseModule} from "angularfire2/database";
+import {JoinGameComponent} from "./join-game/join-game.component";
 
 @NgModule({
     imports: [
@@ -45,6 +47,7 @@ import {PublicDecksComponent} from "./public-decks/public-decks.component";
         AngularFireModule.initializeApp(environment.firebase),
         AngularFirestoreModule.enablePersistence(),
         AngularFireAuthModule,
+        AngularFireDatabaseModule,
         SharedModule,
     ],
     declarations: [
@@ -63,6 +66,7 @@ import {PublicDecksComponent} from "./public-decks/public-decks.component";
         GoogleSignInButtonComponent,
         PublicDecksComponent,
         SaveCardDialogComponent,
+        JoinGameComponent,
     ],
     entryComponents: [
         NewCardDialogComponent,

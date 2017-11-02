@@ -9,7 +9,7 @@
             <!--<app-card [card]="card"></app-card>!-->
             <app-card class="play-card" [card]="card" [selected]="this.getCardState(ind).selectedCardHints"></app-card>
 
-            <button class="hint-button" mat-raised-button color="primary" [disabled]="this.getCardState(ind).isComplete || !this.getCardState(ind).cardHints.length" (click)="this.getCardState(ind).randomizeSages()">Hint?</button>
+            <button class="hint-button" mat-raised-button color="primary" [disabled]="this.getCardState(ind).isComplete || !this.getCardState(ind).cardHints.length" (click)="this.getCardState(ind).randomizeSages(); this.updateGame()">Hint?</button>
             <button class="got-it-button" mat-raised-button color="primary" [disabled]="this.getCardState(ind).isComplete" (click)="this.addPoints(ind)">Got It!</button> <span class="score">Score: {{this.points}}</span>
 
         </div>
@@ -23,3 +23,4 @@
                    [(page)]="this.pageNumber" [pageCount]="pageCount">
     </kb-nav-button>
 </kb-page-slider>
+<div class="game-id">{{this.gameId}}</div>

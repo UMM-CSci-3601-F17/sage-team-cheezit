@@ -29,7 +29,7 @@ service cloud.firestore {
     //  	&& request.data.classId is string
     //    && get(/databases/$(database)/documents/classes/$(request.resource.data.classId)).data.users[request.auth.uid].teacher == true));
 
-			allow create: if true;
+			allow create: if request.auth != null;
 
 
       match /cards/{card} {
