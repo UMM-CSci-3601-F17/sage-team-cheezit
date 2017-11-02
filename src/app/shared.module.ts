@@ -28,6 +28,9 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {PageSliderModule} from "ng2-page-slider";
 import {AngularFireAuthModule} from "angularfire2/auth";
 import {AngularFirestoreModule} from "angularfire2/firestore";
+import {NgPipesModule} from "ngx-pipes";
+import {NgxQRCodeModule} from "ngx-qrcode2";
+import {ClipboardModule} from "ngx-clipboard/dist";
 
 const FLEX_LAYOUT_MODULES: any[] = [
     FlexLayoutModule,
@@ -64,6 +67,9 @@ const OTHER_MODULES: any[] = [
     PageSliderModule,
     AngularFirestoreModule,
     AngularFireAuthModule,
+    NgPipesModule,
+    NgxQRCodeModule,
+    ClipboardModule,
 ];
 
 

@@ -9,6 +9,7 @@ import {Observable} from "rxjs";
 import {Deck} from "../deck/deck";
 import {ActivatedRoute} from "@angular/router";
 import {Card} from "../card/card";
+import {AppTestModule} from "../app.test.module";
 
 describe('DeckComponent', () => {
   let component: DeckComponent;
@@ -37,8 +38,8 @@ describe('DeckComponent', () => {
       };
 
     TestBed.configureTestingModule({
-        imports: [SharedModule],
-        declarations: [ DeckComponent, CardComponent ],
+        imports: [SharedModule, AppTestModule],
+        declarations: [],
         providers: [{provide: MATERIAL_COMPATIBILITY_MODE, useValue: true},
             {provide: DeckService, useValue: deckServiceStub}, {
                 provide: ActivatedRoute,

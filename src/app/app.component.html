@@ -1,9 +1,43 @@
 <td-layout #layout>
-    <td-navigation-drawer flex sidenavTitle="SAGE" >
+    <td-navigation-drawer #navDrawer flex>
+        <div td-navigation-drawer-toolbar>
+            <span layout="row"
+                  layout-align="start center">
+                <span *ngIf="!afAuth.auth.currentUser">SAGE</span>
+                <span class="avatar-container" *ngIf="afAuth.auth.currentUser">
+                    <img class="avatar-img" [src]="afAuth.auth.currentUser.photoURL" />
+                </span>
+            </span>
+            <app-google-sign-in-button *ngIf="!afAuth.auth.currentUser"></app-google-sign-in-button>
+            <div class="md-body-2" *ngIf="afAuth.auth.currentUser">{{afAuth.auth.currentUser.displayName}}</div>
+            <div class="md-body-1" *ngIf="afAuth.auth.currentUser" layout="row" href (click)="navDrawer.toggleMenu()">
+                <span flex>{{ afAuth.auth.currentUser.email }}</span>
+                <button mat-icon-button class="mat-icon-button-mini">
+                    <mat-icon *ngIf="!navDrawer.menuToggled">arrow_drop_down</mat-icon>
+                    <mat-icon *ngIf="navDrawer.menuToggled">arrow_drop_up</mat-icon>
+                </button>
+            </div>
+        </div>
         <mat-nav-list>
-            <a mat-list-item [routerLink]="['/']" (click)="layout.close()" routerLinkActive="nav-active" [routerLinkActiveOptions]="{exact: true}"><mat-icon>home</mat-icon>Home</a>
-            <a mat-list-item [routerLink]="['/decks']" (click)="layout.close()" routerLinkActive="nav-active"><mat-icon>view_list</mat-icon>Decks</a>
+            <a mat-list-item [routerLink]="['/']" [tdLayoutClose]="true" routerLinkActive="nav-active" [routerLinkActiveOptions]="{exact: true}"><mat-icon>home</mat-icon>Home</a>
+            <a mat-list-item *ngIf="afAuth.auth.currentUser" [routerLink]="['/mydecks']" [tdLayoutClose]="true" routerLinkActive="nav-active"><mat-icon>view_list</mat-icon>My Decks</a>
+            <a mat-list-item [routerLink]="['/publicdecks']" [tdLayoutClose]="true" routerLinkActive="nav-active"><mat-icon>public</mat-icon>Public Decks</a>
         </mat-nav-list>
+
+        <mat-nav-list dense>
+            <mat-divider></mat-divider>
+            <button class="add-class-button" mat-icon-button (click)="this.openAddDialog()" *ngIf="afAuth.auth.currentUser">
+                <mat-icon aria-label="Add Deck">add</mat-icon>
+            </button>
+                <h3 matSubheader>Classes</h3>
+            <a mat-list-item *ngFor="let c of this.classService.classes" [routerLink]="['/class', c.id]" routerLinkActive="nav-active" [tdLayoutClose]="true">{{ c.name }}</a>
+        </mat-nav-list>
+
+        <div td-navigation-drawer-menu>
+            <mat-nav-list>
+                <a mat-list-item *ngIf="afAuth.auth.currentUser" (click)="logout()" [tdLayoutClose]="true"><mat-icon>exit_to_app</mat-icon>Logout</a>
+            </mat-nav-list>
+        </div>
     </td-navigation-drawer>
     <td-layout-nav  toolbarTitle="SAGE" navigationRoute="/">
         <button mat-icon-button td-menu-button tdLayoutToggle>

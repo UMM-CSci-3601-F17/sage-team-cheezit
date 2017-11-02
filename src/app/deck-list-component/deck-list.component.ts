@@ -1,7 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import {DeckService} from "../deck/deck.service";
-import {NewDeckDialogComponent} from "../new-deck-dialog/new-deck-dialog.component";
-import {MdDialog} from "@angular/material";
+import {Component, Input, OnInit} from '@angular/core';
+import {DeckId} from "../deck/deck";
 
 @Component({
   selector: 'app-deck-list',
@@ -10,15 +8,27 @@ import {MdDialog} from "@angular/material";
 })
 export class DeckListComponent implements OnInit {
 
-  constructor(public deckService: DeckService, public dialog : MdDialog) { }
+
+    @Input() decks: DeckId[];
+
+    @Input() title: string;
+
+    @Input() canEdit?: boolean;
+
+    @Input() canAdd?: boolean = false;
+
+  constructor() {
+
+  }
 
   ngOnInit() {
       //this.deckService.getDecks();
+      //this.deckService.getUserDecks().subscribe(
+      //    decks => {
+      //        this.decks = decks;
+      //    }
+      //);
   }
-
-    openAddDialog() {
-        this.dialog.open(NewDeckDialogComponent);
-    }
 
 
 }

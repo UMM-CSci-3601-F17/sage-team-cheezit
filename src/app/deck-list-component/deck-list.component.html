@@ -2,14 +2,14 @@
     <div flex-gt-xs="80" flex-offset-gt-xs="10" flex-xs="96" flex-offset-xs="2">
 
         <mat-card>
-            <mat-card-title id="decks-title">Decks</mat-card-title>
+            <mat-card-title id="decks-title">{{ this.title }}</mat-card-title>
             <mat-divider></mat-divider>
             <mat-card-content>
 
 
-                <mat-nav-list *ngIf="this.deckService.decks; else decksError">
-                    <mat-list-item class="deck" *ngFor="let deck of this.deckService.decks | async">
-                        <a class="deck-name" matLine [routerLink]="['/decks', deck.id]">{{ deck.name }}</a>
+                <mat-nav-list> <!-- *ngIf="this.deckService.decks; else decksError" -->
+                    <mat-list-item class="deck" *ngFor="let deck of this.decks">
+                        <a class="deck-name" matLine [routerLink]="['/deck', deck.id]">{{ deck.name }}</a>
                         <button mat-raised-button color="primary" class="play-button" [routerLink]="['/play', deck.id]">
                             Play
                         </button>
@@ -30,6 +30,3 @@
     </div>
 </div>
 
-<button mat-fab id="deckDialog" class="deck-list-fab" matTooltip="Add Deck" matTooltipPosition="left" (click)="this.openAddDialog()">
-    <mat-icon class="md-24" aria-label="Add Deck">add</mat-icon>
-</button>

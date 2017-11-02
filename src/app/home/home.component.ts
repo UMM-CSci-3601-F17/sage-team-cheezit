@@ -1,12 +1,14 @@
 import {Component} from '@angular/core';
+import {AngularFireAuth} from "angularfire2/auth";
 
 @Component({
-    templateUrl: 'home.component.html'
+    selector: 'app-home',
+    templateUrl: 'home.component.html',
+    styleUrls: ['./home.component.scss']
 })
 export class HomeComponent {
-    public text: string;
 
-    constructor() {
-        this.text = "Hello world!";
+    constructor(public afAuth: AngularFireAuth) {
     }
+
 }
