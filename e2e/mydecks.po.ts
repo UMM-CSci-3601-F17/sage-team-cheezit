@@ -1,21 +1,26 @@
 import {browser, element, by} from 'protractor';
 import {Key} from "selenium-webdriver";
 
-export class DeckPage {
-    navigateTo(deckId: string) {
-        return browser.get('/deck/' + deckId);
+export class MyDecksPage {
+    navigateTo() {
+        return browser.get('/mydecks');
     }
 
-    getDeckHeader(){
-        let header = element(by.id('deck-header')).getText();
-        return header;
+    getPageTitle(){
+        let title = element(by.id('decks-title')).getText();
+        return title;
     }
+
 
     getElementsByClass(htmlClass: string){
         return element.all(by.className(htmlClass));
     }
-    getAllCards(){
-        return this.getElementsByClass('deck-card');
+    getAllDecks(){
+        return this.getElementsByClass('deck');
+    }
+
+    getAllDeckNames() {
+        return element.all(by.className("deck-name")).map(x => x.getText());
     }
 
     clickButton(id: string) {
@@ -31,17 +36,13 @@ export class DeckPage {
     //         inputElement.sendKeys(Key.ENTER);
     //     }
     // }
-
-    // addCard(word: string, synonym: string, antonym: string, general: string, example: string) {
-    //     this.clickButton('cardDialog');
-    //     browser.sleep(100);
-    //     this.typeInput('wordInput', word);
-    //     this.typeInput('synInput', synonym);
-    //     this.typeInput('antInput', antonym);
-    //     this.typeInput('genInput', general);
-    //     this.typeInput('exInput', example);
-    //     this.clickButton('new-card-submit');
+    //
+    // addDeck(name: string) {
+    //     this.clickButton('deckDialog');
+    //     this.typeInput('deckName', name);
+    //     this.clickButton('new-deck-submit');
     // }
+    //
     //
     // // from https://stackoverflow.com/questions/1349404/generate-random-string-characters-in-javascript
     // randomText(length: number): string {
@@ -53,6 +54,7 @@ export class DeckPage {
     //
     //     return text;
     // }
+
 
 
 

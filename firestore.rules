@@ -5,14 +5,16 @@ service cloud.firestore {
     //}
     match /decks/{deck} {
       //change to read when bug fixed
-    	allow get: if resource.data.isPublic //allow get if the deck is public
-      || request.auth.uid in resource.data.users // allow get if the user is in the deck's list of users
-      || request.auth.uid in get(/databases/$(database)/documents/classes/$(resource.classId)).data.users; // allow get if
+    	//allow get: if resource.data.isPublic //allow get if the deck is public
+      //|| request.auth.uid in resource.data.users // allow get if the user is in the deck's list of users
+      //|| request.auth.uid in get(/databases/$(database)/documents/classes/$(resource.classId)).data.users; // allow get if
       //the user is in the class referenced in the deck
 
-      allow list: if resource.data.isPublic == true || request.auth != null; //temporary, there is a bug in firebase
+      //allow list: if resource.data.isPublic == true || request.auth != null; //temporary, there is a bug in firebase
       //that causes queries to fail with certain permission setups (https://stackoverflow.com/questions/46667912).
       //This should be removed after that is fixed, leaving only the read perm.
+
+      allow read: if resource.data.isPublic == true || request.auth != null; // temporary open permissions for testing and demo phase
 
       allow update, delete: if resource.data.users[request.auth.uid].owner // allow write if owner of the deck
       || get(/databases/$(database)/documents/classes/$(resource.data.classId)).data.users[request.auth.uid].teacher == true;

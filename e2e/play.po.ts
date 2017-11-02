@@ -2,7 +2,7 @@ import {browser, element, by} from 'protractor';
 
 export class PlayPage {
     navigateTo() {
-        return browser.get('/play/59de8a1f012e92ce86a57176');
+        return browser.get('/play/5eXZzBvVUufcnrh4o7Rq');
 
     }
 
