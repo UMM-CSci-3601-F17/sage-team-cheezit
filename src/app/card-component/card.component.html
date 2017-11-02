@@ -4,7 +4,7 @@
             <mat-panel-title>
                 <button mat-icon-button color="primary" aria-label="Drag Card"><mat-icon>drag_handle</mat-icon></button>
                 <span style="width: 3px;">  </span>
-                <strong>{{ card.word }}</strong>
+                {{ card.word }}
             </mat-panel-title>
             <mat-panel-description>
                 <span fxFlex></span>
@@ -12,7 +12,6 @@
                 <button mat-icon-button color="primary" align="end"(click)="deleteCard()" aria-label="Delete Card"><mat-icon>delete</mat-icon></button>
             </mat-panel-description>
         </mat-expansion-panel-header>
-
         <mat-card-content>
             <div class="card-synonym card-line" [ngClass]="{'hint-selected': this.selected.indexOf(1) != -1}"><div class="card-desc">Synonym:</div> <div class="card-cont">{{ card.synonym }}</div></div>
             <div class="card-antonym card-line" [ngClass]="{'hint-selected': this.selected.indexOf(2) != -1}"><div class="card-desc">Antonym:</div> <div class="card-cont">{{ card.antonym }}</div></div>

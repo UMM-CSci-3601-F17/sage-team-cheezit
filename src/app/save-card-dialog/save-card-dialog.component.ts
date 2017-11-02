@@ -45,14 +45,14 @@ export class SaveCardDialogComponent implements OnInit {
             this.newCardExample).then(
             succeeded => {
                 //this.cardAddSuccess = true
-                this.snackBar.open("Added card", null, {
+                this.snackBar.open("Edited card", null, {
                     duration: 2000,
                 });
                 //this.refreshDeck();
             },
             err => {
                 console.log(err);
-                this.snackBar.open("Error adding card", null, {
+                this.snackBar.open("Error editing card", null, {
                     duration: 2000,
                 });
             });
