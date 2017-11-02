@@ -28,6 +28,7 @@ export class DeckService {
 
     public getUserDecks: Observable<DeckId[]> = this.afAuth.authState.switchMap( state => {
             if(state == null) return Observable.of(null);
+            // true is > false. We use this to get all decks where the user is the owner or not.
             return this.getDecks(ref => ref.where("users." + state.uid + ".owner", ">=", false));
         });
 
