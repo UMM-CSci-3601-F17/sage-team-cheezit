@@ -1,11 +1,11 @@
 <div layout-gt-sm="row">
     <div flex-gt-sm="80" flex-offset-gt-sm="10">
         <mat-card>
-            <mat-card-title>Welcome{{ this.afAuth.auth.currentUser ? " back" : ""}} to SAGE</mat-card-title>
+            <mat-card-title>{{this.afAuth.auth.currentUser ? "Joining class" : "Please login to join the class"}}</mat-card-title>
             <mat-card-subtitle></mat-card-subtitle>
             <mat-divider></mat-divider>
             <mat-card-content>
-
+                <app-google-sign-in-button *ngIf="!afAuth.auth.currentUser"></app-google-sign-in-button>
             </mat-card-content>
         </mat-card>
     </div>

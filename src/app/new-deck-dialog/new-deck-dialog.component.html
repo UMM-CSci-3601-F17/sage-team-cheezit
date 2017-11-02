@@ -1,12 +1,12 @@
 <h2 mat-dialog-title>Add New Deck</h2>
-<form #newCardForm="ngForm" (ngSubmit)="addNewDeck();">
+<form #newDeckForm="ngForm" (ngSubmit)="addNewDeck();">
     <mat-dialog-content layout="column" class="add-card-form-fields">
         <mat-form-field>
             <input matInput required id="deckName" #input type="text" placeholder="Deck Name" [(ngModel)]="newDeckName" name="newDeckName">
         </mat-form-field>
     </mat-dialog-content>
     <mat-dialog-actions>
-        <button mat-raised-button id="new-deck-submit" color="primary" #input type="button" [disabled]="!newCardForm.form.valid" type="submit">Add Deck</button>
+        <button mat-raised-button id="new-deck-submit" color="primary" #input type="button" [disabled]="!newDeckForm.form.valid" type="submit">Add Deck</button>
         <button mat-button mat-dialog-close>Cancel</button>
     </mat-dialog-actions>
 </form>

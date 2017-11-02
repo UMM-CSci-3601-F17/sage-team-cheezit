@@ -1,24 +1,23 @@
-import {TestBed, ComponentFixture, async} from "@angular/core/testing";
-import {HomeComponent} from "./home.component";
-import {MATERIAL_COMPATIBILITY_MODE} from "@angular/material";
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+
+import {MyDecksComponent} from './my-decks.component';
 import {SharedModule} from "../shared.module";
 import {AppTestModule} from "../app.test.module";
 
-
-describe('HomeComponent', () => {
-    let component: HomeComponent;
-    let fixture: ComponentFixture<HomeComponent>;
+describe('MyDecksComponent', () => {
+    let component: MyDecksComponent;
+    let fixture: ComponentFixture<MyDecksComponent>;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [SharedModule, AppTestModule],
-            declarations: [  ]
+            declarations: []
         })
             .compileComponents();
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(HomeComponent);
+        fixture = TestBed.createComponent(MyDecksComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

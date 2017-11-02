@@ -5,10 +5,19 @@
             "/": {
                 "prefix": false
             },
-            "/decks": {
+            "/deck": {
                 "prefix": true
             },
             "/play": {
+                "prefix": true
+            },
+            "/class": {
+                "prefix": true
+            },
+            "/mydecks": {
+                "prefix": true
+            },
+            "/publicdecks": {
                 "prefix": true
             }
         }
