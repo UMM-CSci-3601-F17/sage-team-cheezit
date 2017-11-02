@@ -29,6 +29,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {PageSliderModule} from "ng2-page-slider";
 import {AngularFireAuthModule} from "angularfire2/auth";
 import {AngularFirestoreModule} from "angularfire2/firestore";
+import {DragulaModule} from "ng2-dragula";
 
 const FLEX_LAYOUT_MODULES: any[] = [
     FlexLayoutModule,
@@ -52,7 +53,7 @@ const MATERIAL_MODULES: any[] = [
     MdFormFieldModule,
     MatDialogModule,
     MdSnackBarModule,
-    MatExpansionModule
+    MatExpansionModule,
 ];
 
 const COVALENT_MODULES: any[] = [
@@ -66,6 +67,7 @@ const OTHER_MODULES: any[] = [
     PageSliderModule,
     AngularFirestoreModule,
     AngularFireAuthModule,
+    DragulaModule
 ];
 
 
@@ -77,6 +79,7 @@ const OTHER_MODULES: any[] = [
         COVALENT_MODULES,
         FLEX_LAYOUT_MODULES,
         OTHER_MODULES,
+
     ],
     declarations: [
 
