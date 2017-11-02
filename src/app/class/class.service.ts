@@ -39,7 +39,10 @@ export class ClassService {
     }
 
     public getClass(id: string): Observable<Class> {
-        let newClass: Observable<Class> = this.db.doc<Class>('classes/' + id).valueChanges();
+        let newClass: Observable<Class> = this.afAuth.authState.switchMap(state => {
+            if(state == null) return Observable.of(null);
+            return this.db.doc<Class>('classes/' + id).valueChanges();
+        });
         return newClass;
     }
 

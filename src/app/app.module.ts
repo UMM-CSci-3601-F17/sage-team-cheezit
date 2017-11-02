@@ -4,7 +4,7 @@ import { BrowserModule }  from '@angular/platform-browser';
 import {environment} from '../environments/environment';
 
 import {
-    MATERIAL_COMPATIBILITY_MODE, MD_DIALOG_SCROLL_STRATEGY_PROVIDER, MdDialogContainer,
+    MATERIAL_COMPATIBILITY_MODE,
     MdSnackBar
 } from '@angular/material';
 
@@ -13,7 +13,7 @@ import {HttpModule, JsonpModule} from '@angular/http';
 import {AppComponent} from './app.component';
 import {HomeComponent} from './home/home.component';
 import {Routing} from './app.routes';
-import {APP_BASE_HREF, LocationStrategy, PathLocationStrategy} from "@angular/common";
+import {APP_BASE_HREF} from "@angular/common";
 
 import {SharedModule} from "./shared.module";
 import {CardComponent} from "./card-component/card.component";
@@ -33,6 +33,7 @@ import {ClassService} from "./class/class.service";
 import {NewClassDialogComponent} from "./new-class-dialog/new-class-dialog.component";
 import {JoinClassComponent} from "./join-class-component/join-class.component";
 import {GoogleSignInButtonComponent} from "./google-sign-in-button/google-sign-in-button.component";
+import {PublicDecksComponent} from "./public-decks/public-decks.component";
 
 @NgModule({
 
@@ -59,7 +60,8 @@ import {GoogleSignInButtonComponent} from "./google-sign-in-button/google-sign-i
         ClassComponent,
         MyDecksComponent,
         JoinClassComponent,
-        GoogleSignInButtonComponent
+        GoogleSignInButtonComponent,
+        PublicDecksComponent
     ],
     entryComponents: [
         NewCardDialogComponent,

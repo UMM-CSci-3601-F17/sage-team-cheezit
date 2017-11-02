@@ -5,10 +5,10 @@ import {MdDialog} from "@angular/material";
 import {Deck} from "../deck/deck";
 import {ActivatedRoute, Router} from "@angular/router";
 import {NewDeckDialogComponent} from "../new-deck-dialog/new-deck-dialog.component";
-import {ClassService} from "../class/class.service";
 import {Class} from "../class/class";
-import {Location, LocationStrategy, PathLocationStrategy} from "@angular/common";
 import {componentDestroyed} from "ng2-rx-componentdestroyed";
+import {ClassService} from "../class/class.service";
+import {ISubscription} from "rxjs/Subscription";
 
 @Component({
   selector: 'app-class',
@@ -36,22 +36,26 @@ export class ClassComponent implements OnInit, OnDestroy {
         return document.location.origin + this.router.createUrlTree(['/class', this.id, 'join' ], { queryParams: { joincode: this.currentClass.joincode } }).toString();
     }
 
+    public classSub : ISubscription;
+    public deckSub : ISubscription;
+
     ngOnInit() {
 
-        this.route.params.subscribe(params => {
+        this.route.params.takeUntil(componentDestroyed(this)).subscribe(params => {
             this.id = params['id'];
 
-            this.classService.getClass(this.id).takeUntil(componentDestroyed(this)).subscribe(c => {
+            if(this.classSub) this.classSub.unsubscribe();
+            if(this.deckSub) this.deckSub.unsubscribe();
+
+            this.classSub = this.classService.getClass(this.id).takeUntil(componentDestroyed(this)).subscribe(c => {
                 this.currentClass = c;
-
-                this.afAuth.authState.takeUntil(componentDestroyed(this)).subscribe(state => {
-                    this.canEdit = state && c.users[state.uid].teacher;
-                })
-
+                if(c == null) this.canEdit = false;
+                else this.canEdit =  this.currentClass.users[this.afAuth.auth.currentUser.uid].teacher;
             });
 
-            this.deckService.getClassDecks(this.id).takeUntil(componentDestroyed(this)).subscribe(
+            this.deckSub = this.deckService.getClassDecks(this.id).takeUntil(componentDestroyed(this)).subscribe(
                 decks => {
+                    console.log(decks);
                     this.decks = decks;
                 }
             );
@@ -66,6 +70,7 @@ export class ClassComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
+        console.log("class destroyed");
     }
 
 }

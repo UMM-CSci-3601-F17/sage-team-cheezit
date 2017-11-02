@@ -63,6 +63,7 @@ export class DeckComponent implements OnInit, OnDestroy {
   }
 
     ngOnDestroy() {
+      console.log("deck destroyed");
     }
 
 

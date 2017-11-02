@@ -4,6 +4,7 @@ import {NewClassDialogComponent} from "./new-class-dialog/new-class-dialog.compo
 import {MdDialog} from "@angular/material";
 import {AngularFireAuth} from "angularfire2/auth";
 import * as firebase from 'firebase/app';
+import {Router} from "@angular/router";
 
 @Component({
     selector: 'app-root',
@@ -13,12 +14,13 @@ import * as firebase from 'firebase/app';
 export class AppComponent {
     title = 'SAGE';
 
-    constructor(public classService: ClassService, public dialog : MdDialog, public afAuth: AngularFireAuth) {
+    constructor(private router: Router, public classService: ClassService, public dialog : MdDialog, public afAuth: AngularFireAuth) {
 
     }
 
     logout() {
         this.afAuth.auth.signOut();
+        this.router.navigate(['/']);
     }
 
 

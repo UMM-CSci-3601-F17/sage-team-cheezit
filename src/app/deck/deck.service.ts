@@ -5,6 +5,7 @@ import "rxjs/add/operator/map";
 import {AngularFirestore, AngularFirestoreCollection} from "angularfire2/firestore";
 import {Card} from "../card/card";
 import {AngularFireAuth} from "angularfire2/auth";
+import {QueryFn} from "angularfire2/firestore/interfaces";
 
 
 @Injectable()
@@ -13,31 +14,29 @@ export class DeckService {
     constructor(public db: AngularFirestore, public afAuth: AngularFireAuth) {
     }
 
-    public getUserDecks(): Observable<DeckId[]> {
-        let userdecks: Observable<DeckId[]> = this.afAuth.authState.switchMap( state => {
-            let deckCollection = this.db.collection<Deck>('decks', ref => state != null ? ref.where("users." + state.uid + ".owner", ">=", false) : ref.where("isPublic", "==", true));
-            return deckCollection.snapshotChanges().map(actions => {
-                return actions.map(a => {
-                    const data = a.payload.doc.data() as Deck;
-                    const id = a.payload.doc.id;
-                    return {id, ...data };
-                })
-            });
+    public getDecks(queryFn?: QueryFn): Observable<DeckId[]> {
+        let deckCollection = this.db.collection<Deck>('decks', queryFn);
+        let decks = deckCollection.snapshotChanges().map(actions => {
+            return actions.map(a => {
+                const data = a.payload.doc.data() as Deck;
+                const id = a.payload.doc.id;
+                return {id, ...data };
+            })
         });
-        return userdecks;
+        return decks;
     }
+
+    public getUserDecks: Observable<DeckId[]> = this.afAuth.authState.switchMap( state => {
+            if(state == null) return Observable.of(null);
+            return this.getDecks(ref => ref.where("users." + state.uid + ".owner", ">=", false));
+        });
+
+    public getPublicDecks: Observable<DeckId[]> = this.getDecks(ref =>  ref.where("isPublic", "==", true));
 
     public getClassDecks(id: string): Observable<DeckId[]> {
         let classdecks: Observable<DeckId[]> = this.afAuth.authState.switchMap( state => {
-            if(state == null) return [];
-            let deckCollection = this.db.collection<Deck>('decks', ref => ref.where("classId", "==", id));
-            return deckCollection.snapshotChanges().map(actions => {
-                return actions.map(a => {
-                    const data = a.payload.doc.data() as Deck;
-                    const id = a.payload.doc.id;
-                    return {id, ...data };
-                })
-            });
+            if(state == null) return Observable.of(null);
+            return this.getDecks(ref => ref.where("classId", "==", id));
         });
         return classdecks;
     }
