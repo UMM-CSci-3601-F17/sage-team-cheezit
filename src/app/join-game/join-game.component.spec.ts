@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { JoinGameComponent } from './join-game.component';
+import {SharedModule} from "../shared.module";
+import {AppTestModule} from "../app.test.module";
 
 describe('JoinGameComponent', () => {
   let component: JoinGameComponent;
@@ -8,7 +10,8 @@ describe('JoinGameComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ JoinGameComponent ]
+        imports: [SharedModule, AppTestModule],
+      declarations: [ ]
     })
     .compileComponents();
   }));

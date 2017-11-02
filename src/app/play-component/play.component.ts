@@ -117,7 +117,7 @@ export class PlayComponent implements OnInit, OnDestroy {
 
     ngOnDestroy() {
         if(this.gameId)
-            this.db.object('games/' + this.gameId).remove();
+        this.db.object('games/' + this.gameId).remove();
     }
 
 }
