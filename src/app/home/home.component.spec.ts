@@ -1,35 +1,29 @@
-import {TestBed, ComponentFixture} from "@angular/core/testing";
+import {TestBed, ComponentFixture, async} from "@angular/core/testing";
 import {HomeComponent} from "./home.component";
-import {DebugElement} from "@angular/core";
-import {By} from "@angular/platform-browser";
-import {SharedModule} from "../shared.module";
 import {MATERIAL_COMPATIBILITY_MODE} from "@angular/material";
+import {SharedModule} from "../shared.module";
+import {AppTestModule} from "../app.test.module";
 
-describe('Home', () => {
 
+describe('HomeComponent', () => {
     let component: HomeComponent;
     let fixture: ComponentFixture<HomeComponent>;
-    let de: DebugElement;
-    let el: HTMLElement;
+
+    beforeEach(async(() => {
+        TestBed.configureTestingModule({
+            imports: [SharedModule, AppTestModule],
+            declarations: [  ]
+        })
+            .compileComponents();
+    }));
 
     beforeEach(() => {
-        TestBed.configureTestingModule({
-            imports: [SharedModule],
-            declarations: [HomeComponent], // declare the test component
-            providers: [{provide: MATERIAL_COMPATIBILITY_MODE, useValue: true}],
-        });
-
         fixture = TestBed.createComponent(HomeComponent);
-
-        component = fixture.componentInstance; // BannerComponent test instance
-
-        // query for the title <h1> by CSS element selector
-        de = fixture.debugElement.query(By.css('#hello-world'));
-        el = de.nativeElement;
+        component = fixture.componentInstance;
+        fixture.detectChanges();
     });
 
-    it("displays a greeting", () => {
-        fixture.detectChanges();
-        expect(el.textContent).toContain(component.text);
+    it('should create', () => {
+        expect(component).toBeTruthy();
     });
 });

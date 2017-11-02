@@ -42,7 +42,8 @@ import {PublicDecksComponent} from "./public-decks/public-decks.component";
         JsonpModule,
         Routing,
         AngularFireModule.initializeApp(environment.firebase),
-        AngularFirestoreModule.enablePersistence(),
+        //AngularFirestoreModule.enablePersistence(),
+        AngularFirestoreModule,
         AngularFireAuthModule,
         SharedModule,
     ],
@@ -78,5 +79,5 @@ import {PublicDecksComponent} from "./public-decks/public-decks.component";
     bootstrap: [AppComponent]
 })
 
-export class AppModule {
+export class AppTestModule {
 }

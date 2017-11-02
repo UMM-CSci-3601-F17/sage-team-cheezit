@@ -6,6 +6,7 @@ import {AppModule} from "./app.module";
 import {AppComponent} from './app.component';
 import {SharedModule} from "./shared.module";
 import {MATERIAL_COMPATIBILITY_MODE} from "@angular/material";
+import {AppTestModule} from "./app.test.module";
 
 describe('AppComponent', () => {
     let appInstance: AppComponent;
@@ -16,7 +17,7 @@ describe('AppComponent', () => {
         TestBed.configureTestingModule({
             imports: [
                 SharedModule,
-                AppModule
+                AppTestModule
             ],
             providers: [{provide: MATERIAL_COMPATIBILITY_MODE, useValue: true}],
         });
