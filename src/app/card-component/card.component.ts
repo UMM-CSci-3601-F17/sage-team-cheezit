@@ -26,24 +26,29 @@ export class CardComponent implements OnInit {
 
     ngOnInit() {
         this.dragulaService.drag.subscribe((value: any) => {
-            if (this._debug) {
-                console.log("drag start");
-                console.log(value);
-                console.log("drag stop");
-                console.log(`drag: ${value[0]}`);
-            }
-            // this.onDrag(value.slice(1));
-        });
+            this.snackBar.open("Dragging card", null, {
+                duration: 2000,
+            });
+        }, err => {
+            this.snackBar.open("Error dragging card", null, {
+                duration: 2000,
+            });
+        })
 
         this.dragulaService.drop.subscribe((value: any) => {
-            console.log(`drop: ${value[0]}`);
-            //this.onDrop(value.slice(1));
-        });
+            this.snackBar.open("Dropped card", null, {
+                duration: 2000,
+            });
+        }, err => {
+            this.snackBar.open("Error dropping card", null, {
+                duration: 2000,
+            });
+        })
 
         this.dragulaService.over.subscribe((value: any) => {
             if (this._debug) { console.log(`over: ${value[0]}`); }
-            // this.onOver(value.slice(1));
-        });
+        // this.onOver(value.slice(1));
+    });
 
         this.dragulaService.out.subscribe((value: any) => {
             if (this._debug) { console.log(`out: ${value[0]}`); }
@@ -64,8 +69,8 @@ export class CardComponent implements OnInit {
             });
         }, err => {
             this.snackBar.open("Error deleting card", null, {
-            duration: 2000,
-        });
+                duration: 2000,
+            });
         })
     }
 
