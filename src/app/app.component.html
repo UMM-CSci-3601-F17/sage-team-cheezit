@@ -22,6 +22,7 @@
             <a mat-list-item [routerLink]="['/']" [tdLayoutClose]="true" routerLinkActive="nav-active" [routerLinkActiveOptions]="{exact: true}"><mat-icon>home</mat-icon>Home</a>
             <a mat-list-item *ngIf="afAuth.auth.currentUser" [routerLink]="['/mydecks']" [tdLayoutClose]="true" routerLinkActive="nav-active"><mat-icon>view_list</mat-icon>My Decks</a>
             <a mat-list-item [routerLink]="['/publicdecks']" [tdLayoutClose]="true" routerLinkActive="nav-active"><mat-icon>public</mat-icon>Public Decks</a>
+            <a mat-list-item [routerLink]="['/joingame']" [tdLayoutClose]="true" routerLinkActive="nav-active"><mat-icon>play_arrow</mat-icon>Join Game</a>
         </mat-nav-list>
 
         <mat-nav-list dense>

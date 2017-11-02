@@ -1,0 +1,22 @@
+<mat-toolbar color="primary"></mat-toolbar>
+<div class="margin" layout="row" layout-align="center start" layout-fill>
+    <div flex-gt-xs="70" flex-xs="90">
+        <div *ngIf="this.inGame && this.card">
+            <app-card [card]="this.card" [selected]="this.selectedHints" [hideSelected]="true"></app-card>
+
+            <span class="score">Score: {{this.points}}</span>
+        </div>
+        <div *ngIf="!this.inGame">
+            <mat-card>
+                <mat-card-title>Join Game</mat-card-title>
+                <mat-divider></mat-divider>
+                <mat-card-content>
+                    <mat-form-field>
+                        <input matInput placeholder="Game ID" [(ngModel)]="this.gameId">
+                    </mat-form-field>
+                    <button mat-raised-button color="primary" (click)="this.joinGame()">Join Game</button>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div>
+</div>
