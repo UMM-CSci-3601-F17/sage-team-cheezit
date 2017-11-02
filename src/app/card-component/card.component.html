@@ -1,22 +1,15 @@
 <mat-card>
     <mat-expansion-panel>
         <mat-expansion-panel-header>
-            <mat-panel-title>{{ card.word }}</mat-panel-title>
+            <mat-panel-title>
+                <button mat-icon-button color="primary" aria-label="Drag Card"><mat-icon>drag_handle</mat-icon></button>
+                <span style="width: 3px;">  </span>
+                <strong>{{ card.word }}</strong>
+            </mat-panel-title>
             <mat-panel-description>
                 <span fxFlex></span>
-                <button mat-icon-button [matMenuTriggerFor]="menu">
-                    <mat-icon>more_vert</mat-icon>
-                </button>
-                <mat-menu #menu="matMenu" align="end">
-                    <button mat-menu-item (click)="editCard()">
-                        <mat-icon>mode_edit</mat-icon>
-                        <span>Edit Card</span>
-                    </button>
-                    <button mat-menu-item (click)="deleteCard()">
-                        <mat-icon>delete</mat-icon>
-                        <span>Delete Card</span>
-                    </button>
-                </mat-menu>
+                <button mat-icon-button color="primary" (click)="editCard()" aria-label="Delete Card"><mat-icon>mode_edit</mat-icon></button>
+                <button mat-icon-button color="primary" align="end"(click)="deleteCard()" aria-label="Delete Card"><mat-icon>delete</mat-icon></button>
             </mat-panel-description>
         </mat-expansion-panel-header>
 
