@@ -3,11 +3,11 @@ export const environment = {
     production: true,
 
     firebase: {
-        apiKey: "AIzaSyCii_NTRaKjlbofrh0xI_SbBpOAE9vj7wg",
-        authDomain: "sage-2cfe4.firebaseapp.com",
-        databaseURL: "https://sage-2cfe4.firebaseio.com",
-        projectId: "sage-2cfe4",
-        storageBucket: "sage-2cfe4.appspot.com",
-        messagingSenderId: "999732247851"
+        apiKey: "AIzaSyBJP3bASI2Wao-8-vyO8x8kB6TqNA8kA2g",
+        authDomain: "sage-demo-e81fc.firebaseapp.com",
+        databaseURL: "https://sage-demo-e81fc.firebaseio.com",
+        projectId: "sage-demo-e81fc",
+        storageBucket: "sage-demo-e81fc.appspot.com",
+        messagingSenderId: "326989903688"
     }
 };
