@@ -1,6 +1,6 @@
 <div layout-gt-sm="row">
     <div flex-gt-xs="60" flex-offset-gt-xs="20" flex-xs="90" flex-offset-xs="5" *ngIf="this.deck && this.cards">
-        <h2 id="deck-header">{{ this.deck.name }}</h2>
+        <h2 id="deck-header">{{ this.deck.name }}<mat-slide-toggle class="moveswitch" color=primary *ngIf="this.deck.classId && canEdit() && this.classService.canEdit(this.deck.classId)" [checked]="this.deck.studentEdit" (change)="this.studentEdit($event.checked)">Allow Student Editing</mat-slide-toggle></h2>
         <td-message id="no-cards-message" *ngIf="this.cards.length == 0" label="No Cards"
                     sublabel="This deck is empty, tap + to add cards.">
         </td-message>
@@ -27,7 +27,7 @@
                     <div class="card-desc">Example usage:</div>
                     <div class="card-cont">{{ card.example_usage }}</div>
                 </div>
-                <mat-action-row *ngIf="this.canEdit()">
+                <mat-action-row *ngIf="this.canEdit()||this.deck.studentEdit">
                     <button mat-icon-button matTooltip="Edit card" (click)="editCard(card)" aria-label="Edit card">
                         <mat-icon>mode_edit</mat-icon>
                     </button>

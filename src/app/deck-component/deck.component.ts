@@ -39,7 +39,7 @@ export class DeckComponent implements OnInit, OnDestroy {
     public canEdit(): boolean {
         if (!this.deck) return false;
         if (this.deck.classId) {
-            return this.classService.canEdit(this.deck.classId);
+            return this.deck.studentEdit || this.classService.canEdit(this.deck.classId);
         } else if (this.deck.users) {
             return this.deck.users[this.afAuth.auth.currentUser.uid] &&
                 this.deck.users[this.afAuth.auth.currentUser.uid].owner;
@@ -47,17 +47,23 @@ export class DeckComponent implements OnInit, OnDestroy {
     }
 
 
+    public studentEdit(canEdit: boolean){
+        return this.deckService.studentEdit(this.id, canEdit);
+    }
+
     ngOnInit() {
         this.route.params.subscribe(params => {
             this.id = params['id'];
 
             this.deckService.getDeck(this.id).takeUntil(componentDestroyed(this)).subscribe(
                 deck => {
+                    console.log(deck);
                     this.deck = deck;
                 }
             );
 
             this.deckService.getDeckCards(this.id).takeUntil(componentDestroyed(this)).subscribe(cards => {
+                console.log(cards);
                 this.cards = cards;
             });
         });
