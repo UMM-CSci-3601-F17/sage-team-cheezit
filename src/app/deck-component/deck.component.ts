@@ -70,6 +70,10 @@ export class DeckComponent implements OnInit, OnDestroy {
         });
     };
 
+    public cardHide(cardId: string, isHidden: boolean){
+        this.deckService.cardHide(this.id, cardId, isHidden)
+    }
+
     public deleteCard(cardId: string) {
         this.deckService.deleteCard(this.id, cardId).then(result => {
             this.snackBar.open("Deleted card", null, {

@@ -76,6 +76,10 @@ export class DeckService {
         return deckCollection.add({name: name, classId: classId});
     }
 
+    public cardHide(deckId: string, cardId: string, isHidden: boolean){
+        return this.db.doc('decks/' + deckId + '/cards/' + cardId ).update({hidden: isHidden});
+    }
+
     public addNewDeckUser(name: string) {
         if(this.afAuth.auth.currentUser == null) return;
         let deckCollection = this.db.collection<Deck>('decks');

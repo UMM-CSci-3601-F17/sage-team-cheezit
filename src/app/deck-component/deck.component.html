@@ -9,6 +9,9 @@
                 <mat-expansion-panel-header>
                     <mat-panel-title>
                         {{ card.word }}
+                        <div class="ishidden" color="red" *ngIf="this.card.hidden">
+                            Hidden
+                        </div>
                     </mat-panel-title>
                 </mat-expansion-panel-header>
                 <div class="card-synonym card-line">
@@ -34,6 +37,7 @@
                     <button mat-icon-button matTooltip="Delete card" (click)="deleteCard(card.id)" aria-label="Delete card">
                         <mat-icon>delete</mat-icon>
                     </button>
+                    <mat-slide-toggle color=primary [checked]="this.card.hidden" (change)="this.cardHide(card.id, $event.checked)">Hide Card</mat-slide-toggle>
                 </mat-action-row>
             </mat-expansion-panel>
         </mat-accordion>
