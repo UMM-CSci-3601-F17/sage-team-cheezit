@@ -50,7 +50,6 @@ import {MatChipsModule} from '@angular/material/chips';
         AngularFireAuthModule,
         AngularFireDatabaseModule,
         SharedModule,
-        MatChipsModule,
     ],
     declarations: [
         AppComponent,
