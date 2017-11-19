@@ -73,6 +73,10 @@ export class ClassComponent implements OnInit, OnDestroy {
         });
     }
 
+    public addATeacher(studentid: string){
+        return this.classService.addATeacher(this.id, studentid);
+    }
+
     browserShareInvite() {
         if (navigator.share) {
             navigator.share({

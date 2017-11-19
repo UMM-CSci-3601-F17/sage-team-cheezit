@@ -74,6 +74,11 @@ export class ClassService {
         });
     }
 
+    public addATeacher(id: string, studentid: string){
+        console.log(studentid);
+        return this.db.doc('classes/' + id).update({["users." + studentid + ".teacher"] : true});
+    }
+
     public addNewClass(name: string) {
         if(this.afAuth.auth.currentUser == null) return;
         let classCollection = this.db.collection<Class>('classes');
