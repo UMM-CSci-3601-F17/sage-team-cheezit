@@ -1,4 +1,5 @@
 <mat-card>
+    <button class="speak-button" mat-icon-button *ngIf="this.canSpeak" (click)="this.speakWord()"><mat-icon>volume_up</mat-icon></button>
     <mat-card-title class="card-word">{{ card.word }}</mat-card-title>
     <mat-divider></mat-divider>
     <mat-card-content>
