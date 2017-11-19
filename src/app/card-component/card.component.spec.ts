@@ -75,6 +75,7 @@ class TestComponentWrapper {
         antonym: "test antonym",
         general_sense: "test general_sense",
         example_usage: "test example_usage",
+        hidden: false
     };
 
 
