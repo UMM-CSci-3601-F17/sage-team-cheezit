@@ -6,6 +6,7 @@ import {AngularFirestore, AngularFirestoreCollection} from "angularfire2/firesto
 import {Card, CardId} from "../card/card";
 import {AngularFireAuth} from "angularfire2/auth";
 import {QueryFn} from "angularfire2/firestore/interfaces";
+import * as firebase from "firebase";
 
 
 @Injectable()
@@ -47,8 +48,8 @@ export class DeckService {
         return newDeck;
     }
 
-    public getDeckCards(id: string): Observable<CardId[]> {
-        let cards: Observable<CardId[]> = this.db.doc('decks/' + id).collection<Card>('cards').snapshotChanges().map(actions => {
+    public getDeckCards(id: string, queryFn?: QueryFn): Observable<CardId[]> {
+        let cards: Observable<CardId[]> = this.db.doc('decks/' + id).collection<Card>('cards', queryFn).snapshotChanges().map(actions => {
             return actions.map(a => {
                 const data = a.payload.doc.data() as Card;
                 const id = a.payload.doc.id;
@@ -58,13 +59,18 @@ export class DeckService {
         return cards;
     }
 
+    public getDeckPlayCards(id: string){
+        return this.getDeckCards(id, ref => ref.where("hidden", "==" , false))
+    }
+
     public addNewCard(deckID: string, word: string, synonym: string, antonym: string, general: string, example: string) {
         const body : Card = {
             word: word,
             synonym: synonym,
             antonym: antonym,
             general_sense: general,
-            example_usage: example
+            example_usage: example,
+            hidden: false
         };
         console.log(body);
 
@@ -77,7 +83,7 @@ export class DeckService {
     }
 
     public cardHide(deckId: string, cardId: string, isHidden: boolean){
-        return this.db.doc('decks/' + deckId + '/cards/' + cardId ).update({hidden: isHidden});
+        return this.db.doc('decks/' + deckId + '/cards/' + cardId ).update({hidden: isHidden });
     }
 
     public addNewDeckUser(name: string) {
@@ -90,12 +96,12 @@ export class DeckService {
             }}});
     }
     public editCard(deckId: string, cardId: string, word: string, synonym: string, antonym: string, general: string, example: string) {
-        const body : Card = {
+        const body = {
             word: word,
             synonym: synonym,
             antonym: antonym,
             general_sense: general,
-            example_usage: example
+            example_usage: example,
         };
         console.log(body);
         console.log(deckId);

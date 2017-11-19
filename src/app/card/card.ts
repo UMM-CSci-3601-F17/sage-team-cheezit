@@ -5,6 +5,6 @@ export interface Card {
     antonym: string,
     general_sense: string,
     example_usage: string,
-    hidden?: boolean
+    hidden: boolean
 }
 export interface CardId extends Card { id: string }
