@@ -32,7 +32,7 @@ export class ClassService {
         })
     }
 
-    public canEdit(id: string): boolean {
+    public isTeacher(id: string): boolean {
         let thisClass = this.classes.find(c => c.id == id);
         return thisClass && thisClass.users[this.afAuth.auth.currentUser.uid] &&
             thisClass.users[this.afAuth.auth.currentUser.uid].teacher;

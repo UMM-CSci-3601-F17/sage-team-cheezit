@@ -13,7 +13,7 @@ export class ClassServiceMock {
 
     }
 
-    public canEdit(id: string): boolean {
+    public isTeacher(id: string): boolean {
         return false;
     }
 

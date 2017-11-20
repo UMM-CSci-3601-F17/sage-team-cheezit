@@ -40,13 +40,26 @@ export class DeckComponent implements OnInit, OnDestroy {
     public canEdit(): boolean {
         if (!this.deck) return false;
         if (this.deck.classId) {
-            return this.classService.canEdit(this.deck.classId);
+            return this.deck.studentEdit || this.isTeacher();
         } else if (this.deck.users) {
             return this.deck.users[this.afAuth.auth.currentUser.uid] &&
                 this.deck.users[this.afAuth.auth.currentUser.uid].owner;
         }
     }
 
+    public isTeacher(): boolean {
+        if(!this.deck) return false;
+        return this.classService.isTeacher(this.deck.classId);
+    }
+
+    public deckOwner(): boolean {
+        return this.canEdit() && (!this.deck.classId || (this.deck.classId && this.isTeacher()));
+    }
+
+
+    public toggleStudentEdit(){
+        return this.deckService.studentEdit(this.id, !this.deck.studentEdit);
+    }
 
     ngOnInit() {
         this.route.params.subscribe(params => {
@@ -54,12 +67,14 @@ export class DeckComponent implements OnInit, OnDestroy {
 
             this.deckService.getDeck(this.id).takeUntil(componentDestroyed(this)).subscribe(
                 deck => {
+                    console.log(deck);
                     this.deck = deck;
                     this.loaded = true;
                 }
             );
 
             this.deckService.getDeckCards(this.id).takeUntil(componentDestroyed(this)).subscribe(cards => {
+                console.log(cards);
                 this.cards = cards;
             });
         });
