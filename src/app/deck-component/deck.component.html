@@ -39,11 +39,11 @@
             <mat-form-field flex >
                 <mat-chip-list #chipList>
                     <mat-chip class="tag-chip" *ngFor="let tag of this.deck.tags" [selectable]="this.deckOwner()"
-                              [removable]="this.deckOwner()" (remove)="this.removeTag(tag)" [disabled]="this.deckOwner()">
+                              [removable]="this.deckOwner()" (remove)="this.removeTag(tag)" [disabled]="!this.deckOwner()">
                         {{tag}}
                         <mat-icon matChipRemove *ngIf="this.deckOwner()">cancel</mat-icon>
                     </mat-chip>
-                    <input placeholder="Tags" flex disabled="this.deckOwner()"
+                    <input placeholder="Tags" flex [disabled]="!this.deckOwner()"
                            [matChipInputFor]="chipList"
                            [matChipInputSeparatorKeyCodes]="this.separatorKeysCodes"
                            [matChipInputAddOnBlur]="true"
