@@ -108,10 +108,10 @@ export class PlayComponent implements OnInit, OnDestroy {
                     this.deck = deck;
                 }
             );
-
-            this.deckService.getDeckCards(this.deckid).subscribe(cards => {
-                this.cards = cards;
-                this.updateGame();
+            
+            this.deckService.getDeckPlayCards(this.deckid).subscribe(cards => {
+            this.cards = cards;
+            this.updateGame();
             });
         });
     }

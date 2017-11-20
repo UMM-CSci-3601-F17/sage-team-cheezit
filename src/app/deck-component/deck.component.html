@@ -33,11 +33,9 @@
                     sublabel="This deck is empty, tap + to add cards.">
         </td-message>
         <mat-accordion>
-            <mat-expansion-panel *ngFor="let card of this.cards">
+            <mat-expansion-panel *ngFor="let card of this.cards" [ngClass]="{'card-hidden': this.card.hidden}">
                 <mat-expansion-panel-header>
-                    <mat-panel-title>
-                        {{ card.word }}
-                    </mat-panel-title>
+                    <mat-panel-title>{{ card.word }}</mat-panel-title>
                 </mat-expansion-panel-header>
                 <div class="card-synonym card-line">
                     <div class="card-desc">Synonym:</div>
@@ -56,6 +54,8 @@
                     <div class="card-cont">{{ card.example_usage }}</div>
                 </div>
                 <mat-action-row *ngIf="this.canEdit()">
+                    <mat-slide-toggle color=primary [checked]="this.card.hidden" (change)="this.cardHide(card.id, $event.checked)" style="margin-top: 12px;">Hide Card</mat-slide-toggle>
+                    <span flex></span>
                     <button mat-icon-button matTooltip="Edit card" (click)="editCard(card)" aria-label="Edit card">
                         <mat-icon>mode_edit</mat-icon>
                     </button>

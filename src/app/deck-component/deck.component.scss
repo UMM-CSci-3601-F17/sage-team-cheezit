@@ -1,3 +1,5 @@
+@import "../../theme";
+
 .deck-fab {
     position: fixed;
     bottom: 15px;
@@ -12,4 +14,16 @@
 
 .card-word, .card-cont {
     word-wrap: break-word;
+}
+
+$background: map-get($theme, background);
+$foreground: map-get($theme, foreground);
+
+.card-hidden {
+    .mat-expansion-panel-header,
+    .mat-expansion-panel-header-title,
+    .mat-expansion-panel-header-description,
+    .card-line {
+        color: mat-color($foreground, disabled-button);
+    }
 }
