@@ -9,7 +9,8 @@ export interface Deck {
     },
     classId?: string,
     isPublic?: boolean,
-    studentEdit?: boolean
+    studentEdit?: boolean,
+    tags?: string[]
     //cards: Card[]
 }
 
