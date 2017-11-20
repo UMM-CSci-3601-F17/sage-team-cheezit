@@ -21,6 +21,7 @@ export class DeckComponent implements OnInit, OnDestroy {
     id: string;
     deck: Deck;
     cards: CardId[];
+    loaded: boolean = false;
 
 
     constructor(public afAuth: AngularFireAuth, public dialog: MatDialog, public deckService: DeckService, public snackBar: MatSnackBar, public classService: ClassService, private route: ActivatedRoute) {
@@ -59,6 +60,7 @@ export class DeckComponent implements OnInit, OnDestroy {
                 deck => {
                     console.log(deck);
                     this.deck = deck;
+                    this.loaded = true;
                 }
             );
 
@@ -88,8 +90,33 @@ export class DeckComponent implements OnInit, OnDestroy {
         })
     }
 
+    public moveToMyDecks() {
+        this.deckService.moveDeckToMyDecks(this.id,).then(result => {
+            this.snackBar.open("Moved Deck to My Decks", null, {
+                duration: 2000,
+            });
+        }, err => {
+            this.snackBar.open("Error moving deck", null, {
+                duration: 2000,
+            });
+        })
+    }
+
+    public moveToClass(classId: string, className: string) {
+        this.deckService.moveDeckToClass(this.id, classId).then(result => {
+            this.snackBar.open("Moved Deck to " + className, null, {
+                duration: 2000,
+            });
+        }, err => {
+            this.snackBar.open("Error moving deck", null, {
+                duration: 2000,
+            });
+        })
+    }
+
     ngOnDestroy() {
         console.log("deck destroyed");
+        this.loaded = false;
     }
 
 

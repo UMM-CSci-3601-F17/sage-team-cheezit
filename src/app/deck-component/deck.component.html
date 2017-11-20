@@ -1,7 +1,39 @@
+<!--
 <div layout-gt-sm="row">
     <div flex-gt-xs="60" flex-offset-gt-xs="20" flex-xs="90" flex-offset-xs="5" *ngIf="this.deck && this.cards">
         <h2 id="deck-header">{{ this.deck.name }}<mat-slide-toggle class="moveswitch" color=primary *ngIf="this.deck.classId && canEdit() && this.classService.canEdit(this.deck.classId)" [checked]="this.deck.studentEdit" (change)="this.studentEdit($event.checked)">Allow Student Editing</mat-slide-toggle></h2>
         <td-message id="no-cards-message" *ngIf="this.cards.length == 0" label="No Cards"
+-->
+<div layout="row" layout-align="center start" *ngIf="this.deck; else noDeck">
+    <div flex-gt-xs="80" flex-xs="90" *ngIf="this.cards">
+        <div layout="row" layout-align="space-between center">
+            <h2 flex id="deck-header">{{ this.deck.name }}</h2>
+
+
+            <button mat-icon-button matTooltip="Play this Deck" [routerLink]="['/play', this.id]" [disabled]="this.cards.length == 0">
+                <mat-icon>play_arrow</mat-icon>
+            </button>
+            <button mat-icon-button [matMenuTriggerFor]="menu" *ngIf="this.canEdit()">
+                <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+                <button mat-menu-item [matMenuTriggerFor]="moveto">
+                    <mat-icon style="-webkit-transform: scaleX(-1); transform: scaleX(-1);">reply</mat-icon>
+                    <span>Move</span>
+                </button>
+                <button mat-menu-item>
+                    <mat-icon>delete</mat-icon>
+                    <span>Delete</span>
+                </button>
+            </mat-menu>
+
+            <mat-menu #moveto="matMenu">
+                <button mat-menu-item [disabled]="this.deck.users" (click)="this.moveToMyDecks()">My Decks</button>
+                <button mat-menu-item *ngFor="let c of this.classService.classes | filterBy: ['users.' + this.afAuth.auth.currentUser.uid + '.teacher']: true"
+                        [disabled]="this.deck.classId && this.deck.classId == c.id" (click)="this.moveToClass(c.id, c.name)">{{ c.name }}</button>
+            </mat-menu>
+        </div>
+        <td-message class="no-cards-message" *ngIf="this.cards.length == 0" label="No Cards"
                     sublabel="This deck is empty, tap + to add cards.">
         </td-message>
         <mat-accordion>
@@ -40,6 +72,15 @@
     </div>
 </div>
 
+<ng-template #noDeck>
+    <div layout="row" layout-align="center start" *ngIf="this.loaded">
+        <div flex-gt-xs="80" flex-xs="90">
+            <td-message class="no-deck-message" label="No Deck"
+                        sublabel="This deck does not exist.">
+            </td-message>
+        </div>
+    </div>
+</ng-template>
 
 <button mat-fab id="cardDialog" class="deck-fab" matTooltip="Add Card" matTooltipPosition="left"
         (click)="this.openAddDialog()" *ngIf="this.canEdit()">
