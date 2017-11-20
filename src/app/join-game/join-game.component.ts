@@ -44,9 +44,7 @@ export class JoinGameComponent implements OnInit, OnDestroy {
                 else
                     this.selectedHints = [];
             } else {
-                this.card = null;
-                this.points = null;
-                this.selectedHints = null;
+                this.ngOnDestroy();
             }
         });
         this.inGame = true;
@@ -65,6 +63,15 @@ export class JoinGameComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
+        this.gameId = null;
+        this.card = null;
+        this.points = 0;
+        this.selectedHints = [];
+        this.location.go(this
+            .router
+            .createUrlTree([], {relativeTo: this.route})
+            .toString());
+        this.inGame = false;
     }
 
 }
