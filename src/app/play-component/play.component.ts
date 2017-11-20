@@ -1,10 +1,11 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, Inject, OnDestroy, OnInit} from '@angular/core';
 import {DeckService} from "../deck/deck.service";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {Deck} from "../deck/deck";
 import {CardState} from "./CardState";
 import {Card} from "../card/card";
 import {AngularFireDatabase} from "angularfire2/database";
+import {MatDialogRef, MAT_DIALOG_DATA, MatDialog} from "@angular/material";
 import * as firebase from 'firebase/app';
 
 
@@ -43,25 +44,24 @@ export class PlayComponent implements OnInit, OnDestroy {
 
     public cardStates: CardState[];
 
+    public gameURL: string;
 
-    // from https://stackoverflow.com/a/27747377/8855259
 
-    // dec2hex :: Integer -> String
-    dec2hex (dec: number): string {
-        return ('0' + dec.toString(16)).substr(-2);
-    }
 
-    // generateId :: Integer -> String
-    generateId (len: number) : string {
-        let arr = new Uint8Array((len || 40) / 2);
-        window.crypto.getRandomValues(arr);
-        return Array.from(arr, this.dec2hex).join('');
+    // from https://stackoverflow.com/a/41993719/8855259
+
+    randNumDigits(digits: number) {
+        return Math.floor(Math.random()*parseInt('8' + '9'.repeat(digits-1))+parseInt('1' + '0'.repeat(digits-1)));
     }
 
 
-    constructor(public deckService : DeckService, private route: ActivatedRoute, private db: AngularFireDatabase) {
+    constructor(public deckService : DeckService, private route: ActivatedRoute,
+                private db: AngularFireDatabase, public dialog: MatDialog,
+                private router: Router) {
         this.cardStates = [];
-        this.gameId = this.generateId(8);
+        this.gameId = this.randNumDigits(6).toString();
+        this.gameURL = document.location.origin + this.router.createUrlTree(['/joingame'], { queryParams: { id: this.gameId } }).toString();
+
 
         const ref = firebase.database().ref('games').child(this.gameId);
         ref.onDisconnect().remove();
@@ -119,5 +119,45 @@ export class PlayComponent implements OnInit, OnDestroy {
         if(this.gameId)
         this.db.object('games/' + this.gameId).remove();
     }
+
+    showGameId() {
+        this.dialog.open(GameJoinDialogComponent, {
+            data: { gameId: this.gameId, gameURL: this.gameURL },
+        })
+    }
+
+}
+
+// a style for this is in the main styles.scss to be able to center the qr code
+@Component({
+    selector: 'app-game-id-dialog',
+    template: '<h2 mat-dialog-title>Game ID</h2>' +
+    '<mat-dialog-content>' +
+    '<h1 style="text-align: center;">{{this.data.gameId}}</h1>' +
+    '<ngx-qrcode class="play-game-id-qrcode" qrc-element-type="url" [qrc-value]="this.data.gameURL"></ngx-qrcode>' +
+    '</mat-dialog-content>' +
+    '<mat-dialog-actions align="end">' +
+    '<button mat-button *ngIf="!this.canShare" ngxClipboard [cbContent]="this.gameURL" matTooltip="Copy URL"><mat-icon>content_copy</mat-icon></button>' +
+    '<button mat-button *ngIf="this.canShare" (click)="this.browserShareInvite()"><mat-icon>share</mat-icon></button>' +
+    '<button mat-button mat-dialog-close>Close</button>' +
+    '</mat-dialog-actions>'
+})
+export class GameJoinDialogComponent {
+
+    constructor(
+        public dialogRef: MatDialogRef<GameJoinDialogComponent>,
+        @Inject(MAT_DIALOG_DATA) public data: {gameId: string, gameURL: string}) { }
+
+
+    browserShareInvite() {
+        if (navigator.share) {
+            navigator.share({
+                title: 'Invite to SAGE game',
+                url: this.data.gameURL,
+            });
+        }
+    }
+
+    canShare = navigator.share;
 
 }

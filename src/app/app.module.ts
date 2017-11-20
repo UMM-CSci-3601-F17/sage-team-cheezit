@@ -20,7 +20,7 @@ import {CardComponent} from "./card-component/card.component";
 import {DeckListComponent} from "./deck-list-component/deck-list.component";
 import {DeckComponent} from "./deck-component/deck.component";
 import {DeckService} from "./deck/deck.service";
-import {PlayComponent} from "./play-component/play.component";
+import {GameJoinDialogComponent, PlayComponent} from "./play-component/play.component";
 import {MdDialog} from "@angular/material";
 import {NewCardDialogComponent} from "./new-card-dialog/new-card-dialog.component";
 import {NewDeckDialogComponent} from "./new-deck-dialog/new-deck-dialog.component";
@@ -68,6 +68,7 @@ import {MatChipsModule} from '@angular/material/chips';
         PublicDecksComponent,
         SaveCardDialogComponent,
         JoinGameComponent,
+        GameJoinDialogComponent,
     ],
     entryComponents: [
         NewCardDialogComponent,
@@ -75,6 +76,7 @@ import {MatChipsModule} from '@angular/material/chips';
         NewClassDialogComponent,
         NewDeckDialogComponent,
         SaveCardDialogComponent,
+        GameJoinDialogComponent,
     ],
     providers: [
         DeckService,
