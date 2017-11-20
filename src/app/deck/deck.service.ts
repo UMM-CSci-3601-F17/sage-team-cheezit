@@ -136,4 +136,10 @@ export class DeckService {
                 }}
         });
     }
+
+    public updateTags(deckId: string, newTags: string[]) {
+        return this.db.doc("decks/" + deckId).update({
+            tags: newTags
+        });
+    }
 }

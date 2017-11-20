@@ -3,13 +3,15 @@ import {DeckService} from "../deck/deck.service";
 import {ActivatedRoute} from "@angular/router";
 import {Deck} from "../deck/deck";
 import {NewCardDialogComponent} from "../new-card-dialog/new-card-dialog.component";
-import {MatDialog, MatSnackBar} from "@angular/material";
+import {MatDialog, MatSnackBar, MatChipInputEvent} from "@angular/material";
 import {Card, CardId} from "../card/card";
 import {ClassService} from "../class/class.service";
 import {AngularFireAuth} from "angularfire2/auth";
 import {componentDestroyed} from "ng2-rx-componentdestroyed";
 import {SaveCardDialogComponent} from "../save-card-dialog/save-card-dialog.component";
+import {ENTER} from '@angular/cdk/keycodes';
 
+const COMMA = 188;
 
 @Component({
     selector: 'app-deck',
@@ -22,7 +24,10 @@ export class DeckComponent implements OnInit, OnDestroy {
     deck: Deck;
     cards: CardId[];
     loaded: boolean = false;
+    tags: string[] = [];
 
+
+    separatorKeysCodes = [ENTER, COMMA];
 
     constructor(public afAuth: AngularFireAuth, public dialog: MatDialog, public deckService: DeckService, public snackBar: MatSnackBar, public classService: ClassService, private route: ActivatedRoute) {
 
@@ -70,6 +75,7 @@ export class DeckComponent implements OnInit, OnDestroy {
                 deck => {
                     console.log(deck);
                     this.deck = deck;
+                    if(deck.tags) this.tags = deck.tags;
                     this.loaded = true;
                 }
             );
@@ -126,6 +132,36 @@ export class DeckComponent implements OnInit, OnDestroy {
                 duration: 2000,
             });
         })
+    }
+
+    public addTag(event: MatChipInputEvent) {
+        let input = event.input;
+        let value = event.value;
+
+        // Add our person
+        if ((value || '').trim()) {
+            this.tags.push(value.trim());
+        }
+
+        // Reset the input value
+        if (input) {
+            input.value = '';
+        }
+
+        this.updateTags();
+    }
+
+    public removeTag(tag: any) {
+        let index = this.tags.indexOf(tag);
+
+        if (index >= 0) {
+            this.tags.splice(index, 1);
+        }
+        this.updateTags();
+    }
+
+    public updateTags() {
+        this.deckService.updateTags(this.id, this.tags);
     }
 
     ngOnDestroy() {
