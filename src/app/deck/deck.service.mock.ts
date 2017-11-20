@@ -124,4 +124,12 @@ export class DeckServiceMock {
         return true;
     }
 
+    public moveDeckToClass(deckId: string, classId: string) {
+        return Observable.of(true);
+    }
+
+    public moveDeckToMyDecks(deckId: string) {
+        return Observable.of(true);
+    }
+
 }

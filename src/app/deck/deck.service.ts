@@ -114,4 +114,22 @@ export class DeckService {
         console.log(cardId);
         return this.db.doc('decks/' + deckId).collection('cards').doc(cardId).delete();
     }
+
+    public moveDeckToClass(deckId: string, classId: string) {
+        return this.db.doc("decks/" + deckId).update({
+            classId: classId,
+            users: firebase.firestore.FieldValue.delete()
+        });
+    }
+
+    public moveDeckToMyDecks(deckId: string) {
+        return this.db.doc("decks/" + deckId).update({
+            classId: firebase.firestore.FieldValue.delete(),
+            users: {
+                [this.afAuth.auth.currentUser.uid] : {
+                    nickname: this.afAuth.auth.currentUser.displayName,
+                    owner: true
+                }}
+        });
+    }
 }

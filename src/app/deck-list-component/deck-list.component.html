@@ -11,7 +11,7 @@
                     <mat-list-item class="deck" *ngFor="let deck of this.decks">
                         <a class="deck-name" matLine [routerLink]="['/deck', deck.id]">{{ deck.name }}</a>
                         <button mat-raised-button color="primary" class="play-button" [routerLink]="['/play', deck.id]">
-                            Play
+                            <mat-icon style="color: white">play_arrow</mat-icon> <span>Play</span>
                         </button>
                     </mat-list-item>
                 </mat-nav-list>

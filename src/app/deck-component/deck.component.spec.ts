@@ -10,43 +10,37 @@ import {Deck} from "../deck/deck";
 import {ActivatedRoute} from "@angular/router";
 import {Card} from "../card/card";
 import {AppTestModule} from "../app.test.module";
+import {DeckServiceMock} from "../deck/deck.service.mock";
+import {AngularFireAuth} from "angularfire2/auth";
+import {ClassService} from "../class/class.service";
+import {ClassServiceMock} from "../class/class.service.mock";
 
 describe('DeckComponent', () => {
   let component: DeckComponent;
   let fixture: ComponentFixture<DeckComponent>;
 
-    let deckServiceStub: {
-        getDeck: (id) => Observable<Deck>,
-        getDeckCards: (id) => Observable<Card[]>
+    let mockFirebaseAuth = {
+        auth: {
+            currentUser: {
+                uid: "testuid"
+            }
+        }
     };
 
   beforeEach(async(() => {
-
-      deckServiceStub = {
-          getDeck: (id) => Observable.of({
-              name: "test deck"
-          }),
-          getDeckCards: (id) => Observable.of([
-              {
-                  word : "test word",
-                  synonym : "test synonym",
-                  antonym: "test antonym",
-                  general_sense: "test general_sense",
-                  example_usage: "test example_usage",
-              }
-          ])
-      };
 
     TestBed.configureTestingModule({
         imports: [SharedModule, AppTestModule],
         declarations: [],
         providers: [{provide: MATERIAL_COMPATIBILITY_MODE, useValue: true},
-            {provide: DeckService, useValue: deckServiceStub}, {
+            {provide: DeckService, useValue: new DeckServiceMock()},
+            {provide: ClassService, useValue: new ClassServiceMock()}, {
                 provide: ActivatedRoute,
                 useValue: {
                     params: Observable.of({id: "test id"})
                 }
-            }],
+            },
+            {provide: AngularFireAuth, useValue: mockFirebaseAuth}],
     })
     .compileComponents();
   }));
@@ -61,10 +55,4 @@ describe('DeckComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should load a deck', () => {
-
-      expect(component.deck).toEqual({
-          name: "test deck"
-      });
-  })
 });

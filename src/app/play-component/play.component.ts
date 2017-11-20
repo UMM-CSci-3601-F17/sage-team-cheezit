@@ -68,6 +68,7 @@ export class PlayComponent implements OnInit, OnDestroy {
     }
 
     public updateGame() {
+        if(this.cards.length == 0) return;
         console.log("update game called " + this.pageNumber);
         this.db.object('games/' + this.gameId).set({
             card: this.cards[this.pageNumber],
