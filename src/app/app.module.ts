@@ -20,7 +20,7 @@ import {CardComponent} from "./card-component/card.component";
 import {DeckListComponent} from "./deck-list-component/deck-list.component";
 import {DeckComponent} from "./deck-component/deck.component";
 import {DeckService} from "./deck/deck.service";
-import {PlayComponent} from "./play-component/play.component";
+import {GameJoinDialogComponent, PlayComponent} from "./play-component/play.component";
 import {MdDialog} from "@angular/material";
 import {NewCardDialogComponent} from "./new-card-dialog/new-card-dialog.component";
 import {NewDeckDialogComponent} from "./new-deck-dialog/new-deck-dialog.component";
@@ -67,6 +67,7 @@ import {JoinGameComponent} from "./join-game/join-game.component";
         PublicDecksComponent,
         SaveCardDialogComponent,
         JoinGameComponent,
+        GameJoinDialogComponent,
     ],
     entryComponents: [
         NewCardDialogComponent,
@@ -74,6 +75,7 @@ import {JoinGameComponent} from "./join-game/join-game.component";
         NewClassDialogComponent,
         NewDeckDialogComponent,
         SaveCardDialogComponent,
+        GameJoinDialogComponent,
     ],
     providers: [
         DeckService,
