@@ -40,16 +40,25 @@ export class DeckComponent implements OnInit, OnDestroy {
     public canEdit(): boolean {
         if (!this.deck) return false;
         if (this.deck.classId) {
-            return this.deck.studentEdit || this.classService.canEdit(this.deck.classId);
+            return this.deck.studentEdit || this.isTeacher();
         } else if (this.deck.users) {
             return this.deck.users[this.afAuth.auth.currentUser.uid] &&
                 this.deck.users[this.afAuth.auth.currentUser.uid].owner;
         }
     }
 
+    public isTeacher(): boolean {
+        if(!this.deck) return false;
+        return this.classService.isTeacher(this.deck.classId);
+    }
 
-    public studentEdit(canEdit: boolean){
-        return this.deckService.studentEdit(this.id, canEdit);
+    public deckOwner(): boolean {
+        return this.canEdit() && (!this.deck.classId || (this.deck.classId && this.isTeacher()));
+    }
+
+
+    public toggleStudentEdit(){
+        return this.deckService.studentEdit(this.id, !this.deck.studentEdit);
     }
 
     ngOnInit() {
