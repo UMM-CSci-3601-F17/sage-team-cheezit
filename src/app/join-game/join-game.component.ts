@@ -3,6 +3,8 @@ import {AngularFireDatabase} from "angularfire2/database";
 import {Card} from "../card/card";
 import {Observable} from "rxjs/Observable";
 import {componentDestroyed} from "ng2-rx-componentdestroyed";
+import {ActivatedRoute, Router} from "@angular/router";
+import {Location} from '@angular/common';
 
 @Component({
     selector: 'app-join-game',
@@ -11,7 +13,8 @@ import {componentDestroyed} from "ng2-rx-componentdestroyed";
 })
 export class JoinGameComponent implements OnInit, OnDestroy {
 
-    constructor(private db: AngularFireDatabase) {
+    constructor(private db: AngularFireDatabase,  private route: ActivatedRoute,
+                private router: Router, private location: Location) {
 
     }
 
@@ -27,6 +30,10 @@ export class JoinGameComponent implements OnInit, OnDestroy {
 
     public joinGame() {
         if(!this.gameId) return;
+        this.location.go(this
+            .router
+            .createUrlTree([], {relativeTo: this.route, queryParams: {id: this.gameId }})
+            .toString());
         this.game = this.db.object('games/' + this.gameId).valueChanges();
         this.game.takeUntil(componentDestroyed(this)).subscribe(ob => {
             if (ob) {
@@ -46,6 +53,15 @@ export class JoinGameComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
+
+        this.route.queryParams.subscribe(qp => {
+
+            if (qp['id']) {
+                this.gameId = qp['id'];
+                this.joinGame();
+            }
+
+        });
     }
 
     ngOnDestroy() {
