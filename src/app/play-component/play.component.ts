@@ -138,7 +138,7 @@ export class PlayComponent implements OnInit, OnDestroy {
     '<ngx-qrcode class="play-game-id-qrcode" qrc-element-type="url" [qrc-value]="this.data.gameURL"></ngx-qrcode>' +
     '</mat-dialog-content>' +
     '<mat-dialog-actions align="end">' +
-    '<button mat-button *ngIf="!this.canShare" ngxClipboard [cbContent]="this.gameURL" matTooltip="Copy URL"><mat-icon>content_copy</mat-icon></button>' +
+    '<button mat-button *ngIf="!this.canShare" ngxClipboard [cbContent]="this.data.gameURL" matTooltip="Copy URL"><mat-icon>content_copy</mat-icon></button>' +
     '<button mat-button *ngIf="this.canShare" (click)="this.browserShareInvite()"><mat-icon>share</mat-icon></button>' +
     '<button mat-button mat-dialog-close>Close</button>' +
     '</mat-dialog-actions>'
