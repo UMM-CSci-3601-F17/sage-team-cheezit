@@ -5,10 +5,10 @@
             <button mat-icon-button matTooltip="Play this Deck" [routerLink]="['/play', this.id]" [disabled]="this.cards.length == 0">
                 <mat-icon>play_arrow</mat-icon>
             </button>
-            <button mat-icon-button [matMenuTriggerFor]="menu" *ngIf="this.deckOwner()">
+            <button mat-icon-button [matMenuTriggerFor]="menu" *ngIf="!this.deck.isPublic && this.deckOwner()">
                 <mat-icon>more_vert</mat-icon>
             </button>
-            <mat-menu #menu="matMenu" *ngIf="this.deckOwner()">
+            <mat-menu #menu="matMenu" *ngIf="!this.deck.isPublic && this.deckOwner()">
                 <button mat-menu-item *ngIf="this.deck && this.deck.classId" (click)="this.toggleStudentEdit()">
                     <mat-icon>{{this.deck.studentEdit ? "lock_open" : "lock" }}</mat-icon>
                     <span>Student Editing {{this.deck.studentEdit ? "Enabled" : "Disabled" }}</span>
@@ -23,7 +23,7 @@
                 </button>
             </mat-menu>
 
-            <mat-menu #moveto="matMenu" *ngIf="this.deckOwner()">
+            <mat-menu #moveto="matMenu" *ngIf="!this.deck.isPublic && this.deckOwner()">
                 <button mat-menu-item [disabled]="this.deck.users" (click)="this.moveToMyDecks()">My Decks</button>
                 <button mat-menu-item *ngFor="let c of this.classService.classes | filterBy: ['users.' + this.afAuth.auth.currentUser.uid + '.teacher']: true"
                         [disabled]="this.deck.classId && this.deck.classId == c.id" (click)="this.moveToClass(c.id, c.name)">{{ c.name }}</button>

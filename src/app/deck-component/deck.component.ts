@@ -39,6 +39,7 @@ export class DeckComponent implements OnInit, OnDestroy {
 
     public canEdit(): boolean {
         if (!this.deck) return false;
+        if(this.deck.isPublic) return false;
         if (this.deck.classId) {
             return this.deck.studentEdit || this.isTeacher();
         } else if (this.deck.users) {
