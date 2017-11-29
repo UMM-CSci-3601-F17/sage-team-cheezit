@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {DeckService} from "../deck/deck.service";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {Deck} from "../deck/deck";
 import {NewCardDialogComponent} from "../new-card-dialog/new-card-dialog.component";
 import {MatDialog, MatSnackBar, MatChipInputEvent} from "@angular/material";
@@ -10,6 +10,7 @@ import {AngularFireAuth} from "angularfire2/auth";
 import {componentDestroyed} from "ng2-rx-componentdestroyed";
 import {SaveCardDialogComponent} from "../save-card-dialog/save-card-dialog.component";
 import {ENTER} from '@angular/cdk/keycodes';
+import {TdDialogService} from "@covalent/core";
 
 const COMMA = 188;
 
@@ -29,7 +30,7 @@ export class DeckComponent implements OnInit, OnDestroy {
 
     separatorKeysCodes = [ENTER, COMMA];
 
-    constructor(public afAuth: AngularFireAuth, public dialog: MatDialog, public deckService: DeckService, public snackBar: MatSnackBar, public classService: ClassService, private route: ActivatedRoute) {
+    constructor(private router: Router, public afAuth: AngularFireAuth, public dialog: MatDialog, public deckService: DeckService, public snackBar: MatSnackBar, public classService: ClassService, private route: ActivatedRoute, public tdDialog: TdDialogService) {
 
     }
 
@@ -75,7 +76,10 @@ export class DeckComponent implements OnInit, OnDestroy {
                 deck => {
                     console.log(deck);
                     this.deck = deck;
-                    if(deck.tags) this.tags = deck.tags;
+                    if(deck && deck.tags)
+                        this.tags = deck.tags;
+                    else
+                        this.tags = [];
                     this.loaded = true;
                 }
             );
@@ -108,6 +112,33 @@ export class DeckComponent implements OnInit, OnDestroy {
                 duration: 2000,
             });
         })
+    }
+
+    public deleteDeck(id:string): void {
+        this.tdDialog.openConfirm({
+            message: "Would you like to delete this deck?",
+            title: "Delete Deck",
+            acceptButton: "Delete",
+            cancelButton: "Cancel"
+        }).afterClosed().subscribe((accept: boolean) => {
+            if(accept) {
+                this.deckService.deleteDeck(id).then(
+                    succeeded => {
+                        console.log("succeeded: " + succeeded);
+                        this.router.navigate(['/']).then(() => {
+                            this.snackBar.open("Deleted Deck", null, {
+                                duration: 2000,
+                            });
+                        })
+                    },
+                    err => {
+                        console.log("error: " + err);
+                        this.snackBar.open("Error deleting deck", null, {
+                            duration: 2000,
+                        });
+                    });
+            }
+        });
     }
 
     public moveToMyDecks() {

@@ -3,7 +3,7 @@ import { CommonModule, } from '@angular/common';
 
 import {
     CovalentLayoutModule, CovalentStepsModule, CovalentCommonModule,
-    CovalentMessageModule /*, any other modules */
+    CovalentMessageModule, CovalentDialogsModule /*, any other modules */
 } from '@covalent/core';
 
 import {
@@ -67,6 +67,7 @@ const COVALENT_MODULES: any[] = [
     CovalentStepsModule,
     CovalentCommonModule,
     CovalentMessageModule,
+    CovalentDialogsModule,
 ];
 
 const OTHER_MODULES: any[] = [
