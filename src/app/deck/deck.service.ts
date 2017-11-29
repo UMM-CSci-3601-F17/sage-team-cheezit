@@ -63,7 +63,7 @@ export class DeckService {
         return this.getDeckCards(id, ref => ref.where("hidden", "==" , false))
     }
 
-    public addNewCard(deckID: string, word: string, synonym: string, antonym: string, general: string, example: string) {
+    public addNewCard(deckID: string, word: string, synonym: string[], antonym: string[], general: string[], example: string[]) {
         const body : Card = {
             word: word,
             synonym: synonym,
@@ -99,7 +99,7 @@ export class DeckService {
                 owner: true
             }}});
     }
-    public editCard(deckId: string, cardId: string, word: string, synonym: string, antonym: string, general: string, example: string) {
+    public editCard(deckId: string, cardId: string, word: string, synonym: string[], antonym: string[], general: string[], example: string[]) {
         const body = {
             word: word,
             synonym: synonym,
