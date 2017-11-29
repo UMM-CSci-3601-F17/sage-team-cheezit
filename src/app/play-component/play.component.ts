@@ -19,7 +19,6 @@ export class PlayComponent implements OnInit, OnDestroy {
     deckid : string;
 
     deck : Deck;
-    cards: Card[];
 
     private _pageNumber: number = 0;
 
@@ -58,7 +57,6 @@ export class PlayComponent implements OnInit, OnDestroy {
     constructor(public deckService : DeckService, private route: ActivatedRoute,
                 private db: AngularFireDatabase, public dialog: MatDialog,
                 private router: Router) {
-        this.cardStates = [];
         this.gameId = this.randNumDigits(6).toString();
         this.gameURL = document.location.origin + this.router.createUrlTree(['/joingame'], { queryParams: { id: this.gameId } }).toString();
 
@@ -68,19 +66,19 @@ export class PlayComponent implements OnInit, OnDestroy {
     }
 
     public updateGame() {
-        if(this.cards.length == 0) return;
+        if(this.cardStates.length == 0) return;
         console.log("update game called " + this.pageNumber);
         this.db.object('games/' + this.gameId).set({
-            card: this.cards[this.pageNumber],
+            card: this.cardStates[this.pageNumber].playCard,
             points: this.points,
-            selectedHints: this.getCardState(this.pageNumber).selectedCardHints
+            selectedHints: this.cardStates[this.pageNumber].selectedCardHints
         });
     }
 
 
     public addPoints(pageNumber : number): void {
 
-        if(this.cardStates[pageNumber].isComplete == false && pageNumber < this.cards.length){
+        if(this.cardStates[pageNumber].isComplete == false && pageNumber < this.cardStates.length){
             this.points += this.cardStates[pageNumber].cardPoints;
             this.cardStates[pageNumber].selectedCardHints = [];
             this.cardStates[pageNumber].isDone();
@@ -89,36 +87,22 @@ export class PlayComponent implements OnInit, OnDestroy {
         //this.updateGame();
     }
 
-    public getCardState(i:number): CardState{
-        //console.log("getCardState called");
-        if(this.cardStates[i] == null ) {
-            this.cardStates[i] = new CardState;
-        }
-        return this.cardStates[i];
-    }
-
 
     ngOnInit() {
 
         this.route.params.subscribe(params => {
             this.deckid = params['deck'];
 
-            this.deckService.getDeck(this.deckid).subscribe(
-                deck => {
-                    this.deck = deck;
-                }
-            );
-            
-            this.deckService.getDeckPlayCards(this.deckid).subscribe(cards => {
-            this.cards = cards;
-            this.updateGame();
+            this.deckService.getDeckPlayCards(this.deckid).take(1).subscribe(cards => { //take(1) means we are only getting it once so later changes don't apply
+                this.cardStates = cards.map(c => new CardState(c)); // maps incoming cards into card states
+                this.updateGame();
             });
         });
     }
 
     ngOnDestroy() {
         if(this.gameId)
-        this.db.object('games/' + this.gameId).remove();
+            this.db.object('games/' + this.gameId).remove();
     }
 
     showGameId() {
