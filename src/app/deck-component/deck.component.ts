@@ -114,7 +114,14 @@ export class DeckComponent implements OnInit, OnDestroy {
         })
     }
 
+    public getOriginalURL(): string {
+        if(this.deck.users) return "/mydecks";
+        if(this.deck.classId) return "/class/" + this.deck.classId;
+        return "/";
+    }
+
     public deleteDeck(id:string): void {
+        let origURL = this.getOriginalURL();
         this.tdDialog.openConfirm({
             message: "Would you like to delete this deck?",
             title: "Delete Deck",
@@ -125,7 +132,7 @@ export class DeckComponent implements OnInit, OnDestroy {
                 this.deckService.deleteDeck(id).then(
                     succeeded => {
                         console.log("succeeded: " + succeeded);
-                        this.router.navigate(['/']).then(() => {
+                        this.router.navigate([origURL]).then(() => {
                             this.snackBar.open("Deleted Deck", null, {
                                 duration: 2000,
                             });
