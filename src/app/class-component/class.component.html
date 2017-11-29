@@ -12,6 +12,7 @@
                         <p mat-line>{{ user.teacher ? "Teacher" : "Student"}}</p>
                     </mat-list-item>
                 </mat-list>
+                <button mat-icon-button *ngIf="!this.canEdit" (click)="leaveClass()"><mat-icon>backspace</mat-icon></button>
             </mat-card-content>
         </mat-card>
     </div>

@@ -39,6 +39,10 @@ export class ClassComponent implements OnInit, OnDestroy {
 
     public joinUrl: string = null;
 
+    leaveClass(){
+        this.classService.leaveClass(this.id);
+    }
+
     updateJoinUrl() {
         console.log("get join url called");
         if(!this.currentClass || !this.currentClass.joincode) this.joinUrl = null;

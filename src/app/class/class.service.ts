@@ -113,4 +113,8 @@ export class ClassService {
             });
     }
 
+    public leaveClass(classId: string){
+        return this.db.doc('classes/' + classId).update({["users." + this.afAuth.auth.currentUser.uid]: firebase.firestore.FieldValue.delete()});
+    }
+
 }
