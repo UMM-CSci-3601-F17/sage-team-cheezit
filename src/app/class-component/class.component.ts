@@ -43,8 +43,8 @@ export class ClassComponent implements OnInit, OnDestroy {
     public kickStudent(userId: string, userNickname: string, teacher: boolean) {
         this.classService.kickStudent(this.id, userId).then(result => {
             this.snackBar.open("Removed Student", "Undo", {
-                duration: 2000,
-            }).onAction(() => {
+                duration: 4000,
+            }).onAction().subscribe(() => {
                 this.classService.addUser(this.id, userId, userNickname, teacher);
             });
         }, err => {
