@@ -12,6 +12,8 @@
                         <p mat-line>{{ user.teacher ? "Teacher" : "Student"}}</p>
                     </mat-list-item>
                 </mat-list>
+
+                <button mat-button (click)="this.deleteClass()">Delete Class</button>
             </mat-card-content>
         </mat-card>
     </div>
