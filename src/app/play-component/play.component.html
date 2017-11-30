@@ -1,19 +1,27 @@
-<kb-page-slider *ngIf="this.deck && this.cards" [(page)]="this.pageNumber" (pageCountChange)="pageCount = $event;"
+<kb-page-slider *ngIf="this.deck && this.cards && this.cards.length != 0; else noCards" [(page)]="this.pageNumber"
+                (pageCountChange)="pageCount = $event;"
                 [showIndicator]="false" dotColor="black">
     <mat-toolbar color="primary"></mat-toolbar>
     <div *kbPages="let card of this.cards; let ind = index" [ngClass]="{'active-kb-page' : ind == this.pageNumber}">
-    <div class="margin" layout="row" layout-align="center start" layout-fill>
-        <div flex-gt-xs="70" flex-xs="90">
+        <div class="margin" layout="row" layout-align="center start" layout-fill>
+            <div flex-gt-xs="70" flex-xs="90">
 
 
-            <!--<app-card [card]="card"></app-card>!-->
-            <app-card class="play-card" [card]="card" [selected]="this.getCardState(ind).selectedCardHints"></app-card>
+                <!--<app-card [card]="card"></app-card>!-->
+                <app-card class="play-card" [card]="card"
+                          [selected]="this.getCardState(ind).selectedCardHints"></app-card>
 
-            <button class="hint-button" mat-raised-button color="primary" [disabled]="this.getCardState(ind).isComplete || !this.getCardState(ind).cardHints.length" (click)="this.getCardState(ind).randomizeSages(); this.updateGame()">Hint?</button>
-            <button class="got-it-button" mat-raised-button color="primary" [disabled]="this.getCardState(ind).isComplete" (click)="this.addPoints(ind)">Got It!</button> <span class="score">Score: {{this.points}}</span>
+                <button class="hint-button" mat-raised-button color="primary"
+                        [disabled]="this.getCardState(ind).isComplete || !this.getCardState(ind).cardHints.length"
+                        (click)="this.getCardState(ind).randomizeSages(); this.updateGame()">Hint?
+                </button>
+                <button class="got-it-button" mat-raised-button color="primary"
+                        [disabled]="this.getCardState(ind).isComplete" (click)="this.addPoints(ind)">Got It!
+                </button>
+                <span class="score">Score: {{this.points}}</span>
 
+            </div>
         </div>
-    </div>
     </div>
 
     <kb-nav-button id="backward-button" backward [showBackground]="true" hide-xs
@@ -23,4 +31,21 @@
                    [(page)]="this.pageNumber" [pageCount]="pageCount">
     </kb-nav-button>
 </kb-page-slider>
-<div class="game-id">{{this.gameId}}</div>
+<ng-template #noCards>
+    <mat-toolbar color="primary"></mat-toolbar>
+    <div class="margin" layout="row" layout-align="center start" layout-fill>
+        <div flex-gt-xs="70" flex-xs="90">
+            <mat-card>
+                <br>
+                <td-message class="no-cards-message" *ngIf="this.deck && this.cards" label="No Cards"
+                            sublabel="This deck is empty, please add cards to play">
+                </td-message>
+                <td-message class="no-deck-message" *ngIf="!this.deck" label="No Deck"
+                            sublabel="This deck does not exist">
+                </td-message>
+                <br>
+            </mat-card>
+        </div>
+    </div>
+</ng-template>
+<button mat-button class="game-id" (click)="this.showGameId()">Invite to Game</button>

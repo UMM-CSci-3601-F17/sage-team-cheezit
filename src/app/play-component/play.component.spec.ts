@@ -7,6 +7,7 @@ import {MATERIAL_COMPATIBILITY_MODE} from "@angular/material";
 import {DeckService} from "../deck/deck.service";
 import {ActivatedRoute} from "@angular/router";
 import {SharedModule} from "../shared.module";
+import {DeckServiceMock} from "../deck/deck.service.mock";
 import {CardComponent} from "../card-component/card.component";
 import {CardState} from "./CardState";
 import {Card} from "../card/card";
@@ -17,59 +18,20 @@ describe('PlayComponent', () => {
   let cardState: CardState;
   let fixture: ComponentFixture<PlayComponent>;
 
-    let deckServiceStub: {
-        getDeck: (id) => Observable<Deck>,
-        getDeckCards: (id) => Observable<Card[]>
-    };
+    beforeEach(async(() => {
 
-
-
-  beforeEach(async(() => {
-
-      deckServiceStub = {
-          getDeck: (id) => Observable.of({
-              name: "test deck"
-          }),
-          getDeckCards: (id) => Observable.of([
-                  {
-                      word : "test word",
-                      synonym : "test synonym",
-                      antonym: "test antonym",
-                      general_sense: "test general_sense",
-                      example_usage: "test example_usage",
-                  },
-
-                  {
-                      word : "test word",
-                      synonym : "test synonym",
-                      antonym: "test antonym",
-                      general_sense: "test general_sense",
-                      example_usage: "test example_usage",
-                  },
-
-                  {
-                      word : "test word",
-                      synonym : "test synonym",
-                      antonym: "test antonym",
-                      general_sense: "test general_sense",
-                      example_usage: "test example_usage",
-                  }
-              ])
-      };
-
-    TestBed.configureTestingModule({
-        imports: [SharedModule, AppTestModule],
-      declarations: [ ],
-        providers: [{provide: MATERIAL_COMPATIBILITY_MODE, useValue: true},
-            {provide: DeckService, useValue: deckServiceStub}, {
-                provide: ActivatedRoute,
-                useValue: {
-                    params: Observable.of({id: "test id"})
-                }
-            }],
-    })
-    .compileComponents();
-  }));
+        TestBed.configureTestingModule({
+            imports: [SharedModule, AppTestModule],
+            declarations: [],
+            providers: [{provide: MATERIAL_COMPATIBILITY_MODE, useValue: true},
+                {provide: DeckService, useValue: new DeckServiceMock()},
+                { provide: ActivatedRoute,
+                    useValue: {
+                        params: Observable.of({id: "test id"})
+                    } }],
+        })
+            .compileComponents();
+    }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(PlayComponent);

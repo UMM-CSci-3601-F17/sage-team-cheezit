@@ -78,6 +78,7 @@ export class DeckServiceMock {
                 antonym: "test antonym",
                 general_sense: "test general_sense",
                 example_usage: "test example_usage",
+                hidden: false
             },
             {
                 word : "test word",
@@ -85,6 +86,28 @@ export class DeckServiceMock {
                 antonym: "test antonym",
                 general_sense: "test general_sense",
                 example_usage: "test example_usage",
+                hidden: false,
+            }
+        ])
+    }
+
+    public getDeckPlayCards(id: string): Observable<Card[]> {
+        return Observable.of([
+            {
+                word : "test word",
+                synonym : "test synonym",
+                antonym: "test antonym",
+                general_sense: "test general_sense",
+                example_usage: "test example_usage",
+                hidden: false
+            },
+            {
+                word : "test word",
+                synonym : "test synonym",
+                antonym: "test antonym",
+                general_sense: "test general_sense",
+                example_usage: "test example_usage",
+                hidden: false,
             }
         ])
     }
@@ -99,6 +122,14 @@ export class DeckServiceMock {
 
     public addNewDeckUser(name: string) {
         return true;
+    }
+
+    public moveDeckToClass(deckId: string, classId: string) {
+        return Observable.of(true);
+    }
+
+    public moveDeckToMyDecks(deckId: string) {
+        return Observable.of(true);
     }
 
 }

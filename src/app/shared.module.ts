@@ -3,7 +3,7 @@ import { CommonModule, } from '@angular/common';
 
 import {
     CovalentLayoutModule, CovalentStepsModule, CovalentCommonModule,
-    CovalentMessageModule /*, any other modules */
+    CovalentMessageModule, CovalentDialogsModule /*, any other modules */
 } from '@covalent/core';
 
 import {
@@ -19,7 +19,9 @@ import {
     MdFormFieldModule,
     MatDialogModule,
     MdSnackBarModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatSlideToggleModule,
+    MatChipsModule,
 } from '@angular/material';
 
 import { FlexLayoutModule, } from '@angular/flex-layout';
@@ -56,6 +58,8 @@ const MATERIAL_MODULES: any[] = [
     MatDialogModule,
     MdSnackBarModule,
     MatExpansionModule,
+    MatSlideToggleModule,
+    MatChipsModule,
 ];
 
 const COVALENT_MODULES: any[] = [
@@ -63,6 +67,7 @@ const COVALENT_MODULES: any[] = [
     CovalentStepsModule,
     CovalentCommonModule,
     CovalentMessageModule,
+    CovalentDialogsModule,
 ];
 
 const OTHER_MODULES: any[] = [
