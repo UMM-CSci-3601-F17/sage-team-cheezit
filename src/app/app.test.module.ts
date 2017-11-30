@@ -8,7 +8,7 @@ import {
     MdSnackBar
 } from '@angular/material';
 
-
+//jkj
 import {HttpModule, JsonpModule} from '@angular/http';
 import {AppComponent} from './app.component';
 import {HomeComponent} from './home/home.component';
@@ -37,6 +37,7 @@ import {PublicDecksComponent} from "./public-decks/public-decks.component";
 import {SaveCardDialogComponent} from "./save-card-dialog/save-card-dialog.component";
 import {JoinGameComponent} from "./join-game/join-game.component";
 import {AngularFireDatabaseModule} from "angularfire2/database";
+import {HelpComponent} from "./help/help.component";
 
 @NgModule({
     imports: [
@@ -67,7 +68,8 @@ import {AngularFireDatabaseModule} from "angularfire2/database";
         GoogleSignInButtonComponent,
         PublicDecksComponent,
         SaveCardDialogComponent,
-        JoinGameComponent
+        JoinGameComponent,
+        HelpComponent
     ],
     entryComponents: [
         NewCardDialogComponent,
