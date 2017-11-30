@@ -98,7 +98,7 @@ export class PlayComponent implements OnInit, OnDestroy {
     }
 
     //https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array#2450976 && from Raymond Shayler, thanks guys!
-    public shuffle(array) {
+    public shuffle(array: any[]): any[] {
         let currentIndex = array.length;
         let  temporaryValue: number;
         let randomIndex: number;
