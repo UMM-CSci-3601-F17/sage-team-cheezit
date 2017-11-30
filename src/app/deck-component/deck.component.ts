@@ -80,7 +80,7 @@ export class DeckComponent implements OnInit, OnDestroy {
                 }
             );
 
-            this.deckService.getDeckCards(this.id).takeUntil(componentDestroyed(this)).subscribe(cards => {
+            this.deckService.getDeckCards(this.id, ref => ref.orderBy('word')).takeUntil(componentDestroyed(this)).subscribe(cards => {
                 console.log(cards);
                 this.cards = cards;
             });
