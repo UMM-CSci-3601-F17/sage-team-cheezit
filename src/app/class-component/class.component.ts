@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {DeckService} from "../deck/deck.service";
 import {AngularFireAuth} from "angularfire2/auth";
-import {MdDialog} from "@angular/material";
+import {MdDialog, MatSnackBar, MatChipInputEvent, MdSnackBarConfig} from "@angular/material";
 import {Deck} from "../deck/deck";
 import {ActivatedRoute, Router} from "@angular/router";
 import {NewDeckDialogComponent} from "../new-deck-dialog/new-deck-dialog.component";
@@ -25,7 +25,8 @@ export class ClassComponent implements OnInit, OnDestroy {
 
     constructor(public deckService: DeckService, public classService: ClassService,
                 public afAuth: AngularFireAuth, public dialog : MdDialog,
-                private route: ActivatedRoute, private router: Router) {
+                private route: ActivatedRoute, private router: Router,
+                public snackBar: MatSnackBar) {
 
     }
 
@@ -39,8 +40,18 @@ export class ClassComponent implements OnInit, OnDestroy {
 
     public joinUrl: string = null;
 
-    public kickStudent(userId: string) {
-        this.classService.kickStudent(this.id, userId);
+    public kickStudent(userId: string, userNickname: string, teacher: boolean) {
+        this.classService.kickStudent(this.id, userId).then(result => {
+            this.snackBar.open("Removed Student", "Undo", {
+                duration: 2000,
+            }).onAction(() => {
+                this.classService.addUser(this.id, userId, userNickname, teacher);
+            });
+        }, err => {
+            this.snackBar.open("Error removing student", null, {
+                duration: 2000,
+            });
+        })
     }
 
     updateJoinUrl() {

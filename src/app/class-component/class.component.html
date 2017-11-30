@@ -12,7 +12,7 @@
                         <button *ngIf="this.canEdit && !user.value.teacher" mat-icon-button matTooltip="Add as Teacher" (click)="addATeacher(user.key)" aria-label="Add a Teacher">
                             <mat-icon>add</mat-icon>
                         </button>
-                        <button mat-icon-button="" *ngIf="this.canEdit && !user.value.teacher" matTooltip="Remove Student from Class" (click)="kickStudent(user.key)"><mat-icon>backspace</mat-icon></button>
+                        <button mat-icon-button="" *ngIf="this.canEdit && user.key != this.afAuth.auth.currentUser.uid" matTooltip="Remove Student from Class" (click)="kickStudent(user.key, user.value.nickname, user.value.teacher)"><mat-icon>backspace</mat-icon></button>
                         <p mat-line>{{ user.value.teacher ? "Teacher" : "Student"}}</p>
                     </mat-list-item>
                 </mat-list>

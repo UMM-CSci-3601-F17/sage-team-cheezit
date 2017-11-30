@@ -122,4 +122,13 @@ export class ClassService {
         return this.db.doc('classes/' + classId).update({["users." + userId]: firebase.firestore.FieldValue.delete()})
     }
 
+    public addUser(classId:string, userId: string, userNickname: string, teacher: boolean) {
+        return this.db.doc('classes/' + classId).update({
+            ["users." + userId]: {
+                nickname: userNickname,
+                teacher: teacher
+            }
+        })
+    }
+
 }
