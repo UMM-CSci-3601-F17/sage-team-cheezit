@@ -38,6 +38,7 @@ import {PublicDecksComponent} from "./public-decks/public-decks.component";
 import {AngularFireDatabaseModule} from "angularfire2/database";
 import {JoinGameComponent} from "./join-game/join-game.component";
 import {MatChipsModule} from '@angular/material/chips';
+import {HelpComponent} from "./help/help.component";
 
 @NgModule({
     imports: [
@@ -69,6 +70,7 @@ import {MatChipsModule} from '@angular/material/chips';
         SaveCardDialogComponent,
         JoinGameComponent,
         GameJoinDialogComponent,
+        HelpComponent
     ],
     entryComponents: [
         NewCardDialogComponent,
