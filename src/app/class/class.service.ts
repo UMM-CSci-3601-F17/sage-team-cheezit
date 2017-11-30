@@ -118,4 +118,8 @@ export class ClassService {
             });
     }
 
+    public kickStudent(classId: string, userId: string){
+        return this.db.doc('classes/' + classId).update({["users." + userId]: firebase.firestore.FieldValue.delete()})
+    }
+
 }
