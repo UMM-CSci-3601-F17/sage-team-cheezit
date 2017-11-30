@@ -1,4 +1,4 @@
-# CSCI 3601 Production Template Fall 2017
+# ![](app-icon/text-logo.png)
 [![Build Status](https://travis-ci.org/UMM-CSci-3601-F17/sage-team-cheezit.svg?branch=master)](https://travis-ci.org/UMM-CSci-3601-F17/sage-team-cheezit)
 
 
