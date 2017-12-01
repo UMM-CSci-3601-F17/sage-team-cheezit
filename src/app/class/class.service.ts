@@ -4,6 +4,7 @@ import {Observable} from "rxjs/Observable";
 import {Class, ClassId} from "./class";
 import {AngularFireAuth} from "angularfire2/auth";
 import * as firebase from 'firebase/app';
+import {DeckService} from "../deck/deck.service";
 
 @Injectable()
 export class ClassService {
@@ -111,6 +112,11 @@ export class ClassService {
                     this.removeJoinCodefromUser();
                 });
             });
+    }
+
+
+    public deleteClass(classId: string) {
+        return this.db.doc('classes/' + classId).delete();
     }
 
 }

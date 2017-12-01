@@ -154,7 +154,6 @@ export class DeckService {
         });
     }
 
-
     public moveDeckToClass(deckId: string, classId: string) {
         return this.db.doc("decks/" + deckId).update({
             classId: classId,
