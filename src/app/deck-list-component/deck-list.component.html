@@ -1,11 +1,3 @@
-<!--<div layout-gt-sm="row">
-    <div flex-gt-xs="80" flex-offset-gt-xs="10" flex-xs="96" flex-offset-xs="2">
-
-        <mat-card>
-            <mat-card-title id="decks-title">{{ this.title }}</mat-card-title>
-            <mat-divider></mat-divider>
-            <mat-card-content> !-->
-
 
                 <mat-nav-list> <!-- *ngIf="this.deckService.decks; else decksError" -->
                     <mat-list-item class="deck" *ngFor="let deck of this.decks">
@@ -25,8 +17,5 @@
                         Please wait a bit and try again or start the server.
                     </p>
                 </ng-template>
-            <!--</mat-card-content>
-        </mat-card>
-    </div>
-</div>!-->
+
 
