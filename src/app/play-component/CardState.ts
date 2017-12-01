@@ -7,6 +7,7 @@ export class CardState {
     public cardHints: number[];
     public isComplete: boolean;
     public selectedCardHints: number[];
+    public emoji: string;
 
 
     constructor(){
@@ -14,6 +15,7 @@ export class CardState {
         this.cardHints = [1,2,3,4];
         this.isComplete = false;
         this.selectedCardHints = [];
+        this.emoji = "";
     }
 
     public randomizeSages(): void{

@@ -25,6 +25,7 @@ export class JoinGameComponent implements OnInit, OnDestroy {
     public card: Card;
     public points: number = 0;
     public selectedHints: number[] = [];
+    public emoji: string;
 
     game: Observable<any>;
 
@@ -43,6 +44,7 @@ export class JoinGameComponent implements OnInit, OnDestroy {
                     this.selectedHints = ob.selectedHints;
                 else
                     this.selectedHints = [];
+                this.emoji = ob.emoji;
             } else {
                 this.ngOnDestroy();
             }

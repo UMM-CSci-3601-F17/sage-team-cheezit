@@ -48,6 +48,8 @@ export class PlayComponent implements OnInit, OnDestroy {
 
 
 
+
+
     // from https://stackoverflow.com/a/41993719/8855259
 
     randNumDigits(digits: number) {
@@ -73,7 +75,8 @@ export class PlayComponent implements OnInit, OnDestroy {
         this.db.object('games/' + this.gameId).set({
             card: this.cards[this.pageNumber],
             points: this.points,
-            selectedHints: this.getCardState(this.pageNumber).selectedCardHints
+            selectedHints: this.getCardState(this.pageNumber).selectedCardHints,
+            emoji: this.getCardState(this.pageNumber).emoji
         });
     }
 
@@ -97,6 +100,11 @@ export class PlayComponent implements OnInit, OnDestroy {
         return this.cardStates[i];
     }
 
+    public updateEmoji(unicode: string, i: number) {
+        this.cardStates[i].emoji = unicode;
+        this.updateGame();
+    }
+
 
     ngOnInit() {
 
@@ -108,7 +116,7 @@ export class PlayComponent implements OnInit, OnDestroy {
                     this.deck = deck;
                 }
             );
-            
+
             this.deckService.getDeckPlayCards(this.deckid).subscribe(cards => {
             this.cards = cards;
             this.updateGame();
