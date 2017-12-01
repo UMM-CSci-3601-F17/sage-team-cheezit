@@ -28,6 +28,10 @@ $foreground: map-get($theme, foreground);
     }
 }
 
+.disabled-text {
+    color: mat-color($foreground, disabled-button);
+}
+
 .tag-chip {
     background-color: mat-color($mat-grey, 400) !important;
 }
