@@ -4,11 +4,11 @@
             <!--<h2 flex id="deck-header">{{ this.deck.name }}</h2>-->
             <h2 flex id="deck-header">
                 <mat-form-field *ngIf="editing">
-                    <input matInput *ngIf="this.canEdit" [required]="deck.name.length==0" #input type="text" placeholder="Deck Name" [(ngModel)]="this.deck.name">
+                    <input matInput *ngIf="this.deckOwner()" [required]="deck.name.length==0" #input type="text" placeholder="Deck Name" [(ngModel)]="this.deck.name">
                 </mat-form-field>
                 <button mat-button *ngIf="editing" (click)="updateDeckName();editing=!editing">Rename</button>
                 <span *ngIf="!editing">{{this.deck.name}}</span>
-                <button mat-icon-button *ngIf="!editing&&this.canEdit" matTooltip="Edit Deck Name" aria-label="Edit Deck Name" (click)="editing=!editing">
+                <button mat-icon-button *ngIf="!editing && this.deckOwner()" matTooltip="Edit Deck Name" aria-label="Edit Deck Name" (click)="editing=!editing">
                     <mat-icon>mode_edit</mat-icon>
                 </button>
             </h2>
