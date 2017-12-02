@@ -99,7 +99,16 @@ export class ClassComponent implements OnInit, OnDestroy {
     }
 
     public updateClass(): void {
-        this.classService.editClass(this.id, this.currentClass.name);
+        this.classService.editClass(this.id, this.currentClass.name).then(success=>{
+            this.snackBar.open("Updated Class Name", null, {
+                duration: 2000,
+            });
+            },
+            err => {
+            this.snackBar.open("Error Changing Class Name", null,{
+                duration: 2000,
+            });
+        });
     }
 
     public deleteClass(): void {
