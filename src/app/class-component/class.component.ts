@@ -10,6 +10,7 @@ import {componentDestroyed} from "ng2-rx-componentdestroyed";
 import {ClassService} from "../class/class.service";
 import {ISubscription} from "rxjs/Subscription";
 import {TdDialogService} from "@covalent/core";
+import {InlineEditComponent} from "../inline-edit-component/inline-edit.component";
 
 declare global {
     interface Navigator {
@@ -40,6 +41,8 @@ export class ClassComponent implements OnInit, OnDestroy {
     public canEdit: boolean = false;
 
     public joinUrl: string = null;
+
+    public editing: boolean = false;
 
     updateJoinUrl() {
         console.log("get join url called");
@@ -94,6 +97,10 @@ export class ClassComponent implements OnInit, OnDestroy {
 
     ngOnDestroy() {
         console.log("class destroyed");
+    }
+
+    public updateClass(): void {
+        this.classService.editClass(this.id, this.currentClass.name);
     }
 
     public deleteClass(): void {
