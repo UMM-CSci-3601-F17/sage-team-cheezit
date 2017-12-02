@@ -10,7 +10,6 @@ import {componentDestroyed} from "ng2-rx-componentdestroyed";
 import {ClassService} from "../class/class.service";
 import {ISubscription} from "rxjs/Subscription";
 import {TdDialogService} from "@covalent/core";
-import {InlineEditComponent} from "../inline-edit-component/inline-edit.component";
 
 declare global {
     interface Navigator {

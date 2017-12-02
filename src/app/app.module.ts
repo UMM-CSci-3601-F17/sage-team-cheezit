@@ -37,7 +37,6 @@ import {GoogleSignInButtonComponent} from "./google-sign-in-button/google-sign-i
 import {PublicDecksComponent} from "./public-decks/public-decks.component";
 import {AngularFireDatabaseModule} from "angularfire2/database";
 import {JoinGameComponent} from "./join-game/join-game.component";
-import {InlineEditComponent} from "./inline-edit-component/inline-edit.component";
 import {MatChipsModule} from '@angular/material/chips';
 
 
@@ -70,8 +69,7 @@ import {MatChipsModule} from '@angular/material/chips';
         PublicDecksComponent,
         SaveCardDialogComponent,
         JoinGameComponent,
-        GameJoinDialogComponent,
-        InlineEditComponent
+        GameJoinDialogComponent
     ],
     entryComponents: [
         NewCardDialogComponent,
