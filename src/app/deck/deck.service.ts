@@ -7,6 +7,8 @@ import {Card, CardId} from "../card/card";
 import {AngularFireAuth} from "angularfire2/auth";
 import {QueryFn} from "angularfire2/firestore/interfaces";
 import * as firebase from "firebase";
+import {snapshotChanges} from "angularfire2/database";
+import CollectionReference = firebase.firestore.CollectionReference;
 
 
 @Injectable()
@@ -117,6 +119,39 @@ export class DeckService {
         console.log(deckId);
         console.log(cardId);
         return this.db.doc('decks/' + deckId).collection('cards').doc(cardId).delete();
+    }
+
+    public deleteDeck(deckId: string){
+        return new Promise((resolve, reject) => {
+            this.deleteCollection(this.db.firestore.collection('decks/' + deckId + "/cards")).then(() => {
+                return this.db.doc('decks/' + deckId).delete().then(() => resolve()).catch(reject);
+                //resolve();
+            }).catch(reject)
+        });
+    }
+
+    /**
+     * Delete a collection, in batches of batchSize. Note that this does
+     * not recursively delete subcollections of documents in the collection
+     *
+     * from https://firebase.google.com/docs/firestore/manage-data/delete-data
+     */
+    private deleteCollection(collectionRef: CollectionReference) {
+        return new Promise((resolve, reject) => {
+            collectionRef.get()
+                .then((snapshot) => {
+
+                    // Delete documents in a batch
+                    var batch = this.db.firestore.batch();
+                    snapshot.docs.forEach(doc => {
+                        batch.delete(doc.ref);
+                    });
+
+                    return batch.commit().then(() => {
+                        resolve();
+                    });
+                }).catch(reject);
+        });
     }
 
     public moveDeckToClass(deckId: string, classId: string) {

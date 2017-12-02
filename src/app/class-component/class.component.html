@@ -1,4 +1,25 @@
-<app-deck-list *ngIf="this.currentClass && this.decks" [title]="this.currentClass.name" [decks]="this.decks" [canEdit]="this.canEdit"></app-deck-list>
+<div layout-gt-sm="row">
+    <div flex-gt-xs="80" flex-offset-gt-xs="10" flex-xs="96" flex-offset-xs="2">
+        <mat-card>
+            <div layout="row" layout-align="space-between center">
+            <mat-card-title flex id="decks-title" *ngIf="this.currentClass">{{ this.currentClass.name }}</mat-card-title>
+            <button mat-icon-button [matMenuTriggerFor]="menu">
+                <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+                <button *ngIf="this.canEdit" mat-menu-item (click)="this.deleteClass()">
+                    <mat-icon>delete</mat-icon>
+                    <span>Delete Class</span>
+                </button>
+            </mat-menu>
+            </div>
+            <mat-divider></mat-divider>
+            <mat-card-content>
+                <app-deck-list [decks]="this.decks" [canEdit]="this.canEdit"></app-deck-list>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>
 <div layout-gt-sm="row"  *ngIf="this.currentClass">
     <div flex-gt-xs="80" flex-offset-gt-xs="10" flex-xs="96" flex-offset-xs="2">
         <mat-card>
