@@ -177,4 +177,10 @@ export class DeckService {
             tags: newTags
         });
     }
+
+    public updateDeckName(deckId: string, newName: string){
+        return this.db.doc("decks/" + deckId).update({
+            name: newName
+        });
+    }
 }

@@ -26,6 +26,7 @@ export class DeckComponent implements OnInit, OnDestroy {
     cards: CardId[];
     loaded: boolean = false;
     tags: string[] = [];
+    editing: boolean = false;
 
 
     separatorKeysCodes = [ENTER, COMMA];
@@ -200,6 +201,10 @@ export class DeckComponent implements OnInit, OnDestroy {
 
     public updateTags() {
         this.deckService.updateTags(this.id, this.tags);
+    }
+
+    public updateDeckName() {
+        this.deckService.updateDeckName(this.id, this.deck.name);
     }
 
     ngOnDestroy() {
