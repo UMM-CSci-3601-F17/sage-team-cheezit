@@ -5,9 +5,9 @@
             <div layout="row" layout-align="space-between center">
                 <mat-card-title flex id="decks-title" *ngIf="this.currentClass">
                     <mat-form-field *ngIf="editing">
-                        <input matInput *ngIf="this.canEdit"[required]="currentClass.name.length==0" #input type="text" placeholder="Class Name" [(ngModel)]="this.currentClass.name">
+                        <input matInput *ngIf="this.canEdit" required #input type="text" placeholder="Class Name" [(ngModel)]="this.currentClass.name">
                     </mat-form-field>
-                    <button mat-button *ngIf="editing" (click)="updateClass();editing=!editing">Rename</button>
+                    <button mat-raised-button color="primary" *ngIf="editing" (click)="updateClass();editing=!editing">Save</button>
                         <span *ngIf="!editing">{{ this.currentClass.name }}</span>
                     <button *ngIf="!editing&&canEdit" mat-icon-button matTooltip="Edit card"  aria-label="Edit card" (click)="editing=!editing">
                         <mat-icon style="font-size:20px">mode_edit</mat-icon>
