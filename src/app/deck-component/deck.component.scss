@@ -35,3 +35,8 @@ $foreground: map-get($theme, foreground);
 .tag-chip {
     background-color: mat-color($mat-grey, 400) !important;
 }
+
+#card-history {
+    margin-top: 12px;
+    font-size: 89%;
+}

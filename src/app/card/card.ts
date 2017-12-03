@@ -10,8 +10,8 @@ export interface Card {
     example_usage: string,
     hidden: boolean,
     history?: {
-        userCreated: string,
-        timeCreated: Date,
+        userCreated?: string,
+        timeCreated?: Date,
         userEdited?: string,
         timeEdited?: Date
     }
