@@ -6,7 +6,7 @@
                 <mat-form-field *ngIf="editing">
                     <input matInput *ngIf="this.deckOwner()" #input type="text" placeholder="Deck Name" [(ngModel)]="this.deck.name">
                 </mat-form-field>
-                <button mat-raised-button="" color="primary" *ngIf="editing" [disabled]="deck.name.length==0" (click)="updateDeckName();editing=!editing">Save</button>
+                <button mat-icon-button="" *ngIf="editing" [disabled]="deck.name.length==0" (click)="updateDeckName();editing=!editing"><mat-icon>save</mat-icon></button>
                 <span *ngIf="!editing">{{this.deck.name}}</span>
                 <button mat-icon-button *ngIf="!editing && this.deckOwner()" aria-label="Edit Deck Name" (click)="editing=!editing">
                     <mat-icon id="edit-button" matTooltip="Edit Deck Name" style="font-size:20px">mode_edit</mat-icon>
