@@ -100,12 +100,12 @@ export class ClassComponent implements OnInit, OnDestroy {
 
     public renameClass(): void {
         this.classService.updateClassName(this.id, this.currentClass.name).then(success=>{
-            this.snackBar.open("Updated Class Name", null, {
+            this.snackBar.open("Renamed class", null, {
                 duration: 2000,
             });
             },
             err => {
-            this.snackBar.open("Error Changing Class Name", null,{
+            this.snackBar.open("Error renaming class", null,{
                 duration: 2000,
             });
         });
@@ -125,7 +125,7 @@ export class ClassComponent implements OnInit, OnDestroy {
                     succeeded => {
                         console.log("succeeded: " + succeeded);
                         this.router.navigate(['/']).then(() => {
-                            this.snackBar.open("Deleted Class", null, {
+                            this.snackBar.open("Deleted class", null, {
                                 duration: 2000,
                             });
                         })
