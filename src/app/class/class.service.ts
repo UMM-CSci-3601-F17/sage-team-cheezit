@@ -114,7 +114,7 @@ export class ClassService {
             });
     }
 
-    public editClass(classId: string, newClassName: string){
+    public updateClassName(classId: string, newClassName: string){
         return this.db.doc('classes/' + classId).update({
             name:newClassName
         });

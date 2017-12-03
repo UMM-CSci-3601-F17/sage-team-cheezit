@@ -98,8 +98,8 @@ export class ClassComponent implements OnInit, OnDestroy {
         console.log("class destroyed");
     }
 
-    public updateClass(): void {
-        this.classService.editClass(this.id, this.currentClass.name).then(success=>{
+    public renameClass(): void {
+        this.classService.updateClassName(this.id, this.currentClass.name).then(success=>{
             this.snackBar.open("Updated Class Name", null, {
                 duration: 2000,
             });
