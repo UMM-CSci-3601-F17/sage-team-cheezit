@@ -4,8 +4,8 @@
         <mat-card>
             <div layout="row" layout-align="space-between center">
                 <mat-card-title flex id="decks-title" *ngIf="this.currentClass">
-                    <mat-form-field id="class-edit-field" *ngIf="editing">
-                        <input matInput *ngIf="this.canEdit" #input type="text" placeholder="Class Name" [(ngModel)]="this.currentClass.name">
+                    <mat-form-field class="class-edit-field" id="class-edit-field" *ngIf="editing">
+                        <input matInput *ngIf="this.canEdit" #input type="text" matTooltip="Type New Name" [(ngModel)]="this.currentClass.name">
                     </mat-form-field>
                     <button mat-icon-button matTooltip="Update Class Name" id="class-save-button" *ngIf="editing" [disabled]="currentClass.name.length==0" (click)="renameClass();editing=!editing">
                         <mat-icon>save</mat-icon>

@@ -13,3 +13,7 @@
 #class-save-button{
     width: 2.5%;
 }
+.mat-form-field.class-edit-field{
+    margin-top:-30px;
+    margin-bottom:-30px;
+}
