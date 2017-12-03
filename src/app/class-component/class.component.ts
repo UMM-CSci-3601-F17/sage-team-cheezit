@@ -42,7 +42,9 @@ export class ClassComponent implements OnInit, OnDestroy {
     public joinUrl: string = null;
 
     leaveClass(){
-        this.classService.leaveClass(this.id);
+        this.classService.leaveClass(this.id).then(succeeded => {
+            this.router.navigate(['/'])
+        });
     }
 
     updateJoinUrl() {
