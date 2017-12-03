@@ -1,8 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset='utf-8'>
-</head>
+
 <kb-page-slider *ngIf="this.deck && this.cards && this.cards.length != 0; else noCards" [(page)]="this.pageNumber"
                 (pageCountChange)="pageCount = $event;"
                 [showIndicator]="false" dotColor="black">
@@ -25,20 +21,17 @@
                 <span class="score">Score: {{this.points}}</span>
 
                 <section>
+                    <button class="emoji" mat-icon-button (click)="this.updateEmoji('😁', ind)">
+                        <p>😁</p></button>
 
-                    <link href="https://afeld.github.io/emoji-css/emoji.css" rel="stylesheet">
+                    <button class="emoji" mat-icon-button (click)="this.updateEmoji('👍	', ind)">
+                        <p>👍	</p></button>
 
-                    <button class="emoji" mat-icon-button (click)="this.updateEmoji('😀', ind)">
-                        <p>😀</p></button>
+                    <button class="emoji" mat-icon-button (click)="this.updateEmoji('🌟', ind)">
+                        <p>🌟</p></button>
 
-                    <!--<button class="emoji" mat-icon-button (click)="this.updateEmojiState('bowtie')">
-                        <i class="em em-astonished"></i></button>
-
-                    <button class="emoji" mat-icon-button (click)="this.updateEmojiState('clap')">
-                        <i class="em em-clap"></i></button>
-
-                    <button class="emoji" mat-icon-button (click)="this.updateEmojiState('plus1')">
-                        <i class="em em-&#45;&#45;1"></i></button>-->
+                    <button class="emoji" mat-icon-button (click)="this.updateEmoji('😎', ind)">
+                        <p>😎</p></button>
                 </section>
             </div>
         </div>
@@ -72,4 +65,4 @@
     </div>
 </ng-template>
 <button mat-button class="game-id" (click)="this.showGameId()">Invite to Game</button>
-</html>
+
