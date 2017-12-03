@@ -1,5 +1,5 @@
 button{
-    width: 60%;
+    width: 75%;
     height: 50px;
     max-width: 500px;
     font-size: 16pt;
@@ -8,11 +8,13 @@ button{
 .list-buttons {
     text-align: center;
     margin: 25px;
+    word-wrap: break-word;
 }
 
 .logo-holder{
     text-align: center;
-    margin: 25px;
+    margin-top: 50px;
+    margin-bottom: 50px;
 }
 
 #logo{
