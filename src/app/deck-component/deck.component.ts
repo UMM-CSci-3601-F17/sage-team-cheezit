@@ -205,11 +205,11 @@ export class DeckComponent implements OnInit, OnDestroy {
 
     public updateDeckName() {
         this.deckService.updateDeckName(this.id, this.deck.name).then(result => {
-            this.snackBar.open("Changed deck name", null, {
+            this.snackBar.open("Updated Deck Name", null, {
                 duration: 2000,
             });
         }, err => {
-            this.snackBar.open("Error changing deck name", null, {
+            this.snackBar.open("Error Changing Deck Name", null, {
                 duration: 2000,
             });
         })
