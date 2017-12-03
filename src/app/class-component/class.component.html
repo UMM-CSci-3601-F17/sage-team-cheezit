@@ -10,7 +10,7 @@
                     <button mat-raised-button color="primary" *ngIf="editing" [disabled]="currentClass.name.length==0" (click)="renameClass();editing=!editing">Save</button>
                         <span *ngIf="!editing">{{ this.currentClass.name }}</span>
                     <button *ngIf="!editing&&canEdit" mat-icon-button  aria-label="Edit card" (click)="editing=!editing">
-                        <mat-icon style="font-size:20px" matTooltip="Edit card" id="edit-button">mode_edit</mat-icon>
+                        <mat-icon style="font-size:20px" matTooltip="Edit Class Name" id="edit-button">mode_edit</mat-icon>
                     </button>
                 </mat-card-title>
 
