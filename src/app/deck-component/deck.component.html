@@ -77,6 +77,10 @@
                     <div class="card-desc">Example usage:</div>
                     <div class="card-cont">{{ card.example_usage }}</div>
                 </div>
+                <div *ngIf="card.history && this.deck.classId && this.deckOwner()" class="card-history disabled-text">
+                    <div *ngIf="card.history.timeCreated && card.history.userCreated">Created {{ card.history.timeCreated | timeAgo }} by {{card.history.userCreated}}</div>
+                    <div *ngIf="card.history.timeEdited && card.history.userEdited">Edited {{card.history.timeEdited | timeAgo}} by {{card.history.userEdited}}</div>
+                </div>
                 <mat-action-row *ngIf="this.canEdit()">
                     <mat-slide-toggle color=primary [checked]="this.card.hidden"
                                       (change)="this.cardHide(card.id, $event.checked)" style="margin-top: 12px;">Hide
