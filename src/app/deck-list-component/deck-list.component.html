@@ -1,6 +1,6 @@
 <mat-nav-list> <!-- *ngIf="this.deckService.decks; else decksError" -->
     <td-message class="no-decks-message" *ngIf="this.decks && this.decks.length == 0" label="No Decks"
-                sublabel="The deck list is empty, tap + to add cards.">
+                sublabel="The deck list is empty, tap + to add a deck.">
     </td-message>
     <mat-list-item class="deck" *ngFor="let deck of this.decks">
         <a class="deck-name" matLine [routerLink]="['/deck', deck.id]">{{ deck.name }}</a>
