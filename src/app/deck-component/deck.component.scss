@@ -36,7 +36,7 @@ $foreground: map-get($theme, foreground);
     background-color: mat-color($mat-grey, 400) !important;
 }
 
-#card-history {
-    margin-top: 12px;
+.card-history {
+    margin-top: 8px;
     font-size: 89%;
 }
