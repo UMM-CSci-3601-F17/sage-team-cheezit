@@ -71,7 +71,7 @@ import {KeyValuePipe} from "./util/key-value-pipe";
         PublicDecksComponent,
         SaveCardDialogComponent,
         JoinGameComponent,
-        HelpComponent
+        HelpComponent,
         JoinGameComponent,
         EditableTextComponent,
         KeyValuePipe

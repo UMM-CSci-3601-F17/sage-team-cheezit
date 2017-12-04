@@ -73,7 +73,7 @@ import {EditableTextComponent} from "./editable-text/editable-text.component";
         SaveCardDialogComponent,
         JoinGameComponent,
         GameJoinDialogComponent,
-        HelpComponent
+        HelpComponent,
         KeyValuePipe,
         EditableTextComponent
     ],
