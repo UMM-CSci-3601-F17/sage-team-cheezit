@@ -20,7 +20,7 @@ declare global {
 @Component({
   selector: 'app-class',
   templateUrl: './class.component.html',
-  styleUrls: ['./class.component.css']
+  styleUrls: ['./class.component.scss']
 })
 export class ClassComponent implements OnInit, OnDestroy {
 
@@ -40,8 +40,6 @@ export class ClassComponent implements OnInit, OnDestroy {
     public canEdit: boolean = false;
 
     public joinUrl: string = null;
-
-    public editing: boolean = false;
 
     updateJoinUrl() {
         console.log("get join url called");
@@ -98,8 +96,8 @@ export class ClassComponent implements OnInit, OnDestroy {
         console.log("class destroyed");
     }
 
-    public renameClass(): void {
-        this.classService.updateClassName(this.id, this.currentClass.name).then(success=>{
+    public renameClass(name: string): void {
+        this.classService.updateClassName(this.id, name).then(success=>{
             this.snackBar.open("Renamed class", null, {
                 duration: 2000,
             });

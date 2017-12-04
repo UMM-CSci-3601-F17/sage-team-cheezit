@@ -1,22 +1,7 @@
-
 <div layout-gt-sm="row">
     <div flex-gt-xs="80" flex-offset-gt-xs="10" flex-xs="96" flex-offset-xs="2">
         <mat-card>
-            <div layout="row" layout-align="space-between center">
-                <mat-card-title flex id="decks-title" *ngIf="this.currentClass">
-                    <mat-form-field class="class-edit-field" id="class-edit-field" *ngIf="editing">
-                        <input matInput *ngIf="this.canEdit" #input type="text" matTooltip="Type New Name" [(ngModel)]="this.currentClass.name">
-                    </mat-form-field>
-                    <button mat-icon-button matTooltip="Update Class Name" id="class-save-button" *ngIf="editing" [disabled]="currentClass.name.length==0" (click)="renameClass();editing=!editing">
-                        <mat-icon>save</mat-icon>
-                    </button>
-                        <span *ngIf="!editing">{{ this.currentClass.name }}</span>
-                    <button *ngIf="!editing&&canEdit" mat-icon-button  aria-label="Edit card" (click)="editing=!editing">
-                        <mat-icon style="font-size:20px" matTooltip="Edit Class Name" id="edit-button">mode_edit</mat-icon>
-                    </button>
-                </mat-card-title>
-
-            <button mat-icon-button [matMenuTriggerFor]="menu">
+            <button mat-icon-button [matMenuTriggerFor]="menu" class="card-top-right-button">
                 <mat-icon>more_vert</mat-icon>
             </button>
             <mat-menu #menu="matMenu">
@@ -25,7 +10,9 @@
                     <span>Delete Class</span>
                 </button>
             </mat-menu>
-            </div>
+                <mat-card-title flex class="decks-title" *ngIf="this.currentClass">
+                    <app-editable-text [canEdit]="this.canEdit" [text]="this.currentClass.name" (saveEvent)="this.renameClass($event)"></app-editable-text>
+                </mat-card-title>
             <mat-divider></mat-divider>
             <mat-card-content>
                 <app-deck-list [decks]="this.decks" [canEdit]="this.canEdit"></app-deck-list>
