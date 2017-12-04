@@ -120,7 +120,7 @@ export class DeckComponent implements OnInit, OnDestroy {
         return "/";
     }
 
-    public deleteDeck(id:string): void {
+    public deleteDeck(): void {
         let origURL = this.getOriginalURL();
         this.tdDialog.openConfirm({
             message: "Would you like to delete this deck?",
@@ -129,7 +129,7 @@ export class DeckComponent implements OnInit, OnDestroy {
             cancelButton: "Cancel"
         }).afterClosed().subscribe((accept: boolean) => {
             if(accept) {
-                this.deckService.deleteDeck(id).then(
+                this.deckService.deleteDeck(this.id).then(
                     succeeded => {
                         console.log("succeeded: " + succeeded);
                         this.router.navigate([origURL]).then(() => {

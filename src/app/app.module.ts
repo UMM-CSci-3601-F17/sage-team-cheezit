@@ -39,6 +39,8 @@ import {AngularFireDatabaseModule} from "angularfire2/database";
 import {JoinGameComponent} from "./join-game/join-game.component";
 import {MatChipsModule} from '@angular/material/chips';
 import {KeyValuePipe} from "./util/key-value-pipe";
+import {EditableTextComponent} from "./editable-text/editable-text.component";
+
 
 @NgModule({
     imports: [
@@ -71,6 +73,7 @@ import {KeyValuePipe} from "./util/key-value-pipe";
         JoinGameComponent,
         GameJoinDialogComponent,
         KeyValuePipe,
+        EditableTextComponent
     ],
     entryComponents: [
         NewCardDialogComponent,
