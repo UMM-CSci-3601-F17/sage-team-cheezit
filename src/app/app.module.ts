@@ -38,6 +38,7 @@ import {PublicDecksComponent} from "./public-decks/public-decks.component";
 import {AngularFireDatabaseModule} from "angularfire2/database";
 import {JoinGameComponent} from "./join-game/join-game.component";
 import {MatChipsModule} from '@angular/material/chips';
+import {HelpComponent} from "./help/help.component";
 import {KeyValuePipe} from "./util/key-value-pipe";
 import {EditableTextComponent} from "./editable-text/editable-text.component";
 
@@ -72,6 +73,7 @@ import {EditableTextComponent} from "./editable-text/editable-text.component";
         SaveCardDialogComponent,
         JoinGameComponent,
         GameJoinDialogComponent,
+        HelpComponent,
         KeyValuePipe,
         EditableTextComponent
     ],

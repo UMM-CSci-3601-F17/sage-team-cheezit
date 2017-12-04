@@ -1,22 +1,31 @@
 <div layout-gt-sm="row">
     <div flex-gt-sm="80" flex-offset-gt-sm="10">
-        <mat-card>
-            <mat-card-title>Welcome{{ this.afAuth.auth.currentUser ? " back" : ""}} to SAGE</mat-card-title>
-            <mat-card-subtitle></mat-card-subtitle>
-            <mat-divider></mat-divider>
-            <mat-card-content>
-                <h3>SAGE is a interactive vocabulary game</h3>
-                <h4>Rules:</h4>
-                <ul>
-                    <li>Don't show the person you are playing with the card.</li>
-                    <li>If the person you are playing with asks for a hint press the hint button.</li>
-                    <li>If the person you are playing with doesn't know the answer go to the next card.</li>
-                    <li>If the person you are playing with wants to know their points you can tell them.</li>
-                    <li>Have Fun!</li>
-                </ul>
-                <h3 *ngIf="!afAuth.auth.currentUser">If you want to create your own decks and join classes sign in below</h3>
-                <app-google-sign-in-button *ngIf="!afAuth.auth.currentUser"></app-google-sign-in-button>
-            </mat-card-content>
-        </mat-card>
+        <div class="logo-holder">
+            <img class="logo" src="assets/text-logo.svg" alt="logo" title="sage-logo">
+        </div>
+        <div class="list-buttons">
+            <app-google-sign-in-button *ngIf="!afAuth.auth.currentUser" class="sign-in-button"></app-google-sign-in-button>
+        </div>
+        <div class="list-buttons">
+            <button *ngIf="afAuth.auth.currentUser" class="my-decks-button" mat-raised-button color="primary"
+                    [routerLink]="['/mydecks']">
+                My Decks
+            </button>
+        </div>
+        <div class="list-buttons">
+            <button class="public-deck-button" mat-raised-button color="primary" [routerLink]="['/publicdecks']">
+                Public Decks
+            </button>
+        </div>
+        <div class="list-buttons">
+            <button class="play-button" mat-raised-button color="primary" [routerLink]="['/joingame']">
+                Join Game
+            </button>
+        </div>
+        <div class="list-buttons">
+            <button class="settings-button" mat-raised-button color="primary" [routerLink]="['/help']">
+                Help
+            </button>
+        </div>
     </div>
 </div>
