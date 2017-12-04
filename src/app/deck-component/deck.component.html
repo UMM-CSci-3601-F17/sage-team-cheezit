@@ -1,7 +1,9 @@
 <div layout="row" layout-align="center start" *ngIf="this.deck; else noDeck">
     <div flex-gt-xs="80" flex-xs="90" *ngIf="this.cards">
         <div layout="row" layout-align="space-between center">
-            <h2 flex id="deck-header">{{ this.deck.name }}</h2>
+            <h2 flex id="deck-header">
+                <app-editable-text [canEdit]="this.deckOwner()" [text]="this.deck.name" (saveEvent)="this.renameDeck($event)"></app-editable-text>
+            </h2>
             <button mat-icon-button matTooltip="Play this Deck" [routerLink]="['/play', this.id]"
                     [disabled]="this.cards.length == 0">
                 <mat-icon>play_arrow</mat-icon>
