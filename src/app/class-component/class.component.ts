@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {DeckService} from "../deck/deck.service";
 import {AngularFireAuth} from "angularfire2/auth";
-import {MdDialog, MatSnackBar} from "@angular/material";
+import {MdDialog, MatSnackBar, MatChipInputEvent, MdSnackBarConfig} from "@angular/material";
 import {Deck, DeckId} from "../deck/deck";
 import {ActivatedRoute, Router} from "@angular/router";
 import {NewDeckDialogComponent} from "../new-deck-dialog/new-deck-dialog.component";
@@ -40,6 +40,20 @@ export class ClassComponent implements OnInit, OnDestroy {
     public canEdit: boolean = false;
 
     public joinUrl: string = null;
+
+    public kickStudent(userId: string, userNickname: string, teacher: boolean) {
+        this.classService.kickStudent(this.id, userId).then(result => {
+            this.snackBar.open("Removed Student", "Undo", {
+                duration: 4000,
+            }).onAction().subscribe(() => {
+                this.classService.addUser(this.id, userId, userNickname, teacher);
+            });
+        }, err => {
+            this.snackBar.open("Error removing student", null, {
+                duration: 2000,
+            });
+        })
+    }
 
     updateJoinUrl() {
         console.log("get join url called");
@@ -107,6 +121,10 @@ export class ClassComponent implements OnInit, OnDestroy {
                 duration: 2000,
             });
         });
+    }
+
+    public setTeacher(studentId: string, teacher: boolean){
+        return this.classService.setTeacher(this.id, studentId, teacher);
     }
 
     public deleteClass(): void {

@@ -27,10 +27,21 @@
             <mat-divider></mat-divider>
             <mat-card-content>
                 <mat-list>
-                    <mat-list-item *ngFor="let user of this.currentClass.users | values | orderBy: '-teacher'">
+                    <mat-list-item *ngFor="let user of this.currentClass.users | keyvalue | orderBy: '-value.teacher' ">
                         <mat-icon mat-list-icon>account_circle</mat-icon>
-                        <h4 mat-line>{{ user.nickname }}</h4>
-                        <p mat-line>{{ user.teacher ? "Teacher" : "Student"}}</p>
+                        <h4 mat-line>{{ user.value.nickname }}</h4>
+                        <button *ngIf="this.canEdit && user.key != this.afAuth.auth.currentUser.uid" mat-icon-button [matMenuTriggerFor]="menu" >
+                            <mat-icon>more_vert</mat-icon>
+                        </button>
+                        <mat-menu #menu="matMenu">
+                            <button mat-menu-item (click)="this.setTeacher(user.key, !user.value.teacher)">
+                                <span>{{user.value.teacher ? "Set as student" : "Set as teacher"}}</span>
+                            </button>
+                            <button mat-menu-item (click)="kickStudent(user.key, user.value.nickname, user.value.teacher)">
+                                <span>Remove User</span>
+                            </button>
+                        </mat-menu>
+                        <p mat-line>{{ user.value.teacher ? "Teacher" : "Student"}}</p>
                     </mat-list-item>
                 </mat-list>
 

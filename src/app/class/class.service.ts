@@ -75,6 +75,11 @@ export class ClassService {
         });
     }
 
+    /*public addATeacher(id: string, studentid: string){
+        console.log(studentid);
+        return this.db.doc('classes/' + id).update({["users." + studentid + ".teacher"] : true});
+    }*/
+
     public addNewClass(name: string) {
         if(this.afAuth.auth.currentUser == null) return;
         let classCollection = this.db.collection<Class>('classes');
@@ -114,6 +119,19 @@ export class ClassService {
             });
     }
 
+    public kickStudent(classId: string, userId: string){
+        return this.db.doc('classes/' + classId).update({["users." + userId]: firebase.firestore.FieldValue.delete()})
+    }
+
+    public addUser(classId:string, userId: string, userNickname: string, teacher: boolean) {
+        return this.db.doc('classes/' + classId).update({
+            ["users." + userId]: {
+                nickname: userNickname,
+                teacher: teacher
+            }
+        })
+    }
+
     public updateClassName(classId: string, newClassName: string){
         return this.db.doc('classes/' + classId).update({
             name:newClassName
@@ -123,6 +141,10 @@ export class ClassService {
 
     public deleteClass(classId: string) {
         return this.db.doc('classes/' + classId).delete();
+    }
+
+    public setTeacher(classId: string, studentId: string, canEdit: boolean){
+        return this.db.doc('classes/' + classId).update({["users." + studentId + ".teacher"] : canEdit});
     }
 
 }
