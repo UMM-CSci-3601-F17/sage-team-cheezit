@@ -31,8 +31,3 @@ $foreground: map-get($theme, foreground);
 .tag-chip {
     background-color: mat-color($mat-grey, 400) !important;
 }
-
-#edit-button{
-    margin-bottom: 12px;
-    margin-right: 16px;
-}
