@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule }  from '@angular/platform-browser';
+import {BrowserModule, DomSanitizer} from '@angular/platform-browser';
 
 import {environment} from '../environments/environment';
 
@@ -21,7 +21,7 @@ import {DeckListComponent} from "./deck-list-component/deck-list.component";
 import {DeckComponent} from "./deck-component/deck.component";
 import {DeckService} from "./deck/deck.service";
 import {GameJoinDialogComponent, PlayComponent} from "./play-component/play.component";
-import {MdDialog} from "@angular/material";
+import {MdDialog, MatIconRegistry} from "@angular/material";
 import {NewCardDialogComponent} from "./new-card-dialog/new-card-dialog.component";
 import {NewDeckDialogComponent} from "./new-deck-dialog/new-deck-dialog.component";
 import {SaveCardDialogComponent} from './save-card-dialog/save-card-dialog.component';
@@ -95,4 +95,7 @@ import {EditableTextComponent} from "./editable-text/editable-text.component";
 })
 
 export class AppModule {
+    constructor(matIconRegistry: MatIconRegistry, domSanitizer: DomSanitizer){
+        matIconRegistry.addSvgIconSet(domSanitizer.bypassSecurityTrustResourceUrl('./assets/mdi.svg')); // Or whatever path you placed mdi.svg at
+    }
 }

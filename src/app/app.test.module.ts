@@ -38,6 +38,7 @@ import {SaveCardDialogComponent} from "./save-card-dialog/save-card-dialog.compo
 import {JoinGameComponent} from "./join-game/join-game.component";
 import {AngularFireDatabaseModule} from "angularfire2/database";
 import {EditableTextComponent} from "./editable-text/editable-text.component";
+import {KeyValuePipe} from "./util/key-value-pipe";
 
 @NgModule({
     imports: [
@@ -69,7 +70,8 @@ import {EditableTextComponent} from "./editable-text/editable-text.component";
         PublicDecksComponent,
         SaveCardDialogComponent,
         JoinGameComponent,
-        EditableTextComponent
+        EditableTextComponent,
+        KeyValuePipe
     ],
     entryComponents: [
         NewCardDialogComponent,
