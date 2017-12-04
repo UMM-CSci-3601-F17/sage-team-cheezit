@@ -7,6 +7,8 @@ import {Card, CardId} from "../card/card";
 import {AngularFireAuth} from "angularfire2/auth";
 import {QueryFn} from "angularfire2/firestore/interfaces";
 import * as firebase from "firebase";
+import {snapshotChanges} from "angularfire2/database";
+import CollectionReference = firebase.firestore.CollectionReference;
 
 
 @Injectable()
@@ -64,15 +66,18 @@ export class DeckService {
     }
 
     public addNewCard(deckID: string, word: string, synonym: string[], antonym: string[], general: string[], example: string[]) {
-        const body : Card = {
+        const body = {
             word: word,
             synonym: synonym,
             antonym: antonym,
             general_sense: general,
             example_usage: example,
-            hidden: false
+            hidden: false,
+            history: {
+                userCreated: this.afAuth.auth.currentUser.displayName,
+                timeCreated: firebase.firestore.FieldValue.serverTimestamp()
+            }
         };
-        console.log(body);
 
         return this.db.doc('decks/' + deckID).collection('cards').add(body);
     }
@@ -106,6 +111,8 @@ export class DeckService {
             antonym: antonym,
             general_sense: general,
             example_usage: example,
+            "history.userEdited": this.afAuth.auth.currentUser.displayName,
+            "history.timeEdited": firebase.firestore.FieldValue.serverTimestamp()
         };
         console.log(body);
         console.log(deckId);
@@ -117,6 +124,39 @@ export class DeckService {
         console.log(deckId);
         console.log(cardId);
         return this.db.doc('decks/' + deckId).collection('cards').doc(cardId).delete();
+    }
+
+    public deleteDeck(deckId: string){
+        return new Promise((resolve, reject) => {
+            this.deleteCollection(this.db.firestore.collection('decks/' + deckId + "/cards")).then(() => {
+                return this.db.doc('decks/' + deckId).delete().then(() => resolve()).catch(reject);
+                //resolve();
+            }).catch(reject)
+        });
+    }
+
+    /**
+     * Delete a collection, in batches of batchSize. Note that this does
+     * not recursively delete subcollections of documents in the collection
+     *
+     * from https://firebase.google.com/docs/firestore/manage-data/delete-data
+     */
+    private deleteCollection(collectionRef: CollectionReference) {
+        return new Promise((resolve, reject) => {
+            collectionRef.get()
+                .then((snapshot) => {
+
+                    // Delete documents in a batch
+                    var batch = this.db.firestore.batch();
+                    snapshot.docs.forEach(doc => {
+                        batch.delete(doc.ref);
+                    });
+
+                    return batch.commit().then(() => {
+                        resolve();
+                    });
+                }).catch(reject);
+        });
     }
 
     public moveDeckToClass(deckId: string, classId: string) {
@@ -140,6 +180,12 @@ export class DeckService {
     public updateTags(deckId: string, newTags: string[]) {
         return this.db.doc("decks/" + deckId).update({
             tags: newTags
+        });
+    }
+
+    public updateDeckName(deckId: string, newName: string){
+        return this.db.doc("decks/" + deckId).update({
+            name: newName
         });
     }
 }
