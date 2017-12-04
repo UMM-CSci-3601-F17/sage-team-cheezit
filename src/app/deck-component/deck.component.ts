@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {DeckService} from "../deck/deck.service";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {Deck} from "../deck/deck";
 import {NewCardDialogComponent} from "../new-card-dialog/new-card-dialog.component";
 import {MatDialog, MatSnackBar, MatChipInputEvent} from "@angular/material";
@@ -10,6 +10,7 @@ import {AngularFireAuth} from "angularfire2/auth";
 import {componentDestroyed} from "ng2-rx-componentdestroyed";
 import {SaveCardDialogComponent} from "../save-card-dialog/save-card-dialog.component";
 import {ENTER} from '@angular/cdk/keycodes';
+import {TdDialogService} from "@covalent/core";
 
 const COMMA = 188;
 
@@ -29,7 +30,7 @@ export class DeckComponent implements OnInit, OnDestroy {
 
     separatorKeysCodes = [ENTER, COMMA];
 
-    constructor(public afAuth: AngularFireAuth, public dialog: MatDialog, public deckService: DeckService, public snackBar: MatSnackBar, public classService: ClassService, private route: ActivatedRoute) {
+    constructor(private router: Router, public afAuth: AngularFireAuth, public dialog: MatDialog, public deckService: DeckService, public snackBar: MatSnackBar, public classService: ClassService, private route: ActivatedRoute, public tdDialog: TdDialogService) {
 
     }
 
@@ -75,12 +76,15 @@ export class DeckComponent implements OnInit, OnDestroy {
                 deck => {
                     console.log(deck);
                     this.deck = deck;
-                    if(deck.tags) this.tags = deck.tags;
+                    if(deck && deck.tags)
+                        this.tags = deck.tags;
+                    else
+                        this.tags = [];
                     this.loaded = true;
                 }
             );
 
-            this.deckService.getDeckCards(this.id).takeUntil(componentDestroyed(this)).subscribe(cards => {
+            this.deckService.getDeckCards(this.id, ref => ref.orderBy('word')).takeUntil(componentDestroyed(this)).subscribe(cards => {
                 console.log(cards);
                 this.cards = cards;
             });
@@ -110,6 +114,40 @@ export class DeckComponent implements OnInit, OnDestroy {
         })
     }
 
+    public getOriginalURL(): string {
+        if(this.deck.users) return "/mydecks";
+        if(this.deck.classId) return "/class/" + this.deck.classId;
+        return "/";
+    }
+
+    public deleteDeck(): void {
+        let origURL = this.getOriginalURL();
+        this.tdDialog.openConfirm({
+            message: "Would you like to delete this deck?",
+            title: "Delete Deck",
+            acceptButton: "Delete",
+            cancelButton: "Cancel"
+        }).afterClosed().subscribe((accept: boolean) => {
+            if(accept) {
+                this.deckService.deleteDeck(this.id).then(
+                    succeeded => {
+                        console.log("succeeded: " + succeeded);
+                        this.router.navigate([origURL]).then(() => {
+                            this.snackBar.open("Deleted deck", null, {
+                                duration: 2000,
+                            });
+                        })
+                    },
+                    err => {
+                        console.log("error: " + err);
+                        this.snackBar.open("Error deleting deck", null, {
+                            duration: 2000,
+                        });
+                    });
+            }
+        });
+    }
+
     public moveToMyDecks() {
         this.deckService.moveDeckToMyDecks(this.id,).then(result => {
             this.snackBar.open("Moved Deck to My Decks", null, {
@@ -124,7 +162,7 @@ export class DeckComponent implements OnInit, OnDestroy {
 
     public moveToClass(classId: string, className: string) {
         this.deckService.moveDeckToClass(this.id, classId).then(result => {
-            this.snackBar.open("Moved Deck to " + className, null, {
+            this.snackBar.open("Moved deck to " + className, null, {
                 duration: 2000,
             });
         }, err => {
@@ -162,6 +200,18 @@ export class DeckComponent implements OnInit, OnDestroy {
 
     public updateTags() {
         this.deckService.updateTags(this.id, this.tags);
+    }
+
+    public renameDeck(name: string) {
+        this.deckService.updateDeckName(this.id, name).then(result => {
+            this.snackBar.open("Renamed deck", null, {
+                duration: 2000,
+            });
+        }, err => {
+            this.snackBar.open("Error renaming deck", null, {
+                duration: 2000,
+            });
+        })
     }
 
     ngOnDestroy() {
