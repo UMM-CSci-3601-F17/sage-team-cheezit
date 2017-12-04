@@ -8,7 +8,7 @@ import {
     MdSnackBar
 } from '@angular/material';
 
-//jkj
+
 import {HttpModule, JsonpModule} from '@angular/http';
 import {AppComponent} from './app.component';
 import {HomeComponent} from './home/home.component';
@@ -38,6 +38,8 @@ import {SaveCardDialogComponent} from "./save-card-dialog/save-card-dialog.compo
 import {JoinGameComponent} from "./join-game/join-game.component";
 import {AngularFireDatabaseModule} from "angularfire2/database";
 import {HelpComponent} from "./help/help.component";
+import {EditableTextComponent} from "./editable-text/editable-text.component";
+import {KeyValuePipe} from "./util/key-value-pipe";
 
 @NgModule({
     imports: [
@@ -70,6 +72,9 @@ import {HelpComponent} from "./help/help.component";
         SaveCardDialogComponent,
         JoinGameComponent,
         HelpComponent
+        JoinGameComponent,
+        EditableTextComponent,
+        KeyValuePipe
     ],
     entryComponents: [
         NewCardDialogComponent,
