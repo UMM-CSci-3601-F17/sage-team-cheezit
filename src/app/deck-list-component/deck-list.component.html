@@ -1,21 +1,24 @@
-
-                <mat-nav-list> <!-- *ngIf="this.deckService.decks; else decksError" -->
-                    <mat-list-item class="deck" *ngFor="let deck of this.decks">
-                        <a class="deck-name" matLine [routerLink]="['/deck', deck.id]">{{ deck.name }}</a>
-                        <button mat-raised-button color="primary" class="play-button" [routerLink]="['/play', deck.id]">
-                            <mat-icon style="color: white">play_arrow</mat-icon> <span>Play</span>
-                        </button>
-                    </mat-list-item>
-                </mat-nav-list>
-                <!-- Maybe this should be a pop-up instead of just a text message? Not sure. -->
-               <ng-template #decksError>
-                    <p>
-                        There was a problem loading the decks. Possibly the server is down or perhaps there are network
-                        issues.
-                    </p>
-                    <p>
-                        Please wait a bit and try again or start the server.
-                    </p>
-                </ng-template>
+<mat-nav-list> <!-- *ngIf="this.deckService.decks; else decksError" -->
+    <td-message class="no-decks-message" *ngIf="this.decks && this.decks.length == 0" label="No Decks"
+                sublabel="The deck list is empty, tap + to add cards.">
+    </td-message>
+    <mat-list-item class="deck" *ngFor="let deck of this.decks">
+        <a class="deck-name" matLine [routerLink]="['/deck', deck.id]">{{ deck.name }}</a>
+        <button mat-raised-button color="primary" class="play-button" [routerLink]="['/play', deck.id]">
+            <mat-icon style="color: white">play_arrow</mat-icon>
+            <span>Play</span>
+        </button>
+    </mat-list-item>
+</mat-nav-list>
+<!-- Maybe this should be a pop-up instead of just a text message? Not sure. -->
+<ng-template #decksError>
+    <p>
+        There was a problem loading the decks. Possibly the server is down or perhaps there are network
+        issues.
+    </p>
+    <p>
+        Please wait a bit and try again or start the server.
+    </p>
+</ng-template>
 
 
