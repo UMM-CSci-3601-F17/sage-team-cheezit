@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {DeckService} from "../deck/deck.service";
 import {AngularFireAuth} from "angularfire2/auth";
-import {MdDialog, MatSnackBar} from "@angular/material";
+import {MdDialog, MatSnackBar, MatChipInputEvent, MdSnackBarConfig} from "@angular/material";
 import {Deck, DeckId} from "../deck/deck";
 import {ActivatedRoute, Router} from "@angular/router";
 import {NewDeckDialogComponent} from "../new-deck-dialog/new-deck-dialog.component";
@@ -20,7 +20,7 @@ declare global {
 @Component({
   selector: 'app-class',
   templateUrl: './class.component.html',
-  styleUrls: ['./class.component.css']
+  styleUrls: ['./class.component.scss']
 })
 export class ClassComponent implements OnInit, OnDestroy {
 
@@ -41,10 +41,25 @@ export class ClassComponent implements OnInit, OnDestroy {
 
     public joinUrl: string = null;
 
+
     leaveClass(){
         this.classService.leaveClass(this.id).then(succeeded => {
             this.router.navigate(['/'])
         });
+    }
+
+    public kickStudent(userId: string, userNickname: string, teacher: boolean) {
+        this.classService.kickStudent(this.id, userId).then(result => {
+            this.snackBar.open("Removed Student", "Undo", {
+                duration: 4000,
+            }).onAction().subscribe(() => {
+                this.classService.addUser(this.id, userId, userNickname, teacher);
+            });
+        }, err => {
+            this.snackBar.open("Error removing student", null, {
+                duration: 2000,
+            });
+        })
     }
 
     updateJoinUrl() {
@@ -102,6 +117,23 @@ export class ClassComponent implements OnInit, OnDestroy {
         console.log("class destroyed");
     }
 
+    public renameClass(name: string): void {
+        this.classService.updateClassName(this.id, name).then(success=>{
+            this.snackBar.open("Renamed class", null, {
+                duration: 2000,
+            });
+            },
+            err => {
+            this.snackBar.open("Error renaming class", null,{
+                duration: 2000,
+            });
+        });
+    }
+
+    public setTeacher(studentId: string, teacher: boolean){
+        return this.classService.setTeacher(this.id, studentId, teacher);
+    }
+
     public deleteClass(): void {
         this.tdDialog.openConfirm({
             message: "Would you like to delete this class and all decks it contains?",
@@ -116,7 +148,7 @@ export class ClassComponent implements OnInit, OnDestroy {
                     succeeded => {
                         console.log("succeeded: " + succeeded);
                         this.router.navigate(['/']).then(() => {
-                            this.snackBar.open("Deleted Class", null, {
+                            this.snackBar.open("Deleted class", null, {
                                 duration: 2000,
                             });
                         })

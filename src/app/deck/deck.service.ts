@@ -66,15 +66,18 @@ export class DeckService {
     }
 
     public addNewCard(deckID: string, word: string, synonym: string, antonym: string, general: string, example: string) {
-        const body : Card = {
+        const body = {
             word: word,
             synonym: synonym,
             antonym: antonym,
             general_sense: general,
             example_usage: example,
-            hidden: false
+            hidden: false,
+            history: {
+                userCreated: this.afAuth.auth.currentUser.displayName,
+                timeCreated: firebase.firestore.FieldValue.serverTimestamp()
+            }
         };
-        console.log(body);
 
         return this.db.doc('decks/' + deckID).collection('cards').add(body);
     }
@@ -108,6 +111,8 @@ export class DeckService {
             antonym: antonym,
             general_sense: general,
             example_usage: example,
+            "history.userEdited": this.afAuth.auth.currentUser.displayName,
+            "history.timeEdited": firebase.firestore.FieldValue.serverTimestamp()
         };
         console.log(body);
         console.log(deckId);
@@ -175,6 +180,12 @@ export class DeckService {
     public updateTags(deckId: string, newTags: string[]) {
         return this.db.doc("decks/" + deckId).update({
             tags: newTags
+        });
+    }
+
+    public updateDeckName(deckId: string, newName: string){
+        return this.db.doc("decks/" + deckId).update({
+            name: newName
         });
     }
 }

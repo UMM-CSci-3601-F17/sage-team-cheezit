@@ -34,6 +34,9 @@ import {AngularFirestoreModule} from "angularfire2/firestore";
 import {NgPipesModule} from "ngx-pipes";
 import {NgxQRCodeModule} from "ngx-qrcode2";
 import {ClipboardModule} from "ngx-clipboard/dist";
+import {HttpClientModule} from "@angular/common/http";
+import {TimeAgoPipeModule} from "time-ago-pipe/index";
+
 
 const FLEX_LAYOUT_MODULES: any[] = [
     FlexLayoutModule,
@@ -42,6 +45,7 @@ const FLEX_LAYOUT_MODULES: any[] = [
 const ANGULAR_MODULES: any[] = [
     BrowserAnimationsModule,
     FormsModule,
+    HttpClientModule,
 ];
 
 const MATERIAL_MODULES: any[] = [
@@ -75,6 +79,7 @@ const OTHER_MODULES: any[] = [
     AngularFirestoreModule,
     AngularFireAuthModule,
     NgPipesModule,
+    TimeAgoPipeModule,
     NgxQRCodeModule,
     ClipboardModule,
 ];
