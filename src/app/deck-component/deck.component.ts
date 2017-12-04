@@ -133,7 +133,7 @@ export class DeckComponent implements OnInit, OnDestroy {
                     succeeded => {
                         console.log("succeeded: " + succeeded);
                         this.router.navigate([origURL]).then(() => {
-                            this.snackBar.open("Deleted Deck", null, {
+                            this.snackBar.open("Deleted deck", null, {
                                 duration: 2000,
                             });
                         })
@@ -162,7 +162,7 @@ export class DeckComponent implements OnInit, OnDestroy {
 
     public moveToClass(classId: string, className: string) {
         this.deckService.moveDeckToClass(this.id, classId).then(result => {
-            this.snackBar.open("Moved Deck to " + className, null, {
+            this.snackBar.open("Moved deck to " + className, null, {
                 duration: 2000,
             });
         }, err => {
@@ -200,6 +200,18 @@ export class DeckComponent implements OnInit, OnDestroy {
 
     public updateTags() {
         this.deckService.updateTags(this.id, this.tags);
+    }
+
+    public renameDeck(name: string) {
+        this.deckService.updateDeckName(this.id, name).then(result => {
+            this.snackBar.open("Renamed deck", null, {
+                duration: 2000,
+            });
+        }, err => {
+            this.snackBar.open("Error renaming deck", null, {
+                duration: 2000,
+            });
+        })
     }
 
     ngOnDestroy() {
