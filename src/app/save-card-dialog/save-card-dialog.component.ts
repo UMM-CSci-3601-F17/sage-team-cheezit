@@ -10,10 +10,10 @@ import {Card, CardId} from "../card/card";
 export class SaveCardDialogComponent implements OnInit {
 
     newCardWord: string;
-    newCardSynonym: string;
-    newCardAntonym: string;
-    newCardGeneral: string;
-    newCardExample: string;
+    newCardSynonym: string[];
+    newCardAntonym: string[];
+    newCardGeneral: string[];
+    newCardExample: string[];
 
 
 

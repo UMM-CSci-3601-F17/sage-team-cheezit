@@ -16,10 +16,10 @@ export class NewCardDialogComponent implements OnInit {
     }
 
     newCardWord: string;
-    newCardSynonym: string;
-    newCardAntonym: string;
-    newCardGeneral: string;
-    newCardExample: string;
+    newCardSynonym: string[];
+    newCardAntonym: string[];
+    newCardGeneral: string[];
+    newCardExample: string[];
 
     ngOnInit() {
     }

@@ -63,19 +63,35 @@
                 </mat-expansion-panel-header>
                 <div class="card-synonym card-line">
                     <div class="card-desc">Synonym:</div>
-                    <div class="card-cont">{{ card.synonym }}</div>
+                    <div class="card-cont">
+                        <mat-chip-list>
+                            <mat-chip *ngFor="let syn of card.synonym">{{ syn }}</mat-chip>
+                        </mat-chip-list>
+                    </div>
                 </div>
                 <div class="card-antonym card-line">
                     <div class="card-desc">Antonym:</div>
-                    <div class="card-cont">{{ card.antonym }}</div>
+                    <div class="card-cont">
+                        <mat-chip-list>
+                            <mat-chip *ngFor="let ant of card.antonym">{{ ant }}</mat-chip>
+                        </mat-chip-list>
+                    </div>
                 </div>
                 <div class="card-general-usage card-line">
                     <div class="card-desc">General usage:</div>
-                    <div class="card-cont">{{ card.general_sense }}</div>
+                    <div class="card-cont">
+                        <mat-chip-list>
+                            <mat-chip *ngFor="let gen of card.general_sense">{{ gen }}</mat-chip>
+                        </mat-chip-list>
+                    </div>
                 </div>
                 <div class="card-example-usage card-line">
                     <div class="card-desc">Example usage:</div>
-                    <div class="card-cont">{{ card.example_usage }}</div>
+                    <div class="card-cont">
+                        <mat-chip-list>
+                            <mat-chip *ngFor="let exa of card.example_usage">{{ exa }}</mat-chip>
+                        </mat-chip-list>
+                    </div>
                 </div>
                 <div *ngIf="card.history && this.deck.classId && this.deckOwner()" class="card-history disabled-text">
                     <div *ngIf="card.history.timeCreated && card.history.userCreated">Created {{ card.history.timeCreated | timeAgo }} by {{card.history.userCreated}}</div>
