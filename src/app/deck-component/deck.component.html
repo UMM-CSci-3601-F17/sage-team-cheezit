@@ -2,15 +2,7 @@
     <div flex-gt-xs="80" flex-xs="90" *ngIf="this.cards">
         <div layout="row" layout-align="space-between center">
             <h2 flex id="deck-header">
-                <!--Credit to Nick B for the idea behind this editing-->
-                <mat-form-field *ngIf="editing">
-                    <input matInput *ngIf="this.deckOwner()" #input type="text" placeholder="Deck Name" [(ngModel)]="this.deck.name">
-                </mat-form-field>
-                <button mat-icon-button="" *ngIf="editing" [disabled]="deck.name.length==0" (click)="updateDeckName();editing=!editing"><mat-icon>save</mat-icon></button>
-                <span *ngIf="!editing">{{this.deck.name}}</span>
-                <button mat-icon-button *ngIf="!editing && this.deckOwner()" aria-label="Edit Deck Name" (click)="editing=!editing">
-                    <mat-icon id="edit-button" matTooltip="Edit Deck Name" style="font-size:20px">mode_edit</mat-icon>
-                </button>
+                <app-editable-text [canEdit]="this.deckOwner()" [text]="this.deck.name" (saveEvent)="this.renameDeck($event)"></app-editable-text>
             </h2>
             <button mat-icon-button matTooltip="Play this Deck" [routerLink]="['/play', this.id]"
                     [disabled]="this.cards.length == 0">

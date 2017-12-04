@@ -26,7 +26,6 @@ export class DeckComponent implements OnInit, OnDestroy {
     cards: CardId[];
     loaded: boolean = false;
     tags: string[] = [];
-    editing: boolean = false;
 
 
     separatorKeysCodes = [ENTER, COMMA];
@@ -203,8 +202,8 @@ export class DeckComponent implements OnInit, OnDestroy {
         this.deckService.updateTags(this.id, this.tags);
     }
 
-    public updateDeckName() {
-        this.deckService.updateDeckName(this.id, this.deck.name).then(result => {
+    public renameDeck(name: string) {
+        this.deckService.updateDeckName(this.id, name).then(result => {
             this.snackBar.open("Renamed deck", null, {
                 duration: 2000,
             });
