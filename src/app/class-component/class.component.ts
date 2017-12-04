@@ -89,10 +89,6 @@ export class ClassComponent implements OnInit, OnDestroy {
         });
     }
 
-    public addATeacher(studentid: string){
-        return this.classService.addATeacher(this.id, studentid);
-    }
-
     browserShareInvite() {
         if (navigator.share) {
             navigator.share({
@@ -125,6 +121,10 @@ export class ClassComponent implements OnInit, OnDestroy {
                 duration: 2000,
             });
         });
+    }
+
+    public setTeacher(studentId: string, teacher: boolean){
+        return this.classService.setTeacher(this.id, studentId, teacher);
     }
 
     public deleteClass(): void {

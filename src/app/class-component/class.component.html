@@ -30,10 +30,17 @@
                     <mat-list-item *ngFor="let user of this.currentClass.users | keyvalue | orderBy: '-value.teacher' ">
                         <mat-icon mat-list-icon>account_circle</mat-icon>
                         <h4 mat-line>{{ user.value.nickname }}</h4>
-                        <button *ngIf="this.canEdit && !user.value.teacher" mat-icon-button matTooltip="Add as Teacher" (click)="addATeacher(user.key)" aria-label="Add a Teacher">
-                            <mat-icon>add</mat-icon>
+                        <button *ngIf="this.canEdit && user.key != this.afAuth.auth.currentUser.uid" mat-icon-button [matMenuTriggerFor]="menu" >
+                            <mat-icon>more_vert</mat-icon>
                         </button>
-                        <button mat-icon-button="" *ngIf="this.canEdit && user.key != this.afAuth.auth.currentUser.uid" matTooltip="Remove Student from Class" (click)="kickStudent(user.key, user.value.nickname, user.value.teacher)"><mat-icon>backspace</mat-icon></button>
+                        <mat-menu #menu="matMenu">
+                            <button mat-menu-item (click)="this.setTeacher(user.key, !user.value.teacher)">
+                                <span>{{user.value.teacher ? "Set as student" : "Set as teacher"}}</span>
+                            </button>
+                            <button mat-menu-item (click)="kickStudent(user.key, user.value.nickname, user.value.teacher)">
+                                <span>Remove User</span>
+                            </button>
+                        </mat-menu>
                         <p mat-line>{{ user.value.teacher ? "Teacher" : "Student"}}</p>
                     </mat-list-item>
                 </mat-list>

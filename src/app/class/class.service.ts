@@ -75,10 +75,10 @@ export class ClassService {
         });
     }
 
-    public addATeacher(id: string, studentid: string){
+    /*public addATeacher(id: string, studentid: string){
         console.log(studentid);
         return this.db.doc('classes/' + id).update({["users." + studentid + ".teacher"] : true});
-    }
+    }*/
 
     public addNewClass(name: string) {
         if(this.afAuth.auth.currentUser == null) return;
@@ -141,6 +141,10 @@ export class ClassService {
 
     public deleteClass(classId: string) {
         return this.db.doc('classes/' + classId).delete();
+    }
+
+    public setTeacher(classId: string, studentId: string, canEdit: boolean){
+        return this.db.doc('classes/' + classId).update({["users." + studentId + ".teacher"] : canEdit});
     }
 
 }
