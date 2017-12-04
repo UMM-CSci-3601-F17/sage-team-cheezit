@@ -159,7 +159,6 @@ export class DeckService {
         });
     }
 
-
     public moveDeckToClass(deckId: string, classId: string) {
         return this.db.doc("decks/" + deckId).update({
             classId: classId,
@@ -181,6 +180,12 @@ export class DeckService {
     public updateTags(deckId: string, newTags: string[]) {
         return this.db.doc("decks/" + deckId).update({
             tags: newTags
+        });
+    }
+
+    public updateDeckName(deckId: string, newName: string){
+        return this.db.doc("decks/" + deckId).update({
+            name: newName
         });
     }
 }
