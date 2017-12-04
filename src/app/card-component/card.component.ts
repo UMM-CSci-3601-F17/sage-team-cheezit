@@ -17,6 +17,8 @@ export class CardComponent implements OnInit {
 
     @Input() hideSelected?: boolean = false;
 
+    @Input() emoji?: string = "";
+
     ngOnInit() {
         if(this.canSpeak) {
             window.speechSynthesis.getVoices(); // this forces it to get the available voices before they are needed

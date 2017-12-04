@@ -2,9 +2,8 @@
 <div class="margin" layout="row" layout-align="center start" layout-fill>
     <div flex-gt-xs="70" flex-xs="90">
         <div *ngIf="this.inGame && this.card">
-            <app-card [card]="this.card" [selected]="this.selectedHints" [hideSelected]="true"></app-card>
+            <app-card [card]="this.card" [selected]="this.selectedHints" [hideSelected]="true" [emoji]="this.emoji"></app-card>
             <span class="score">Score: {{this.points}}</span>
-            <section class="emoji">{{this.emoji}}</section>
         </div>
         <div *ngIf="!this.inGame">
             <mat-card>
