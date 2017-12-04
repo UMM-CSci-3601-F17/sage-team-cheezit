@@ -20,7 +20,7 @@ declare global {
 @Component({
   selector: 'app-class',
   templateUrl: './class.component.html',
-  styleUrls: ['./class.component.css']
+  styleUrls: ['./class.component.scss']
 })
 export class ClassComponent implements OnInit, OnDestroy {
 
@@ -96,6 +96,19 @@ export class ClassComponent implements OnInit, OnDestroy {
         console.log("class destroyed");
     }
 
+    public renameClass(name: string): void {
+        this.classService.updateClassName(this.id, name).then(success=>{
+            this.snackBar.open("Renamed class", null, {
+                duration: 2000,
+            });
+            },
+            err => {
+            this.snackBar.open("Error renaming class", null,{
+                duration: 2000,
+            });
+        });
+    }
+
     public deleteClass(): void {
         this.tdDialog.openConfirm({
             message: "Would you like to delete this class and all decks it contains?",
@@ -110,7 +123,7 @@ export class ClassComponent implements OnInit, OnDestroy {
                     succeeded => {
                         console.log("succeeded: " + succeeded);
                         this.router.navigate(['/']).then(() => {
-                            this.snackBar.open("Deleted Class", null, {
+                            this.snackBar.open("Deleted class", null, {
                                 duration: 2000,
                             });
                         })
