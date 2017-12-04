@@ -41,6 +41,13 @@ export class ClassComponent implements OnInit, OnDestroy {
 
     public joinUrl: string = null;
 
+
+    public leaveClass(){
+        this.classService.leaveClass(this.id).then(succeeded => {
+            this.router.navigate(['/'])
+        });
+    }
+
     public kickStudent(userId: string, userNickname: string, teacher: boolean) {
         this.classService.kickStudent(this.id, userId).then(result => {
             this.snackBar.open("Removed Student", "Undo", {
@@ -55,7 +62,7 @@ export class ClassComponent implements OnInit, OnDestroy {
         })
     }
 
-    updateJoinUrl() {
+    public updateJoinUrl() {
         console.log("get join url called");
         if(!this.currentClass || !this.currentClass.joincode) this.joinUrl = null;
         else this.joinUrl = document.location.origin + this.router.createUrlTree(['/class', this.id, 'join' ], { queryParams: { joincode: this.currentClass.joincode } }).toString();

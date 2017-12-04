@@ -9,6 +9,10 @@
                     <mat-icon>delete</mat-icon>
                     <span>Delete Class</span>
                 </button>
+                <button mat-menu-item *ngIf="!this.canEdit" (click)="leaveClass()">
+                    <mat-icon>exit_to_app</mat-icon>
+                    <span>Leave Class</span>
+                </button>
             </mat-menu>
                 <mat-card-title flex class="decks-title" *ngIf="this.currentClass">
                     <app-editable-text [canEdit]="this.canEdit" [text]="this.currentClass.name" (saveEvent)="this.renameClass($event)"></app-editable-text>
@@ -44,7 +48,6 @@
                         <p mat-line>{{ user.value.teacher ? "Teacher" : "Student"}}</p>
                     </mat-list-item>
                 </mat-list>
-
             </mat-card-content>
         </mat-card>
     </div>
