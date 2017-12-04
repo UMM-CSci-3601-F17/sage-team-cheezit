@@ -1,29 +1,29 @@
 <div layout-gt-sm="row">
     <div flex-gt-sm="80" flex-offset-gt-sm="10">
         <div class="logo-holder">
-            <img id="logo" src="assets/text-logo.svg" alt="logo" title="sage-logo">
+            <img class="logo" src="assets/text-logo.svg" alt="logo" title="sage-logo">
         </div>
         <div class="list-buttons">
-            <app-google-sign-in-button *ngIf="!afAuth.auth.currentUser"></app-google-sign-in-button>
+            <app-google-sign-in-button *ngIf="!afAuth.auth.currentUser" class="sign-in-button"></app-google-sign-in-button>
         </div>
         <div class="list-buttons">
-            <button *ngIf="afAuth.auth.currentUser" id="my-decks-button" mat-raised-button color="primary"
+            <button *ngIf="afAuth.auth.currentUser" class="my-decks-button" mat-raised-button color="primary"
                     [routerLink]="['/mydecks']">
                 My Decks
             </button>
         </div>
         <div class="list-buttons">
-            <button id="public-deck-button" mat-raised-button color="primary" [routerLink]="['/publicdecks']">
+            <button class="public-deck-button" mat-raised-button color="primary" [routerLink]="['/publicdecks']">
                 Public Decks
             </button>
         </div>
         <div class="list-buttons">
-            <button id="play-button" mat-raised-button color="primary" [routerLink]="['/joingame']">
+            <button class="play-button" mat-raised-button color="primary" [routerLink]="['/joingame']">
                 Join Game
             </button>
         </div>
         <div class="list-buttons">
-            <button id="settings-button" mat-raised-button color="primary" [routerLink]="['/help']">
+            <button class="settings-button" mat-raised-button color="primary" [routerLink]="['/help']">
                 Help
             </button>
         </div>
