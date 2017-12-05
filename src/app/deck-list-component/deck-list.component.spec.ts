@@ -55,7 +55,7 @@ describe('DeckListComponent', () => {
       expect(component.canAdd).toEqual(true);
   });
 
-  
+
 
 });
 

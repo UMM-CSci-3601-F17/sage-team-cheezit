@@ -53,5 +53,9 @@ describe('ClassComponent', () => {
         expect(component).toBeTruthy();
     });
 
+    it('should have edit permissions, because authorization has been passed in', () => {
+        expect(component.canEdit).toEqual(true);
+    });
+
 
 });
