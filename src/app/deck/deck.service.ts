@@ -170,7 +170,7 @@ export class DeckService {
         return this.db.doc("decks/" + deckId).update({
             classId: firebase.firestore.FieldValue.delete(),
             users: {
-                [this.afAuth.auth.currentUser.uid] : {
+                ['hello'] : {
                     nickname: this.afAuth.auth.currentUser.displayName,
                     owner: true
                 }}

@@ -2,13 +2,13 @@
     <div flex-gt-xs="80" flex-xs="90" *ngIf="this.cards">
         <div layout="row" layout-align="space-between center">
             <h2 flex id="deck-header">
-                <app-editable-text [canEdit]="this.deckOwner()" [text]="this.deck.name" (saveEvent)="this.renameDeck($event)"></app-editable-text>
+                <app-editable-text [canEdit]="true" [text]="this.deck.name" (saveEvent)="this.renameDeck($event)"></app-editable-text>
             </h2>
             <button mat-icon-button matTooltip="Play this Deck" [routerLink]="['/play', this.id]"
                     [disabled]="this.cards.length == 0">
                 <mat-icon>play_arrow</mat-icon>
             </button>
-            <span *ngIf="!this.deck.isPublic && this.deckOwner()">
+            <span *ngIf="!this.deck.isPublic">
                 <button mat-icon-button [matMenuTriggerFor]="menu">
                     <mat-icon>more_vert</mat-icon>
                 </button>
@@ -28,11 +28,11 @@
                 </mat-menu>
 
                 <mat-menu #moveto="matMenu">
-                    <button mat-menu-item [disabled]="this.deck.users" (click)="this.moveToMyDecks()">My Decks</button>
+                    <button mat-menu-item (click)="this.moveToMyDecks()">My Decks</button>
                     <button mat-menu-item
-                            *ngFor="let c of this.classService.classes | filterBy: ['users.' + this.afAuth.auth.currentUser.uid + '.teacher']: true"
+                            *ngFor="let c of this.classService.classes"
                             [disabled]="this.deck.classId && this.deck.classId == c.id"
-                            (click)="this.moveToClass(c.id, c.name)">{{ c.name }}</button>
+                            (click)="this.moveToClass(c.id, 'nice')">{{ c.name }}</button>
                 </mat-menu>
             </span>
 
@@ -40,12 +40,12 @@
         <div layout="row">
             <mat-form-field flex >
                 <mat-chip-list #chipList>
-                    <mat-chip class="tag-chip" *ngFor="let tag of this.deck.tags" [selectable]="this.deckOwner()"
-                              [removable]="this.deckOwner()" (remove)="this.removeTag(tag)" [disabled]="!this.deckOwner()">
+                    <mat-chip class="tag-chip" *ngFor="let tag of this.deck.tags" [selectable]
+                              [removable] (remove)="this.removeTag(tag)" >
                         {{tag}}
-                        <mat-icon matChipRemove *ngIf="this.deckOwner()">cancel</mat-icon>
+                        <mat-icon matChipRemove >cancel</mat-icon>
                     </mat-chip>
-                    <input placeholder="Tags" flex [disabled]="!this.deckOwner()"
+                    <input placeholder="Tags" flex
                            [matChipInputFor]="chipList"
                            [matChipInputSeparatorKeyCodes]="this.separatorKeysCodes"
                            [matChipInputAddOnBlur]="true"
@@ -77,11 +77,11 @@
                     <div class="card-desc">Example usage:</div>
                     <div class="card-cont">{{ card.example_usage }}</div>
                 </div>
-                <div *ngIf="card.history && this.deck.classId && this.deckOwner()" class="card-history disabled-text">
+                <div *ngIf="card.history && this.deck.classId" class="card-history disabled-text">
                     <div *ngIf="card.history.timeCreated && card.history.userCreated">Created {{ card.history.timeCreated | timeAgo }} by {{card.history.userCreated}}</div>
                     <div *ngIf="card.history.timeEdited && card.history.userEdited">Edited {{card.history.timeEdited | timeAgo}} by {{card.history.userEdited}}</div>
                 </div>
-                <mat-action-row *ngIf="this.canEdit()">
+                <mat-action-row>
                     <mat-slide-toggle color=primary [checked]="this.card.hidden"
                                       (change)="this.cardHide(card.id, $event.checked)" style="margin-top: 12px;">Hide
                         Card

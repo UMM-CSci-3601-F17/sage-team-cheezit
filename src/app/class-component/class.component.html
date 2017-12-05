@@ -5,21 +5,21 @@
                 <mat-icon>more_vert</mat-icon>
             </button>
             <mat-menu #menu="matMenu">
-                <button *ngIf="this.canEdit" mat-menu-item (click)="this.deleteClass()">
+                <button mat-menu-item (click)="this.deleteClass()">
                     <mat-icon>delete</mat-icon>
                     <span>Delete Class</span>
                 </button>
-                <button mat-menu-item *ngIf="!this.canEdit" (click)="leaveClass()">
+                <button mat-menu-item  (click)="leaveClass()">
                     <mat-icon>exit_to_app</mat-icon>
                     <span>Leave Class</span>
                 </button>
             </mat-menu>
                 <mat-card-title flex class="decks-title" *ngIf="this.currentClass">
-                    <app-editable-text [canEdit]="this.canEdit" [text]="this.currentClass.name" (saveEvent)="this.renameClass($event)"></app-editable-text>
+                    <app-editable-text [canEdit]="true" [text]="this.currentClass.name" (saveEvent)="this.renameClass($event)"></app-editable-text>
                 </mat-card-title>
             <mat-divider></mat-divider>
             <mat-card-content>
-                <app-deck-list [decks]="this.decks" [canEdit]="this.canEdit"></app-deck-list>
+                <app-deck-list [decks]="this.decks" [canEdit]="true"></app-deck-list>
             </mat-card-content>
         </mat-card>
     </div>
@@ -34,7 +34,7 @@
                     <mat-list-item *ngFor="let user of this.currentClass.users | keyvalue | orderBy: '-value.teacher' ">
                         <mat-icon mat-list-icon>account_circle</mat-icon>
                         <h4 mat-line>{{ user.value.nickname }}</h4>
-                        <button *ngIf="this.canEdit && user.key != this.afAuth.auth.currentUser.uid" mat-icon-button [matMenuTriggerFor]="menu" >
+                        <button mat-icon-button [matMenuTriggerFor]="menu" >
                             <mat-icon>more_vert</mat-icon>
                         </button>
                         <mat-menu #menu="matMenu">
@@ -52,7 +52,7 @@
         </mat-card>
     </div>
 </div>
-<div layout-gt-sm="row"  *ngIf="this.currentClass && this.canEdit">
+<div layout-gt-sm="row"  *ngIf="this.currentClass">
     <div flex-gt-xs="80" flex-offset-gt-xs="10" flex-xs="96" flex-offset-xs="2">
         <mat-card>
             <mat-card-title>Sharing</mat-card-title>
@@ -73,10 +73,11 @@
             <mat-card-actions>
                 <button mat-button (click)="this.classService.updateJoinCode(this.id)">{{this.currentClass.joincode ? "Update" : "Create"}} join code</button>
                 <button mat-button (click)="this.classService.removeJoinCode(this.id)">Remove join code</button>
+                <button mat-button (click)="forceAddStudent()">Force Add Student</button>
             </mat-card-actions>
         </mat-card>
     </div>
 </div>
-<button mat-fab id="deckDialog" class="deck-list-fab" matTooltip="Add Deck" matTooltipPosition="left" (click)="this.openAddDialog()" *ngIf="this.canEdit">
+<button mat-fab id="deckDialog" class="deck-list-fab" matTooltip="Add Deck" matTooltipPosition="left" (click)="this.openAddDialog()">
     <mat-icon class="md-24" aria-label="Add Deck">add</mat-icon>
 </button>

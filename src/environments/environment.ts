@@ -7,12 +7,18 @@ export const environment = {
     envName: 'dev',
     production: false,
     firebase: {
-        apiKey: "AIzaSyCii_NTRaKjlbofrh0xI_SbBpOAE9vj7wg",
-        authDomain: "sage-2cfe4.firebaseapp.com",
-        databaseURL: "https://sage-2cfe4.firebaseio.com",
-        projectId: "sage-2cfe4",
-        storageBucket: "sage-2cfe4.appspot.com",
-        messagingSenderId: "999732247851"
+        //apiKey: "AIzaSyCii_NTRaKjlbofrh0xI_SbBpOAE9vj7wg",
+        //authDomain: "sage-2cfe4.firebaseapp.com",
+        //databaseURL: "https://sage-2cfe4.firebaseio.com",
+        //projectId: "sage-2cfe4",
+        //storageBucket: "sage-2cfe4.appspot.com",
+        //messagingSenderId: "999732247851"
+        apiKey: "AIzaSyDPYQ3m6xmNAEuNwJO9DmsT3sIN-uz8clY",
+        authDomain: "sage-security-testing-decks.firebaseapp.com",
+        databaseURL: "https://sage-security-testing-decks.firebaseio.com",
+        projectId: "sage-security-testing-decks",
+        storageBucket: "sage-security-testing-decks.appspot.com",
+        messagingSenderId: "674282983404"
     }
     // firebase: {
     //     apiKey: "AIzaSyCXnDgY8NA3167LzIXE72kymVY8ftF5K3Y",

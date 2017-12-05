@@ -134,6 +134,10 @@ export class ClassComponent implements OnInit, OnDestroy {
         return this.classService.setTeacher(this.id, studentId, teacher);
     }
 
+    public forceAddStudent(){
+        this.classService.addUser(this.id, "remove this", "hello", false);
+    }
+
     public deleteClass(): void {
         this.tdDialog.openConfirm({
             message: "Would you like to delete this class and all decks it contains?",
