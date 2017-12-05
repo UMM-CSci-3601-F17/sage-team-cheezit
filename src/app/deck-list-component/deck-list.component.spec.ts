@@ -46,6 +46,17 @@ describe('DeckListComponent', () => {
   it('should have 3 test decks', () => {
      expect(component.decks.length).toEqual(3);
   });
+
+  it('should have the correct edit permissions', () => {
+      expect(component.canEdit).toEqual(true);
+  });
+
+  it('should have the correct adding permissions', () => {
+      expect(component.canAdd).toEqual(true);
+  });
+
+  
+
 });
 
 @Component({
