@@ -17,15 +17,17 @@ service cloud.firestore {
       request.resource.data.classId != null && //checks that a classId is being added to the deck
       request.resource.data.name != null && //checks that a name is being added to the deck
       request.resource.data.size() == 2); //check that there are only 2 field values on the deck when its being added, name and classId
-      
-      //Right now users can still move decks to classes they don't own
  
       allow update, delete: if request.auth != null && //checks if they are logged in
-      resource.data.name is string && //checks to make sure the deck name is a string for renaming
+      request.resource.data.name is string && //checks to make sure the deck name is a string for renaming
       ((request.auth.uid in resource.data.users && //check that they are a user in the decks users if it is in my decks
-      resource.data.users[request.auth.uid].owner == true) || //checks that the user is a deck owner in the users if it is in my decks
+      resource.data.users[request.auth.uid].owner == true && //checks that the user is a deck owner in the users if it is in my decks
+      (request.resource.data.users[request.auth.uid].owner == true || //checks to make sure if the user is moving a deck to my decks that its only being send to their my decks
+      get(/databases/$(database)/documents/classes/$(request.resource.data.classId)).data.users[request.auth.uid].teacher == true)) || //checks to make sure that if the user is moving a deck to a class they have to be a teacher in it
       (resource.data.classId is string && //checks if the class Id is a string
-      get(/databases/$(database)/documents/classes/$(resource.data.classId)).data.users[request.auth.uid].teacher == true)); //checks if the user in the class is a teacher
+      get(/databases/$(database)/documents/classes/$(resource.data.classId)).data.users[request.auth.uid].teacher == true && //checks if the user in the class is a teacher
+      (request.resource.data.users[request.auth.uid].owner == true || //checks to make sure if the user is moving a deck to my decks that its only being send to their my decks
+      get(/databases/$(database)/documents/classes/$(request.resource.data.classId)).data.users[request.auth.uid].teacher == true))); //checks to make sure that if the user is moving a deck to a class they have to be a teacher in it
 
 
       match /cards/{card} {
@@ -53,7 +55,7 @@ service cloud.firestore {
       request.resource.data.users[request.auth.uid].teacher == true; //checks if said person is set as a teacher
       
       allow update: if request.auth != null && //checks if they are logged in
-      (resource.data.users[request.auth.uid].teacher == true || //checks if the user is logged in
+      (resource.data.users[request.auth.uid].teacher == true || //checks if the user is the teacher of the class
       (request.resource.data.size() == resource.data.size() && //This is for students leaving classes, checks to make sure no fields were added or deleted
       request.resource.data.joincode == resource.data.joincode && //checks to make sure the joincode hasn't changed
       request.resource.data.name == resource.data.name && //checks to make sure the class name hasn't changed
@@ -67,6 +69,10 @@ service cloud.firestore {
       request.resource.data.users[request.auth.uid].teacher == false && //checks to make sure the user is not a teacher
       request.resource.data.users.size() == resource.data.users.size() + 1 //checks to make sure the user list has only increased by one user
       ));
+      
+      //Because we have an undo button for removing students we cannot lock down teachers adding students
+      //The only place uid's can be gathered at the moment is in classes as far as we can tell which
+      //is already blocked by the join code so we are going to continue allowing teachers to add students.
       
       allow delete: if request.auth != null && resource.data.users[request.auth.uid].teacher == true; //checks if the user is a teacher
     }
