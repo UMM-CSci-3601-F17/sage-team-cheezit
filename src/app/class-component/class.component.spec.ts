@@ -12,11 +12,15 @@ import {ActivatedRoute} from "@angular/router";
 import {Observable} from "rxjs/Observable";
 import {AppTestModule} from "../app.test.module";
 import {AngularFireAuth} from "angularfire2/auth";
+import {By} from "@angular/platform-browser";
+import {DebugElement} from "@angular/core";
+
 
 describe('ClassComponent', () => {
 
     let component: ClassComponent;
     let fixture: ComponentFixture<ClassComponent>;
+    let debugElement: DebugElement;
 
     let mockFirebaseAuth = {
         auth: {
@@ -46,6 +50,7 @@ describe('ClassComponent', () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(ClassComponent);
         component = fixture.componentInstance;
+        debugElement = fixture.debugElement;
         fixture.detectChanges();
     });
 
@@ -55,6 +60,16 @@ describe('ClassComponent', () => {
 
     it('should have edit permissions, because authorization has been passed in', () => {
         expect(component.canEdit).toEqual(true);
+    });
+
+    it('should have the correct class name', () => {
+       expect(component.currentClass.name).toEqual('testclass');
+    });
+
+
+    it('should contain a menu for teacher',() => {
+        let deleteButton: HTMLElement = debugElement.query(By.css('.class-menu')).nativeElement;
+        expect(deleteButton).toBeTruthy();
     });
 
 
