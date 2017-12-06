@@ -8,7 +8,7 @@
 
                 <!--<app-card [card]="card"></app-card>!-->
                 <app-card class="play-card" [card]="cardState.playCard"
-                          [selected]="cardState.selectedCardHints"></app-card>
+                          [selected]="cardState.selectedCardHints" [emoji]="cardState.emoji"></app-card>
 
                 <button class="hint-button" mat-raised-button color="primary"
                         [disabled]="cardState.isComplete || !cardState.cardHints.length"
@@ -23,7 +23,7 @@
                     <button class="emoji" mat-icon-button (click)="this.updateEmoji('😁', ind)">
                         😁</button>
 
-                    <button class="emoji" mat-icon-button (click)="this.updateEmoji('👍	', ind)">
+                    <button class="emoji" mat-icon-button (click)="this.updateEmoji('👍', ind)">
                         👍	</button>
 
                     <button class="emoji" mat-icon-button (click)="this.updateEmoji('🌟', ind)">
