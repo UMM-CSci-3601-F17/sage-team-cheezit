@@ -12,3 +12,12 @@
     margin-top: 10px !important;
     margin-right: 10px !important;
 }
+
+.dark-chip-input .mat-chip {
+    background-color: mat-color($mat-grey, 400) !important;
+}
+
+.wide-chip-input > * {
+    width: 100% !important;
+}
+

@@ -37,21 +37,8 @@
             </span>
 
         </div>
-        <div layout="row">
-            <mat-form-field flex >
-                <mat-chip-list #chipList>
-                    <mat-chip class="tag-chip" *ngFor="let tag of this.deck.tags" [selectable]="this.deckOwner()"
-                              [removable]="this.deckOwner()" (remove)="this.removeTag(tag)" [disabled]="!this.deckOwner()">
-                        {{tag}}
-                        <mat-icon matChipRemove *ngIf="this.deckOwner()">cancel</mat-icon>
-                    </mat-chip>
-                    <input placeholder="Tags" flex [disabled]="!this.deckOwner()"
-                           [matChipInputFor]="chipList"
-                           [matChipInputSeparatorKeyCodes]="this.separatorKeysCodes"
-                           [matChipInputAddOnBlur]="true"
-                           (matChipInputTokenEnd)="this.addTag($event)" />
-                </mat-chip-list>
-            </mat-form-field>
+        <div layout="column">
+            <app-chip-input class="tag-input wide-chip-input dark-chip-input" [canEdit]="this.deckOwner()" [(array)]="this.tags" (arrayChange)="this.updateTags()" placeholder="Tags"></app-chip-input>
         </div>
         <td-message class="no-cards-message" *ngIf="this.cards.length == 0" label="No Cards"
                     sublabel="This deck is empty, tap + to add cards.">
@@ -63,19 +50,35 @@
                 </mat-expansion-panel-header>
                 <div class="card-synonym card-line">
                     <div class="card-desc">Synonym:</div>
-                    <div class="card-cont">{{ card.synonym }}</div>
+                    <div class="card-cont">
+                        <mat-chip-list>
+                            <mat-chip class="hint-chip" *ngFor="let syn of card.synonym">{{ syn }}</mat-chip>
+                        </mat-chip-list>
+                    </div>
                 </div>
                 <div class="card-antonym card-line">
                     <div class="card-desc">Antonym:</div>
-                    <div class="card-cont">{{ card.antonym }}</div>
+                    <div class="card-cont">
+                        <mat-chip-list>
+                            <mat-chip class="hint-chip" *ngFor="let ant of card.antonym">{{ ant }}</mat-chip>
+                        </mat-chip-list>
+                    </div>
                 </div>
                 <div class="card-general-sense card-line">
                     <div class="card-desc">General sense:</div>
-                    <div class="card-cont">{{ card.general_sense }}</div>
+                    <div class="card-cont">
+                        <mat-chip-list>
+                            <mat-chip class="hint-chip">{{ card.general_sense }}</mat-chip>
+                        </mat-chip-list>
+                    </div>
                 </div>
                 <div class="card-example-usage card-line">
                     <div class="card-desc">Example usage:</div>
-                    <div class="card-cont">{{ card.example_usage }}</div>
+                    <div class="card-cont">
+                        <mat-chip-list>
+                            <mat-chip class="hint-chip">{{ card.example_usage }}</mat-chip>
+                        </mat-chip-list>
+                    </div>
                 </div>
                 <div *ngIf="card.history && this.deck.classId && this.deckOwner()" class="card-history disabled-text">
                     <div *ngIf="card.history.timeCreated && card.history.userCreated">Created {{ card.history.timeCreated | timeAgo }} by {{card.history.userCreated}}</div>

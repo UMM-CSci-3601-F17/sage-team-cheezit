@@ -6,7 +6,7 @@ import { CardComponent } from './card.component';
 import {SharedModule} from "../shared.module";
 import {MATERIAL_COMPATIBILITY_MODE} from "@angular/material";
 import {Component} from "@angular/core";
-import {Card} from "../card/card";
+import {Card, PlayCard} from "../card/card";
 
 describe('CardComponent', () => {
   let component: CardComponent;
@@ -69,13 +69,12 @@ describe('CardComponent', () => {
     template: '<app-card [card]="card" [selected]="[1,3]"></app-card>'
 })
 class TestComponentWrapper {
-    card : Card = {
+    card : PlayCard = {
         word : "test word",
         synonym : "test synonym",
         antonym: "test antonym",
         general_sense: "test general_sense",
-        example_usage: "test example_usage",
-        hidden: false
+        example_usage: "test example_usage"
     };
 
 

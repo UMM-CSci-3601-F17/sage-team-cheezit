@@ -22,7 +22,6 @@ import {DeckComponent} from "./deck-component/deck.component";
 import {DeckService} from "./deck/deck.service";
 import {GameJoinDialogComponent, PlayComponent} from "./play-component/play.component";
 import {MdDialog, MatIconRegistry} from "@angular/material";
-import {NewCardDialogComponent} from "./new-card-dialog/new-card-dialog.component";
 import {NewDeckDialogComponent} from "./new-deck-dialog/new-deck-dialog.component";
 import {SaveCardDialogComponent} from './save-card-dialog/save-card-dialog.component';
 import {AngularFirestoreModule} from "angularfire2/firestore";
@@ -41,6 +40,7 @@ import {MatChipsModule} from '@angular/material/chips';
 import {HelpComponent} from "./help/help.component";
 import {KeyValuePipe} from "./util/key-value-pipe";
 import {EditableTextComponent} from "./editable-text/editable-text.component";
+import {ChipInputComponent} from "./chip-input/chip-input.component";
 
 
 @NgModule({
@@ -62,7 +62,6 @@ import {EditableTextComponent} from "./editable-text/editable-text.component";
         DeckComponent,
         PlayComponent,
         DeckListComponent,
-        NewCardDialogComponent,
         NewDeckDialogComponent,
         NewClassDialogComponent,
         ClassComponent,
@@ -75,10 +74,10 @@ import {EditableTextComponent} from "./editable-text/editable-text.component";
         GameJoinDialogComponent,
         HelpComponent,
         KeyValuePipe,
-        EditableTextComponent
+        EditableTextComponent,
+        ChipInputComponent
     ],
     entryComponents: [
-        NewCardDialogComponent,
         NewDeckDialogComponent,
         NewClassDialogComponent,
         NewDeckDialogComponent,

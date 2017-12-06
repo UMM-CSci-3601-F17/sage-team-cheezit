@@ -2,17 +2,13 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {DeckService} from "../deck/deck.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Deck} from "../deck/deck";
-import {NewCardDialogComponent} from "../new-card-dialog/new-card-dialog.component";
-import {MatDialog, MatSnackBar, MatChipInputEvent} from "@angular/material";
-import {Card, CardId} from "../card/card";
+import {MatDialog, MatSnackBar} from "@angular/material";
+import {CardId} from "../card/card";
 import {ClassService} from "../class/class.service";
 import {AngularFireAuth} from "angularfire2/auth";
 import {componentDestroyed} from "ng2-rx-componentdestroyed";
 import {SaveCardDialogComponent} from "../save-card-dialog/save-card-dialog.component";
-import {ENTER} from '@angular/cdk/keycodes';
 import {TdDialogService} from "@covalent/core";
-
-const COMMA = 188;
 
 @Component({
     selector: 'app-deck',
@@ -27,15 +23,12 @@ export class DeckComponent implements OnInit, OnDestroy {
     loaded: boolean = false;
     tags: string[] = [];
 
-
-    separatorKeysCodes = [ENTER, COMMA];
-
     constructor(private router: Router, public afAuth: AngularFireAuth, public dialog: MatDialog, public deckService: DeckService, public snackBar: MatSnackBar, public classService: ClassService, private route: ActivatedRoute, public tdDialog: TdDialogService) {
 
     }
 
     openAddDialog() {
-        let dialogRef = this.dialog.open(NewCardDialogComponent, {
+        let dialogRef = this.dialog.open(SaveCardDialogComponent, {
             data: {deckId: this.id},
         });
         dialogRef.afterClosed().subscribe(result => {
@@ -170,32 +163,6 @@ export class DeckComponent implements OnInit, OnDestroy {
                 duration: 2000,
             });
         })
-    }
-
-    public addTag(event: MatChipInputEvent) {
-        let input = event.input;
-        let value = event.value;
-
-        // Add our person
-        if ((value || '').trim()) {
-            this.tags.push(value.trim());
-        }
-
-        // Reset the input value
-        if (input) {
-            input.value = '';
-        }
-
-        this.updateTags();
-    }
-
-    public removeTag(tag: any) {
-        let index = this.tags.indexOf(tag);
-
-        if (index >= 0) {
-            this.tags.splice(index, 1);
-        }
-        this.updateTags();
     }
 
     public updateTags() {
