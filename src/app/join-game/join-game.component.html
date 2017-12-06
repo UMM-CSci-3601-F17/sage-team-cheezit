@@ -7,14 +7,14 @@
         </div>
         <div *ngIf="!this.inGame">
             <mat-card>
-                <mat-card-title>Join Game</mat-card-title>
+                <mat-card-title class="title">Join Game</mat-card-title>
                 <mat-divider></mat-divider>
                 <mat-card-content>
                     <mat-form-field>
                         <!-- dumb fix for iOS numeric keypad http://danielfriesen.name/blog/2013/09/19/input-type-number-and-ios-numeric-keypad/ -->
                         <input matInput min="0" type="number" inputmode="numeric" pattern="[0-9]*" placeholder="Game ID" (keyup.enter)="this.joinGame()" [(ngModel)]="this.gameId">
                     </mat-form-field>
-                    <button mat-raised-button color="primary" (click)="this.joinGame()">Join Game</button>
+                    <button class="join-button" mat-raised-button color="primary" (click)="this.joinGame()">Join Game</button>
                 </mat-card-content>
             </mat-card>
         </div>

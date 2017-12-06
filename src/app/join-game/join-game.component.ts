@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AngularFireDatabase} from "angularfire2/database";
-import {Card} from "../card/card";
+import {Card, PlayCard} from "../card/card";
 import {Observable} from "rxjs/Observable";
 import {componentDestroyed} from "ng2-rx-componentdestroyed";
 import {ActivatedRoute, Router} from "@angular/router";
@@ -22,7 +22,7 @@ export class JoinGameComponent implements OnInit, OnDestroy {
 
     public gameId: string;
 
-    public card: Card;
+    public card: PlayCard;
     public points: number = 0;
     public selectedHints: number[] = [];
     public emoji: string;

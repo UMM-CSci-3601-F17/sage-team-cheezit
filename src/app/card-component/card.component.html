@@ -4,22 +4,22 @@
     <mat-divider></mat-divider>
     <mat-card-content>
         <div class="card-synonym card-line" *ngIf="!this.hideSelected || this.selected.indexOf(1) != -1"
-             [ngClass]="{'hint-selected': !this.hideSelected && this.selected.indexOf(1) != -1}">
+             [class.hint-selected]="!this.hideSelected && this.selected.indexOf(1) != -1">
             <div class="card-desc">Synonym:</div>
             <div class="card-cont">{{ card.synonym }}</div>
         </div>
         <div class="card-antonym card-line" *ngIf="!this.hideSelected || this.selected.indexOf(2) != -1"
-             [ngClass]="{'hint-selected': !this.hideSelected && this.selected.indexOf(2) != -1}">
+             [class.hint-selected]="!this.hideSelected && this.selected.indexOf(2) != -1">
             <div class="card-desc">Antonym:</div>
             <div class="card-cont">{{ card.antonym }}</div>
         </div>
         <div class="card-general-usage card-line" *ngIf="!this.hideSelected || this.selected.indexOf(3) != -1"
-             [ngClass]="{'hint-selected': !this.hideSelected && this.selected.indexOf(3) != -1}">
+             [class.hint-selected]="!this.hideSelected && this.selected.indexOf(3) != -1">
             <div class="card-desc">General sense:</div>
             <div class="card-cont">{{ card.general_sense }}</div>
         </div>
         <div class="card-example-usage card-line" *ngIf="!this.hideSelected || this.selected.indexOf(4) != -1"
-             [ngClass]="{'hint-selected': !this.hideSelected && this.selected.indexOf(4) != -1}">
+             [class.hint-selected]="!this.hideSelected && this.selected.indexOf(4) != -1">
             <div class="card-desc">Example usage:</div>
             <div class="card-cont">{{ card.example_usage }}</div>
         </div>

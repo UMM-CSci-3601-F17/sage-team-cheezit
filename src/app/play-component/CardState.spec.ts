@@ -4,7 +4,14 @@ describe('CardState', () => {
    let cardState: CardState;
 
     beforeEach(() => {
-    cardState = new CardState;
+    cardState = new CardState({
+        word : "test word",
+        synonym : ["test synonym 1", "test synony 2"],
+        antonym: ["test antonym 1", "test antonym 2"],
+        general_sense: "test general_sense",
+        example_usage: "test example_usage",
+        hidden: false
+    });
 });
 
 it('should create', () => {

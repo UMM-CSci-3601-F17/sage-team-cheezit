@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Card} from "../card/card";
+import {Card, PlayCard} from "../card/card";
 
 @Component({
     selector: 'app-card',
@@ -11,7 +11,7 @@ export class CardComponent implements OnInit {
     constructor() {
     }
 
-    @Input() card: Card;
+    @Input() card: PlayCard;
 
     @Input() selected?: number[] = [];
 
