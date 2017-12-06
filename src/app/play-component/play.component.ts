@@ -5,7 +5,7 @@ import {Deck} from "../deck/deck";
 import {CardState} from "./CardState";
 import {Card} from "../card/card";
 import {AngularFireDatabase} from "angularfire2/database";
-import {MatDialogRef, MAT_DIALOG_DATA, MatDialog} from "@angular/material";
+import {MatDialogRef, MAT_DIALOG_DATA, MatDialog, MatSnackBar} from "@angular/material";
 import * as firebase from 'firebase/app';
 import 'rxjs/add/operator/take';
 
@@ -38,6 +38,8 @@ export class PlayComponent implements OnInit, OnDestroy {
 
     public points: number = 0;
 
+    public multiplayer: boolean = false;
+
     public gameId: string;
 
     public cardStates: CardState[];
@@ -55,19 +57,13 @@ export class PlayComponent implements OnInit, OnDestroy {
 
     constructor(public deckService : DeckService, private route: ActivatedRoute,
                 private db: AngularFireDatabase, public dialog: MatDialog,
-                private router: Router) {
-        this.gameId = this.randNumDigits(6).toString();
-        this.gameURL = document.location.origin + this.router.createUrlTree(['/joingame'], { queryParams: { id: this.gameId } }).toString();
-
-
-        const ref = firebase.database().ref('games').child(this.gameId);
-        ref.onDisconnect().remove();
+                private router: Router, public snackBar: MatSnackBar) {
     }
 
-    public updateGame() {
-        if(this.cardStates.length == 0) return;
+    public updateGame(): Promise<void> {
+        if(this.cardStates.length == 0) return Promise.reject("no cards");
         console.log("update game called " + this.pageNumber);
-        this.db.object('games/' + this.gameId).set({
+        return this.db.object('games/' + this.gameId).set({
             card: this.cardStates[this.pageNumber].playCard,
             points: this.points,
             selectedHints: this.cardStates[this.pageNumber].selectedCardHints,
@@ -112,7 +108,6 @@ export class PlayComponent implements OnInit, OnDestroy {
             this.deckService.getDeckPlayCards(this.deckId).take(1).subscribe(cards => { //take(1) means we are only getting it once so later changes don't apply
                 this.cardStates = cards.map(c => new CardState(c)); // maps incoming cards into card states
                 this.shuffleArray(this.cardStates);
-                this.updateGame();
             });
         });
     }
@@ -123,9 +118,30 @@ export class PlayComponent implements OnInit, OnDestroy {
     }
 
     showGameId() {
-        this.dialog.open(GameJoinDialogComponent, {
-            data: { gameId: this.gameId, gameURL: this.gameURL },
-        })
+
+        if(!this.multiplayer) {
+            this.gameId = this.randNumDigits(6).toString();
+            this.gameURL = document.location.origin + this.router.createUrlTree(['/joingame'], { queryParams: { id: this.gameId } }).toString();
+
+
+            const ref = firebase.database().ref('games').child(this.gameId);
+            ref.onDisconnect().remove().then(() =>{
+                return this.updateGame();
+            }).then(() => {
+                this.multiplayer = true;
+                this.dialog.open(GameJoinDialogComponent, {
+                    data: { gameId: this.gameId, gameURL: this.gameURL },
+                })
+            }).catch(() => {
+                this.snackBar.open("Error starting game", null, {
+                    duration: 2000,
+                });
+            })
+        } else {
+            this.dialog.open(GameJoinDialogComponent, {
+                data: { gameId: this.gameId, gameURL: this.gameURL },
+            })
+        }
     }
 
 }
