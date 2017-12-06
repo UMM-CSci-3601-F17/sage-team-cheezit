@@ -82,7 +82,8 @@ export class PlayComponent implements OnInit, OnDestroy {
             this.points += this.cardStates[pageNumber].cardPoints;
             this.cardStates[pageNumber].selectedCardHints = [];
             this.cardStates[pageNumber].isDone();
-            this.pageNumber = pageNumber + 1;
+            if(pageNumber < this.cardStates.length - 1) this.pageNumber = pageNumber + 1;
+            else this.updateGame();
         }
         //this.updateGame();
     }
