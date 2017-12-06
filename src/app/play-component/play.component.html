@@ -1,4 +1,4 @@
-<kb-page-slider *ngIf="this.deck && this.cardStates &&  this.cardStates.length != 0; else noCards" [(page)]="this.pageNumber"
+<kb-page-slider *ngIf="this.deckId && this.cardStates &&  this.cardStates.length != 0; else noCards" [(page)]="this.pageNumber"
                 (pageCountChange)="pageCount = $event;"
                 [showIndicator]="false" dotColor="black">
     <mat-toolbar color="primary"></mat-toolbar>
@@ -37,10 +37,10 @@
         <div flex-gt-xs="70" flex-xs="90">
             <mat-card>
                 <br>
-                <td-message class="no-cards-message" *ngIf="this.deck && this.cardStates" label="No Cards"
+                <td-message class="no-cards-message" *ngIf="this.deckId && this.cardStates" label="No Cards"
                             sublabel="This deck is empty, please add cards to play">
                 </td-message>
-                <td-message class="no-deck-message" *ngIf="!this.deck" label="No Deck"
+                <td-message class="no-deck-message" *ngIf="!this.deckId" label="No Deck"
                             sublabel="This deck does not exist">
                 </td-message>
                 <br>

@@ -22,7 +22,6 @@ import {DeckComponent} from "./deck-component/deck.component";
 import {DeckService} from "./deck/deck.service";
 import {PlayComponent} from "./play-component/play.component";
 import {MdDialog} from "@angular/material";
-import {NewCardDialogComponent} from "./new-card-dialog/new-card-dialog.component";
 import {NewDeckDialogComponent} from "./new-deck-dialog/new-deck-dialog.component";
 import {AngularFirestoreModule} from "angularfire2/firestore";
 import {AngularFireModule} from "angularfire2";
@@ -61,7 +60,6 @@ import {KeyValuePipe} from "./util/key-value-pipe";
         DeckComponent,
         PlayComponent,
         DeckListComponent,
-        NewCardDialogComponent,
         NewDeckDialogComponent,
         NewClassDialogComponent,
         ClassComponent,
@@ -77,7 +75,6 @@ import {KeyValuePipe} from "./util/key-value-pipe";
         KeyValuePipe
     ],
     entryComponents: [
-        NewCardDialogComponent,
         NewDeckDialogComponent,
         NewClassDialogComponent
     ],

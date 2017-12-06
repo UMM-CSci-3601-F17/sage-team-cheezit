@@ -65,18 +65,22 @@ export class DeckService {
         return this.getDeckCards(id, ref => ref.where("hidden", "==" , false))
     }
 
-    public addNewCard(deckID: string, word: string, synonym: string[], antonym: string[], general: string[], example: string[]) {
-        const body = {
+    public addNewCard(deckID: string, word: string, synonym: string[], antonym: string[], general: string, example: string) {
+        const card: Card = {
             word: word,
             synonym: synonym,
             antonym: antonym,
             general_sense: general,
             example_usage: example,
             hidden: false,
-            history: {
-                userCreated: this.afAuth.auth.currentUser.displayName,
-                timeCreated: firebase.firestore.FieldValue.serverTimestamp()
-            }
+        };
+        const body =
+            {
+                ...card,
+                history: {
+                    userCreated: this.afAuth.auth.currentUser.displayName,
+                    timeCreated: firebase.firestore.FieldValue.serverTimestamp()
+                }
         };
 
         return this.db.doc('decks/' + deckID).collection('cards').add(body);
@@ -104,7 +108,7 @@ export class DeckService {
                 owner: true
             }}});
     }
-    public editCard(deckId: string, cardId: string, word: string, synonym: string[], antonym: string[], general: string[], example: string[]) {
+    public editCard(deckId: string, cardId: string, word: string, synonym: string[], antonym: string[], general: string, example: string) {
         const body = {
             word: word,
             synonym: synonym,

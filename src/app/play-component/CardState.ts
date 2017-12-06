@@ -19,8 +19,8 @@ export class CardState {
             word: card.word,
             synonym: this.getRandomHint(card.synonym),
             antonym: this.getRandomHint(card.antonym),
-            general_sense: this.getRandomHint(card.general_sense),
-            example_usage: this.getRandomHint(card.example_usage)
+            general_sense: card.general_sense,
+            example_usage: card.example_usage
         }
 
     }
