@@ -7,6 +7,8 @@ export class CardState {
     public isComplete: boolean;
     public selectedCardHints: number[];
     public playCard: PlayCard;
+    public emoji: string;
+
 
 
     constructor(card: Card){
@@ -14,6 +16,7 @@ export class CardState {
         this.cardHints = [1,2,3,4];
         this.isComplete = false;
         this.selectedCardHints = [];
+        this.emoji = "";
 
         this.playCard = {
             word: card.word,
@@ -22,7 +25,6 @@ export class CardState {
             general_sense: card.general_sense,
             example_usage: card.example_usage
         }
-
     }
 
     public randomizeSages(): void{

@@ -1,6 +1,6 @@
 <mat-card>
     <button class="card-top-right-button" mat-icon-button *ngIf="this.canSpeak" (click)="this.speakWord()"><mat-icon>volume_up</mat-icon></button>
-    <mat-card-title class="card-word">{{ card.word }}</mat-card-title>
+    <mat-card-title class="card-word">{{ card.word }} {{this.emoji}}</mat-card-title>
     <mat-divider></mat-divider>
     <mat-card-content>
         <div class="card-synonym card-line" *ngIf="!this.hideSelected || this.selected.indexOf(1) != -1"

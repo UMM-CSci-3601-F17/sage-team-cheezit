@@ -70,7 +70,8 @@ export class PlayComponent implements OnInit, OnDestroy {
         this.db.object('games/' + this.gameId).set({
             card: this.cardStates[this.pageNumber].playCard,
             points: this.points,
-            selectedHints: this.cardStates[this.pageNumber].selectedCardHints
+            selectedHints: this.cardStates[this.pageNumber].selectedCardHints,
+            emoji: this.cardStates[this.pageNumber].emoji
         });
     }
 
@@ -86,8 +87,14 @@ export class PlayComponent implements OnInit, OnDestroy {
         //this.updateGame();
     }
 
-    // from https://stackoverflow.com/a/12646864/8855259
+    public updateEmoji(emoji: string, i: number) {
+        this.cardStates[i].emoji = emoji;
+        this.db.object('games/' + this.gameId).update({
+            emoji: emoji
+        });
+    }
 
+    // from https://stackoverflow.com/a/12646864/8855259
     shuffleArray(array: any[]) {
         for (let i = array.length - 1; i > 0; i--) {
             let j = Math.floor(Math.random() * (i + 1));
