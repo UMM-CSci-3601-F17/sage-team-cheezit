@@ -57,13 +57,13 @@ describe('MyDecksComponent', () => {
         expect(title.innerText).toContain('My Decks');
     });
 
-    it('should contain a button called Add Deck', () => {
-        let button: HTMLElement = debugElement.query(By.css('.md-24')).nativeElement;
-        expect(button.innerText).toContain('add');
-    });
-
     it('should contain a button for Add Deck', () => {
         let button: HTMLElement = debugElement.query(By.css('.md-24')).nativeElement;
         expect(button).toBeTruthy();
+    });
+
+    it('should contain a button called Add Deck', () => {
+        let button: HTMLElement = debugElement.query(By.css('.md-24')).nativeElement;
+        expect(button.innerText).toContain('add');
     });
 });
