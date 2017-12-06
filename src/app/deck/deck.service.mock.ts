@@ -8,8 +8,7 @@ export class DeckServiceMock {
     constructor() {
     }
 
-    public getPublicDecks(): Observable<DeckId[]> {
-        return Observable.of([
+    public getPublicDecks: Observable<DeckId[]> = Observable.of([
             {
                 id: "testid",
                 name: "test deck",
@@ -21,7 +20,6 @@ export class DeckServiceMock {
                 isPublic: true
             }
         ]);
-    }
 
     public getClassDecks(): Observable<DeckId[]> {
         return Observable.of([
@@ -38,8 +36,7 @@ export class DeckServiceMock {
         ]);
     }
 
-    public getUserDecks(): Observable<DeckId[]> {
-        return Observable.of([
+    public getUserDecks: Observable<DeckId[]> = Observable.of([
             {
                 id: "testid",
                 name: "test deck",
@@ -61,7 +58,6 @@ export class DeckServiceMock {
                 }
             }
         ]);
-    }
 
     public getDeck(id: string): Observable<Deck> {
         return Observable.of({

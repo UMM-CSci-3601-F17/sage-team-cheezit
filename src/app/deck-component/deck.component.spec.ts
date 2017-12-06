@@ -31,7 +31,7 @@ describe('DeckComponent', () => {
 
     TestBed.configureTestingModule({
         imports: [SharedModule, AppTestModule],
-        declarations: [],
+        declarations: [DeckComponent],
         providers: [{provide: MATERIAL_COMPATIBILITY_MODE, useValue: true},
             {provide: DeckService, useValue: new DeckServiceMock()},
             {provide: ClassService, useValue: new ClassServiceMock()}, {
@@ -52,9 +52,9 @@ describe('DeckComponent', () => {
   });
 
   //it('should create', () => {
-   // expect(component).toBeTruthy();
+    //expect(component).toBeTruthy();
   //});
-    
+
     // this test is broken right and we can't figure out why.
 
 });
