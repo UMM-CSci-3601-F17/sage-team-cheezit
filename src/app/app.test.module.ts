@@ -20,7 +20,7 @@ import {CardComponent} from "./card-component/card.component";
 import {DeckListComponent} from "./deck-list-component/deck-list.component";
 import {DeckComponent} from "./deck-component/deck.component";
 import {DeckService} from "./deck/deck.service";
-import {PlayComponent} from "./play-component/play.component";
+import {GameJoinDialogComponent, PlayComponent} from "./play-component/play.component";
 import {MdDialog} from "@angular/material";
 import {NewDeckDialogComponent} from "./new-deck-dialog/new-deck-dialog.component";
 import {AngularFirestoreModule} from "angularfire2/firestore";
@@ -39,6 +39,7 @@ import {AngularFireDatabaseModule} from "angularfire2/database";
 import {HelpComponent} from "./help/help.component";
 import {EditableTextComponent} from "./editable-text/editable-text.component";
 import {KeyValuePipe} from "./util/key-value-pipe";
+import {ChipInputComponent} from "./chip-input/chip-input.component";
 
 @NgModule({
     imports: [
@@ -69,14 +70,18 @@ import {KeyValuePipe} from "./util/key-value-pipe";
         PublicDecksComponent,
         SaveCardDialogComponent,
         JoinGameComponent,
+        GameJoinDialogComponent,
         HelpComponent,
-        JoinGameComponent,
+        KeyValuePipe,
         EditableTextComponent,
-        KeyValuePipe
+        ChipInputComponent
     ],
     entryComponents: [
         NewDeckDialogComponent,
-        NewClassDialogComponent
+        NewClassDialogComponent,
+        NewDeckDialogComponent,
+        SaveCardDialogComponent,
+        GameJoinDialogComponent,
     ],
     providers: [
         DeckService,
