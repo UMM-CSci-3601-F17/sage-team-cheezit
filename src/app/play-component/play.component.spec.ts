@@ -2,20 +2,16 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PlayComponent } from './play.component';
 import {Observable} from "rxjs/Observable";
-import {Deck} from "../deck/deck";
 import {MATERIAL_COMPATIBILITY_MODE} from "@angular/material";
 import {DeckService} from "../deck/deck.service";
 import {ActivatedRoute} from "@angular/router";
 import {SharedModule} from "../shared.module";
 import {DeckServiceMock} from "../deck/deck.service.mock";
-import {CardComponent} from "../card-component/card.component";
 import {CardState} from "./CardState";
-import {Card} from "../card/card";
 import {AppTestModule} from "../app.test.module";
 
 describe('PlayComponent', () => {
   let component: PlayComponent;
-  let cardState: CardState;
   let fixture: ComponentFixture<PlayComponent>;
 
     beforeEach(async(() => {
@@ -47,6 +43,19 @@ describe('PlayComponent', () => {
       let card_state: CardState;
       card_state = component.getCardState(0);
       expect(component.cardStates[0]).toEqual(card_state);
+  });
+
+  it('should be getting an array of 2 cards from the deck-service mock', () => {
+      expect(component.cards.length).toEqual(2);
+  });
+
+  it('should shuffle the array without adding or subtracting from it', () => {
+     component.cards = component.shuffle(component.cards);
+     component.cards = component.shuffle(component.cards);
+     component.cards = component.shuffle(component.cards);
+     component.cards = component.shuffle(component.cards);
+     component.cards = component.shuffle(component.cards);
+     expect(component.cards.length).toEqual(2);
   });
 
   // commenting out for now, doesn't work with multiplayer

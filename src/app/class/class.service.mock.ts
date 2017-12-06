@@ -24,6 +24,10 @@ export class ClassServiceMock {
                 "testuid": {
                     nickname: "test",
                     teacher: true
+                },
+                "BadTestUid": {
+                    nickname: "test2",
+                    teacher: false
                 }
             }
         });

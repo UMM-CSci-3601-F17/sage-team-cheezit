@@ -4,12 +4,12 @@
             <button mat-icon-button [matMenuTriggerFor]="menu" class="card-top-right-button">
                 <mat-icon>more_vert</mat-icon>
             </button>
-            <mat-menu #menu="matMenu">
-                <button *ngIf="this.canEdit" mat-menu-item (click)="this.deleteClass()">
+            <mat-menu #menu="matMenu" class="class-menu">
+                <button *ngIf="this.canEdit" mat-menu-item (click)="this.deleteClass()" class="delete-class-button">
                     <mat-icon>delete</mat-icon>
                     <span>Delete Class</span>
                 </button>
-                <button mat-menu-item *ngIf="!this.canEdit" (click)="leaveClass()">
+                <button mat-menu-item *ngIf="!this.canEdit" (click)="leaveClass()" class="leave-class-button">
                     <mat-icon>exit_to_app</mat-icon>
                     <span>Leave Class</span>
                 </button>
