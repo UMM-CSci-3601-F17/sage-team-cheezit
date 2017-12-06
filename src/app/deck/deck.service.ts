@@ -104,6 +104,18 @@ export class DeckService {
                 owner: true
             }}});
     }
+
+    public addNewDeckPublic(name: string){
+        let deckCollection = this.db.collection<Deck>('decks');
+        return deckCollection.add({
+            name: name, users: {
+            [this.afAuth.auth.currentUser.uid] : {
+                nickname: this.afAuth.auth.currentUser.displayName,
+                owner: true
+            }},
+            isPublic: true
+        });
+    }
     public editCard(deckId: string, cardId: string, word: string, synonym: string, antonym: string, general: string, example: string) {
         const body = {
             word: word,

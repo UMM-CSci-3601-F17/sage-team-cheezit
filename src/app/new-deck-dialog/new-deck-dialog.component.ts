@@ -8,7 +8,6 @@ import {MatDialogRef,  MatSnackBar, MAT_DIALOG_DATA} from "@angular/material";
   styleUrls: ['./new-deck-dialog.component.css']
 })
 export class NewDeckDialogComponent implements OnInit {
-
     constructor(public deckService : DeckService,
                 public matDialogRef : MatDialogRef<NewDeckDialogComponent>,
                 @Inject(MAT_DIALOG_DATA) public data: { classId : string },
@@ -19,7 +18,12 @@ export class NewDeckDialogComponent implements OnInit {
 
   newDeckName: string;
 
+    public addPublicDeck(): void {
+        this.deckService.addNewDeckPublic(this.newDeckName);
+    }
+
     public addNewDeck(): void {
+        this.deckService.addNewDeckPublic(this.newDeckName);
         if(this.data && this.data.classId)
             this.deckService.addNewDeckClass(this.newDeckName, this.data.classId).then(
                 succeeded => {
