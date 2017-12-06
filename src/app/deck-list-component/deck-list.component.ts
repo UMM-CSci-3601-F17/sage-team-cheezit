@@ -11,7 +11,7 @@ export class DeckListComponent implements OnInit {
 
     @Input() decks: DeckId[];
 
-    @Input() title: string;
+    //@Input() title: string;
 
     @Input() canEdit?: boolean;
 
