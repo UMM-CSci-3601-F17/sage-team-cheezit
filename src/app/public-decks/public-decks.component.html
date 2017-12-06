@@ -4,7 +4,7 @@
             <mat-card-title id="decks-title">Public Decks</mat-card-title>
             <mat-divider></mat-divider>
             <mat-card-content>
-                <app-deck-list [decks]="this.deckService.getPublicDecks | async"></app-deck-list>
+                <app-deck-list class="deck-list" [decks]="this.deckService.getPublicDecks | async"></app-deck-list>
             </mat-card-content>
         </mat-card>
     </div>

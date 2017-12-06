@@ -6,6 +6,8 @@ import {SharedModule} from "../shared.module";
 import {MATERIAL_COMPATIBILITY_MODE} from "@angular/material";
 import {DebugElement} from '@angular/core';
 import {By} from "@angular/platform-browser";
+import {DeckService} from "../deck/deck.service";
+import {DeckServiceMock} from "../deck/deck.service.mock";
 
 describe('PublicDecksComponent', () => {
     let component: PublicDecksComponent;
@@ -16,7 +18,8 @@ describe('PublicDecksComponent', () => {
         TestBed.configureTestingModule({
             imports: [SharedModule, AppTestModule],
             declarations: [],
-            providers: [{provide: MATERIAL_COMPATIBILITY_MODE, useValue: true}],
+            providers: [{provide: MATERIAL_COMPATIBILITY_MODE, useValue: true},
+                {provide: DeckService, useValue: new DeckServiceMock()},],
         })
             .compileComponents();
     }));
@@ -36,4 +39,10 @@ describe('PublicDecksComponent', () => {
         let title: HTMLElement = debugElement.query(By.css('#decks-title')).nativeElement;
         expect(title.innerText).toEqual('Public Decks');
     });
+
+    it('should have a deck list', () => {
+        let deckList: HTMLElement = debugElement.query(By.css('.deck-list')).nativeElement;
+        expect(deckList).toBeTruthy();
+    });
+
 });

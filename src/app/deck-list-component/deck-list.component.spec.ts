@@ -10,6 +10,7 @@ import {APP_BASE_HREF} from "@angular/common";
 import {RouterTestingModule} from "@angular/router/testing";
 import {Component} from "@angular/core";
 import {DebugElement} from '@angular/core';
+import {By} from "@angular/platform-browser";
 
 describe('DeckListComponent', () => {
   let component: DeckListComponent;
@@ -53,6 +54,21 @@ describe('DeckListComponent', () => {
 
   it('should have the correct adding permissions', () => {
       expect(component.canAdd).toEqual(true);
+  });
+
+  it('should have a first deck with a name of test_deck1', () => {
+      let deckName: HTMLElement = debugElement.query(By.css('.deck-name')).nativeElement;
+      expect(deckName.innerText).toEqual("test_deck1");
+  });
+
+  it('should have a play button', () => {
+      let playButton: HTMLElement = debugElement.query(By.css('.play-button')).nativeElement;
+      expect(playButton).toBeTruthy();
+  });
+
+  it('should have a play button that contains an arrow icon and the word play', () => {
+      let playButton: HTMLElement = debugElement.query(By.css('.play-button')).nativeElement;
+      expect(playButton.innerText).toEqual("play_arrow Play");
   });
 
 
