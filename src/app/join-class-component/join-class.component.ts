@@ -33,11 +33,12 @@ export class JoinClassComponent implements OnInit, OnDestroy  {
                             if(state != null)
                                 this.classService.joinClass(this.id, this.joincode).then(
                                     result => {
-                                        this.snackBar.open("Joined class", null, {
-                                            duration: 2000,
-                                        });
-                                        console.log(result);
-                                        this.router.navigate(['/class', this.id]);
+                                        setTimeout(() => {
+                                            this.snackBar.open("Joined class", null, {
+                                                duration: 2000,
+                                            });
+                                            this.router.navigate(['/class', this.id]);
+                                        }, 500);
 
                                     },
                                     err => {
