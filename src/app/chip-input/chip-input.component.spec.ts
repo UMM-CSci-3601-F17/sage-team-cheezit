@@ -2,7 +2,6 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {ChipInputComponent} from './chip-input.component';
 import {SharedModule} from "../shared.module";
-import {MATERIAL_COMPATIBILITY_MODE} from "@angular/material";
 
 describe('ChipInputComponent', () => {
     let component: ChipInputComponent;
@@ -12,7 +11,6 @@ describe('ChipInputComponent', () => {
         TestBed.configureTestingModule({
             imports: [SharedModule],
             declarations: [ChipInputComponent],
-            providers: [{provide: MATERIAL_COMPATIBILITY_MODE, useValue: true}]
         })
             .compileComponents();
     }));

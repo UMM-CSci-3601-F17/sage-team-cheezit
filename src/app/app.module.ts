@@ -3,7 +3,7 @@ import {BrowserModule, DomSanitizer} from '@angular/platform-browser';
 
 import {environment} from '../environments/environment';
 
-import {MATERIAL_COMPATIBILITY_MODE, MatIconRegistry, MdDialog, MdSnackBar} from '@angular/material';
+import {MatIconRegistry, MatDialog, MatSnackBar} from '@angular/material';
 
 
 import {HttpModule, JsonpModule} from '@angular/http';
@@ -82,10 +82,9 @@ import {ChipInputComponent} from "./chip-input/chip-input.component";
     providers: [
         DeckService,
         ClassService,
-        MdDialog,
-        MdSnackBar,
-        {provide: APP_BASE_HREF, useValue: '/'},
-        {provide: MATERIAL_COMPATIBILITY_MODE, useValue: true}
+        MatDialog,
+        MatSnackBar,
+        {provide: APP_BASE_HREF, useValue: '/'}
     ],
     bootstrap: [AppComponent]
 })

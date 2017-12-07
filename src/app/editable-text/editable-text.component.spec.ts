@@ -3,7 +3,6 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {EditableTextComponent} from './editable-text.component';
 import {SharedModule} from "../shared.module";
 import {Component, DebugElement} from "@angular/core";
-import {MATERIAL_COMPATIBILITY_MODE} from "@angular/material";
 
 describe('EditableTextComponent', () => {
     let component: EditableTextComponent;
@@ -13,8 +12,7 @@ describe('EditableTextComponent', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [SharedModule],
-            declarations: [EditableTextComponent, TestComponentWrapper],
-            providers: [{provide: MATERIAL_COMPATIBILITY_MODE, useValue: true}]
+            declarations: [EditableTextComponent, TestComponentWrapper]]
         })
             .compileComponents();
     }));

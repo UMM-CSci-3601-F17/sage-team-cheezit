@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {DeckService} from "../deck/deck.service";
 import {AngularFireAuth} from "angularfire2/auth";
-import {MatSnackBar, MdDialog} from "@angular/material";
+import {MatSnackBar, MatDialog} from "@angular/material";
 import {DeckId} from "../deck/deck";
 import {ActivatedRoute, Router} from "@angular/router";
 import {NewDeckDialogComponent} from "../new-deck-dialog/new-deck-dialog.component";
@@ -25,7 +25,7 @@ declare global {
 export class ClassComponent implements OnInit, OnDestroy {
 
     constructor(public deckService: DeckService, public classService: ClassService,
-                public afAuth: AngularFireAuth, public dialog: MdDialog,
+                public afAuth: AngularFireAuth, public dialog: MatDialog,
                 private route: ActivatedRoute, private router: Router,
                 public snackBar: MatSnackBar, public tdDialog: TdDialogService) {
 

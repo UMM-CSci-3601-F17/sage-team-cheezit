@@ -2,7 +2,6 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {ClassComponent} from './class.component';
 import {SharedModule} from "../shared.module";
-import {MATERIAL_COMPATIBILITY_MODE} from "@angular/material";
 import {ClassServiceMock} from "../class/class.service.mock";
 import {DeckServiceMock} from "../deck/deck.service.mock";
 import {DeckService} from "../deck/deck.service";
@@ -34,7 +33,7 @@ describe('ClassComponent', () => {
         TestBed.configureTestingModule({
             imports: [SharedModule, AppTestModule],
             declarations: [],
-            providers: [{provide: MATERIAL_COMPATIBILITY_MODE, useValue: true},
+            providers: [
                 {provide: DeckService, useValue: new DeckServiceMock()},
                 {provide: ClassService, useValue: new ClassServiceMock()},
                 {provide: AngularFireAuth, useValue: mockFirebaseAuth},

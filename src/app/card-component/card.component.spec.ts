@@ -4,7 +4,6 @@ import {Component, DebugElement} from '@angular/core';
 import {By} from '@angular/platform-browser';
 import {CardComponent} from './card.component';
 import {SharedModule} from "../shared.module";
-import {MATERIAL_COMPATIBILITY_MODE} from "@angular/material";
 import {PlayCard} from "../card/card";
 
 describe('CardComponent', () => {
@@ -16,7 +15,6 @@ describe('CardComponent', () => {
         TestBed.configureTestingModule({
             imports: [SharedModule],
             declarations: [TestComponentWrapper, CardComponent],
-            providers: [{provide: MATERIAL_COMPATIBILITY_MODE, useValue: true}],
         })
             .compileComponents();
     }));

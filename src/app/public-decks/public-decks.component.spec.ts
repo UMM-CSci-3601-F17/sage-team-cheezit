@@ -3,7 +3,6 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {PublicDecksComponent} from './public-decks.component';
 import {AppTestModule} from "../app.test.module";
 import {SharedModule} from "../shared.module";
-import {MATERIAL_COMPATIBILITY_MODE} from "@angular/material";
 import {DebugElement} from '@angular/core';
 import {By} from "@angular/platform-browser";
 import {DeckService} from "../deck/deck.service";
@@ -18,7 +17,7 @@ describe('PublicDecksComponent', () => {
         TestBed.configureTestingModule({
             imports: [SharedModule, AppTestModule],
             declarations: [],
-            providers: [{provide: MATERIAL_COMPATIBILITY_MODE, useValue: true},
+            providers: [
                 {provide: DeckService, useValue: new DeckServiceMock()},],
         })
             .compileComponents();

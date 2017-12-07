@@ -2,7 +2,6 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {JoinGameComponent} from './join-game.component';
 import {SharedModule} from "../shared.module";
-import {MATERIAL_COMPATIBILITY_MODE} from "@angular/material";
 import {AppTestModule} from "../app.test.module";
 import {DebugElement} from '@angular/core';
 import {By} from "@angular/platform-browser";
@@ -16,7 +15,6 @@ describe('JoinGameComponent', () => {
         TestBed.configureTestingModule({
             imports: [SharedModule, AppTestModule],
             declarations: [],
-            providers: [{provide: MATERIAL_COMPATIBILITY_MODE, useValue: true}],
         })
             .compileComponents();
     }));

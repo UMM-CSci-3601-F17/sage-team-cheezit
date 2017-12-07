@@ -3,7 +3,7 @@ import {Deck} from "../deck/deck";
 import {DeckService} from "../deck/deck.service";
 import {AngularFireAuth} from "angularfire2/auth";
 import {NewDeckDialogComponent} from "../new-deck-dialog/new-deck-dialog.component";
-import {MdDialog} from "@angular/material";
+import {MatDialog} from "@angular/material";
 
 @Component({
     selector: 'app-my-decks',
@@ -12,7 +12,7 @@ import {MdDialog} from "@angular/material";
 })
 export class MyDecksComponent implements OnInit {
 
-    constructor(public deckService: DeckService, public afAuth: AngularFireAuth, public dialog: MdDialog) {
+    constructor(public deckService: DeckService, public afAuth: AngularFireAuth, public dialog: MatDialog) {
 
     }
 

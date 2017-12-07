@@ -1,6 +1,5 @@
 import {async, ComponentFixture, TestBed} from "@angular/core/testing";
 import {HomeComponent} from "./home.component";
-import {MATERIAL_COMPATIBILITY_MODE} from "@angular/material";
 import {SharedModule} from "../shared.module";
 import {AppTestModule} from "../app.test.module";
 import {DebugElement} from "@angular/core";
@@ -25,7 +24,7 @@ describe('HomeComponent', () => {
         TestBed.configureTestingModule({
             imports: [SharedModule, AppTestModule],
             declarations: [],
-            providers: [{provide: MATERIAL_COMPATIBILITY_MODE, useValue: true},
+            providers: [
                 {provide: AngularFireAuth, useValue: mockFirebaseAuth}],
         })
             .compileComponents();
