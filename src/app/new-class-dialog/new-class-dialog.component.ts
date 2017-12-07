@@ -26,8 +26,7 @@ export class NewClassDialogComponent implements OnInit {
                   duration: 2000,
               });
           }, err => {
-              console.log(err);
-              this.snackBar.open("Error adding class", null, {
+                            this.snackBar.open("Error adding class", null, {
                   duration: 2000,
               });
           }

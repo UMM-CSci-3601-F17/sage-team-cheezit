@@ -117,16 +117,11 @@ export class DeckService {
             "history.userEdited": this.afAuth.auth.currentUser.displayName,
             "history.timeEdited": firebase.firestore.FieldValue.serverTimestamp()
         };
-        console.log(body);
-        console.log(deckId);
-        console.log(cardId);
-        return this.db.doc('decks/' + deckId + '/cards/' + cardId).update(body);
+                                return this.db.doc('decks/' + deckId + '/cards/' + cardId).update(body);
     }
 
     public deleteCard(deckId: string, cardId: string){
-        console.log(deckId);
-        console.log(cardId);
-        return this.db.doc('decks/' + deckId).collection('cards').doc(cardId).delete();
+                        return this.db.doc('decks/' + deckId).collection('cards').doc(cardId).delete();
     }
 
     public deleteDeck(deckId: string){

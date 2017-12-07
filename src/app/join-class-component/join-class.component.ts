@@ -45,8 +45,7 @@ export class JoinClassComponent implements OnInit, OnDestroy  {
                                         this.snackBar.open("Error joining class", null, {
                                             duration: 2000,
                                         });
-                                        console.log(err);
-                                        this.router.navigate(['/']);
+                                                                                this.router.navigate(['/']);
                                     }
                                 );
                     });

@@ -60,8 +60,7 @@ export class PlayComponent implements OnInit, OnDestroy {
 
     public updateGame(): Promise<void> {
         if(this.cardStates.length == 0) return Promise.reject("no cards");
-        console.log("update game called " + this.pageNumber);
-        return this.db.object('games/' + this.gameId).set({
+                return this.db.object('games/' + this.gameId).set({
             card: this.cardStates[this.pageNumber].playCard,
             points: this.points,
             selectedHints: this.cardStates[this.pageNumber].selectedCardHints,

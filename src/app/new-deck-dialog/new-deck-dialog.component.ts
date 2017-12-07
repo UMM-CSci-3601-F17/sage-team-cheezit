@@ -28,8 +28,7 @@ export class NewDeckDialogComponent implements OnInit {
                         duration: 2000,
                     });
                 }, err => {
-                    console.log(err);
-                    this.snackBar.open("Error adding deck", null, {
+                                        this.snackBar.open("Error adding deck", null, {
                         duration: 2000,
                     });
                 }
@@ -42,8 +41,7 @@ export class NewDeckDialogComponent implements OnInit {
                         duration: 2000,
                     });
                 }, err => {
-                    console.log(err);
-                    this.snackBar.open("Error adding deck", null, {
+                                        this.snackBar.open("Error adding deck", null, {
                         duration: 2000,
                     });
                 }

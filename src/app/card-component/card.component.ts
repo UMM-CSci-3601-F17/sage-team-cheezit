@@ -30,15 +30,13 @@ export class CardComponent implements OnInit {
         if (this.canSpeak) {
             let msg = new SpeechSynthesisUtterance();
             let voices = window.speechSynthesis.getVoices();
-            console.log(voices);
-            for (let voice of voices) {
+                        for (let voice of voices) {
                 if (voice.voiceURI == "Google US English") { // prefer Google's voice
                     msg.voice = voice;
                 }
             }
             msg.text = this.card.word;
-            console.log(msg.voice);
-            window.speechSynthesis.speak(msg);
+                        window.speechSynthesis.speak(msg);
         }
     }
 

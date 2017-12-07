@@ -24,9 +24,7 @@ export class SaveCardDialogComponent implements OnInit {
                 public matDialogRef : MatDialogRef<SaveCardDialogComponent>,
                 @Inject(MAT_DIALOG_DATA) public data: {card?: CardId, deckId: string},
                 public snackBar: MatSnackBar) {
-        console.log("construcing SaveCardDialogComponent");
-        console.log(data);
-        if(data.card) {
+                        if(data.card) {
             this.isEditing = true;
             this.newCardWord = data.card.word;
             this.newCardSynonym = data.card.synonym.slice();
@@ -63,8 +61,7 @@ export class SaveCardDialogComponent implements OnInit {
                 //this.refreshDeck();
             },
             err => {
-                console.log(err);
-                this.snackBar.open("Error editing card", null, {
+                                this.snackBar.open("Error editing card", null, {
                     duration: 2000,
                 });
             });
@@ -86,8 +83,7 @@ export class SaveCardDialogComponent implements OnInit {
                 //this.refreshDeck();
             },
             err => {
-                console.log(err);
-                this.snackBar.open("Error adding card", null, {
+                                this.snackBar.open("Error adding card", null, {
                     duration: 2000,
                 });
             });

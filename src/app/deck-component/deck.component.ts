@@ -67,8 +67,7 @@ export class DeckComponent implements OnInit, OnDestroy {
 
             this.deckService.getDeck(this.id).takeUntil(componentDestroyed(this)).subscribe(
                 deck => {
-                    console.log(deck);
-                    this.deck = deck;
+                                        this.deck = deck;
                     if(deck && deck.tags)
                         this.tags = deck.tags;
                     else
@@ -78,8 +77,7 @@ export class DeckComponent implements OnInit, OnDestroy {
             );
 
             this.deckService.getDeckCards(this.id, ref => ref.orderBy('word')).takeUntil(componentDestroyed(this)).subscribe(cards => {
-                console.log(cards);
-                this.cards = cards;
+                                this.cards = cards;
             });
         });
     }
@@ -124,16 +122,14 @@ export class DeckComponent implements OnInit, OnDestroy {
             if(accept) {
                 this.deckService.deleteDeck(this.id).then(
                     succeeded => {
-                        console.log("succeeded: " + succeeded);
-                        this.router.navigate([origURL]).then(() => {
+                                                this.router.navigate([origURL]).then(() => {
                             this.snackBar.open("Deleted deck", null, {
                                 duration: 2000,
                             });
                         })
                     },
                     err => {
-                        console.log("error: " + err);
-                        this.snackBar.open("Error deleting deck", null, {
+                                                this.snackBar.open("Error deleting deck", null, {
                             duration: 2000,
                         });
                     });
@@ -182,8 +178,7 @@ export class DeckComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
-        console.log("deck destroyed");
-        this.loaded = false;
+                this.loaded = false;
     }
 
 

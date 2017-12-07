@@ -27,8 +27,7 @@ export class ClassService {
                 return Observable.of([]);
         });
         this.classesObservable.subscribe(classes => {
-            console.log("classes observable fired");
-            this.classes = classes;
+                        this.classes = classes;
         })
     }
 
@@ -75,8 +74,7 @@ export class ClassService {
     }
 
     /*public addATeacher(id: string, studentid: string){
-        console.log(studentid);
-        return this.db.doc('classes/' + id).update({["users." + studentid + ".teacher"] : true});
+                return this.db.doc('classes/' + id).update({["users." + studentid + ".teacher"] : true});
     }*/
 
     public addNewClass(name: string) {

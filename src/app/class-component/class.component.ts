@@ -63,8 +63,7 @@ export class ClassComponent implements OnInit, OnDestroy {
     }
 
     public updateJoinUrl() {
-        console.log("get join url called");
-        if(!this.currentClass || !this.currentClass.joincode) this.joinUrl = null;
+                if(!this.currentClass || !this.currentClass.joincode) this.joinUrl = null;
         else this.joinUrl = document.location.origin + this.router.createUrlTree(['/class', this.id, 'join' ], { queryParams: { joincode: this.currentClass.joincode } }).toString();
     }
 
@@ -88,8 +87,7 @@ export class ClassComponent implements OnInit, OnDestroy {
 
             this.deckSub = this.deckService.getClassDecks(this.id).takeUntil(componentDestroyed(this)).subscribe(
                 decks => {
-                    console.log(decks);
-                    this.decks = decks;
+                                        this.decks = decks;
                 }
             );
 
@@ -114,8 +112,7 @@ export class ClassComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
-        console.log("class destroyed");
-    }
+            }
 
     public renameClass(name: string): void {
         this.classService.updateClassName(this.id, name).then(success=>{
@@ -146,16 +143,14 @@ export class ClassComponent implements OnInit, OnDestroy {
                     return this.classService.deleteClass(this.id);
                 }).then(
                     succeeded => {
-                        console.log("succeeded: " + succeeded);
-                        this.router.navigate(['/']).then(() => {
+                                                this.router.navigate(['/']).then(() => {
                             this.snackBar.open("Deleted class", null, {
                                 duration: 2000,
                             });
                         })
                     },
                     err => {
-                        console.log("error: " + err);
-                        this.snackBar.open("Error deleting class", null, {
+                                                this.snackBar.open("Error deleting class", null, {
                             duration: 2000,
                         });
                     });
