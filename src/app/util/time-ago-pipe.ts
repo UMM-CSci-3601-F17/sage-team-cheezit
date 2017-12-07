@@ -1,3 +1,6 @@
+// From https://github.com/AndrewPoyntz/time-ago-pipe
+// We can't use the npm distribution of this anymore because it is not packaged correctly
+
 import {Pipe, PipeTransform, NgZone, ChangeDetectorRef, OnDestroy} from "@angular/core";
 @Pipe({
     name:'timeAgo',
