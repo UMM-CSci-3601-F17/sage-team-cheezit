@@ -1,5 +1,5 @@
 <h2 mat-dialog-title>Add New Deck</h2>
-<form #newDeckForm="ngForm" (ngSubmit)="addNewDeck();">
+<form #newDeckForm="ngForm" (ngSubmit)="addNewDeck();" autocomplete="off">
     <mat-dialog-content layout="column" class="add-card-form-fields">
         <mat-form-field>
             <input matInput required id="deckName" #input type="text" placeholder="Deck Name" [(ngModel)]="newDeckName" name="newDeckName">

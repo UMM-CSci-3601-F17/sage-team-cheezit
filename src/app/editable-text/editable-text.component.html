@@ -1,6 +1,6 @@
 <ng-container *ngIf="this.editing">
     <mat-form-field class="edit-field">
-        <input #textInput matInput type="text" [ngModel]="this.text" (keyup.enter)="this.saveEdit(textInput.value);this.editing = false">
+        <input #textInput matInput type="text" [ngModel]="this.text" (keyup.enter)="this.saveEdit(textInput.value);this.editing = false" autocomplete="off">
     </mat-form-field>
     <button mat-icon-button class="save-button" [disabled]="textInput.value==0" (click)="this.saveEdit(textInput.value);this.editing = false">
         <mat-icon>save</mat-icon>

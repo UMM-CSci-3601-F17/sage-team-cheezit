@@ -9,6 +9,6 @@
                [matChipInputFor]="chipList"
                [matChipInputSeparatorKeyCodes]="this.separatorKeysCodes"
                [matChipInputAddOnBlur]="true"
-               (matChipInputTokenEnd)="this.addChip($event)"/>
+               (matChipInputTokenEnd)="this.addChip($event)" autocomplete="off"/>
     </mat-chip-list>
 </mat-form-field>

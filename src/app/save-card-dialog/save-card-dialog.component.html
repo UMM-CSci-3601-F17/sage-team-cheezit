@@ -1,6 +1,6 @@
 <h2 mat-dialog-title>{{this.isEditing ? "Edit Card" : "Add Card"}}</h2>
 <form #newCardForm="ngForm" (ngSubmit)="submitForm();">
-    <mat-dialog-content layout="column" class="add-card-form-fields">
+    <mat-dialog-content layout="column" class="add-card-form-fields" autocomplete="off">
         <mat-form-field>
             <input matInput required id="wordInput" #input type="text" placeholder="Word" [(ngModel)]="newCardWord" name="newCardWord">
         </mat-form-field>

@@ -1,5 +1,5 @@
 <h2 mat-dialog-title>Add New Class</h2>
-<form #newClassForm="ngForm" (ngSubmit)="addNewClass();">
+<form #newClassForm="ngForm" (ngSubmit)="addNewClass();" autocomplete="off">
     <mat-dialog-content layout="column" class="add-card-form-fields">
         <mat-form-field>
             <input matInput required id="className" #input type="text" placeholder="Class Name" [(ngModel)]="newClassName" name="newClassName">

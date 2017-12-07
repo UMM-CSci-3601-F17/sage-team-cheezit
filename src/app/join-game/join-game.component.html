@@ -12,7 +12,7 @@
                 <mat-card-content>
                     <mat-form-field>
                         <!-- dumb fix for iOS numeric keypad http://danielfriesen.name/blog/2013/09/19/input-type-number-and-ios-numeric-keypad/ -->
-                        <input matInput min="0" type="number" inputmode="numeric" pattern="[0-9]*" placeholder="Game ID" (keyup.enter)="this.joinGame()" [(ngModel)]="this.gameId">
+                        <input matInput min="0" type="number" inputmode="numeric" pattern="[0-9]*" placeholder="Game ID" (keyup.enter)="this.joinGame()" [(ngModel)]="this.gameId" autocomplete="off">
                     </mat-form-field>
                     <button class="join-button" mat-raised-button color="primary" (click)="this.joinGame()">Join Game</button>
                 </mat-card-content>
