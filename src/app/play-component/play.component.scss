@@ -10,13 +10,13 @@
 .margin {
     margin-top: -64px;
 }
+
 .score {
     float: right;
     display: block;
     vertical-align: center;
     margin-right: 15px;
 }
-
 
 kb-page-slider {
     width: 100%;
@@ -27,7 +27,7 @@ kb-page-slider {
 //.button-container {
 //    display: flex;
 //    align-items: center;
- //   justify-content: center;
+//   justify-content: center;
 //}
 
 .game-id {
@@ -36,3 +36,10 @@ kb-page-slider {
     right: 5px;
     color: white;
 }
+
+.emoji {
+    margin-top: 4px;
+    font-size: 24px;
+}
+
+

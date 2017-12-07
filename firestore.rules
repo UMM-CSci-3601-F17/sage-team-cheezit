@@ -1,54 +1,105 @@
 service cloud.firestore {
   match /databases/{database}/documents {
-    //match /{document=**} {
-    //  allow read, write;
-    //}
     match /decks/{deck} {
-      //change to read when bug fixed
-    	//allow get: if resource.data.isPublic //allow get if the deck is public
-      //|| request.auth.uid in resource.data.users // allow get if the user is in the deck's list of users
-      //|| request.auth.uid in get(/databases/$(database)/documents/classes/$(resource.classId)).data.users; // allow get if
-      //the user is in the class referenced in the deck
+      allow read: if resource.data.isPublic == true || (request.auth != null && //checks if the user is logged in
+      (request.auth.uid in resource.data.users || //checks if the user is in the users of the deck
+      request.auth.uid in get(/databases/$(database)/documents/classes/$(resource.data.classId)).data.users)); //checks if the user is in the class that the deck is in
 
-      //allow list: if resource.data.isPublic == true || request.auth != null; //temporary, there is a bug in firebase
-      //that causes queries to fail with certain permission setups (https://stackoverflow.com/questions/46667912).
-      //This should be removed after that is fixed, leaving only the read perm.
+	  allow create: if request.auth != null && //checks if they are logged in
+      request.resource.data.name is string && //checks to make sure the deck name is a string
+      ((request.auth.uid in request.resource.data.users && //check that they are a user in the decks users if it is in my decks
+      request.resource.data.users[request.auth.uid].owner == true && //checks that the user is a deck owner in the users if it is in my decks
+      request.resource.data.users != null && //checks that users are being added to the deck
+      request.resource.data.name != null && //checks that a name is being added to the deck
+      request.resource.data.size() == 2) || //check that there are only 2 field values on the deck when its being added, name and users
+      (request.resource.data.classId is string && //checks if the class Id is a string
+      get(/databases/$(database)/documents/classes/$(request.resource.data.classId)).data.users[request.auth.uid].teacher == true) && //checks if the user in the class is a teacher
+      request.resource.data.classId != null && //checks that a classId is being added to the deck
+      request.resource.data.name != null && //checks that a name is being added to the deck
+      request.resource.data.size() == 2); //check that there are only 2 field values on the deck when its being added, name and classId
+ 
+      allow update: if request.auth != null && //checks if the user is logged in
+      request.resource.data.name is string && //checks to make sure the deck name is a string for renaming
+      ((request.auth.uid in resource.data.users && //check that they are a user in the decks users if it is in my decks
+      resource.data.users[request.auth.uid].owner == true && //checks that the user is a deck owner in the users if it is in my decks
+      (request.resource.data.users[request.auth.uid].owner == true || //checks to make sure if the user is moving a deck to my decks that its only being send to their my decks
+      get(/databases/$(database)/documents/classes/$(request.resource.data.classId)).data.users[request.auth.uid].teacher == true)) || //checks to make sure that if the user is moving a deck to a class they have to be a teacher in it
+      (resource.data.classId is string && //checks if the class Id is a string
+      get(/databases/$(database)/documents/classes/$(resource.data.classId)).data.users[request.auth.uid].teacher == true && //checks if the user in the class is a teacher
+      (request.resource.data.users[request.auth.uid].owner == true || //checks to make sure if the user is moving a deck to my decks that its only being send to their my decks
+      get(/databases/$(database)/documents/classes/$(request.resource.data.classId)).data.users[request.auth.uid].teacher == true))); //checks to make sure that if the user is moving a deck to a class they have to be a teacher in it
 
-      allow read: if resource.data.isPublic == true || request.auth != null; // temporary open permissions for testing and demo phase
-
-      allow update, delete: if resource.data.users[request.auth.uid].owner // allow write if owner of the deck
-      || get(/databases/$(database)/documents/classes/$(resource.data.classId)).data.users[request.auth.uid].teacher == true;
-      // allow write if teacher in deck's class
-
-      //allow create: if (request.resource.data.name is string) &&
-     // ((request.resource.data.users.size() == 1
-     // 	&& request.auth.uid  in request.resource.data.users
-     //   && request.resource.data.users[request.auth.uid].owner
-     //   && !request.data.class)
-    //  || (!request.data.users
-    //  	&& request.data.classId is string
-    //    && get(/databases/$(database)/documents/classes/$(request.resource.data.classId)).data.users[request.auth.uid].teacher == true));
-
-			allow create: if request.auth != null;
-
+	  allow delete: if request.auth != null && //checks if the user is logged in
+      ((request.auth.uid in resource.data.users && //check that they are a user in the decks users if it is in my decks
+      resource.data.users[request.auth.uid].owner == true) || //checks that the user is a deck owner in the users if it is in my decks
+      (resource.data.classId is string && //checks if the class Id is a string
+      get(/databases/$(database)/documents/classes/$(resource.data.classId)).data.users[request.auth.uid].teacher == true)) //checks if the user in the class is a teacher
+      
 
       match /cards/{card} {
       	function getDeck() {
         	return get(/databases/$(database)/documents/decks/$(deck)).data;
         }
-      	allow read: if true; //temporary for testing
-        //(request.auth != null && request.auth.uid in get(/databases/$(database)/documents/classes/$(getDeck().classId)).data.users)
-        //|| (request.auth != null && request.auth.uid in getDeck().users)
-        //|| getDeck().isPublic == true;
+      	
+        allow read: if true; //allows all people to read, this is already blocked by decks
 
-        allow write: if request.auth != null;
+        allow create, update: if request.auth != null && //checks if the user is logged in
+        request.resource.data.synonym is list && //checks that the synonym is a list
+        request.resource.data.synonym.size() > 0 && //checks that the size of the list of synonyms is atleast 1
+        request.resource.data.antonym is list && //checks that the antonym is a list
+        request.resource.data.antonym.size() > 0 && //checks that the size of the list of antonyms is atleast 1
+        request.resource.data.general_sense is string && //checks that the general sense is a string
+        request.resource.data.general_sense.size() > 0 && //checks that the general sense is atleast 1 letter long
+        request.resource.data.example_usage is string && //checks that the example usage is a string
+        request.resource.data.example_usage.size() > 0 && //checks that the example usage is atleast 1 letter long
+        request.resource.data.word is string && //checks that the word is a string
+        request.resource.data.word.size() > 0 && //checks that the word is atleast 1 letter long
+        ((getDeck().users[request.auth.uid].owner == true) || //checks if the user owns the deck they are editing cards in
+        (request.auth.uid in get(/databases/$(database)/documents/classes/$(getDeck().classId)).data.users && //checks if the user is in the class that the cards deck is in
+        getDeck().studentEdit == true) || //checks if student editing is enabled in said deck
+        (get(/databases/$(database)/documents/classes/$(getDeck().classId)).data.users[request.auth.uid].teacher == true)); //checks if the user is a teacher in the class that the cards deck is in
+        
+        allow delete: if request.auth != null && //checks if the user is logged in
+        ((getDeck().users[request.auth.uid].owner == true) || //checks if the user owns the deck they are editing cards in
+        (request.auth.uid in get(/databases/$(database)/documents/classes/$(getDeck().classId)).data.users && //checks if the user is in the class that the cards deck is in
+        getDeck().studentEdit == true) || //checks if student editing is enabled in said deck
+        (get(/databases/$(database)/documents/classes/$(getDeck().classId)).data.users[request.auth.uid].teacher == true)); //checks if the user is a teacher in the class that the cards deck is in
       }
     }
     match /classes/{class} {
-    	allow read, write: if request.auth != null; //temporary for testing
+      allow read: if request.auth != null && //checks if the user is logged in
+      request.auth.uid in resource.data.users; //checks if they are in the class
+      
+      allow create: if request.auth != null && //checks if the user is logged in
+      request.resource.data.name is string && //checks if the class name is a string
+      request.resource.data.users.size() == 1 && //checks if only one user is being added to the new class
+      request.auth.uid in request.resource.data.users && //checks if the user creating the class is in it
+      request.resource.data.users[request.auth.uid].teacher == true; //checks if said person is set as a teacher
+      
+      allow update: if request.auth != null && //checks if the user is logged in
+      (resource.data.users[request.auth.uid].teacher == true || //checks if the user is the teacher of the class
+      (request.resource.data.size() == resource.data.size() && //This is for students leaving classes, checks to make sure no fields were added or deleted
+      request.resource.data.joincode == resource.data.joincode && //checks to make sure the joincode hasn't changed
+      request.resource.data.name == resource.data.name && //checks to make sure the class name hasn't changed
+      request.resource.data.users.size() == resource.data.users.size() - 1 && //checks to make sure the user list has only reduced by one user
+      !(request.auth.uid in request.resource.data.users))|| //checks to make sure the user being deleted is the user doing it
+      (get(/databases/$(database)/documents/users/$(request.auth.uid)).data.joincode == resource.data.joincode && //This is for students joining classes, checks to make sure the user has a joincode
+      !(request.auth.uid in resource.data.users) && //checks that the user is not already in the class
+      request.resource.data.size() == resource.data.size() && //checks to make sure no fields were added or deleted
+      request.resource.data.joincode == resource.data.joincode && //checks to make sure the joincode hasn't changed
+      request.resource.data.name == resource.data.name && //checks to make sure the class name hasn't changed
+      request.resource.data.users[request.auth.uid].teacher == false && //checks to make sure the user is not a teacher
+      request.resource.data.users.size() == resource.data.users.size() + 1 //checks to make sure the user list has only increased by one user
+      ));
+      
+      //Because we have an undo button for removing students we cannot lock down teachers adding students
+      //The only place uid's can be gathered at the moment is in classes as far as we can tell which
+      //is already blocked by the join code so we are going to continue allowing teachers to add students.
+      
+      allow delete: if request.auth != null && resource.data.users[request.auth.uid].teacher == true; //checks if the user is a teacher
     }
     match /users/{user} {
-    	allow read, write: if request.auth.uid == user;
+    	allow read, write: if request.auth.uid == user; //checks if the user id is the same as the document id
     }
   }
 }

@@ -1,11 +1,8 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {By} from '@angular/platform-browser';
 import {DebugElement} from '@angular/core';
-
-import {AppModule} from "./app.module";
 import {AppComponent} from './app.component';
 import {SharedModule} from "./shared.module";
-import {MATERIAL_COMPATIBILITY_MODE} from "@angular/material";
 import {AppTestModule} from "./app.test.module";
 
 describe('AppComponent', () => {
@@ -19,7 +16,6 @@ describe('AppComponent', () => {
                 SharedModule,
                 AppTestModule
             ],
-            providers: [{provide: MATERIAL_COMPATIBILITY_MODE, useValue: true}],
         });
 
         appFixture = TestBed.createComponent(AppComponent);

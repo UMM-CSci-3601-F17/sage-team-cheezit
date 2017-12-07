@@ -4,8 +4,11 @@ export interface Class {
         [index: string]: {
             nickname: string,
             teacher: boolean
-    }},
+        }
+    },
     joincode?: string
 }
 
-export interface ClassId extends Class { id: string; }
+export interface ClassId extends Class {
+    id: string;
+}

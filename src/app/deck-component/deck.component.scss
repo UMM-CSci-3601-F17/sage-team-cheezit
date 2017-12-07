@@ -5,12 +5,21 @@
     bottom: 15px;
     right: 30px;
 }
+
 .card-line {
     margin-top: 5px;
 
 }
-.card-desc { float: left; width: 120px; }
-.card-cont { margin-left: 120px; }
+
+.card-desc {
+    float: left;
+    width: 120px;
+    margin-top: 8px;
+}
+
+.card-cont {
+    margin-left: 120px;
+}
 
 .card-word, .card-cont {
     word-wrap: break-word;
@@ -28,6 +37,16 @@ $foreground: map-get($theme, foreground);
     }
 }
 
-.tag-chip {
-    background-color: mat-color($mat-grey, 400) !important;
+.disabled-text {
+    color: mat-color($foreground, disabled-button);
+}
+
+.card-history {
+    margin-top: 8px;
+    font-size: 89%;
+}
+
+// https://github.com/angular/material2/issues/8587
+.hint-chip {
+    margin: 8px 8px 0 0 !important;
 }

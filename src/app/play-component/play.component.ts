@@ -1,12 +1,11 @@
 import {Component, Inject, OnDestroy, OnInit} from '@angular/core';
 import {DeckService} from "../deck/deck.service";
 import {ActivatedRoute, Router} from "@angular/router";
-import {Deck} from "../deck/deck";
 import {CardState} from "./CardState";
-import {Card} from "../card/card";
 import {AngularFireDatabase} from "angularfire2/database";
-import {MatDialogRef, MAT_DIALOG_DATA, MatDialog} from "@angular/material";
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatSnackBar} from "@angular/material";
 import * as firebase from 'firebase/app';
+import 'rxjs/add/operator/take';
 
 
 @Component({
@@ -16,10 +15,7 @@ import * as firebase from 'firebase/app';
 })
 export class PlayComponent implements OnInit, OnDestroy {
 
-    deckid : string;
-
-    deck : Deck;
-    cards: Card[];
+    deckId: string;
 
     private _pageNumber: number = 0;
 
@@ -30,7 +26,7 @@ export class PlayComponent implements OnInit, OnDestroy {
     public set pageNumber(i: number) {
         let oldI = this._pageNumber;
         this._pageNumber = i;
-        if(i != oldI) {
+        if (i != oldI) {
             this.updateGame();
         }
 
@@ -40,6 +36,8 @@ export class PlayComponent implements OnInit, OnDestroy {
 
     public points: number = 0;
 
+    public multiplayer: boolean = false;
+
     public gameId: string;
 
     public cardStates: CardState[];
@@ -47,106 +45,99 @@ export class PlayComponent implements OnInit, OnDestroy {
     public gameURL: string;
 
 
-
     // from https://stackoverflow.com/a/41993719/8855259
 
     randNumDigits(digits: number) {
-        return Math.floor(Math.random()*parseInt('8' + '9'.repeat(digits-1))+parseInt('1' + '0'.repeat(digits-1)));
+        return Math.floor(Math.random() * parseInt('8' + '9'.repeat(digits - 1)) + parseInt('1' + '0'.repeat(digits - 1)));
     }
 
 
-    constructor(public deckService : DeckService, private route: ActivatedRoute,
+    constructor(public deckService: DeckService, private route: ActivatedRoute,
                 private db: AngularFireDatabase, public dialog: MatDialog,
-                private router: Router) {
-        this.cardStates = [];
-        this.gameId = this.randNumDigits(6).toString();
-        this.gameURL = document.location.origin + this.router.createUrlTree(['/joingame'], { queryParams: { id: this.gameId } }).toString();
-
-
-        const ref = firebase.database().ref('games').child(this.gameId);
-        ref.onDisconnect().remove();
+                private router: Router, public snackBar: MatSnackBar) {
     }
 
-    public updateGame() {
-        if(this.cards.length == 0) return;
-        console.log("update game called " + this.pageNumber);
-        this.db.object('games/' + this.gameId).set({
-            card: this.cards[this.pageNumber],
+    public updateGame(): Promise<void> {
+        if (this.cardStates.length == 0) return Promise.reject("no cards");
+        return this.db.object('games/' + this.gameId).set({
+            card: this.cardStates[this.pageNumber].playCard,
             points: this.points,
-            selectedHints: this.getCardState(this.pageNumber).selectedCardHints
+            selectedHints: this.cardStates[this.pageNumber].selectedCardHints,
+            emoji: this.cardStates[this.pageNumber].emoji
         });
     }
 
 
-    public addPoints(pageNumber : number): void {
+    public addPoints(pageNumber: number): void {
 
-        if(this.cardStates[pageNumber].isComplete == false && pageNumber < this.cards.length){
+        if (this.cardStates[pageNumber].isComplete == false && pageNumber < this.cardStates.length) {
             this.points += this.cardStates[pageNumber].cardPoints;
             this.cardStates[pageNumber].selectedCardHints = [];
             this.cardStates[pageNumber].isDone();
-            this.pageNumber = pageNumber + 1;
+            if (pageNumber < this.cardStates.length - 1) this.pageNumber = pageNumber + 1;
+            else this.updateGame();
         }
         //this.updateGame();
     }
 
-    public getCardState(i:number): CardState{
-        //console.log("getCardState called");
-        if(this.cardStates[i] == null ) {
-            this.cardStates[i] = new CardState;
-        }
-        return this.cardStates[i];
+    public updateEmoji(emoji: string, i: number) {
+        this.cardStates[i].emoji = emoji;
+        this.db.object('games/' + this.gameId).update({
+            emoji: emoji
+        });
     }
 
-    //https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array#2450976 && from Raymond Shayler, thanks guys!
-    public shuffle(array: any[]): any[] {
-        let currentIndex = array.length;
-        let  temporaryValue: number;
-        let randomIndex: number;
-
-        // While there remain elements to shuffle...
-        while (0 !== currentIndex) {
-
-            // Pick a remaining element...
-            randomIndex = Math.floor(Math.random() * currentIndex);
-            currentIndex -= 1;
-
-            // And swap it with the current element.
-            temporaryValue = array[currentIndex];
-            array[currentIndex] = array[randomIndex];
-            array[randomIndex] = temporaryValue;
+    // from https://stackoverflow.com/a/12646864/8855259
+    shuffleArray(array: any[]) {
+        for (let i = array.length - 1; i > 0; i--) {
+            let j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
         }
-        return array;
     }
 
 
     ngOnInit() {
 
         this.route.params.subscribe(params => {
-            this.deckid = params['deck'];
+            this.deckId = params['deck'];
 
-            this.deckService.getDeck(this.deckid).subscribe(
-                deck => {
-                    this.deck = deck;
-                }
-            );
-
-            this.deckService.getDeckPlayCards(this.deckid).subscribe(cards => {
-            this.cards = cards;
-            this.cards = this.shuffle(this.cards);
-            this.updateGame();
+            this.deckService.getDeckPlayCards(this.deckId).take(1).subscribe(cards => { //take(1) means we are only getting it once so later changes don't apply
+                this.cardStates = cards.map(c => new CardState(c)); // maps incoming cards into card states
+                this.shuffleArray(this.cardStates);
             });
         });
     }
 
     ngOnDestroy() {
-        if(this.gameId)
-        this.db.object('games/' + this.gameId).remove();
+        if (this.gameId)
+            this.db.object('games/' + this.gameId).remove();
     }
 
     showGameId() {
-        this.dialog.open(GameJoinDialogComponent, {
-            data: { gameId: this.gameId, gameURL: this.gameURL },
-        })
+
+        if (!this.multiplayer) {
+            this.gameId = this.randNumDigits(6).toString();
+            this.gameURL = document.location.origin + this.router.createUrlTree(['/joingame'], {queryParams: {id: this.gameId}}).toString();
+
+
+            const ref = firebase.database().ref('games').child(this.gameId);
+            ref.onDisconnect().remove().then(() => {
+                return this.updateGame();
+            }).then(() => {
+                this.multiplayer = true;
+                this.dialog.open(GameJoinDialogComponent, {
+                    data: {gameId: this.gameId, gameURL: this.gameURL},
+                })
+            }).catch(() => {
+                this.snackBar.open("Error starting game", null, {
+                    duration: 2000,
+                });
+            })
+        } else {
+            this.dialog.open(GameJoinDialogComponent, {
+                data: {gameId: this.gameId, gameURL: this.gameURL},
+            })
+        }
     }
 
 }
@@ -167,9 +158,9 @@ export class PlayComponent implements OnInit, OnDestroy {
 })
 export class GameJoinDialogComponent {
 
-    constructor(
-        public dialogRef: MatDialogRef<GameJoinDialogComponent>,
-        @Inject(MAT_DIALOG_DATA) public data: {gameId: string, gameURL: string}) { }
+    constructor(public dialogRef: MatDialogRef<GameJoinDialogComponent>,
+                @Inject(MAT_DIALOG_DATA) public data: { gameId: string, gameURL: string }) {
+    }
 
 
     browserShareInvite() {

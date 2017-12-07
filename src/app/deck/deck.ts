@@ -1,4 +1,3 @@
-
 export interface Deck {
     name: string,
     users?: {
@@ -14,5 +13,7 @@ export interface Deck {
     //cards: Card[]
 }
 
-export interface DeckId extends Deck { id: string; }
+export interface DeckId extends Deck {
+    id: string;
+}
 

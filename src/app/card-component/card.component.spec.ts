@@ -1,37 +1,34 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {DebugElement} from '@angular/core';
+import {Component, DebugElement} from '@angular/core';
 import {By} from '@angular/platform-browser';
-import { CardComponent } from './card.component';
+import {CardComponent} from './card.component';
 import {SharedModule} from "../shared.module";
-import {MATERIAL_COMPATIBILITY_MODE} from "@angular/material";
-import {Component} from "@angular/core";
-import {Card} from "../card/card";
+import {PlayCard} from "../card/card";
 
 describe('CardComponent', () => {
-  let component: CardComponent;
-  let fixture: ComponentFixture<TestComponentWrapper>;
-  let debugElement: DebugElement;
+    let component: CardComponent;
+    let fixture: ComponentFixture<TestComponentWrapper>;
+    let debugElement: DebugElement;
 
     beforeEach(async(() => {
-    TestBed.configureTestingModule({
-        imports: [SharedModule],
-        declarations: [ TestComponentWrapper, CardComponent ],
-        providers: [{provide: MATERIAL_COMPATIBILITY_MODE, useValue: true}],
-    })
-    .compileComponents();
-  }));
+        TestBed.configureTestingModule({
+            imports: [SharedModule],
+            declarations: [TestComponentWrapper, CardComponent],
+        })
+            .compileComponents();
+    }));
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(TestComponentWrapper);
-    component = fixture.debugElement.children[0].componentInstance;
-    debugElement = fixture.debugElement;
-    fixture.detectChanges();
-  });
+    beforeEach(() => {
+        fixture = TestBed.createComponent(TestComponentWrapper);
+        component = fixture.debugElement.children[0].componentInstance;
+        debugElement = fixture.debugElement;
+        fixture.detectChanges();
+    });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 
     it('should check that card is added correctly', () => {
 
@@ -43,10 +40,10 @@ describe('CardComponent', () => {
 
     });
 
-     it('synonym should be highlighted', () => {
-         let synonym: HTMLElement = debugElement.query(By.css('.card-synonym')).nativeElement;
-         expect(synonym.classList).toContain("hint-selected");
-     });
+    it('synonym should be highlighted', () => {
+        let synonym: HTMLElement = debugElement.query(By.css('.card-synonym')).nativeElement;
+        expect(synonym.classList).toContain("hint-selected");
+    });
 
     it('general sense should be highlighted', () => {
         let synonym: HTMLElement = debugElement.query(By.css('.card-general-usage')).nativeElement;
@@ -69,13 +66,12 @@ describe('CardComponent', () => {
     template: '<app-card [card]="card" [selected]="[1,3]"></app-card>'
 })
 class TestComponentWrapper {
-    card : Card = {
-        word : "test word",
-        synonym : "test synonym",
+    card: PlayCard = {
+        word: "test word",
+        synonym: "test synonym",
         antonym: "test antonym",
         general_sense: "test general_sense",
-        example_usage: "test example_usage",
-        hidden: false
+        example_usage: "test example_usage"
     };
 
 

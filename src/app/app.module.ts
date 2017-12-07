@@ -1,12 +1,9 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule }  from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import {BrowserModule, DomSanitizer} from '@angular/platform-browser';
 
 import {environment} from '../environments/environment';
 
-import {
-    MATERIAL_COMPATIBILITY_MODE,
-    MdSnackBar
-} from '@angular/material';
+import {MatIconRegistry, MatDialog, MatSnackBar} from '@angular/material';
 
 
 import {HttpModule, JsonpModule} from '@angular/http';
@@ -21,8 +18,6 @@ import {DeckListComponent} from "./deck-list-component/deck-list.component";
 import {DeckComponent} from "./deck-component/deck.component";
 import {DeckService} from "./deck/deck.service";
 import {GameJoinDialogComponent, PlayComponent} from "./play-component/play.component";
-import {MdDialog} from "@angular/material";
-import {NewCardDialogComponent} from "./new-card-dialog/new-card-dialog.component";
 import {NewDeckDialogComponent} from "./new-deck-dialog/new-deck-dialog.component";
 import {SaveCardDialogComponent} from './save-card-dialog/save-card-dialog.component';
 import {AngularFirestoreModule} from "angularfire2/firestore";
@@ -37,7 +32,12 @@ import {GoogleSignInButtonComponent} from "./google-sign-in-button/google-sign-i
 import {PublicDecksComponent} from "./public-decks/public-decks.component";
 import {AngularFireDatabaseModule} from "angularfire2/database";
 import {JoinGameComponent} from "./join-game/join-game.component";
-import {MatChipsModule} from '@angular/material/chips';
+import {HelpComponent} from "./help/help.component";
+import {KeyValuePipe} from "./util/key-value-pipe";
+import {EditableTextComponent} from "./editable-text/editable-text.component";
+import {ChipInputComponent} from "./chip-input/chip-input.component";
+import {TimeAgoPipe} from "./util/time-ago-pipe";
+
 
 @NgModule({
     imports: [
@@ -58,7 +58,6 @@ import {MatChipsModule} from '@angular/material/chips';
         DeckComponent,
         PlayComponent,
         DeckListComponent,
-        NewCardDialogComponent,
         NewDeckDialogComponent,
         NewClassDialogComponent,
         ClassComponent,
@@ -69,9 +68,13 @@ import {MatChipsModule} from '@angular/material/chips';
         SaveCardDialogComponent,
         JoinGameComponent,
         GameJoinDialogComponent,
+        HelpComponent,
+        KeyValuePipe,
+        EditableTextComponent,
+        ChipInputComponent,
+        TimeAgoPipe
     ],
     entryComponents: [
-        NewCardDialogComponent,
         NewDeckDialogComponent,
         NewClassDialogComponent,
         NewDeckDialogComponent,
@@ -81,13 +84,15 @@ import {MatChipsModule} from '@angular/material/chips';
     providers: [
         DeckService,
         ClassService,
-        MdDialog,
-        MdSnackBar,
-        {provide: APP_BASE_HREF, useValue: '/'},
-        {provide: MATERIAL_COMPATIBILITY_MODE, useValue: true}
+        MatDialog,
+        MatSnackBar,
+        {provide: APP_BASE_HREF, useValue: '/'}
     ],
     bootstrap: [AppComponent]
 })
 
 export class AppModule {
+    constructor(matIconRegistry: MatIconRegistry, domSanitizer: DomSanitizer) {
+        matIconRegistry.addSvgIconSet(domSanitizer.bypassSecurityTrustResourceUrl('./assets/mdi.svg')); // Or whatever path you placed mdi.svg at
+    }
 }

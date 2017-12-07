@@ -1,0 +1,14 @@
+<mat-form-field [color]="this.required && this.array.length == 0 ? 'warn' : 'primary'">
+    <mat-chip-list #chipList [required]="this.required">
+        <mat-chip class="chip-input-chip" *ngFor="let item of this.array" [selectable]="this.canEdit"
+                  [removable]="this.canEdit" (remove)="this.removeChip(item)" [disabled]="!this.canEdit">
+            {{item}}
+            <mat-icon matChipRemove *ngIf="this.canEdit">cancel</mat-icon>
+        </mat-chip>
+        <input [placeholder]="this.placeholder" flex [disabled]="!this.canEdit"
+               [matChipInputFor]="chipList"
+               [matChipInputSeparatorKeyCodes]="this.separatorKeysCodes"
+               [matChipInputAddOnBlur]="true"
+               (matChipInputTokenEnd)="this.addChip($event)" autocomplete="off"/>
+    </mat-chip-list>
+</mat-form-field>
