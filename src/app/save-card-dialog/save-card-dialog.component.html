@@ -1,23 +1,31 @@
 <h2 mat-dialog-title>{{this.isEditing ? "Edit Card" : "Add Card"}}</h2>
 <form #newCardForm="ngForm" (ngSubmit)="submitForm();">
-    <mat-dialog-content layout="column" class="add-card-form-fields">
+    <mat-dialog-content layout="column" class="add-card-form-fields" autocomplete="off">
         <mat-form-field>
-            <input matInput required id="wordInput" #input type="text" placeholder="Word" [(ngModel)]="newCardWord" name="newCardWord">
+            <input matInput required id="wordInput" #input type="text" placeholder="Word" [(ngModel)]="newCardWord"
+                   name="newCardWord">
         </mat-form-field>
 
-        <app-chip-input [required]="true" class="wide-chip-input synInput" placeholder="Synonyms" [(array)]="this.newCardSynonym"  name="newCardSynonym"></app-chip-input>
+        <app-chip-input [required]="true" class="wide-chip-input synInput" placeholder="Synonyms"
+                        [(array)]="this.newCardSynonym" name="newCardSynonym"></app-chip-input>
 
-        <app-chip-input [required]="true" class="wide-chip-input antInput" placeholder="Antonyms" [(array)]="this.newCardAntonym"  name="newCardAntonym"></app-chip-input>
+        <app-chip-input [required]="true" class="wide-chip-input antInput" placeholder="Antonyms"
+                        [(array)]="this.newCardAntonym" name="newCardAntonym"></app-chip-input>
 
         <mat-form-field>
-            <input matInput required id="genInput" #input type="text" placeholder="General Sense" [(ngModel)]="newCardGeneral" name="newCardGeneral">
+            <input matInput required id="genInput" #input type="text" placeholder="General Sense"
+                   [(ngModel)]="newCardGeneral" name="newCardGeneral">
         </mat-form-field>
         <mat-form-field>
-            <input matInput required id="exInput" #input type="text" placeholder="Example Usage" [(ngModel)]="newCardExample" name="newCardExample">
+            <input matInput required id="exInput" #input type="text" placeholder="Example Usage"
+                   [(ngModel)]="newCardExample" name="newCardExample">
         </mat-form-field>
     </mat-dialog-content>
     <mat-dialog-actions>
-        <button mat-raised-button id="new-card-submit" color="primary" #input type="button" [disabled]="!(newCardForm.form.valid && newCardSynonym.length > 0 && newCardAntonym.length > 0)" type="submit">{{this.isEditing ? "Save Card" : "Add Card"}}</button>
+        <button mat-raised-button id="new-card-submit" color="primary" #input type="button"
+                [disabled]="!(newCardForm.form.valid && newCardSynonym.length > 0 && newCardAntonym.length > 0)"
+                type="submit">{{this.isEditing ? "Save Card" : "Add Card"}}
+        </button>
         <button mat-button mat-dialog-close>Cancel</button>
     </mat-dialog-actions>
 </form>

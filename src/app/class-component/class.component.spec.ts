@@ -1,7 +1,6 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {ClassComponent} from './class.component';
-import {Class} from "../class/class";
 import {SharedModule} from "../shared.module";
 import {MATERIAL_COMPATIBILITY_MODE} from "@angular/material";
 import {ClassServiceMock} from "../class/class.service.mock";
@@ -39,10 +38,12 @@ describe('ClassComponent', () => {
                 {provide: DeckService, useValue: new DeckServiceMock()},
                 {provide: ClassService, useValue: new ClassServiceMock()},
                 {provide: AngularFireAuth, useValue: mockFirebaseAuth},
-                { provide: ActivatedRoute,
+                {
+                    provide: ActivatedRoute,
                     useValue: {
                         params: Observable.of({id: "test id"})
-                    } }],
+                    }
+                }],
         })
             .compileComponents();
     }));
@@ -63,11 +64,11 @@ describe('ClassComponent', () => {
     });
 
     it('should have the correct class name', () => {
-       expect(component.currentClass.name).toEqual('testclass');
+        expect(component.currentClass.name).toEqual('testclass');
     });
 
 
-    it('should contain a menu for teacher',() => {
+    it('should contain a menu for teacher', () => {
         let deleteButton: HTMLElement = debugElement.query(By.css('.class-menu')).nativeElement;
         expect(deleteButton).toBeTruthy();
     });

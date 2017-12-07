@@ -38,7 +38,7 @@ export class DeckComponent implements OnInit, OnDestroy {
 
     public canEdit(): boolean {
         if (!this.deck) return false;
-        if(this.deck.isPublic) return false;
+        if (this.deck.isPublic) return false;
         if (this.deck.classId) {
             return this.deck.studentEdit || this.isTeacher();
         } else if (this.deck.users) {
@@ -48,7 +48,7 @@ export class DeckComponent implements OnInit, OnDestroy {
     }
 
     public isTeacher(): boolean {
-        if(!this.deck) return false;
+        if (!this.deck) return false;
         return this.classService.isTeacher(this.deck.classId);
     }
 
@@ -57,7 +57,7 @@ export class DeckComponent implements OnInit, OnDestroy {
     }
 
 
-    public toggleStudentEdit(){
+    public toggleStudentEdit() {
         return this.deckService.studentEdit(this.id, !this.deck.studentEdit);
     }
 
@@ -67,9 +67,8 @@ export class DeckComponent implements OnInit, OnDestroy {
 
             this.deckService.getDeck(this.id).takeUntil(componentDestroyed(this)).subscribe(
                 deck => {
-                    console.log(deck);
                     this.deck = deck;
-                    if(deck && deck.tags)
+                    if (deck && deck.tags)
                         this.tags = deck.tags;
                     else
                         this.tags = [];
@@ -78,7 +77,6 @@ export class DeckComponent implements OnInit, OnDestroy {
             );
 
             this.deckService.getDeckCards(this.id, ref => ref.orderBy('word')).takeUntil(componentDestroyed(this)).subscribe(cards => {
-                console.log(cards);
                 this.cards = cards;
             });
         });
@@ -91,7 +89,7 @@ export class DeckComponent implements OnInit, OnDestroy {
         });
     };
 
-    public cardHide(cardId: string, isHidden: boolean){
+    public cardHide(cardId: string, isHidden: boolean) {
         this.deckService.cardHide(this.id, cardId, isHidden)
     }
 
@@ -108,8 +106,8 @@ export class DeckComponent implements OnInit, OnDestroy {
     }
 
     public getOriginalURL(): string {
-        if(this.deck.users) return "/mydecks";
-        if(this.deck.classId) return "/class/" + this.deck.classId;
+        if (this.deck.users) return "/mydecks";
+        if (this.deck.classId) return "/class/" + this.deck.classId;
         return "/";
     }
 
@@ -121,10 +119,9 @@ export class DeckComponent implements OnInit, OnDestroy {
             acceptButton: "Delete",
             cancelButton: "Cancel"
         }).afterClosed().subscribe((accept: boolean) => {
-            if(accept) {
+            if (accept) {
                 this.deckService.deleteDeck(this.id).then(
                     succeeded => {
-                        console.log("succeeded: " + succeeded);
                         this.router.navigate([origURL]).then(() => {
                             this.snackBar.open("Deleted deck", null, {
                                 duration: 2000,
@@ -132,7 +129,6 @@ export class DeckComponent implements OnInit, OnDestroy {
                         })
                     },
                     err => {
-                        console.log("error: " + err);
                         this.snackBar.open("Error deleting deck", null, {
                             duration: 2000,
                         });
@@ -182,7 +178,6 @@ export class DeckComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
-        console.log("deck destroyed");
         this.loaded = false;
     }
 

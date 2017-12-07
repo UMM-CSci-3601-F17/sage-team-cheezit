@@ -1,12 +1,9 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule }  from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
 
 import {environment} from '../environments/environment';
 
-import {
-    MATERIAL_COMPATIBILITY_MODE,
-    MdSnackBar
-} from '@angular/material';
+import {MATERIAL_COMPATIBILITY_MODE, MdDialog, MdSnackBar} from '@angular/material';
 
 
 import {HttpModule, JsonpModule} from '@angular/http';
@@ -21,7 +18,6 @@ import {DeckListComponent} from "./deck-list-component/deck-list.component";
 import {DeckComponent} from "./deck-component/deck.component";
 import {DeckService} from "./deck/deck.service";
 import {GameJoinDialogComponent, PlayComponent} from "./play-component/play.component";
-import {MdDialog} from "@angular/material";
 import {NewDeckDialogComponent} from "./new-deck-dialog/new-deck-dialog.component";
 import {AngularFirestoreModule} from "angularfire2/firestore";
 import {AngularFireModule} from "angularfire2";

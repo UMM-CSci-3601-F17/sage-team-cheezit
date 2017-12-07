@@ -1,6 +1,3 @@
-import * as firebase from "firebase";
-import FieldValue = firebase.firestore.FieldValue;
-
 export interface Card {
     //_id: string,
     word: string,
@@ -16,6 +13,7 @@ export interface Card {
         timeEdited?: Date
     }
 }
+
 export interface PlayCard {
     word: string,
     synonym: string,
@@ -24,4 +22,6 @@ export interface PlayCard {
     example_usage: string,
 }
 
-export interface CardId extends Card { id: string }
+export interface CardId extends Card {
+    id: string
+}

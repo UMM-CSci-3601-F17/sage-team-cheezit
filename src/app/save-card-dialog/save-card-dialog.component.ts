@@ -1,11 +1,12 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {DeckService} from "../deck/deck.service";
-import {MatDialogRef, MAT_DIALOG_DATA, MatSnackBar, MatChipInputEvent} from "@angular/material";
-import {Card, CardId} from "../card/card";
+import {MAT_DIALOG_DATA, MatDialogRef, MatSnackBar} from "@angular/material";
+import {CardId} from "../card/card";
+
 @Component({
-  selector: 'app-save-card-dialog',
-  templateUrl: './save-card-dialog.component.html',
-  styleUrls: ['./save-card-dialog.component.css']
+    selector: 'app-save-card-dialog',
+    templateUrl: './save-card-dialog.component.html',
+    styleUrls: ['./save-card-dialog.component.css']
 })
 export class SaveCardDialogComponent implements OnInit {
 
@@ -18,18 +19,15 @@ export class SaveCardDialogComponent implements OnInit {
     newCardExample: string = "";
 
 
-
-    constructor(public deckService : DeckService,
-                public matDialogRef : MatDialogRef<SaveCardDialogComponent>,
-                @Inject(MAT_DIALOG_DATA) public data: {card?: CardId, deckId: string},
+    constructor(public deckService: DeckService,
+                public matDialogRef: MatDialogRef<SaveCardDialogComponent>,
+                @Inject(MAT_DIALOG_DATA) public data: { card?: CardId, deckId: string },
                 public snackBar: MatSnackBar) {
-        console.log("construcing SaveCardDialogComponent");
-        console.log(data);
-        if(data.card) {
+        if (data.card) {
             this.isEditing = true;
             this.newCardWord = data.card.word;
-            this.newCardSynonym = data.card.synonym;
-            this.newCardAntonym = data.card.antonym;
+            this.newCardSynonym = data.card.synonym.slice();
+            this.newCardAntonym = data.card.antonym.slice();
             this.newCardGeneral = data.card.general_sense;
             this.newCardExample = data.card.example_usage;
         }
@@ -40,7 +38,7 @@ export class SaveCardDialogComponent implements OnInit {
     }
 
     public submitForm(): void {
-        if(this.isEditing) this.editAddedCard();
+        if (this.isEditing) this.editAddedCard();
         else this.addNewCard();
     }
 
@@ -62,7 +60,6 @@ export class SaveCardDialogComponent implements OnInit {
                 //this.refreshDeck();
             },
             err => {
-                console.log(err);
                 this.snackBar.open("Error editing card", null, {
                     duration: 2000,
                 });
@@ -85,7 +82,6 @@ export class SaveCardDialogComponent implements OnInit {
                 //this.refreshDeck();
             },
             err => {
-                console.log(err);
                 this.snackBar.open("Error adding card", null, {
                     duration: 2000,
                 });

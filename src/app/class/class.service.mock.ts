@@ -36,12 +36,12 @@ export class ClassServiceMock {
     // from https://stackoverflow.com/a/27747377/8855259
 
     // dec2hex :: Integer -> String
-    dec2hex (dec: number): string {
+    dec2hex(dec: number): string {
         return ('0' + dec.toString(16)).substr(-2);
     }
 
     // generateId :: Integer -> String
-    generateId (len: number) : string {
+    generateId(len: number): string {
         let arr = new Uint8Array((len || 40) / 2);
         window.crypto.getRandomValues(arr);
         return Array.from(arr, this.dec2hex).join('');

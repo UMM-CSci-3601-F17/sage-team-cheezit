@@ -1,11 +1,9 @@
 import {Component, Inject, OnDestroy, OnInit} from '@angular/core';
 import {DeckService} from "../deck/deck.service";
 import {ActivatedRoute, Router} from "@angular/router";
-import {Deck} from "../deck/deck";
 import {CardState} from "./CardState";
-import {Card} from "../card/card";
 import {AngularFireDatabase} from "angularfire2/database";
-import {MatDialogRef, MAT_DIALOG_DATA, MatDialog, MatSnackBar} from "@angular/material";
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatSnackBar} from "@angular/material";
 import * as firebase from 'firebase/app';
 import 'rxjs/add/operator/take';
 
@@ -17,7 +15,7 @@ import 'rxjs/add/operator/take';
 })
 export class PlayComponent implements OnInit, OnDestroy {
 
-    deckId : string;
+    deckId: string;
 
     private _pageNumber: number = 0;
 
@@ -28,7 +26,7 @@ export class PlayComponent implements OnInit, OnDestroy {
     public set pageNumber(i: number) {
         let oldI = this._pageNumber;
         this._pageNumber = i;
-        if(i != oldI) {
+        if (i != oldI) {
             this.updateGame();
         }
 
@@ -47,22 +45,20 @@ export class PlayComponent implements OnInit, OnDestroy {
     public gameURL: string;
 
 
-
     // from https://stackoverflow.com/a/41993719/8855259
 
     randNumDigits(digits: number) {
-        return Math.floor(Math.random()*parseInt('8' + '9'.repeat(digits-1))+parseInt('1' + '0'.repeat(digits-1)));
+        return Math.floor(Math.random() * parseInt('8' + '9'.repeat(digits - 1)) + parseInt('1' + '0'.repeat(digits - 1)));
     }
 
 
-    constructor(public deckService : DeckService, private route: ActivatedRoute,
+    constructor(public deckService: DeckService, private route: ActivatedRoute,
                 private db: AngularFireDatabase, public dialog: MatDialog,
                 private router: Router, public snackBar: MatSnackBar) {
     }
 
     public updateGame(): Promise<void> {
-        if(this.cardStates.length == 0) return Promise.reject("no cards");
-        console.log("update game called " + this.pageNumber);
+        if (this.cardStates.length == 0) return Promise.reject("no cards");
         return this.db.object('games/' + this.gameId).set({
             card: this.cardStates[this.pageNumber].playCard,
             points: this.points,
@@ -72,13 +68,13 @@ export class PlayComponent implements OnInit, OnDestroy {
     }
 
 
-    public addPoints(pageNumber : number): void {
+    public addPoints(pageNumber: number): void {
 
-        if(this.cardStates[pageNumber].isComplete == false && pageNumber < this.cardStates.length){
+        if (this.cardStates[pageNumber].isComplete == false && pageNumber < this.cardStates.length) {
             this.points += this.cardStates[pageNumber].cardPoints;
             this.cardStates[pageNumber].selectedCardHints = [];
             this.cardStates[pageNumber].isDone();
-            if(pageNumber < this.cardStates.length - 1) this.pageNumber = pageNumber + 1;
+            if (pageNumber < this.cardStates.length - 1) this.pageNumber = pageNumber + 1;
             else this.updateGame();
         }
         //this.updateGame();
@@ -113,24 +109,24 @@ export class PlayComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
-        if(this.gameId)
+        if (this.gameId)
             this.db.object('games/' + this.gameId).remove();
     }
 
     showGameId() {
 
-        if(!this.multiplayer) {
+        if (!this.multiplayer) {
             this.gameId = this.randNumDigits(6).toString();
-            this.gameURL = document.location.origin + this.router.createUrlTree(['/joingame'], { queryParams: { id: this.gameId } }).toString();
+            this.gameURL = document.location.origin + this.router.createUrlTree(['/joingame'], {queryParams: {id: this.gameId}}).toString();
 
 
             const ref = firebase.database().ref('games').child(this.gameId);
-            ref.onDisconnect().remove().then(() =>{
+            ref.onDisconnect().remove().then(() => {
                 return this.updateGame();
             }).then(() => {
                 this.multiplayer = true;
                 this.dialog.open(GameJoinDialogComponent, {
-                    data: { gameId: this.gameId, gameURL: this.gameURL },
+                    data: {gameId: this.gameId, gameURL: this.gameURL},
                 })
             }).catch(() => {
                 this.snackBar.open("Error starting game", null, {
@@ -139,7 +135,7 @@ export class PlayComponent implements OnInit, OnDestroy {
             })
         } else {
             this.dialog.open(GameJoinDialogComponent, {
-                data: { gameId: this.gameId, gameURL: this.gameURL },
+                data: {gameId: this.gameId, gameURL: this.gameURL},
             })
         }
     }
@@ -162,9 +158,9 @@ export class PlayComponent implements OnInit, OnDestroy {
 })
 export class GameJoinDialogComponent {
 
-    constructor(
-        public dialogRef: MatDialogRef<GameJoinDialogComponent>,
-        @Inject(MAT_DIALOG_DATA) public data: {gameId: string, gameURL: string}) { }
+    constructor(public dialogRef: MatDialogRef<GameJoinDialogComponent>,
+                @Inject(MAT_DIALOG_DATA) public data: { gameId: string, gameURL: string }) {
+    }
 
 
     browserShareInvite() {

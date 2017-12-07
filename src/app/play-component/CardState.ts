@@ -10,10 +10,9 @@ export class CardState {
     public emoji: string;
 
 
-
-    constructor(card: Card){
+    constructor(card: Card) {
         this.cardPoints = 5;
-        this.cardHints = [1,2,3,4];
+        this.cardHints = [1, 2, 3, 4];
         this.isComplete = false;
         this.selectedCardHints = [];
         this.emoji = "";
@@ -27,8 +26,8 @@ export class CardState {
         }
     }
 
-    public randomizeSages(): void{
-        if(this.cardHints.length > 0 && !this.isComplete) {
+    public randomizeSages(): void {
+        if (this.cardHints.length > 0 && !this.isComplete) {
             let randnum = Math.floor(Math.random() * this.cardHints.length);
             this.selectedCardHints.push(this.cardHints[randnum]);
 
@@ -38,7 +37,7 @@ export class CardState {
     }
 
     private getRandomHint(hints: string[]): string {
-        if(hints.length == 0) return null;
+        if (hints.length == 0) return null;
         return hints[Math.floor(Math.random() * (hints.length))];
     }
 
