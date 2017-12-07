@@ -56,10 +56,10 @@
         <div flex-gt-xs="70" flex-xs="90">
             <mat-card>
                 <br>
-                <td-message class="no-cards-message" *ngIf="this.deckId && this.cardStates" label="No Cards"
+                <td-message class="no-cards-message" [opened]="this.deckId && this.cardStates" label="No Cards"
                             sublabel="This deck is empty, please add cards to play">
                 </td-message>
-                <td-message class="no-deck-message" *ngIf="!this.deckId" label="No Deck"
+                <td-message class="no-deck-message" [opened]="!this.deckId" label="No Deck"
                             sublabel="This deck does not exist">
                 </td-message>
                 <br>
