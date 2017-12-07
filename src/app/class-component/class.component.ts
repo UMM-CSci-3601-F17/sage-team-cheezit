@@ -1,8 +1,8 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {DeckService} from "../deck/deck.service";
 import {AngularFireAuth} from "angularfire2/auth";
-import {MdDialog, MatSnackBar, MatChipInputEvent, MdSnackBarConfig} from "@angular/material";
-import {Deck, DeckId} from "../deck/deck";
+import {MatSnackBar, MdDialog} from "@angular/material";
+import {DeckId} from "../deck/deck";
 import {ActivatedRoute, Router} from "@angular/router";
 import {NewDeckDialogComponent} from "../new-deck-dialog/new-deck-dialog.component";
 import {Class} from "../class/class";

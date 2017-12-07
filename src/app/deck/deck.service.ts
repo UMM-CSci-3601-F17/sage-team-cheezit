@@ -2,12 +2,11 @@ import {Injectable} from '@angular/core';
 import {Deck, DeckId} from "./deck";
 import {Observable} from "rxjs/Observable";
 import "rxjs/add/operator/map";
-import {AngularFirestore, AngularFirestoreCollection} from "angularfire2/firestore";
+import {AngularFirestore} from "angularfire2/firestore";
 import {Card, CardId} from "../card/card";
 import {AngularFireAuth} from "angularfire2/auth";
 import {QueryFn} from "angularfire2/firestore/interfaces";
 import * as firebase from "firebase";
-import {snapshotChanges} from "angularfire2/database";
 import CollectionReference = firebase.firestore.CollectionReference;
 
 

@@ -3,7 +3,7 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {EditableTextComponent} from './editable-text.component';
 import {SharedModule} from "../shared.module";
 import {Component, DebugElement} from "@angular/core";
-import {CompatibilityModule, MATERIAL_COMPATIBILITY_MODE} from "@angular/material";
+import {MATERIAL_COMPATIBILITY_MODE} from "@angular/material";
 
 describe('EditableTextComponent', () => {
     let component: EditableTextComponent;

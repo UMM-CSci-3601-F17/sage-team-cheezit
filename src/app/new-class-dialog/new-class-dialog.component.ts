@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ClassService} from "../class/class.service";
-import {MatDialogRef,  MatSnackBar} from "@angular/material";
+import {MatDialogRef, MatSnackBar} from "@angular/material";
 
 @Component({
   selector: 'app-new-class-dialog',

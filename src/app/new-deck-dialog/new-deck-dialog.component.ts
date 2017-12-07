@@ -1,6 +1,6 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {DeckService} from "../deck/deck.service";
-import {MatDialogRef,  MatSnackBar, MAT_DIALOG_DATA} from "@angular/material";
+import {MAT_DIALOG_DATA, MatDialogRef, MatSnackBar} from "@angular/material";
 
 @Component({
   selector: 'app-new-deck-dialog',

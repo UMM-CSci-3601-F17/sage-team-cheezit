@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AngularFireDatabase} from "angularfire2/database";
-import {Card, PlayCard} from "../card/card";
+import {PlayCard} from "../card/card";
 import {Observable} from "rxjs/Observable";
 import {componentDestroyed} from "ng2-rx-componentdestroyed";
 import {ActivatedRoute, Router} from "@angular/router";

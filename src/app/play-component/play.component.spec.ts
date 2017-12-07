@@ -7,7 +7,6 @@ import {DeckService} from "../deck/deck.service";
 import {ActivatedRoute} from "@angular/router";
 import {SharedModule} from "../shared.module";
 import {DeckServiceMock} from "../deck/deck.service.mock";
-import {CardState} from "./CardState";
 import {AppTestModule} from "../app.test.module";
 
 describe('PlayComponent', () => {

@@ -3,7 +3,6 @@ import {ClassService} from "./class/class.service";
 import {NewClassDialogComponent} from "./new-class-dialog/new-class-dialog.component";
 import {MdDialog} from "@angular/material";
 import {AngularFireAuth} from "angularfire2/auth";
-import * as firebase from 'firebase/app';
 import {Router} from "@angular/router";
 
 @Component({

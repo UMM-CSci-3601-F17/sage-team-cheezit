@@ -1,14 +1,11 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { DeckComponent } from './deck.component';
+import {DeckComponent} from './deck.component';
 import {SharedModule} from "../shared.module";
 import {MATERIAL_COMPATIBILITY_MODE} from "@angular/material";
-import {CardComponent} from "../card-component/card.component";
 import {DeckService} from "../deck/deck.service";
 import {Observable} from "rxjs";
-import {Deck} from "../deck/deck";
 import {ActivatedRoute} from "@angular/router";
-import {Card} from "../card/card";
 import {AppTestModule} from "../app.test.module";
 import {DeckServiceMock} from "../deck/deck.service.mock";
 import {AngularFireAuth} from "angularfire2/auth";

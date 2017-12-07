@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Deck} from "../deck/deck";
 import {DeckService} from "../deck/deck.service";
 import {AngularFireAuth} from "angularfire2/auth";

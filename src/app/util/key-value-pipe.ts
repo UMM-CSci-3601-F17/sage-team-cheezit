@@ -1,5 +1,4 @@
-
-import { Pipe, PipeTransform } from '@angular/core';
+import {Pipe, PipeTransform} from '@angular/core';
 import {isObject} from "ngx-pipes/src/app/pipes/helpers/helpers";
 
 @Pipe({name: 'keyvalue'})

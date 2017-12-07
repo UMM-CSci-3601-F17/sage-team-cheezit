@@ -1,8 +1,7 @@
 // Imports
 import {ModuleWithProviders} from '@angular/core';
-import {Routes, RouterModule} from '@angular/router';
+import {RouterModule, Routes} from '@angular/router';
 import {HomeComponent} from './home/home.component';
-import {DeckListComponent} from "./deck-list-component/deck-list.component";
 import {DeckComponent} from "./deck-component/deck.component";
 import {PlayComponent} from "./play-component/play.component";
 import {MyDecksComponent} from "./my-decks/my-decks.component";

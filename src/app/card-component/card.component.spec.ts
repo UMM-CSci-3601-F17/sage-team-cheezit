@@ -1,12 +1,11 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {DebugElement} from '@angular/core';
+import {Component, DebugElement} from '@angular/core';
 import {By} from '@angular/platform-browser';
-import { CardComponent } from './card.component';
+import {CardComponent} from './card.component';
 import {SharedModule} from "../shared.module";
 import {MATERIAL_COMPATIBILITY_MODE} from "@angular/material";
-import {Component} from "@angular/core";
-import {Card, PlayCard} from "../card/card";
+import {PlayCard} from "../card/card";
 
 describe('CardComponent', () => {
   let component: CardComponent;

@@ -1,10 +1,9 @@
-import { Injectable } from '@angular/core';
-import {AngularFirestore, AngularFirestoreCollection} from "angularfire2/firestore";
+import {Injectable} from '@angular/core';
+import {AngularFirestore} from "angularfire2/firestore";
 import {Observable} from "rxjs/Observable";
 import {Class, ClassId} from "./class";
 import {AngularFireAuth} from "angularfire2/auth";
 import * as firebase from 'firebase/app';
-import {DeckService} from "../deck/deck.service";
 
 @Injectable()
 export class ClassService {

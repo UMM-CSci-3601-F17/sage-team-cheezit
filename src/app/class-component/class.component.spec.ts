@@ -1,7 +1,6 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {ClassComponent} from './class.component';
-import {Class} from "../class/class";
 import {SharedModule} from "../shared.module";
 import {MATERIAL_COMPATIBILITY_MODE} from "@angular/material";
 import {ClassServiceMock} from "../class/class.service.mock";

@@ -1,7 +1,8 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {DeckService} from "../deck/deck.service";
-import {MatDialogRef, MAT_DIALOG_DATA, MatSnackBar, MatChipInputEvent} from "@angular/material";
-import {Card, CardId} from "../card/card";
+import {MAT_DIALOG_DATA, MatDialogRef, MatSnackBar} from "@angular/material";
+import {CardId} from "../card/card";
+
 @Component({
   selector: 'app-save-card-dialog',
   templateUrl: './save-card-dialog.component.html',

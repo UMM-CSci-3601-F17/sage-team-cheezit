@@ -1,11 +1,9 @@
 import {Component, Inject, OnDestroy, OnInit} from '@angular/core';
 import {DeckService} from "../deck/deck.service";
 import {ActivatedRoute, Router} from "@angular/router";
-import {Deck} from "../deck/deck";
 import {CardState} from "./CardState";
-import {Card} from "../card/card";
 import {AngularFireDatabase} from "angularfire2/database";
-import {MatDialogRef, MAT_DIALOG_DATA, MatDialog, MatSnackBar} from "@angular/material";
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatSnackBar} from "@angular/material";
 import * as firebase from 'firebase/app';
 import 'rxjs/add/operator/take';
 

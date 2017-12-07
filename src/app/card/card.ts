@@ -1,6 +1,3 @@
-import * as firebase from "firebase";
-import FieldValue = firebase.firestore.FieldValue;
-
 export interface Card {
     //_id: string,
     word: string,

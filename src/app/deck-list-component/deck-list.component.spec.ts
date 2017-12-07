@@ -1,15 +1,13 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { DeckListComponent } from './deck-list.component';
+import {DeckListComponent} from './deck-list.component';
 import {SharedModule} from "../shared.module";
 import {MATERIAL_COMPATIBILITY_MODE} from "@angular/material";
 import {Observable} from "rxjs/Observable";
 import {Deck, DeckId} from "../deck/deck";
 import {DeckService} from "../deck/deck.service";
-import {APP_BASE_HREF} from "@angular/common";
 import {RouterTestingModule} from "@angular/router/testing";
-import {Component} from "@angular/core";
-import {DebugElement} from '@angular/core';
+import {Component, DebugElement} from "@angular/core";
 import {By} from "@angular/platform-browser";
 
 describe('DeckListComponent', () => {

@@ -1,4 +1,4 @@
-import { CardState } from "./CardState";
+import {CardState} from "./CardState";
 
 describe('CardState', () => {
    let cardState: CardState;

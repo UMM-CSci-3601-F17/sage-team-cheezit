@@ -1,32 +1,35 @@
-import { NgModule, } from '@angular/core';
-import { CommonModule, } from '@angular/common';
+import {NgModule,} from '@angular/core';
+import {CommonModule,} from '@angular/common';
 
 import {
-    CovalentLayoutModule, CovalentStepsModule, CovalentCommonModule,
-    CovalentMessageModule, CovalentDialogsModule /*, any other modules */
+    CovalentCommonModule,
+    CovalentDialogsModule,
+    CovalentLayoutModule,
+    CovalentMessageModule,
+    CovalentStepsModule
 } from '@covalent/core';
 
 import {
+    MatChipsModule,
+    MatDialogModule,
+    MatExpansionModule,
     MatListModule,
+    MatSlideToggleModule,
+    MatTooltipModule,
     MdButtonModule,
     MdCardModule,
+    MdFormFieldModule,
     MdIconModule,
     MdInputModule,
     MdMenuModule,
     MdSidenavModule,
-    MdToolbarModule,
-    MatTooltipModule,
-    MdFormFieldModule,
-    MatDialogModule,
     MdSnackBarModule,
-    MatExpansionModule,
-    MatSlideToggleModule,
-    MatChipsModule,
+    MdToolbarModule,
 } from '@angular/material';
 
-import { FlexLayoutModule, } from '@angular/flex-layout';
+import {FlexLayoutModule,} from '@angular/flex-layout';
 
-import { FormsModule } from '@angular/forms';
+import {FormsModule} from '@angular/forms';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {PageSliderModule} from "ng2-page-slider";
 import {AngularFireAuthModule} from "angularfire2/auth";
