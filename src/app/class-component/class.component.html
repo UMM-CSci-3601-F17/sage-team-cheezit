@@ -72,7 +72,7 @@
             </mat-card-content>
             <mat-card-actions>
                 <button mat-button (click)="this.classService.updateJoinCode(this.id)">{{this.currentClass.joincode ? "Update" : "Create"}} join code</button>
-                <button mat-button (click)="this.classService.removeJoinCode(this.id)">Remove join code</button>
+                <button mat-button *ngIf="this.currentClass.joincode" (click)="this.classService.removeJoinCode(this.id)">Remove join code</button>
             </mat-card-actions>
         </mat-card>
     </div>
