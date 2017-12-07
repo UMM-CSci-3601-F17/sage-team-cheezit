@@ -6,7 +6,6 @@ import {AppTestModule} from "../app.test.module";
 import {By} from "@angular/platform-browser";
 import {DebugElement} from "@angular/core";
 import {AngularFireAuth} from "angularfire2/auth";
-import {MATERIAL_COMPATIBILITY_MODE} from "@angular/material";
 import {Observable} from "rxjs/Observable";
 import {ActivatedRoute} from "@angular/router";
 import {DeckService} from "../deck/deck.service";
@@ -29,7 +28,7 @@ describe('MyDecksComponent', () => {
         TestBed.configureTestingModule({
             imports: [SharedModule, AppTestModule],
             declarations: [],
-            providers: [{provide: MATERIAL_COMPATIBILITY_MODE, useValue: true},
+            providers: [
                 {provide: DeckService, useValue: new DeckServiceMock()},
                 {provide: AngularFireAuth, useValue: mockFirebaseAuth},
                 {

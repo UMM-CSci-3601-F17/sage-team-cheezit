@@ -2,7 +2,6 @@ import {ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {DeckListComponent} from './deck-list.component';
 import {SharedModule} from "../shared.module";
-import {MATERIAL_COMPATIBILITY_MODE} from "@angular/material";
 import {Observable} from "rxjs/Observable";
 import {Deck, DeckId} from "../deck/deck";
 import {DeckService} from "../deck/deck.service";
@@ -25,8 +24,7 @@ describe('DeckListComponent', () => {
         TestBed.configureTestingModule({
             imports: [SharedModule, RouterTestingModule],
             declarations: [TestComponentWrapper, DeckListComponent],
-            providers: [{provide: DeckService, useValue: deckServiceStub},
-                {provide: MATERIAL_COMPATIBILITY_MODE, useValue: true}],
+            providers: [{provide: DeckService, useValue: deckServiceStub}],
         })
             .compileComponents();
     });

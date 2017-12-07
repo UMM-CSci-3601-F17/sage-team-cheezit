@@ -2,7 +2,6 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {PlayComponent} from './play.component';
 import {Observable} from "rxjs/Observable";
-import {MATERIAL_COMPATIBILITY_MODE} from "@angular/material";
 import {DeckService} from "../deck/deck.service";
 import {ActivatedRoute} from "@angular/router";
 import {SharedModule} from "../shared.module";
@@ -18,7 +17,7 @@ describe('PlayComponent', () => {
         TestBed.configureTestingModule({
             imports: [SharedModule, AppTestModule],
             declarations: [],
-            providers: [{provide: MATERIAL_COMPATIBILITY_MODE, useValue: true},
+            providers: [
                 {provide: DeckService, useValue: new DeckServiceMock()},
                 {
                     provide: ActivatedRoute,

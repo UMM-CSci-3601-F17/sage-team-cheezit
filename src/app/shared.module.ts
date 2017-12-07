@@ -16,15 +16,15 @@ import {
     MatListModule,
     MatSlideToggleModule,
     MatTooltipModule,
-    MdButtonModule,
-    MdCardModule,
-    MdFormFieldModule,
-    MdIconModule,
-    MdInputModule,
-    MdMenuModule,
-    MdSidenavModule,
-    MdSnackBarModule,
-    MdToolbarModule,
+    MatButtonModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule,
+    MatMenuModule,
+    MatSidenavModule,
+    MatSnackBarModule,
+    MatToolbarModule,
 } from '@angular/material';
 
 import {FlexLayoutModule,} from '@angular/flex-layout';
@@ -38,8 +38,6 @@ import {NgPipesModule} from "ngx-pipes";
 import {NgxQRCodeModule} from "ngx-qrcode2";
 import {ClipboardModule} from "ngx-clipboard/dist";
 import {HttpClientModule} from "@angular/common/http";
-import {TimeAgoPipeModule} from "time-ago-pipe/index";
-
 
 const FLEX_LAYOUT_MODULES: any[] = [
     FlexLayoutModule,
@@ -53,17 +51,17 @@ const ANGULAR_MODULES: any[] = [
 
 const MATERIAL_MODULES: any[] = [
     MatListModule,
-    MdButtonModule,
-    MdIconModule,
-    MdToolbarModule,
-    MdCardModule,
-    MdMenuModule,
-    MdSidenavModule,
-    MdInputModule,
+    MatButtonModule,
+    MatIconModule,
+    MatToolbarModule,
+    MatCardModule,
+    MatMenuModule,
+    MatSidenavModule,
+    MatInputModule,
     MatTooltipModule,
-    MdFormFieldModule,
+    MatFormFieldModule,
     MatDialogModule,
-    MdSnackBarModule,
+    MatSnackBarModule,
     MatExpansionModule,
     MatSlideToggleModule,
     MatChipsModule,
@@ -82,7 +80,6 @@ const OTHER_MODULES: any[] = [
     AngularFirestoreModule,
     AngularFireAuthModule,
     NgPipesModule,
-    TimeAgoPipeModule,
     NgxQRCodeModule,
     ClipboardModule,
 ];

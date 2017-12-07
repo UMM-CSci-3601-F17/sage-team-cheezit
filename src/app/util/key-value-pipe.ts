@@ -1,5 +1,5 @@
 import {Pipe, PipeTransform} from '@angular/core';
-import {isObject} from "ngx-pipes/src/app/pipes/helpers/helpers";
+import {isObject} from "rxjs/util/isObject";
 
 @Pipe({name: 'keyvalue'})
 export class KeyValuePipe implements PipeTransform {

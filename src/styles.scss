@@ -21,3 +21,17 @@
     width: 100% !important;
 }
 
+
+
+// This fixes a thing where programmatically focused buttons have a focus style applied to them
+// and that causes problems with the sidebar and dialogs.
+// added in https://github.com/angular/material2/pull/5966
+// https://github.com/angular/material2/issues/8420
+
+.mat-button, .mat-fab, .mat-icon-button {
+    &.cdk-program-focused {
+        .mat-button-focus-overlay {
+            opacity: 0 !important;
+        }
+    }
+}
