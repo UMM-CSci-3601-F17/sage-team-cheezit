@@ -12,7 +12,7 @@ describe('EditableTextComponent', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [SharedModule],
-            declarations: [EditableTextComponent, TestComponentWrapper]]
+            declarations: [EditableTextComponent, TestComponentWrapper]
         })
             .compileComponents();
     }));
