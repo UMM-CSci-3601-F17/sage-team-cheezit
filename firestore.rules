@@ -18,7 +18,7 @@ service cloud.firestore {
       request.resource.data.name != null && //checks that a name is being added to the deck
       request.resource.data.size() == 2); //check that there are only 2 field values on the deck when its being added, name and classId
  
-      allow update, delete: if request.auth != null && //checks if they are logged in
+      allow update: if request.auth != null && //checks if the user is logged in
       request.resource.data.name is string && //checks to make sure the deck name is a string for renaming
       ((request.auth.uid in resource.data.users && //check that they are a user in the decks users if it is in my decks
       resource.data.users[request.auth.uid].owner == true && //checks that the user is a deck owner in the users if it is in my decks
@@ -29,6 +29,12 @@ service cloud.firestore {
       (request.resource.data.users[request.auth.uid].owner == true || //checks to make sure if the user is moving a deck to my decks that its only being send to their my decks
       get(/databases/$(database)/documents/classes/$(request.resource.data.classId)).data.users[request.auth.uid].teacher == true))); //checks to make sure that if the user is moving a deck to a class they have to be a teacher in it
 
+	  allow delete: if request.auth != null && //checks if the user is logged in
+      ((request.auth.uid in resource.data.users && //check that they are a user in the decks users if it is in my decks
+      resource.data.users[request.auth.uid].owner == true) || //checks that the user is a deck owner in the users if it is in my decks
+      (resource.data.classId is string && //checks if the class Id is a string
+      get(/databases/$(database)/documents/classes/$(resource.data.classId)).data.users[request.auth.uid].teacher == true)) //checks if the user in the class is a teacher
+      
 
       match /cards/{card} {
       	function getDeck() {
