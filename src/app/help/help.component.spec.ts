@@ -11,7 +11,7 @@ describe('HelpComponent', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [SharedModule, AppTestModule],
-            declarations: [  ]
+            declarations: []
         })
             .compileComponents();
     }));

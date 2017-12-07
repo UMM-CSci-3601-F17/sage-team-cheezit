@@ -98,9 +98,7 @@ const OTHER_MODULES: any[] = [
         OTHER_MODULES,
 
     ],
-    declarations: [
-
-    ],
+    declarations: [],
     exports: [
         ANGULAR_MODULES,
         MATERIAL_MODULES,

@@ -30,12 +30,12 @@ describe('EditableTextComponent', () => {
         expect(component).toBeTruthy();
     });
 
-    it('should have correct edit permission', ()=> {
+    it('should have correct edit permission', () => {
         expect(component.canEdit).toEqual(true);
     });
 
     it('should have the correct text', () => {
-       expect(component.text).toEqual('sample text');
+        expect(component.text).toEqual('sample text');
     });
 
 
@@ -43,9 +43,10 @@ describe('EditableTextComponent', () => {
 
 @Component({
     selector: 'test-component-wrapper',
-    template: `<app-editable-text [canEdit]="true" [text]="'sample text'"></app-editable-text>`
+    template: `
+        <app-editable-text [canEdit]="true" [text]="'sample text'"></app-editable-text>`
 })
 
-class TestComponentWrapper{
+class TestComponentWrapper {
 
 }

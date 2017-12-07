@@ -22,23 +22,23 @@ export class DeckService {
             return actions.map(a => {
                 const data = a.payload.doc.data() as Deck;
                 const id = a.payload.doc.id;
-                return {id, ...data };
+                return {id, ...data};
             })
         });
         return decks;
     }
 
-    public getUserDecks: Observable<DeckId[]> = this.afAuth.authState.switchMap( state => {
-            if(state == null) return Observable.of(null);
-            // true is > false. We use this to get all decks where the user is the owner or not.
-            return this.getDecks(ref => ref.where("users." + state.uid + ".owner", ">=", false));
-        });
+    public getUserDecks: Observable<DeckId[]> = this.afAuth.authState.switchMap(state => {
+        if (state == null) return Observable.of(null);
+        // true is > false. We use this to get all decks where the user is the owner or not.
+        return this.getDecks(ref => ref.where("users." + state.uid + ".owner", ">=", false));
+    });
 
-    public getPublicDecks: Observable<DeckId[]> = this.getDecks(ref =>  ref.where("isPublic", "==", true));
+    public getPublicDecks: Observable<DeckId[]> = this.getDecks(ref => ref.where("isPublic", "==", true));
 
     public getClassDecks(id: string): Observable<DeckId[]> {
-        let classdecks: Observable<DeckId[]> = this.afAuth.authState.switchMap( state => {
-            if(state == null) return Observable.of(null);
+        let classdecks: Observable<DeckId[]> = this.afAuth.authState.switchMap(state => {
+            if (state == null) return Observable.of(null);
             return this.getDecks(ref => ref.where("classId", "==", id));
         });
         return classdecks;
@@ -60,8 +60,8 @@ export class DeckService {
         return cards;
     }
 
-    public getDeckPlayCards(id: string){
-        return this.getDeckCards(id, ref => ref.where("hidden", "==" , false))
+    public getDeckPlayCards(id: string) {
+        return this.getDeckCards(id, ref => ref.where("hidden", "==", false))
     }
 
     public addNewCard(deckID: string, word: string, synonym: string[], antonym: string[], general: string, example: string) {
@@ -80,33 +80,37 @@ export class DeckService {
                     userCreated: this.afAuth.auth.currentUser.displayName,
                     timeCreated: firebase.firestore.FieldValue.serverTimestamp()
                 }
-        };
+            };
 
         return this.db.doc('decks/' + deckID).collection('cards').add(body);
     }
 
-    public addNewDeckClass(name: string, classId : string) {
+    public addNewDeckClass(name: string, classId: string) {
         let deckCollection = this.db.collection<Deck>('decks');
         return deckCollection.add({name: name, classId: classId});
     }
 
-    public cardHide(deckId: string, cardId: string, isHidden: boolean){
-        return this.db.doc('decks/' + deckId + '/cards/' + cardId ).update({hidden: isHidden });
+    public cardHide(deckId: string, cardId: string, isHidden: boolean) {
+        return this.db.doc('decks/' + deckId + '/cards/' + cardId).update({hidden: isHidden});
     }
 
-    public studentEdit(deckId: string, canEdit: boolean){
+    public studentEdit(deckId: string, canEdit: boolean) {
         return this.db.doc('decks/' + deckId).update({studentEdit: canEdit});
     }
 
     public addNewDeckUser(name: string) {
-        if(this.afAuth.auth.currentUser == null) return;
+        if (this.afAuth.auth.currentUser == null) return;
         let deckCollection = this.db.collection<Deck>('decks');
-        return deckCollection.add({name: name, users: {
-            [this.afAuth.auth.currentUser.uid] : {
-                nickname: this.afAuth.auth.currentUser.displayName,
-                owner: true
-            }}});
+        return deckCollection.add({
+            name: name, users: {
+                [this.afAuth.auth.currentUser.uid]: {
+                    nickname: this.afAuth.auth.currentUser.displayName,
+                    owner: true
+                }
+            }
+        });
     }
+
     public editCard(deckId: string, cardId: string, word: string, synonym: string[], antonym: string[], general: string, example: string) {
         const body = {
             word: word,
@@ -117,14 +121,14 @@ export class DeckService {
             "history.userEdited": this.afAuth.auth.currentUser.displayName,
             "history.timeEdited": firebase.firestore.FieldValue.serverTimestamp()
         };
-                                return this.db.doc('decks/' + deckId + '/cards/' + cardId).update(body);
+        return this.db.doc('decks/' + deckId + '/cards/' + cardId).update(body);
     }
 
-    public deleteCard(deckId: string, cardId: string){
-                        return this.db.doc('decks/' + deckId).collection('cards').doc(cardId).delete();
+    public deleteCard(deckId: string, cardId: string) {
+        return this.db.doc('decks/' + deckId).collection('cards').doc(cardId).delete();
     }
 
-    public deleteDeck(deckId: string){
+    public deleteDeck(deckId: string) {
         return new Promise((resolve, reject) => {
             this.deleteCollection(this.db.firestore.collection('decks/' + deckId + "/cards")).then(() => {
                 return this.db.doc('decks/' + deckId).delete().then(() => resolve()).catch(reject);
@@ -168,10 +172,11 @@ export class DeckService {
         return this.db.doc("decks/" + deckId).update({
             classId: firebase.firestore.FieldValue.delete(),
             users: {
-                [this.afAuth.auth.currentUser.uid] : {
+                [this.afAuth.auth.currentUser.uid]: {
                     nickname: this.afAuth.auth.currentUser.displayName,
                     owner: true
-                }}
+                }
+            }
         });
     }
 
@@ -181,7 +186,7 @@ export class DeckService {
         });
     }
 
-    public updateDeckName(deckId: string, newName: string){
+    public updateDeckName(deckId: string, newName: string) {
         return this.db.doc("decks/" + deckId).update({
             name: newName
         });

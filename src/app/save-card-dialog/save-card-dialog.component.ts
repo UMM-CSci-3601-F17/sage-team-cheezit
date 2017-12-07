@@ -4,9 +4,9 @@ import {MAT_DIALOG_DATA, MatDialogRef, MatSnackBar} from "@angular/material";
 import {CardId} from "../card/card";
 
 @Component({
-  selector: 'app-save-card-dialog',
-  templateUrl: './save-card-dialog.component.html',
-  styleUrls: ['./save-card-dialog.component.css']
+    selector: 'app-save-card-dialog',
+    templateUrl: './save-card-dialog.component.html',
+    styleUrls: ['./save-card-dialog.component.css']
 })
 export class SaveCardDialogComponent implements OnInit {
 
@@ -19,12 +19,11 @@ export class SaveCardDialogComponent implements OnInit {
     newCardExample: string = "";
 
 
-
-    constructor(public deckService : DeckService,
-                public matDialogRef : MatDialogRef<SaveCardDialogComponent>,
-                @Inject(MAT_DIALOG_DATA) public data: {card?: CardId, deckId: string},
+    constructor(public deckService: DeckService,
+                public matDialogRef: MatDialogRef<SaveCardDialogComponent>,
+                @Inject(MAT_DIALOG_DATA) public data: { card?: CardId, deckId: string },
                 public snackBar: MatSnackBar) {
-                        if(data.card) {
+        if (data.card) {
             this.isEditing = true;
             this.newCardWord = data.card.word;
             this.newCardSynonym = data.card.synonym.slice();
@@ -39,7 +38,7 @@ export class SaveCardDialogComponent implements OnInit {
     }
 
     public submitForm(): void {
-        if(this.isEditing) this.editAddedCard();
+        if (this.isEditing) this.editAddedCard();
         else this.addNewCard();
     }
 
@@ -61,7 +60,7 @@ export class SaveCardDialogComponent implements OnInit {
                 //this.refreshDeck();
             },
             err => {
-                                this.snackBar.open("Error editing card", null, {
+                this.snackBar.open("Error editing card", null, {
                     duration: 2000,
                 });
             });
@@ -83,7 +82,7 @@ export class SaveCardDialogComponent implements OnInit {
                 //this.refreshDeck();
             },
             err => {
-                                this.snackBar.open("Error adding card", null, {
+                this.snackBar.open("Error adding card", null, {
                     duration: 2000,
                 });
             });

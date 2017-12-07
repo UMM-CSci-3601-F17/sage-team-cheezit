@@ -27,7 +27,7 @@ export class ClassService {
                 return Observable.of([]);
         });
         this.classesObservable.subscribe(classes => {
-                        this.classes = classes;
+            this.classes = classes;
         })
     }
 
@@ -39,7 +39,7 @@ export class ClassService {
 
     public getClass(id: string): Observable<Class> {
         let newClass: Observable<Class> = this.afAuth.authState.switchMap(state => {
-            if(state == null) return Observable.of(null);
+            if (state == null) return Observable.of(null);
             return this.db.doc<Class>('classes/' + id).valueChanges();
         });
         return newClass;
@@ -48,12 +48,12 @@ export class ClassService {
     // from https://stackoverflow.com/a/27747377/8855259
 
     // dec2hex :: Integer -> String
-    dec2hex (dec: number): string {
+    dec2hex(dec: number): string {
         return ('0' + dec.toString(16)).substr(-2);
     }
 
     // generateId :: Integer -> String
-    generateId (len: number) : string {
+    generateId(len: number): string {
         let arr = new Uint8Array((len || 40) / 2);
         window.crypto.getRandomValues(arr);
         return Array.from(arr, this.dec2hex).join('');
@@ -78,53 +78,56 @@ export class ClassService {
     }*/
 
     public addNewClass(name: string) {
-        if(this.afAuth.auth.currentUser == null) return;
+        if (this.afAuth.auth.currentUser == null) return;
         let classCollection = this.db.collection<Class>('classes');
-        return classCollection.add({name: name, users: {
-            [this.afAuth.auth.currentUser.uid] : {
-                nickname: this.afAuth.auth.currentUser.displayName,
-                teacher: true
-            }},
-        joincode: this.generateJoinCode()});
+        return classCollection.add({
+            name: name, users: {
+                [this.afAuth.auth.currentUser.uid]: {
+                    nickname: this.afAuth.auth.currentUser.displayName,
+                    teacher: true
+                }
+            },
+            joincode: this.generateJoinCode()
+        });
     }
 
     public addJoinCodetoUser(code: string) {
-        if(this.afAuth.auth.currentUser == null) return Promise.reject('User not authenticated');
+        if (this.afAuth.auth.currentUser == null) return Promise.reject('User not authenticated');
         return this.db.collection('users').doc(this.afAuth.auth.currentUser.uid).set({joincode: code});
     }
 
     public removeJoinCodefromUser() {
-        if(this.afAuth.auth.currentUser == null) return Promise.reject('User not authenticated');
+        if (this.afAuth.auth.currentUser == null) return Promise.reject('User not authenticated');
         return this.db.collection('users').doc(this.afAuth.auth.currentUser.uid).update({joincode: firebase.firestore.FieldValue.delete()});
     }
 
     public joinClass(classId: string, joincode: string): Promise<void> {
-        if(this.classes[classId] && this.classes[classId].users[this.afAuth.auth.currentUser.uid]) {
+        if (this.classes[classId] && this.classes[classId].users[this.afAuth.auth.currentUser.uid]) {
             return Promise.reject('User already in class');
         }
         return this.addJoinCodetoUser(joincode).then(result => {
-                return this.db.doc('classes/' + classId).update({
-                    ["users." + this.afAuth.auth.currentUser.uid]: {
-                        nickname: this.afAuth.auth.currentUser.displayName,
-                        teacher: false
-                    }
-                }).then(result => {
-                    this.removeJoinCodefromUser();
-                }, err => {
-                    this.removeJoinCodefromUser();
-                });
+            return this.db.doc('classes/' + classId).update({
+                ["users." + this.afAuth.auth.currentUser.uid]: {
+                    nickname: this.afAuth.auth.currentUser.displayName,
+                    teacher: false
+                }
+            }).then(result => {
+                this.removeJoinCodefromUser();
+            }, err => {
+                this.removeJoinCodefromUser();
             });
+        });
     }
 
-    public leaveClass(classId: string){
+    public leaveClass(classId: string) {
         return this.db.doc('classes/' + classId).update({["users." + this.afAuth.auth.currentUser.uid]: firebase.firestore.FieldValue.delete()});
     }
 
-    public kickStudent(classId: string, userId: string){
+    public kickStudent(classId: string, userId: string) {
         return this.db.doc('classes/' + classId).update({["users." + userId]: firebase.firestore.FieldValue.delete()})
     }
 
-    public addUser(classId:string, userId: string, userNickname: string, teacher: boolean) {
+    public addUser(classId: string, userId: string, userNickname: string, teacher: boolean) {
         return this.db.doc('classes/' + classId).update({
             ["users." + userId]: {
                 nickname: userNickname,
@@ -133,9 +136,9 @@ export class ClassService {
         })
     }
 
-    public updateClassName(classId: string, newClassName: string){
+    public updateClassName(classId: string, newClassName: string) {
         return this.db.doc('classes/' + classId).update({
-            name:newClassName
+            name: newClassName
         });
     }
 
@@ -144,8 +147,8 @@ export class ClassService {
         return this.db.doc('classes/' + classId).delete();
     }
 
-    public setTeacher(classId: string, studentId: string, canEdit: boolean){
-        return this.db.doc('classes/' + classId).update({["users." + studentId + ".teacher"] : canEdit});
+    public setTeacher(classId: string, studentId: string, canEdit: boolean) {
+        return this.db.doc('classes/' + classId).update({["users." + studentId + ".teacher"]: canEdit});
     }
 
 }

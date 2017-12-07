@@ -2,11 +2,14 @@
 <form #newClassForm="ngForm" (ngSubmit)="addNewClass();" autocomplete="off">
     <mat-dialog-content layout="column" class="add-card-form-fields">
         <mat-form-field>
-            <input matInput required id="className" #input type="text" placeholder="Class Name" [(ngModel)]="newClassName" name="newClassName">
+            <input matInput required id="className" #input type="text" placeholder="Class Name"
+                   [(ngModel)]="newClassName" name="newClassName">
         </mat-form-field>
     </mat-dialog-content>
     <mat-dialog-actions>
-        <button mat-raised-button id="new-class-submit" color="primary" #input type="button" [disabled]="!newClassForm.form.valid" type="submit">Add Class</button>
+        <button mat-raised-button id="new-class-submit" color="primary" #input type="button"
+                [disabled]="!newClassForm.form.valid" type="submit">Add Class
+        </button>
         <button mat-button mat-dialog-close>Cancel</button>
     </mat-dialog-actions>
 </form>

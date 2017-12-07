@@ -2,7 +2,8 @@
 <div class="margin" layout="row" layout-align="center start" layout-fill>
     <div flex-gt-xs="70" flex-xs="90">
         <div *ngIf="this.inGame && this.card">
-            <app-card [card]="this.card" [selected]="this.selectedHints" [hideSelected]="true" [emoji]="this.emoji"></app-card>
+            <app-card [card]="this.card" [selected]="this.selectedHints" [hideSelected]="true"
+                      [emoji]="this.emoji"></app-card>
             <span class="score">Score: {{this.points}}</span>
         </div>
         <div *ngIf="!this.inGame">
@@ -12,9 +13,11 @@
                 <mat-card-content>
                     <mat-form-field>
                         <!-- dumb fix for iOS numeric keypad http://danielfriesen.name/blog/2013/09/19/input-type-number-and-ios-numeric-keypad/ -->
-                        <input matInput min="0" type="number" inputmode="numeric" pattern="[0-9]*" placeholder="Game ID" (keyup.enter)="this.joinGame()" [(ngModel)]="this.gameId" autocomplete="off">
+                        <input matInput min="0" type="number" inputmode="numeric" pattern="[0-9]*" placeholder="Game ID"
+                               (keyup.enter)="this.joinGame()" [(ngModel)]="this.gameId" autocomplete="off">
                     </mat-form-field>
-                    <button class="join-button" mat-raised-button color="primary" (click)="this.joinGame()">Join Game</button>
+                    <button class="join-button" mat-raised-button color="primary" (click)="this.joinGame()">Join Game
+                    </button>
                 </mat-card-content>
             </mat-card>
         </div>

@@ -4,7 +4,8 @@
             <img class="logo" src="assets/text-logo.svg" alt="logo" title="sage-logo">
         </div>
         <div class="list-buttons">
-            <app-google-sign-in-button *ngIf="!afAuth.auth.currentUser" class="sign-in-button"></app-google-sign-in-button>
+            <app-google-sign-in-button *ngIf="!afAuth.auth.currentUser"
+                                       class="sign-in-button"></app-google-sign-in-button>
         </div>
         <div class="list-buttons">
             <button *ngIf="afAuth.auth.currentUser" class="my-decks-button" mat-raised-button color="primary"

@@ -13,6 +13,7 @@ export interface Card {
         timeEdited?: Date
     }
 }
+
 export interface PlayCard {
     word: string,
     synonym: string,
@@ -21,4 +22,6 @@ export interface PlayCard {
     example_usage: string,
 }
 
-export interface CardId extends Card { id: string }
+export interface CardId extends Card {
+    id: string
+}

@@ -6,13 +6,13 @@ import {NewDeckDialogComponent} from "../new-deck-dialog/new-deck-dialog.compone
 import {MdDialog} from "@angular/material";
 
 @Component({
-  selector: 'app-my-decks',
-  templateUrl: './my-decks.component.html',
-  styleUrls: ['./my-decks.component.css']
+    selector: 'app-my-decks',
+    templateUrl: './my-decks.component.html',
+    styleUrls: ['./my-decks.component.css']
 })
 export class MyDecksComponent implements OnInit {
 
-    constructor(public deckService: DeckService, public afAuth: AngularFireAuth, public dialog : MdDialog) {
+    constructor(public deckService: DeckService, public afAuth: AngularFireAuth, public dialog: MdDialog) {
 
     }
 

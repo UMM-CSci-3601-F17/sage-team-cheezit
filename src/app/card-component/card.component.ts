@@ -20,7 +20,7 @@ export class CardComponent implements OnInit {
     @Input() emoji?: string = "";
 
     ngOnInit() {
-        if(this.canSpeak) {
+        if (this.canSpeak) {
             window.speechSynthesis.getVoices(); // this forces it to get the available voices before they are needed
             // or else it would use the default system voice the first time and then switch
         }
@@ -30,13 +30,13 @@ export class CardComponent implements OnInit {
         if (this.canSpeak) {
             let msg = new SpeechSynthesisUtterance();
             let voices = window.speechSynthesis.getVoices();
-                        for (let voice of voices) {
+            for (let voice of voices) {
                 if (voice.voiceURI == "Google US English") { // prefer Google's voice
                     msg.voice = voice;
                 }
             }
             msg.text = this.card.word;
-                        window.speechSynthesis.speak(msg);
+            window.speechSynthesis.speak(msg);
         }
     }
 

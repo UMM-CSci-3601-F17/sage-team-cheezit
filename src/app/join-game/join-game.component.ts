@@ -13,7 +13,7 @@ import {Location} from '@angular/common';
 })
 export class JoinGameComponent implements OnInit, OnDestroy {
 
-    constructor(private db: AngularFireDatabase,  private route: ActivatedRoute,
+    constructor(private db: AngularFireDatabase, private route: ActivatedRoute,
                 private router: Router, private location: Location) {
 
     }
@@ -30,17 +30,17 @@ export class JoinGameComponent implements OnInit, OnDestroy {
     game: Observable<any>;
 
     public joinGame() {
-        if(!this.gameId) return;
+        if (!this.gameId) return;
         this.location.go(this
             .router
-            .createUrlTree([], {relativeTo: this.route, queryParams: {id: this.gameId }})
+            .createUrlTree([], {relativeTo: this.route, queryParams: {id: this.gameId}})
             .toString());
         this.game = this.db.object('games/' + this.gameId).valueChanges();
         this.game.takeUntil(componentDestroyed(this)).subscribe(ob => {
             if (ob) {
                 this.card = ob.card;
                 this.points = ob.points;
-                if(ob.selectedHints)
+                if (ob.selectedHints)
                     this.selectedHints = ob.selectedHints;
                 else
                     this.selectedHints = [];

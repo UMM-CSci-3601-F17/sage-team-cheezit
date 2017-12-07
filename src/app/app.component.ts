@@ -13,7 +13,7 @@ import {Router} from "@angular/router";
 export class AppComponent {
     title = 'SAGE';
 
-    constructor(private router: Router, public classService: ClassService, public dialog : MdDialog, public afAuth: AngularFireAuth) {
+    constructor(private router: Router, public classService: ClassService, public dialog: MdDialog, public afAuth: AngularFireAuth) {
 
     }
 

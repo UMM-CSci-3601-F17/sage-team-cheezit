@@ -7,18 +7,19 @@ import {componentDestroyed} from "ng2-rx-componentdestroyed";
 import "rxjs/add/operator/takeUntil";
 
 @Component({
-  selector: 'app-join-class',
-  templateUrl: './join-class.component.html',
-  styleUrls: ['./join-class.component.css']
+    selector: 'app-join-class',
+    templateUrl: './join-class.component.html',
+    styleUrls: ['./join-class.component.css']
 })
-export class JoinClassComponent implements OnInit, OnDestroy  {
+export class JoinClassComponent implements OnInit, OnDestroy {
 
-  constructor(public afAuth: AngularFireAuth, public classService: ClassService,
-              private route: ActivatedRoute, public snackBar: MatSnackBar,
-              private router: Router) { }
+    constructor(public afAuth: AngularFireAuth, public classService: ClassService,
+                private route: ActivatedRoute, public snackBar: MatSnackBar,
+                private router: Router) {
+    }
 
-  public id: string;
-  public joincode: string;
+    public id: string;
+    public joincode: string;
 
     ngOnInit() {
 
@@ -27,27 +28,27 @@ export class JoinClassComponent implements OnInit, OnDestroy  {
 
             this.route.queryParams.subscribe(qp => {
 
-                if(qp['joincode']) {
+                if (qp['joincode']) {
                     this.joincode = qp['joincode'];
-                        this.afAuth.authState.takeUntil(componentDestroyed(this)).subscribe(state => {
-                            if(state != null)
-                                this.classService.joinClass(this.id, this.joincode).then(
-                                    result => {
-                                        setTimeout(() => {
-                                            this.snackBar.open("Joined class", null, {
-                                                duration: 2000,
-                                            });
-                                            this.router.navigate(['/class', this.id]);
-                                        }, 500);
-
-                                    },
-                                    err => {
-                                        this.snackBar.open("Error joining class", null, {
+                    this.afAuth.authState.takeUntil(componentDestroyed(this)).subscribe(state => {
+                        if (state != null)
+                            this.classService.joinClass(this.id, this.joincode).then(
+                                result => {
+                                    setTimeout(() => {
+                                        this.snackBar.open("Joined class", null, {
                                             duration: 2000,
                                         });
-                                                                                this.router.navigate(['/']);
-                                    }
-                                );
+                                        this.router.navigate(['/class', this.id]);
+                                    }, 500);
+
+                                },
+                                err => {
+                                    this.snackBar.open("Error joining class", null, {
+                                        duration: 2000,
+                                    });
+                                    this.router.navigate(['/']);
+                                }
+                            );
                     });
 
                 }

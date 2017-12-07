@@ -18,14 +18,14 @@ declare global {
 }
 
 @Component({
-  selector: 'app-class',
-  templateUrl: './class.component.html',
-  styleUrls: ['./class.component.scss']
+    selector: 'app-class',
+    templateUrl: './class.component.html',
+    styleUrls: ['./class.component.scss']
 })
 export class ClassComponent implements OnInit, OnDestroy {
 
     constructor(public deckService: DeckService, public classService: ClassService,
-                public afAuth: AngularFireAuth, public dialog : MdDialog,
+                public afAuth: AngularFireAuth, public dialog: MdDialog,
                 private route: ActivatedRoute, private router: Router,
                 public snackBar: MatSnackBar, public tdDialog: TdDialogService) {
 
@@ -42,7 +42,7 @@ export class ClassComponent implements OnInit, OnDestroy {
     public joinUrl: string = null;
 
 
-    public leaveClass(){
+    public leaveClass() {
         this.classService.leaveClass(this.id).then(succeeded => {
             this.router.navigate(['/'])
         });
@@ -63,31 +63,31 @@ export class ClassComponent implements OnInit, OnDestroy {
     }
 
     public updateJoinUrl() {
-                if(!this.currentClass || !this.currentClass.joincode) this.joinUrl = null;
-        else this.joinUrl = document.location.origin + this.router.createUrlTree(['/class', this.id, 'join' ], { queryParams: { joincode: this.currentClass.joincode } }).toString();
+        if (!this.currentClass || !this.currentClass.joincode) this.joinUrl = null;
+        else this.joinUrl = document.location.origin + this.router.createUrlTree(['/class', this.id, 'join'], {queryParams: {joincode: this.currentClass.joincode}}).toString();
     }
 
-    public classSub : ISubscription;
-    public deckSub : ISubscription;
+    public classSub: ISubscription;
+    public deckSub: ISubscription;
 
     ngOnInit() {
 
         this.route.params.takeUntil(componentDestroyed(this)).subscribe(params => {
             this.id = params['id'];
 
-            if(this.classSub) this.classSub.unsubscribe();
-            if(this.deckSub) this.deckSub.unsubscribe();
+            if (this.classSub) this.classSub.unsubscribe();
+            if (this.deckSub) this.deckSub.unsubscribe();
 
             this.classSub = this.classService.getClass(this.id).takeUntil(componentDestroyed(this)).subscribe(c => {
                 this.currentClass = c;
-                if(c == null) this.canEdit = false;
-                else this.canEdit =  this.currentClass.users[this.afAuth.auth.currentUser.uid].teacher;
+                if (c == null) this.canEdit = false;
+                else this.canEdit = this.currentClass.users[this.afAuth.auth.currentUser.uid].teacher;
                 this.updateJoinUrl();
             });
 
             this.deckSub = this.deckService.getClassDecks(this.id).takeUntil(componentDestroyed(this)).subscribe(
                 decks => {
-                                        this.decks = decks;
+                    this.decks = decks;
                 }
             );
 
@@ -107,27 +107,27 @@ export class ClassComponent implements OnInit, OnDestroy {
 
     openAddDialog() {
         this.dialog.open(NewDeckDialogComponent, {
-            data: { classId: this.id },
+            data: {classId: this.id},
         });
     }
 
     ngOnDestroy() {
-            }
-
-    public renameClass(name: string): void {
-        this.classService.updateClassName(this.id, name).then(success=>{
-            this.snackBar.open("Renamed class", null, {
-                duration: 2000,
-            });
-            },
-            err => {
-            this.snackBar.open("Error renaming class", null,{
-                duration: 2000,
-            });
-        });
     }
 
-    public setTeacher(studentId: string, teacher: boolean){
+    public renameClass(name: string): void {
+        this.classService.updateClassName(this.id, name).then(success => {
+                this.snackBar.open("Renamed class", null, {
+                    duration: 2000,
+                });
+            },
+            err => {
+                this.snackBar.open("Error renaming class", null, {
+                    duration: 2000,
+                });
+            });
+    }
+
+    public setTeacher(studentId: string, teacher: boolean) {
         return this.classService.setTeacher(this.id, studentId, teacher);
     }
 
@@ -138,19 +138,19 @@ export class ClassComponent implements OnInit, OnDestroy {
             acceptButton: "Delete",
             cancelButton: "Cancel"
         }).afterClosed().subscribe((accept: boolean) => {
-            if(accept) {
+            if (accept) {
                 Promise.all(this.decks.map(d => this.deckService.deleteDeck(d.id))).then(() => {
                     return this.classService.deleteClass(this.id);
                 }).then(
                     succeeded => {
-                                                this.router.navigate(['/']).then(() => {
+                        this.router.navigate(['/']).then(() => {
                             this.snackBar.open("Deleted class", null, {
                                 duration: 2000,
                             });
                         })
                     },
                     err => {
-                                                this.snackBar.open("Error deleting class", null, {
+                        this.snackBar.open("Error deleting class", null, {
                             duration: 2000,
                         });
                     });

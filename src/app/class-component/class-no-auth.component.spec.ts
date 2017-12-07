@@ -36,10 +36,12 @@ describe('ClassComponent', () => {
                 {provide: DeckService, useValue: new DeckServiceMock()},
                 {provide: ClassService, useValue: new ClassServiceMock()},
                 {provide: AngularFireAuth, useValue: mockFirebaseAuth},
-                { provide: ActivatedRoute,
+                {
+                    provide: ActivatedRoute,
                     useValue: {
                         params: Observable.of({id: "test id"})
-                    } }],
+                    }
+                }],
         })
             .compileComponents();
     }));
@@ -56,12 +58,11 @@ describe('ClassComponent', () => {
     });
 
 
-
     it('should not have edit permissions, because authorization has not been passed in', () => {
         expect(component.canEdit).toEqual(false);
     });
 
-    it('should contain a menu for student',() => {
+    it('should contain a menu for student', () => {
         let deleteButton: HTMLElement = debugElement.query(By.css('.class-menu')).nativeElement;
         expect(deleteButton).toBeTruthy();
     });
