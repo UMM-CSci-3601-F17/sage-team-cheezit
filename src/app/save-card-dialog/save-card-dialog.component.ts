@@ -28,8 +28,8 @@ export class SaveCardDialogComponent implements OnInit {
         if(data.card) {
             this.isEditing = true;
             this.newCardWord = data.card.word;
-            this.newCardSynonym = data.card.synonym;
-            this.newCardAntonym = data.card.antonym;
+            this.newCardSynonym = data.card.synonym.slice();
+            this.newCardAntonym = data.card.antonym.slice();
             this.newCardGeneral = data.card.general_sense;
             this.newCardExample = data.card.example_usage;
         }
