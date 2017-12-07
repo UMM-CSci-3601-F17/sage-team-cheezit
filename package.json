@@ -41,7 +41,6 @@
         "ngx-pipes": "^2.0.5",
         "ngx-qrcode2": "^0.0.5",
         "rxjs": "^5.5.5",
-        "time-ago-pipe": "^1.2.1",
         "zone.js": "^0.8.14"
     },
     "devDependencies": {

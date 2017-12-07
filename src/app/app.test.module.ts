@@ -36,6 +36,7 @@ import {HelpComponent} from "./help/help.component";
 import {EditableTextComponent} from "./editable-text/editable-text.component";
 import {KeyValuePipe} from "./util/key-value-pipe";
 import {ChipInputComponent} from "./chip-input/chip-input.component";
+import {TimeAgoPipe} from "./util/time-ago-pipe";
 
 @NgModule({
     imports: [
@@ -70,7 +71,8 @@ import {ChipInputComponent} from "./chip-input/chip-input.component";
         HelpComponent,
         KeyValuePipe,
         EditableTextComponent,
-        ChipInputComponent
+        ChipInputComponent,
+        TimeAgoPipe
     ],
     entryComponents: [
         NewDeckDialogComponent,

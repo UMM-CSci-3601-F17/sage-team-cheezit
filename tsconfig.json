@@ -15,9 +15,5 @@
             "es2017",
             "dom"
         ]
-    },
-    "include": [
-        "src/**/*.ts",
-        "node_modules/time-ago-pipe/*.ts"
-    ]
+    }
 }
