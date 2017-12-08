@@ -15,7 +15,7 @@ To get started, clone the repository and then run `yarn` to install the nessecar
 
 ### Firebase Setup
 
-The next step is to add the
+The next step is to add Firebase configuration information to the project.
 
 Go to your [Firebase console](https://console.firebase.google.com/) and create an project if you have not already. Next, open the project and click the "Add Firebase to your web app" link. Copy the contents of the config variable, it should look like this:
 ```js
