@@ -1,6 +1,6 @@
-# ![](app-icon/text-logo.png)
+# [![SAGE Logo](app-icon/text-logo.png)](https://sage.cards/)
 
-![](screenshots/home-and-play-small.png)
+![SAGE Screenshot](screenshots/home-and-play-small.png)
 
 [![Build Status](https://travis-ci.org/UMM-CSci-3601-F17/sage-team-cheezit.svg?branch=master)](https://travis-ci.org/UMM-CSci-3601-F17/sage-team-cheezit)
 
@@ -61,7 +61,7 @@ A collection of SAGE cards, can apply tags to decks to categorize them
 - **Multiplayer**
 The game is played online, led by a host who has a numerical/QR join code that players can use to join the game. 
 - **Google Accounts**
-A user may sign in to the site using their google account. This allows them to make their own decks and classrooms as well join pre-existing classrooms.
+A user may sign in to the site using their Google account. This allows them to make their own decks and classrooms as well as join pre-existing classrooms.
 - **Shared Decks**
 As a teacher you may allow students to contribute to decks in your classroom by unlocking them. Once you do this, histories will be tied to the cards allowing you to see which students created and edited them. If you want, you may also re-lock the deck whenever you wish, locking students from editing or adding cards
 
@@ -91,7 +91,7 @@ At any point in the game, teachers can flip through any cards in the deck, as we
 
 ### As a Student
 
-The first thing a student will want to do is log-in with their google account. This will allow them to create and manage their own decks on the 'My Decks' page.
+The first thing a student will want to do is log-in with their Google account. This will allow them to create and manage their own decks on the 'My Decks' page.
 
 After they have logged-in, a student can join a classroom by scanning a QR-code or by receiving a join link from a teacher. Once they have joined a class, students will only be able to see the deck list and the list of other students. From here they can either look at the decks in the deck list, play with a deck, or choose to remove themselves from the class.
 
