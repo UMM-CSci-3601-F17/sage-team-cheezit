@@ -5,6 +5,7 @@
 You will need to have installed:
 - [NodeJS](https://nodejs.org/)
 - [Yarn](https://yarnpkg.com/)
+- [Angular CLI](https://cli.angular.io/)
 - [Firebase CLI](https://firebase.google.com/docs/cli/) - This is only required to deploy to Firebase Hosting
 
 You will need to have a [Firebase](https://firebase.google.com/) account.
