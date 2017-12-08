@@ -57,14 +57,15 @@ export class PlayComponent implements OnInit, OnDestroy {
                 private router: Router, public snackBar: MatSnackBar) {
     }
 
-    public updateGame(): Promise<void> {
-        if (this.cardStates.length == 0) return Promise.reject("no cards");
-        return this.db.object('games/' + this.gameId).set({
-            card: this.cardStates[this.pageNumber].playCard,
-            points: this.points,
-            selectedHints: this.cardStates[this.pageNumber].selectedCardHints,
-            emoji: this.cardStates[this.pageNumber].emoji
-        });
+    public updateGame(): void {
+        if(this.multiplayer && this.gameId && this.cardStates.length > 0) {
+            this.db.object('games/' + this.gameId).set({
+                card: this.cardStates[this.pageNumber].playCard,
+                points: this.points,
+                selectedHints: this.cardStates[this.pageNumber].selectedCardHints,
+                emoji: this.cardStates[this.pageNumber].emoji
+            });
+        }
     }
 
 
