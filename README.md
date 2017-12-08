@@ -103,7 +103,7 @@ If a teacher is running a game of SAGE, a student can join by either scanning th
 - [Development Instructions]()
 - [Deployment Instructions]()
 - [Teacher Guide]()
-- [Advert Document]()
+- [Brochure](docs/sage-brochure/sage-brochure.pdf)
 
 
 ## Testing and Continuous Integration
