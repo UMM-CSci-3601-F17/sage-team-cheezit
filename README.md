@@ -100,8 +100,7 @@ If a teacher is running a game of SAGE, a student can join by either scanning th
 
 ## Documentation
 
-- [Development Instructions]()
-- [Deployment Instructions]()
+- [Development and Deployment Instructions](docs/dev-and-deploy.md)
 - [Teacher Guide]()
 - [Brochure](docs/sage-brochure/sage-brochure.pdf)
 
