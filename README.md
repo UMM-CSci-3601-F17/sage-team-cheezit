@@ -38,7 +38,7 @@ The host is the one who has the cards, gives out hints, and decides whether the 
 
 The players are the ones who try to correctly guess the meaning of a word, ask for hints when stuck, and try to score as many points as possible.
 
-Each SAGE card is worth a maximum of 5 points. Every time a player asks for a hint, they randomly receive a hint from one of the categories and lose 1 point. A player can ask for a hint up to 4 times, one hint from each category. The player may guess the meaning of a word at any time. If correct they will receive the points they have left on that card. If the player can still not get the definition correct the host may move on to the next card and the player recieves no points.
+Each SAGE card is worth a maximum of 5 points. Every time a player asks for a hint, they randomly receive a hint from one of the categories and lose 1 point. A player can ask for a hint up to 4 times, one hint from each category. The player may guess the meaning of a word at any time. If correct they will receive the points they have left on that card. If the player can still not get the definition correct the host may move on to the next card and the player receives no points.
 
 The game is over once a host goes through all the cards in a deck. If the players want, they can have the host go back through all the cards to see how they did on each individual card, allowing the players to see where they need to improve.
 
