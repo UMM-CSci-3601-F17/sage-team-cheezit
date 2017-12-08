@@ -5,16 +5,31 @@ import {SharedModule} from "../shared.module";
 import {AppTestModule} from "../app.test.module";
 import {DebugElement} from '@angular/core';
 import {By} from "@angular/platform-browser";
+import {AngularFireDatabase} from "angularfire2/database";
+import {Observable} from "rxjs/Observable";
 
 describe('JoinGameComponent', () => {
     let component: JoinGameComponent;
     let fixture: ComponentFixture<JoinGameComponent>;
     let debugElement: DebugElement;
 
+    let mockFirebaseDB = {
+        object: (path: string) => {
+            return {
+                valueChanges: () => {
+                    return Observable.of(null);
+                }
+            };
+        }
+    };
+
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [SharedModule, AppTestModule],
             declarations: [],
+            providers: [
+                {provide: AngularFireDatabase, useValue: mockFirebaseDB},
+                ]
         })
             .compileComponents();
     }));

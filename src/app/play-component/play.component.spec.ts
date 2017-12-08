@@ -7,10 +7,21 @@ import {ActivatedRoute} from "@angular/router";
 import {SharedModule} from "../shared.module";
 import {DeckServiceMock} from "../deck/deck.service.mock";
 import {AppTestModule} from "../app.test.module";
+import {AngularFireDatabase} from "angularfire2/database";
 
 describe('PlayComponent', () => {
     let component: PlayComponent;
     let fixture: ComponentFixture<PlayComponent>;
+
+    let mockFirebaseDB = {
+        object: (path: string) => {
+            return {
+                valueChanges: () => {
+                    return Observable.of(null);
+                }
+            };
+        }
+    };
 
     beforeEach(async(() => {
 
@@ -19,6 +30,7 @@ describe('PlayComponent', () => {
             declarations: [],
             providers: [
                 {provide: DeckService, useValue: new DeckServiceMock()},
+                {provide: AngularFireDatabase, useValue: mockFirebaseDB},
                 {
                     provide: ActivatedRoute,
                     useValue: {
