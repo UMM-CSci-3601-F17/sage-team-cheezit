@@ -2,98 +2,139 @@
 [![Build Status](https://travis-ci.org/UMM-CSci-3601-F17/sage-team-cheezit.svg?branch=master)](https://travis-ci.org/UMM-CSci-3601-F17/sage-team-cheezit)
 
 
-<!-- TOC depthFrom:1 depthTo:5 withLinks:1 updateOnSave:1 orderedList:0 -->
 ## Table of Contents
-- [Setup](#setup)
-- [Running your project](#running-your-project)
-- [Testing and Continuous Integration](#testing-and-continuous-integration)
-- [Resources](#resources)
-	- [Angular 4](#angular-4)
-	- [SparkJava](#sparkjava)
-	- [MongoDB](#mongodb)
+- [Getting Started](#getting-started)
+- [What is SAGE?](#what-is-sage)
+- [Features](#features)
+- [Using SAGE](#using-sage)
+  - [As a Teacher](#as-a-teacher)
+  - [As a Student](#as-a-student)
+- [Documentation](#documentation)
+- [Browser Support](#browser-support)
+- [Authors](#authors)
+- [Built With](#built-with)
 
-<!-- /TOC -->
+## Getting Started
 
-## Setup
+Start playing now at [sage.cards](https://sage.cards/)!
 
-As in the labs, you'll be using IntelliJ. Once you've all joined your
-group using GitHub classroom, you can clone your repository using IntelliJ:
+## What is SAGE
 
-- When prompted to create a new IntelliJ project, select **yes**.
-- Select **import project from existing model** and select **Gradle.**
-  - Make sure **Use default Gradle wrapper** is selected.
-- Click **Finish.**
-- If IDEA asks you if you want to compile JavaScript to TypeScript :fire: DO NOT :fire:
-it will break your project.
+<!-- EDIT THIS -->
+SAGE is a game for teachers and students who want a way to improve student vocabulary. SAGE is an educational tool that is peer-based, customizable, and fun. It is designed for a classroom setting.
 
-:warning: IDEA will sometimes decide to "help" you by offering
-"Compile TypeScript to JavaScript?" :bangbang: *Never* say "OK" to this
-offer -- if you do it will make a complete mess of your project. We're
-using other tools (`gradle`, `ng`, and a thing called `webpack` which you
-never explicitly see) to do that compilation. If you let IDEA do it, you'll
-have a ton of JavaScript files cluttering up your project and confusing other
-tools.
+*SAGE* is an acronym for synonyms, antonyms, general sense, and example usage. A SAGE card includes a word and has one hint from each of the 4 listed categories. In a game of SAGE, there are a number of cards the player will be presented with, each of them being worth points. The player is initially given just the word for a card. It is up to them to either guess the meaning of that word, or ask for a hint at the expense of some points.
 
-## Running your project
+The game is played between at least 2 people, with one or more people trying to guess the meaning of a word through hints and one person controlling the game and deciding whether they are right or wrong.
 
-- The familiar **run** Gradle task will still run your SparkJava server.
-(which is available at ``localhost:4567``)
-- The **build** task will still _build_ the entire project (but not run it)
-- The **runClient** task will build and run the client side of your project (available at ``localhost:9000``)
-- The **build.sh** is a script that calls upon gradle build to build the entire project which creates an executable to be able to launch the
-project in production mode. To run **build.sh**, go to your project directory in a terminal and enter:``./build ``
 
-When **build.sh** is run the script **.sage_run.sh** is copied to ~/**sage.sh** that when launched i.e. ``./sage.sh``
-will run your project in production mode. The API_URL within the _environment.prod.ts_ should reflect the url to get to your server e.g. 
-``http://localhost:4567`` or ``http://acooldomainname.com``
+### How to play SAGE
 
-:exclamation: Pro-tip: IntelliJ comes with a nice view to see the mongo databases setup.
-To access this click on File -> Settings -> Plugins, type Mongo and make sure the Mongo Plugin is installed.
-Now head to View -> Tool Windows -> Mongo Explorer. Then use the tool icon to add configuration.
-Once prompted type for Path to Mongo Shell: _"/usr/bin/mongo"_
-and hit the <span style="color:green">green :heavy_plus_sign:</span>, to add your label and, huzzah!, Mongo Explorer is on your side bar.
+A game of SAGE consists of the host, as well as the players. 
+
+The host is the one who has the cards, gives out hints, and decides whether the player's guess is correct. 
+
+The players are the ones who try to correctly guess the meaning of a word, ask for hints when stuck, and try to score as many points as possible.
+
+Each SAGE card is worth a maximum of 5 points. Every time a player asks for a hint, they randomly receive a hint from one of the categories and lose 1 point. A player can ask for a hint up to 4 times, one hint from each category. The player may guess the meaning of a word at any time. If correct they will receive the points they have left on that card. If the player can still not get the definition correct the host may move on to the next card and the player recieves no points.
+
+The game is over once a host goes through all the cards in a deck. If the players want, they can have the host go back through all the cards to see how they did on each individual card, allowing the players to see where they need to improve.
+
+### Rules of SAGE
+
+- SAGE is played with two or more people, with one person being the host and the other(s) playing the game.
+- The point of the game is for the player(s) to guess what the definition of a word is on a card.
+- Each word has four hints: a synonym, an antonymn, a general sense and an example usage. A player may ask for a hint to help them guess the definition, but the hints are random.
+- A card may have multiple synonyms and antonyms. If it does a singular hint will be picked for both categories at random at the start of a game.
+- Each card starts with 5 points. Each time a hint is used, a point is deducted.
+- If the player(s) don't guess the definition correctly, move on to the next card. If they guess correctly, press the "Got it!" button.
+
+## Features
+- **Classrooms**
+A classroom allows teachers to share their decks and organize their students together
+- **Decks**
+A collection of SAGE cards, can apply tags to decks to categorize them
+- **Multiplayer**
+The game is played online, led by a host who has a numerical/QR join code that players can use to join the game. 
+- **Google Accounts**
+A user may sign in to the site using their google account. This allows them to make their own decks and classrooms as well join pre-existing classrooms.
+- **Shared Decks**
+As a teacher you may allow students to contribute to decks in your classroom by unlocking them. Once you do this, histories will be tied to the cards allowing you to see which students created and edited them. If you want, you may also re-lock the deck whenever you wish, locking students from editing or adding cards
+
+## Using SAGE
+
+### As a Teacher
+
+<!--(Have screenshot of sidebar menu, and another with the 'Add New Class' window open, or probably just a gif of you making a class, starting from the home screen without the sidebar open)-->
+The first thing a teacher will want to do is make a classroom. The way to do this is to open the sidebar and click the plus symbol next to 'Classes'. Then, all they have to do is type their desired class name, click 'Add Class', and it will appear in the sidebar menu. 
+
+
+<!--(Have screenshot of newly made classroom)-->
+From here, the 'Sharing' section includes everything a teacher will need to bring students into their classroom. Either the students can use their phones to scan the QR code, or the teacher can send students the Join Code for them to copy into their browser. A teacher can also kick any students in their class, or make any student a teacher.
+
+<!--(Have gif of adding a deck in a classroom)-->
+To make a deck, click the circular plus button in the bottom-right corner of the screen. Then, simply type the deck name and click 'Add Deck' and then deck will appear under the class title.
+
+<!--(Have gif of making a card in said deck)-->
+From within this deck, click the same plus button to add cards to this deck.
+<!--(Have screenshot of menu)-->
+It is from here that the teacher can also choose to delete the deck, move the deck to another class, or enable students the ability to add cards.
+
+<!--(Have screenshot of play buttons)-->
+Either from within the deck, or viewing it from the deck list, the teacher can begin a game. They can click 'Invite to Game', which gives a join code that students can use. From here the game has begun. To give players a hint they can click the 'Hint?' button which will highlight a random hint for them, and send that hint to the players. If the players guess the word correctly, the teacher can click 'Got It!', which will increment the points, as well as slide to the next card.
+
+At any point in the game, teachers can flip through any cards in the deck, as well as go back to others, and the amount of hints and points remaining for any given card will remain the same. 
+
+### As a Student
+
+The first thing a student will want to do is log-in with their google account. This will allow them to create and manage their own decks on the 'My Decks' page.
+
+After they have logged-in, a student can join a classroom by scanning a QR-code or by receiving a join link from a teacher. Once they have joined a class, students will only be able to see the deck list and the list of other students. From here they can either look at the decks in the deck list, play with a deck, or choose to remove themselves from the class.
+
+<!--(Have screenshot of player view of a sage game, or probably just a markdown table of two gifs side by side; one of the host, one of the player)-->
+If a teacher is running a game of SAGE, a student can join by either scanning the QR-code or entering the join code on the 'Join Game' page. Once they are in the game, a student will see just the word of the given card. A student can either guess the meaning of the word displayed or ask for a hint from the teacher.
+
+## Documentation
+
+- [Development Instructions]()
+- [Deployment Instructions]()
+- [Teacher Guide]()
+- [Advert Document]()
+
 
 ## Testing and Continuous Integration
 
-Testing options are still integrated in this lab so you can test the client, or the server or both.
-Testing client:
-* `runAllTests` runs both the server tests and the clients tests once.
-* `runClientTests` runs the client tests once.
-* `runClientTestsAndWatch` runs the client tests every time that the code changes after a save.
-* `runClientTestsWithCoverage` runs the client tests and deposits code coverage statistics into a new directory within `client` called `coverage`. In there you will find an `index.html`. Right click on `index.html` and select `Open in Browser` with your browser of choice. For Chrome users, you can drag and drop index.html onto chrome and it will open it.  
-* `runE2ETest` runs end to end test for the client side. NOTE: Two Gradle tasks _must_ be run before you can run the e2e tests. 
-The server (`run`) needs to be on for this test to work, and you have to
-need to have data in the `dev` database before running the e2e tests!
-* runServerTests runs the server tests.
+SAGE uses Jasmine and Karma for unit testing through the Angular CLI. TravisCI is configured to run these tests.
 
-Turn on your repo in [Travis CI][travis], replace the build status image in this README, and push your changes. That will trigger a build with Travis.
+## Authors
 
-## Resources
-### Angular 4
-- [What _is_ Angular 4 and Typescript?][angular-2-4]
-- [What _is_ Angular CLI?][angular-cli]
-- [What are environments in Angular CLI?][environments]
-- [Testing Angular 4 with Karma/Jasmine][angular4-karma-jasmine]
-- [End to end testing (e2e) with protactor and Angular CLI][e2e-testing]
-- [Angular CLI commands](https://github.com/angular/angular-cli/wiki)
-
-### SparkJava
-- [Spark documentation][spark-documentation]
-- [HTTP Status Codes][status-codes]
-- [Other Resources][lab2]
-
-### MongoDB
-- [Mongo's Java Drivers (Mongo JDBC)][mongo-jdbc]
+SAGE was build by a team of students for a software design class at the University of Minnesota Morris. See the GitHub [contributors page](https://github.com/UMM-CSci-3601-F17/sage-team-cheezit/graphs/contributors).
 
 
-[angular-cli]: https://idyllic.co/blog/beginners-guide-angular-cli/
-[angular-2-4]: https://www.technicaldiary.com/angular-2-tutorial-for-beginners-angular-4-tutorial-for-beginners/
-[angular4-karma-jasmine]: https://codecraft.tv/courses/angular/unit-testing/jasmine-and-karma/
-[e2e-testing]: https://coryrylan.com/blog/introduction-to-e2e-testing-with-the-angular-cli-and-protractor
-[environments]: http://tattoocoder.com/angular-cli-using-the-environment-option/
-[spark-documentation]: http://sparkjava.com/documentation.html
-[status-codes]: https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
-[lab2]: https://github.com/UMM-CSci-3601/3601-lab2_client-server/blob/master/README.md#resources
-[mongo-jdbc]: https://docs.mongodb.com/ecosystem/drivers/java/
-[labtasks]: LABTASKS.md
-[travis]: https://travis-ci.org/
+## Built With
+
+SAGE is powered by:
+- [Angular](https://angular.io/)
+- [Angular Material](https://material.angular.io/)
+- [Teradata Covalent](https://teradata.github.io/covalent/)
+- [Firebase](https://firebase.google.com/)
+    - [Cloud Firestore](https://firebase.google.com/products/firestore/)
+    - [Realtime Database](https://firebase.google.com/products/realtime-database/)
+    - [Authentication](https://firebase.google.com/products/auth/)
+    - [Hosting](https://firebase.google.com/products/hosting/)
+- [AngularFire](https://github.com/angular/angularfire2)
+
+Other libraries used:
+- [ng2-page-slider](https://github.com/KeatonTech/Angular-2-Page-Slider)
+- [ng2-rx-componentdestroyed](https://github.com/w11k/ng2-rx-componentdestroyed)
+- [ngx-qrcode2](https://github.com/techiediaries/ngx-qrcode)
+- [ngx-pipes](https://github.com/danrevah/ngx-pipes)
+- [ngx-clipboard](https://github.com/maxisam/ngx-clipboard)
+- [time-ago-pipe](https://github.com/AndrewPoyntz/time-ago-pipe)
+
+Tools:
+- [Angular CLI](https://cli.angular.io/)
+- [Yarn](https://yarnpkg.com/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Karma](https://karma-runner.github.io/1.0/index.html)
+- [Jasmine](https://jasmine.github.io/)
