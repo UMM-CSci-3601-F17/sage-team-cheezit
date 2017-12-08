@@ -1,18 +1,18 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Deck} from "../deck/deck";
 import {DeckService} from "../deck/deck.service";
 import {AngularFireAuth} from "angularfire2/auth";
 import {NewDeckDialogComponent} from "../new-deck-dialog/new-deck-dialog.component";
-import {MdDialog} from "@angular/material";
+import {MatDialog} from "@angular/material";
 
 @Component({
-  selector: 'app-my-decks',
-  templateUrl: './my-decks.component.html',
-  styleUrls: ['./my-decks.component.css']
+    selector: 'app-my-decks',
+    templateUrl: './my-decks.component.html',
+    styleUrls: ['./my-decks.component.css']
 })
 export class MyDecksComponent implements OnInit {
 
-    constructor(public deckService: DeckService, public afAuth: AngularFireAuth, public dialog : MdDialog) {
+    constructor(public deckService: DeckService, public afAuth: AngularFireAuth, public dialog: MatDialog) {
 
     }
 

@@ -1,12 +1,9 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule }  from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
 
 import {environment} from '../environments/environment';
 
-import {
-    MATERIAL_COMPATIBILITY_MODE,
-    MdSnackBar
-} from '@angular/material';
+import {MatDialog, MatSnackBar} from '@angular/material';
 
 
 import {HttpModule, JsonpModule} from '@angular/http';
@@ -20,9 +17,7 @@ import {CardComponent} from "./card-component/card.component";
 import {DeckListComponent} from "./deck-list-component/deck-list.component";
 import {DeckComponent} from "./deck-component/deck.component";
 import {DeckService} from "./deck/deck.service";
-import {PlayComponent} from "./play-component/play.component";
-import {MdDialog} from "@angular/material";
-import {NewCardDialogComponent} from "./new-card-dialog/new-card-dialog.component";
+import {GameJoinDialogComponent, PlayComponent} from "./play-component/play.component";
 import {NewDeckDialogComponent} from "./new-deck-dialog/new-deck-dialog.component";
 import {AngularFirestoreModule} from "angularfire2/firestore";
 import {AngularFireModule} from "angularfire2";
@@ -37,6 +32,11 @@ import {PublicDecksComponent} from "./public-decks/public-decks.component";
 import {SaveCardDialogComponent} from "./save-card-dialog/save-card-dialog.component";
 import {JoinGameComponent} from "./join-game/join-game.component";
 import {AngularFireDatabaseModule} from "angularfire2/database";
+import {HelpComponent} from "./help/help.component";
+import {EditableTextComponent} from "./editable-text/editable-text.component";
+import {KeyValuePipe} from "./util/key-value-pipe";
+import {ChipInputComponent} from "./chip-input/chip-input.component";
+import {TimeAgoPipe} from "./util/time-ago-pipe";
 
 @NgModule({
     imports: [
@@ -58,7 +58,6 @@ import {AngularFireDatabaseModule} from "angularfire2/database";
         DeckComponent,
         PlayComponent,
         DeckListComponent,
-        NewCardDialogComponent,
         NewDeckDialogComponent,
         NewClassDialogComponent,
         ClassComponent,
@@ -67,20 +66,27 @@ import {AngularFireDatabaseModule} from "angularfire2/database";
         GoogleSignInButtonComponent,
         PublicDecksComponent,
         SaveCardDialogComponent,
-        JoinGameComponent
+        JoinGameComponent,
+        GameJoinDialogComponent,
+        HelpComponent,
+        KeyValuePipe,
+        EditableTextComponent,
+        ChipInputComponent,
+        TimeAgoPipe
     ],
     entryComponents: [
-        NewCardDialogComponent,
         NewDeckDialogComponent,
-        NewClassDialogComponent
+        NewClassDialogComponent,
+        NewDeckDialogComponent,
+        SaveCardDialogComponent,
+        GameJoinDialogComponent,
     ],
     providers: [
         DeckService,
         ClassService,
-        MdDialog,
-        MdSnackBar,
+        MatDialog,
+        MatSnackBar,
         {provide: APP_BASE_HREF, useValue: '/'},
-        {provide: MATERIAL_COMPATIBILITY_MODE, useValue: true}
     ],
     bootstrap: [AppComponent]
 })

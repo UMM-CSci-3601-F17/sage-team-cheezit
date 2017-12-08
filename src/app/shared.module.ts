@@ -1,32 +1,35 @@
-import { NgModule, } from '@angular/core';
-import { CommonModule, } from '@angular/common';
+import {NgModule,} from '@angular/core';
+import {CommonModule,} from '@angular/common';
 
 import {
-    CovalentLayoutModule, CovalentStepsModule, CovalentCommonModule,
-    CovalentMessageModule, CovalentDialogsModule /*, any other modules */
+    CovalentCommonModule,
+    CovalentDialogsModule,
+    CovalentLayoutModule,
+    CovalentMessageModule,
+    CovalentStepsModule
 } from '@covalent/core';
 
 import {
-    MatListModule,
-    MdButtonModule,
-    MdCardModule,
-    MdIconModule,
-    MdInputModule,
-    MdMenuModule,
-    MdSidenavModule,
-    MdToolbarModule,
-    MatTooltipModule,
-    MdFormFieldModule,
-    MatDialogModule,
-    MdSnackBarModule,
-    MatExpansionModule,
-    MatSlideToggleModule,
     MatChipsModule,
+    MatDialogModule,
+    MatExpansionModule,
+    MatListModule,
+    MatSlideToggleModule,
+    MatTooltipModule,
+    MatButtonModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule,
+    MatMenuModule,
+    MatSidenavModule,
+    MatSnackBarModule,
+    MatToolbarModule,
 } from '@angular/material';
 
-import { FlexLayoutModule, } from '@angular/flex-layout';
+import {FlexLayoutModule,} from '@angular/flex-layout';
 
-import { FormsModule } from '@angular/forms';
+import {FormsModule} from '@angular/forms';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {PageSliderModule} from "ng2-page-slider";
 import {AngularFireAuthModule} from "angularfire2/auth";
@@ -34,6 +37,7 @@ import {AngularFirestoreModule} from "angularfire2/firestore";
 import {NgPipesModule} from "ngx-pipes";
 import {NgxQRCodeModule} from "ngx-qrcode2";
 import {ClipboardModule} from "ngx-clipboard/dist";
+import {HttpClientModule} from "@angular/common/http";
 
 const FLEX_LAYOUT_MODULES: any[] = [
     FlexLayoutModule,
@@ -42,21 +46,22 @@ const FLEX_LAYOUT_MODULES: any[] = [
 const ANGULAR_MODULES: any[] = [
     BrowserAnimationsModule,
     FormsModule,
+    HttpClientModule,
 ];
 
 const MATERIAL_MODULES: any[] = [
     MatListModule,
-    MdButtonModule,
-    MdIconModule,
-    MdToolbarModule,
-    MdCardModule,
-    MdMenuModule,
-    MdSidenavModule,
-    MdInputModule,
+    MatButtonModule,
+    MatIconModule,
+    MatToolbarModule,
+    MatCardModule,
+    MatMenuModule,
+    MatSidenavModule,
+    MatInputModule,
     MatTooltipModule,
-    MdFormFieldModule,
+    MatFormFieldModule,
     MatDialogModule,
-    MdSnackBarModule,
+    MatSnackBarModule,
     MatExpansionModule,
     MatSlideToggleModule,
     MatChipsModule,
@@ -90,9 +95,7 @@ const OTHER_MODULES: any[] = [
         OTHER_MODULES,
 
     ],
-    declarations: [
-
-    ],
+    declarations: [],
     exports: [
         ANGULAR_MODULES,
         MATERIAL_MODULES,

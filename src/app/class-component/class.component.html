@@ -1,22 +1,61 @@
-<app-deck-list *ngIf="this.currentClass && this.decks" [title]="this.currentClass.name" [decks]="this.decks" [canEdit]="this.canEdit"></app-deck-list>
-<div layout-gt-sm="row"  *ngIf="this.currentClass">
+<div layout-gt-sm="row">
+    <div flex-gt-xs="80" flex-offset-gt-xs="10" flex-xs="96" flex-offset-xs="2">
+        <mat-card>
+            <button mat-icon-button [matMenuTriggerFor]="menu" class="card-top-right-button">
+                <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu" class="class-menu">
+                <button *ngIf="this.canEdit" mat-menu-item (click)="this.deleteClass()" class="delete-class-button">
+                    <mat-icon>delete</mat-icon>
+                    <span>Delete Class</span>
+                </button>
+                <button mat-menu-item *ngIf="!this.canEdit" (click)="leaveClass()" class="leave-class-button">
+                    <mat-icon>exit_to_app</mat-icon>
+                    <span>Leave Class</span>
+                </button>
+            </mat-menu>
+            <mat-card-title flex class="decks-title" *ngIf="this.currentClass">
+                <app-editable-text [canEdit]="this.canEdit" [text]="this.currentClass.name"
+                                   (saveEvent)="this.renameClass($event)"></app-editable-text>
+            </mat-card-title>
+            <mat-divider></mat-divider>
+            <mat-card-content>
+                <app-deck-list [decks]="this.decks" [canEdit]="this.canEdit"></app-deck-list>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>
+<div layout-gt-sm="row" *ngIf="this.currentClass">
     <div flex-gt-xs="80" flex-offset-gt-xs="10" flex-xs="96" flex-offset-xs="2">
         <mat-card>
             <mat-card-title>Class Members</mat-card-title>
             <mat-divider></mat-divider>
             <mat-card-content>
                 <mat-list>
-                    <mat-list-item *ngFor="let user of this.currentClass.users | values | orderBy: '-teacher'">
+                    <mat-list-item *ngFor="let user of this.currentClass.users | keyvalue | orderBy: '-value.teacher' ">
                         <mat-icon mat-list-icon>account_circle</mat-icon>
-                        <h4 mat-line>{{ user.nickname }}</h4>
-                        <p mat-line>{{ user.teacher ? "Teacher" : "Student"}}</p>
+                        <h4 mat-line>{{ user.value.nickname }}</h4>
+                        <button *ngIf="this.canEdit && user.key != this.afAuth.auth.currentUser.uid" mat-icon-button
+                                [matMenuTriggerFor]="menu">
+                            <mat-icon>more_vert</mat-icon>
+                        </button>
+                        <mat-menu #menu="matMenu">
+                            <button mat-menu-item (click)="this.setTeacher(user.key, !user.value.teacher)">
+                                <span>{{user.value.teacher ? "Set as student" : "Set as teacher"}}</span>
+                            </button>
+                            <button mat-menu-item
+                                    (click)="kickStudent(user.key, user.value.nickname, user.value.teacher)">
+                                <span>Remove User</span>
+                            </button>
+                        </mat-menu>
+                        <p mat-line>{{ user.value.teacher ? "Teacher" : "Student"}}</p>
                     </mat-list-item>
                 </mat-list>
             </mat-card-content>
         </mat-card>
     </div>
 </div>
-<div layout-gt-sm="row"  *ngIf="this.currentClass && this.canEdit">
+<div layout-gt-sm="row" *ngIf="this.currentClass && this.canEdit">
     <div flex-gt-xs="80" flex-offset-gt-xs="10" flex-xs="96" flex-offset-xs="2">
         <mat-card>
             <mat-card-title>Sharing</mat-card-title>
@@ -27,20 +66,30 @@
                         <mat-form-field *ngIf="this.currentClass.joincode" flex>
                             <input readonly matInput placeholder="Join Code" [ngModel]="this.joinUrl">
                         </mat-form-field>
-                        <button mat-icon-button *ngIf="!this.canShare" ngxClipboard [cbContent]="this.joinUrl" matTooltip="Copy URL"><mat-icon>content_copy</mat-icon></button>
-                        <button mat-icon-button *ngIf="this.canShare" (click)="this.browserShareInvite()"><mat-icon>share</mat-icon></button>
+                        <button mat-icon-button *ngIf="!this.canShare" ngxClipboard [cbContent]="this.joinUrl"
+                                matTooltip="Copy URL">
+                            <mat-icon>content_copy</mat-icon>
+                        </button>
+                        <button mat-icon-button *ngIf="this.canShare" (click)="this.browserShareInvite()">
+                            <mat-icon>share</mat-icon>
+                        </button>
                     </div>
-                <ngx-qrcode qrc-element-type="url" [qrc-value]="this.joinUrl">
-                </ngx-qrcode>
+                    <ngx-qrcode qrc-element-type="url" [qrc-value]="this.joinUrl">
+                    </ngx-qrcode>
                 </div>
             </mat-card-content>
             <mat-card-actions>
-                <button mat-button (click)="this.classService.updateJoinCode(this.id)">{{this.currentClass.joincode ? "Update" : "Create"}} join code</button>
-                <button mat-button (click)="this.classService.removeJoinCode(this.id)">Remove join code</button>
+                <button mat-button (click)="this.classService.updateJoinCode(this.id)">{{this.currentClass.joincode ?
+                    "Update" : "Create"}} join code
+                </button>
+                <button mat-button *ngIf="this.currentClass.joincode"
+                        (click)="this.classService.removeJoinCode(this.id)">Remove join code
+                </button>
             </mat-card-actions>
         </mat-card>
     </div>
 </div>
-<button mat-fab id="deckDialog" class="deck-list-fab" matTooltip="Add Deck" matTooltipPosition="left" (click)="this.openAddDialog()" *ngIf="this.canEdit">
+<button mat-fab id="deckDialog" class="deck-list-fab" matTooltip="Add Deck" matTooltipPosition="left"
+        (click)="this.openAddDialog()" *ngIf="this.canEdit">
     <mat-icon class="md-24" aria-label="Add Deck">add</mat-icon>
 </button>

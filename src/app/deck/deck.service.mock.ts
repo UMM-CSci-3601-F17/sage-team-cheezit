@@ -1,27 +1,25 @@
 import {Injectable} from "@angular/core";
 import {Deck, DeckId} from "./deck";
 import {Observable} from "rxjs/Observable";
-import {Card} from "../card/card";
+import {Card, PlayCard} from "../card/card";
 
 @Injectable()
 export class DeckServiceMock {
     constructor() {
     }
 
-    public getPublicDecks(): Observable<DeckId[]> {
-        return Observable.of([
-            {
-                id: "testid",
-                name: "test deck",
-                isPublic: true
-            },
-            {
-                id: "testid2",
-                name: "test deck 2",
-                isPublic: true
-            }
-        ]);
-    }
+    public getPublicDecks: Observable<DeckId[]> = Observable.of([
+        {
+            id: "testid",
+            name: "test deck",
+            isPublic: true
+        },
+        {
+            id: "testid2",
+            name: "test deck 2",
+            isPublic: true
+        }
+    ]);
 
     public getClassDecks(): Observable<DeckId[]> {
         return Observable.of([
@@ -38,30 +36,28 @@ export class DeckServiceMock {
         ]);
     }
 
-    public getUserDecks(): Observable<DeckId[]> {
-        return Observable.of([
-            {
-                id: "testid",
-                name: "test deck",
-                users : {
-                    "testuid" : {
-                        nickname: "test",
-                        owner: true
-                    }
-                }
-            },
-            {
-                id: "testid2",
-                name: "test deck 2",
-                users : {
-                    "testuid" : {
-                        nickname: "test",
-                        owner: true
-                    }
+    public getUserDecks: Observable<DeckId[]> = Observable.of([
+        {
+            id: "testid",
+            name: "test deck",
+            users: {
+                "testuid": {
+                    nickname: "test",
+                    owner: true
                 }
             }
-        ]);
-    }
+        },
+        {
+            id: "testid2",
+            name: "test deck 2",
+            users: {
+                "testuid": {
+                    nickname: "test",
+                    owner: true
+                }
+            }
+        }
+    ]);
 
     public getDeck(id: string): Observable<Deck> {
         return Observable.of({
@@ -73,17 +69,17 @@ export class DeckServiceMock {
     public getDeckCards(id: string): Observable<Card[]> {
         return Observable.of([
             {
-                word : "test word",
-                synonym : "test synonym",
-                antonym: "test antonym",
+                word: "test word",
+                synonym: ["test synonym"],
+                antonym: ["test antonym"],
                 general_sense: "test general_sense",
                 example_usage: "test example_usage",
                 hidden: false
             },
             {
-                word : "test word",
-                synonym : "test synonym",
-                antonym: "test antonym",
+                word: "test word",
+                synonym: ["test synonym 1", "test synony 2"],
+                antonym: ["test antonym 1", "test antonym 2"],
                 general_sense: "test general_sense",
                 example_usage: "test example_usage",
                 hidden: false,
@@ -91,23 +87,21 @@ export class DeckServiceMock {
         ])
     }
 
-    public getDeckPlayCards(id: string): Observable<Card[]> {
+    public getDeckPlayCards(id: string): Observable<PlayCard[]> {
         return Observable.of([
             {
-                word : "test word",
-                synonym : "test synonym",
+                word: "test word",
+                synonym: "test synonym",
                 antonym: "test antonym",
                 general_sense: "test general_sense",
                 example_usage: "test example_usage",
-                hidden: false
             },
             {
-                word : "test word",
-                synonym : "test synonym",
-                antonym: "test antonym",
+                word: "test word",
+                synonym: "test synonym 1",
+                antonym: "test antonym 1",
                 general_sense: "test general_sense",
                 example_usage: "test example_usage",
-                hidden: false,
             }
         ])
     }
@@ -116,7 +110,7 @@ export class DeckServiceMock {
         return true;
     }
 
-    public addNewDeckClass(name: string, classId : string) {
+    public addNewDeckClass(name: string, classId: string) {
         return true;
     }
 
