@@ -30,6 +30,8 @@ Go to your [Firebase console](https://console.firebase.google.com/) and create a
 ```
 Paste these into the `src/environment/environment.ts` and `src/environment/environment.prod.ts` files replacing the placeholders.
 
+You can also get this information from `firebase setup:web`
+
 Next, enable Firebase Authentication by going to the Authentication section of the dashboard, then to the sign-in method section. Next, click on Google and toggle it to enabled, then save.
 
 ## Running the Project
@@ -44,4 +46,4 @@ To run the unit tests for the project, run `ng test`.
 
 This project can be deployed on any web server. We are using [Firebase Hosting](https://firebase.google.com/docs/hosting/).
 
-To build the production version of the app, run `ng build --prod`. This will produce a `dist` folder containing everything needed to host the site. If you are using Firebase Hosting, make sure you are signed in with `firebase login`. Then to deploy to Firebase run `firebase deploy`.
+To build the production version of the app, run `ng build --prod`. This will produce a `dist` folder containing everything needed to host the site. If you are using Firebase Hosting, make sure you are signed in with `firebase login`. Then to deploy to Firebase run `firebase deploy`. This uploads the contents of `dist` to Firebase Hosting as well as the Realtime Database and Firestore rules files.
