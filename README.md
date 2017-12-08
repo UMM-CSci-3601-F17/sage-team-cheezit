@@ -1,7 +1,8 @@
 # ![](app-icon/text-logo.png)
-[![Build Status](https://travis-ci.org/UMM-CSci-3601-F17/sage-team-cheezit.svg?branch=master)](https://travis-ci.org/UMM-CSci-3601-F17/sage-team-cheezit)
 
 ![](screenshots/home-and-play-small.png)
+
+[![Build Status](https://travis-ci.org/UMM-CSci-3601-F17/sage-team-cheezit.svg?branch=master)](https://travis-ci.org/UMM-CSci-3601-F17/sage-team-cheezit)
 
 ## Table of Contents
 - [Getting Started](#getting-started)
