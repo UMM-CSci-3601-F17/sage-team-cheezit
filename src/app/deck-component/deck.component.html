@@ -42,7 +42,7 @@
             <app-chip-input class="tag-input wide-chip-input dark-chip-input" [canEdit]="this.deckOwner()"
                             [(array)]="this.tags" (arrayChange)="this.updateTags()" placeholder="Tags"></app-chip-input>
         </div>
-        <td-message class="no-cards-message" *ngIf="this.cards.length == 0" label="No Cards"
+        <td-message class="no-cards-message" [opened]="this.loaded && this.cards.length == 0" label="No Cards"
                     sublabel="This deck is empty, tap + to add cards.">
         </td-message>
         <mat-accordion>
