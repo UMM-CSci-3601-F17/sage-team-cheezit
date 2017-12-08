@@ -7,6 +7,8 @@
 ## Table of Contents
 - [Getting Started](#getting-started)
 - [What is SAGE?](#what-is-sage)
+   - [How to Play SAGE](#how-to-play-sage)
+   - [Rules of SAGE](#rules-of-sage)
 - [Features](#features)
 - [Using SAGE](#using-sage)
   - [As a Teacher](#as-a-teacher)
@@ -30,7 +32,7 @@ SAGE is a game for teachers and students who want a way to improve student vocab
 The game is played between at least 2 people, with one or more people trying to guess the meaning of a word through hints and one person controlling the game and deciding whether they are right or wrong.
 
 
-### How to play SAGE
+### How to Play SAGE
 
 A game of SAGE consists of the host, as well as the players. 
 
@@ -107,6 +109,11 @@ If a teacher is running a game of SAGE, a student can join by either scanning th
 ## Testing and Continuous Integration
 
 SAGE uses Jasmine and Karma for unit testing through the Angular CLI. TravisCI is configured to run these tests.
+
+## Browser Support
+
+SAGE works great in recent versions of Chrome and Edge.
+There are some issues with Safari and Firefox at the moment.
 
 ## Authors
 
